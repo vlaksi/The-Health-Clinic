@@ -1,4 +1,4 @@
-<h1 align = "center"> 'The Hello Corporation' - specifikacija projekta </h1>
+<h1 align = "center"> 'The Healthy Corporation' - specifikacija projekta </h1>
 
 ## NAPOMENA
 **TRENUTNA SPECIFIKACIJA JE REKAP ONOGA STO JE RECENO NA PREDAVANJU I STO SMO USPELI DA IZVUCEMO OD KORISNIKA, SVAKA DOPUNA JE DOBRODOSLA I PITANJA JOS VISE, ODNOSNO, TREBALI BI SVAKU NEJASNOCU DEKOMPONOVATI I KROZ INTERAKCIJU SA KORISNICIMA JE RESITI I TIME DOPUNITI SPECIFIKACIJU.** Nejasnoce su neminovne jer je bukvalno bilo **izvlacenje** informacija od asistenata(korisnika) o svemu po malo i o projektu generalno.
