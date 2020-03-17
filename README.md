@@ -1,8 +1,5 @@
 <h1 align = "center"> 'The Healthy Corporation' - specifikacija projekta </h1>
 
-## NAPOMENA
-**TRENUTNA SPECIFIKACIJA JE REKAP ONOGA STO JE RECENO NA PREDAVANJU I STO SMO USPELI DA IZVUCEMO OD KORISNIKA, SVAKA DOPUNA JE DOBRODOSLA I PITANJA JOS VISE, ODNOSNO, TREBALI BI SVAKU NEJASNOCU DEKOMPONOVATI I KROZ INTERAKCIJU SA KORISNICIMA JE RESITI I TIME DOPUNITI SPECIFIKACIJU.** Nejasnoce su neminovne jer je bukvalno bilo **izvlacenje** informacija od asistenata(korisnika) o svemu po malo i o projektu generalno.
-
 ## O korporaciji
 Zdravstvena organizacija koja je lider kako u ***inovaciji*** tako i u ***usluzi*** koju nude njhivom pacijentinma. Predstavnistva su sirom regiona, a tokom godina plan je rasiti se po severu evrope. Cilj korporacije je da brinu o svojim pacijentima i da im obezbede sto bolje i brzi oporavak.
 
@@ -108,10 +105,6 @@ Softver mora biti spreman za laku tranziciju sa jednog jezika na drugi ( ne treb
   - ***sala***: operaciona sala u kojoj doktori vrse operacije nad pacijentima klinike
 <h1 align = "center"> Van konteksta specifikacije projekta </h1>
 
-## Pitanja za sledeci sastanak
-**OVDE DODATI PITANJA ILI U NEKI DRUGI FAJL KAKO BI POSLE MOGLI KONCIZNIJE DOBIJATI DETALJNIJE INFORMACIJE O NEJASNOCAMA KOJE SU NASTALE**
-  1. ...
-  2. ...
 ## Tehnologija izrade
 Sa sadasnjim informacijama zakljucujemo da bi pozeljno bilo da projekat implementiramo na osnovu C#
 
