@@ -1,1 +1,0 @@
-<h1 align = "center"> Klasni dijagram 'Zdravo korporacije'</h1>
