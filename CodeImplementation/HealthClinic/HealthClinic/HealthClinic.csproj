@@ -5,16 +5,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\BusinessHoursRepo\" />
-    <Folder Include="Repository\InventoryRepo\" />
-    <Folder Include="Repository\MedicalRecordRepo\" />
-    <Folder Include="Repository\MedicineRepo\" />
-    <Folder Include="Repository\UserRepo\" />
-    <Folder Include="Repository\TermRepo\" />
-    <Folder Include="Repository\SurveyResponseRepo\" />
-    <Folder Include="Repository\RoomsRepo\" />
-    <Folder Include="Repository\RoomHistoryRepo\" />
-  </ItemGroup>
-
 </Project>
