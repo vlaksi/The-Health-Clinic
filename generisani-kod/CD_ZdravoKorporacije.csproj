@@ -1,0 +1,203 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1288FCAE-39CE-4568-A208-26D54AFACE55}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CD_ZdravoKorporacije</RootNamespace>
+    <AssemblyName>CD_ZdravoKorporacije</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Users\RegisteredUser.cs" />
+    <Compile Include="Model\Users\Doctor.cs" />
+    <Compile Include="Model\Users\Secretary.cs" />
+    <Compile Include="Model\Users\Manager.cs" />
+    <Compile Include="Model\Users\Person.cs" />
+    <Compile Include="Model\Users\Patient.cs" />
+    <Compile Include="Model\Users\Residence.cs" />
+    <Compile Include="Model\Users\Country.cs" />
+    <Compile Include="Model\Users\Specialist.cs" />
+    <Compile Include="Model\Users\UserDTO.cs" />
+    <Compile Include="Model\Users\SpecialtyType.cs" />
+    <Compile Include="Model\Patient\Review.cs" />
+    <Compile Include="Model\Patient\RoomsHistory.cs" />
+    <Compile Include="Model\Medicine\Medicine.cs" />
+    <Compile Include="Model\Medicine\MedicineStatus.cs" />
+    <Compile Include="Model\Medicine\Treatment.cs" />
+    <Compile Include="Model\Medicine\Alergen.cs" />
+    <Compile Include="Model\Medicine\Ingredient.cs" />
+    <Compile Include="Model\Medicine\SpecialtyType.cs" />
+    <Compile Include="Model\Calendar\Operation.cs" />
+    <Compile Include="Model\Calendar\Term.cs" />
+    <Compile Include="Model\Calendar\Checkup.cs" />
+    <Compile Include="Model\Calendar\Report.cs" />
+    <Compile Include="Model\MedicalRecord\MedicalRecord.cs" />
+    <Compile Include="Model\MedicalRecord\ReferralToSpecialist.cs" />
+    <Compile Include="Model\Rooms\Room.cs" />
+    <Compile Include="Model\Rooms\OperatingRoom.cs" />
+    <Compile Include="Model\Rooms\PatientRoom.cs" />
+    <Compile Include="Model\Rooms\Invertory.cs" />
+    <Compile Include="Model\Rooms\Ordination.cs" />
+    <Compile Include="Model\Rooms\InvertoryType.cs" />
+    <Compile Include="Model\Rooms\DynamicInvertory.cs" />
+    <Compile Include="Model\Rooms\StaticInvertory.cs" />
+    <Compile Include="Model\Rooms\DinamicInvertoryType.cs" />
+    <Compile Include="Model\Rooms\InventoryAmount.cs" />
+    <Compile Include="Model\BlogPost\Comment.cs" />
+    <Compile Include="Model\BlogPost\BlogPost.cs" />
+    <Compile Include="Model\BusinessHours\BusinessHours.cs" />
+    <Compile Include="Model\BusinessHours\BusinessHoursHistory.cs" />
+    <Compile Include="Model\Survey\SurveyResponse.cs" />
+    <Compile Include="Model\Survey\Rate.cs" />
+    <Compile Include="Repository\CRUDDao.cs" />
+    <Compile Include="Repository\MedicineRepository.cs" />
+    <Compile Include="Repository\RoomHistoryRepository.cs" />
+    <Compile Include="Repository\BusinessHoursRepository.cs" />
+    <Compile Include="Repository\BlogPostRepository.cs" />
+    <Compile Include="Repository\SurveyResponseRepository.cs" />
+    <Compile Include="Repository\MedicalRecordRepository.cs" />
+    <Compile Include="Repository\RoomsRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\DoctorRepository.cs" />
+    <Compile Include="Repository\ManagerRepository.cs" />
+    <Compile Include="Repository\PatientRepository.cs" />
+    <Compile Include="Repository\SecretaryRepository.cs" />
+    <Compile Include="Repository\OperationRepository.cs" />
+    <Compile Include="Repository\CheckupRepository.cs" />
+    <Compile Include="Repository\ITermRepository.cs" />
+    <Compile Include="Repository\ITermRepositoryFactory.cs" />
+    <Compile Include="Repository\IUserRepositoryFacotory.cs" />
+    <Compile Include="Repository\SurveyResponseRepositoryFactory.cs" />
+    <Compile Include="Repository\MedicineRepositoryFactory.cs" />
+    <Compile Include="Repository\BlogPostRepositoryFacotory.cs" />
+    <Compile Include="Repository\RoomsRepositoryFactory.cs" />
+    <Compile Include="Repository\RoomHistoryRepositoryFactory.cs" />
+    <Compile Include="Repository\BusinessHoursRepositoryFactory.cs" />
+    <Compile Include="Repository\MedicalRecordRepositoryFactory.cs" />
+    <Compile Include="Repository\InvertoryRepositoryFactory.cs" />
+    <Compile Include="Repository\InvertoryRepository.cs" />
+    <Compile Include="Repository\BlogPostFileRepository.cs" />
+    <Compile Include="Repository\BusinessHoursFileRepository.cs" />
+    <Compile Include="Repository\MedicalRecordFileRepository.cs" />
+    <Compile Include="Repository\MedicineFileRepository.cs" />
+    <Compile Include="Repository\RoomHistoryFileRepository.cs" />
+    <Compile Include="Repository\SurveyResponseFileRepository.cs" />
+    <Compile Include="Repository\RoomsFileRepository.cs" />
+    <Compile Include="Repository\DoctorFileRepository.cs" />
+    <Compile Include="Repository\ManagerFileRepository.cs" />
+    <Compile Include="Repository\PatientFileRepository.cs" />
+    <Compile Include="Repository\SecretaryFileRepository.cs" />
+    <Compile Include="Repository\OperationFileRepository.cs" />
+    <Compile Include="Repository\CheckupFileRepository.cs" />
+    <Compile Include="Repository\CheckupDataBaseRepository.cs" />
+    <Compile Include="Repository\OperationDataBaseRepository.cs" />
+    <Compile Include="Repository\MedicalRecordDataBaseRepository.cs" />
+    <Compile Include="Repository\MedicineDataBaseRepository.cs" />
+    <Compile Include="Repository\RoomHistoryDataBaseRepository.cs" />
+    <Compile Include="Repository\BusinessHoursDataBaseRepository.cs" />
+    <Compile Include="Repository\RoomsDataBaseRepository.cs" />
+    <Compile Include="Repository\BlogPostDataBaseRepository.cs" />
+    <Compile Include="Repository\DoctorDataBaseRepository.cs" />
+    <Compile Include="Repository\SurveyResponseDataBaseRepository.cs" />
+    <Compile Include="Repository\ManagerDataBaseRepository.cs" />
+    <Compile Include="Repository\PatientDataBaseRepository.cs" />
+    <Compile Include="Repository\SecretaryDataBaseRepository.cs" />
+    <Compile Include="Repository\OperationFileRepositoryFactory.cs" />
+    <Compile Include="Repository\OperationDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\CheckupFileRepositoryFactory.cs" />
+    <Compile Include="Repository\CheckupDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\SecretaryDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\SecretaryFileRepositoryFactory.cs" />
+    <Compile Include="Repository\PatientDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\PatientFileRepositoryFactory.cs" />
+    <Compile Include="Repository\ManagerFileRepositoryFactory.cs" />
+    <Compile Include="Repository\ManagerDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\DoctorFileRepositoryFactory.cs" />
+    <Compile Include="Repository\DoctorDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\SurveyResponseDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\SurveyResponseFileRepositoryFactory.cs" />
+    <Compile Include="Repository\MedicineFileRepositoryFactory.cs" />
+    <Compile Include="Repository\BlogPostFileRepositoryFactory.cs" />
+    <Compile Include="Repository\BlogPostDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\RoomsFileRepositoryFactory.cs" />
+    <Compile Include="Repository\RoomsDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\RoomHistoryDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\RoomHistoryFileRepositoryFactory.cs" />
+    <Compile Include="Repository\BusinessHoursDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\BusinessHoursFileRepositoryFactory.cs" />
+    <Compile Include="Repository\MedicalRecordFileRepositoryFactory.cs" />
+    <Compile Include="Repository\MedicalRecordDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\InvertoryDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\InvertoryFileRepositoryFactory.cs" />
+    <Compile Include="Repository\InvertoryFileRepository.cs" />
+    <Compile Include="Repository\InvertoryDataBaseRepository.cs" />
+    <Compile Include="Service\ITermRepositoryFactory.cs" />
+    <Compile Include="Service\BlogPostRepositoryFacotory.cs" />
+    <Compile Include="Service\BusinessHoursRepositoryFactory.cs" />
+    <Compile Include="Service\RoomHistoryRepositoryFactory.cs" />
+    <Compile Include="Service\MedicalRecordService.cs" />
+    <Compile Include="Service\DoctorService.cs" />
+    <Compile Include="Service\BlogPostService.cs" />
+    <Compile Include="Service\ManagerService.cs" />
+    <Compile Include="Service\PatientService.cs" />
+    <Compile Include="Service\UserFactoryService.cs" />
+    <Compile Include="Service\MedicineService.cs" />
+    <Compile Include="Service\RoomsService.cs" />
+    <Compile Include="Service\SurveyResponseService.cs" />
+    <Compile Include="Service\BusinessHoursService.cs" />
+    <Compile Include="Service\RoomsHistoryService.cs" />
+    <Compile Include="Service\OperationService.cs" />
+    <Compile Include="Service\CheckupService.cs" />
+    <Compile Include="Service\InvertoryService.cs" />
+    <Compile Include="Controller\ITermStrategy.cs" />
+    <Compile Include="Controller\DoctorController.cs" />
+    <Compile Include="Controller\ManagerController.cs" />
+    <Compile Include="Controller\PatientController.cs" />
+    <Compile Include="Controller\UserController.cs" />
+    <Compile Include="Controller\MedicalRecordController.cs" />
+    <Compile Include="Controller\BlogPostController.cs" />
+    <Compile Include="Controller\MedicineController.cs" />
+    <Compile Include="Controller\RoomsController.cs" />
+    <Compile Include="Controller\OperationStrategyController.cs" />
+    <Compile Include="Controller\CheckupStrategyControler.cs" />
+    <Compile Include="Controller\BusinessHoursController.cs" />
+    <Compile Include="Controller\RoomsHistoryController.cs" />
+    <Compile Include="Controller\SurveyResponseController.cs" />
+    <Compile Include="Controller\TermContextController.cs" />
+    <Compile Include="Controller\InvertoryController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
