@@ -1,0 +1,278 @@
+﻿<UserControl x:Class="hci2020_doctors_ui.View.CalendarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:schedule="http://schemas.syncfusion.com/wpf"
+             xmlns:viewmodels="clr-namespace:hci2020_doctors_ui.ViewModel"
+             xmlns:local="clr-namespace:hci2020_doctors_ui.View"
+             mc:Ignorable="d"
+             d:DesignHeight="900"
+             d:DesignWidth="1385">
+    <!-- TODO: 
+            1. Appointment template customization -> Done
+            2. Types and colors of appointments -> Done
+            3. Show/Hide Different Types of Appointments on Checkbox click
+        -->
+    <UserControl.DataContext>
+        <viewmodels:CalendarViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ToolTip}">
+            <Setter Property="Foreground"
+                    Value="Black" />
+        </Style>
+
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MaterialDesignCheckBox}" x:Key="customCheckbox">
+            <Setter Property="Background"
+                    Value="{StaticResource BrandColorBrush}" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource BrandColorBrush}" />
+            <Setter Property="Margin" Value="0,4,10,0" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="grid1"
+          Background="{DynamicResource BackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80*" />
+            <ColumnDefinition Width="20*" />
+        </Grid.ColumnDefinitions>
+        <schedule:SfSchedule x:Name="Schedule"
+                             Grid.Column="0"
+                             ScheduleType="Week"
+                             MajorTickTimeFormat="hh tt"
+                             MinorTickVisibility="Hidden"
+                             Margin="5,25,5,10"
+                             AppointmentEditorOpening="Schedule_AppointmentEditorOpening"
+                             Appointments="{Binding Appointments}"
+                             IsHighLightWorkingHours="True"
+                             ShowAppointmentNavigationButtons="True"
+                             TimeInterval="ThirtyMin"
+                             EnableAutoFormat="True"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Bottom"
+                             TimeMode="TwentyFourHours"
+                             HeaderDateFormat="dddd dd"
+                             CurrentDateBackground="{StaticResource BrandColorBrush}"
+                             CurrentDateForeground="{StaticResource BackgroundLightBrush}"
+                             CurrentTimeIndicatorVisibility="Visible"
+                             WorkStartHour="6"
+                             WorkEndHour="24"
+                             AppointmentDeleting="Schedule_AppointmentDeleting"
+                             ShowNonWorkingHours="False"
+                             AppointmentTooltipVisibility="Visible"
+                             VisibleDatesChanging="Schedule_VisibleDatesChanging"
+                             AppointmentSelectionBrush="{DynamicResource HighContrastNeutralBrush}">
+            <schedule:SfSchedule.AppointmentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Rectangle HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Fill="{Binding AppointmentBackground}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.01*" />
+                                <RowDefinition Height="0.2*" />
+                                <RowDefinition Height="0.2*" />
+                                <RowDefinition Height="0.2*" />
+                                <RowDefinition Height="0.03*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60*" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource BackgroundLightBrush}"
+                                       Text="{Binding Subject}" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       FontSize="13"
+                                       Foreground="{StaticResource BackgroundLightBrush}"
+                                       Text="{Binding Patient}" />
+                            <TextBlock Grid.Row="3"
+                                       Margin="10,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom"
+                                       Foreground="{StaticResource BackgroundLightBrush}"
+                                       FontSize="13"
+                                       Text="{Binding Location}" />
+                            <TextBlock Grid.Row="3"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Bottom"
+                                       Margin="0,0,10,0"
+                                       FontFamily="Segoe UI"
+                                       FontSize="13"
+                                       FontWeight="Normal"
+                                       Foreground="{StaticResource BackgroundLightBrush}"
+                                       Text="{Binding AppointmentStartTime}"
+                                       TextWrapping="NoWrap" />
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </schedule:SfSchedule.AppointmentTemplate>
+
+            <!-- Tooltip -->
+            <schedule:SfSchedule.AppointmentToolTipTemplate>
+                <ControlTemplate>
+                    <Border BorderBrush="{StaticResource BackgroundDarkBrush}"
+                            BorderThickness="2">
+
+                        <Grid Background="{StaticResource BackgroundLightBrush}"
+                              Height="150"
+                              Width="250">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="4.5*" />
+                                <RowDefinition Height="0.1*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="0.3*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    Margin="5"
+                                    Background="{Binding AppointmentBackground, FallbackValue=Red}">
+                                <TextBlock FontSize="16"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Foreground="{StaticResource BackgroundLightBrush}"
+                                           Margin="10,0,0,1"
+                                           Text="{Binding Subject, FallbackValue=Operation}"
+                                           Grid.Row="0" />
+                            </Border>
+                            <DockPanel Grid.Row="2"
+                                       Margin="15,0,0,0"
+                                       VerticalAlignment="Center">
+                                <TextBlock FontSize="12"
+                                           FontWeight="SemiBold"
+                                           Text="{DynamicResource StartDateLabel}" />
+                                <TextBlock FontSize="12"
+                                           Margin="20,0,15,0"
+                                           HorizontalAlignment="Right"
+                                           Text="{Binding StartTime,FallbackValue=5/27/2020 12:00:00 PM}"
+                                           Grid.Row="3" />
+                            </DockPanel>
+
+                            <DockPanel Grid.Row="3"
+                                       Margin="15,0,0,0"
+                                       VerticalAlignment="Center">
+                                <TextBlock FontSize="12"
+                                           FontWeight="SemiBold"
+                                           Text="{DynamicResource EndDateLabel}" />
+                                <TextBlock FontSize="12"
+                                           Margin="20,0,15,0"
+                                           HorizontalAlignment="Right"
+                                           Text="{Binding EndTime,FallbackValue=5/27/2020 3:00:00 PM}"
+                                           Grid.Row="3" />
+                            </DockPanel>
+
+                            <DockPanel  Grid.Row="5">
+                                <DockPanel DockPanel.Dock="Left"
+                                           Margin="15,0,0,0"
+                                           VerticalAlignment="Center">
+                                    <TextBlock FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Text="{DynamicResource RoomNumber}" />
+                                    <TextBlock FontSize="12"
+                                               Margin="6,0,15,0"
+                                               HorizontalAlignment="Right"
+                                               Text="{Binding Location,FallbackValue=277}"
+                                               Grid.Row="3" />
+                                </DockPanel>
+
+                                <DockPanel DockPanel.Dock="Right"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center">
+                                    <TextBlock FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Text="{DynamicResource PatientLabel}" />
+                                    <TextBlock FontSize="12"
+                                               Margin="6,0,15,0"
+                                               HorizontalAlignment="Right"
+                                               Text="{Binding Patient,FallbackValue=Perica Peric}"
+                                               Grid.Row="3" />
+                                </DockPanel>
+                            </DockPanel>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </schedule:SfSchedule.AppointmentToolTipTemplate>
+
+        </schedule:SfSchedule>
+
+
+        <Grid Grid.Column="1"
+              Background="{DynamicResource LowContrastNeutralBrush}"
+              Margin="0,73,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="350" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Calendar Grid.Row="0" x:Name="sideCalendar" DisplayDateChanged="sideCalendar_DisplayDateChanged" Margin="0,0,3,0">
+                <Calendar.Resources>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush"
+                                     Color="{StaticResource BrandColor}"></SolidColorBrush>
+                    <SolidColorBrush x:Key="MaterialDesignBody"
+                                     Color="{StaticResource BackgroundDark}"></SolidColorBrush>
+                </Calendar.Resources>
+            </Calendar>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="10,5,0,0">
+                <TextBlock FontSize="22"
+                           Text="{DynamicResource MyCalendars}"
+                           Foreground="{DynamicResource HighContrastNeutralBrush}"
+                           FontWeight="SemiBold" />
+                <DockPanel Margin="0,6,0,0">
+                    <CheckBox
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        IsChecked="{Binding CheckupsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource customCheckbox}">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.3"
+                                            ScaleY="1.3" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Foreground="{DynamicResource HighContrastNeutralBrush}"
+                               Text="{DynamicResource CheckupsLabel}"
+                               FontSize="17" />
+                </DockPanel>
+                <DockPanel Margin="0,6,0,0">
+                    <CheckBox HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              IsChecked="{Binding OperationsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource customCheckbox}">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.3"
+                                            ScaleY="1.3" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="17"
+                               Foreground="{DynamicResource HighContrastNeutralBrush}"
+                               Text="{DynamicResource OperationsLabel}"
+                               />
+                </DockPanel>
+            </StackPanel>
+            
+        </Grid>
+        
+    </Grid>
+</UserControl>

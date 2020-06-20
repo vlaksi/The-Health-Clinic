@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="hci2020_doctors_ui.View.WriteBlogPost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:hci2020_doctors_ui.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:hci2020_doctors_ui.View.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="900"
+             d:DesignWidth="1385">
+    <Grid Background="{DynamicResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"
+                           Name="blankspace1" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1.2*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.5*"
+                           Name="blankspace2" />
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="32"
+                   Grid.Row="1"
+                   Margin="20,0,0,0"
+                   VerticalAlignment="Center"
+                   FontWeight="SemiBold"
+                   Foreground="{DynamicResource HighContrastNeutralBrush}"
+                   Text="{DynamicResource WriteArticle}"
+                   />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,243,10" VerticalAlignment="Bottom"
+                    Grid.Row="2">
+            <TextBlock FontSize="26"
+                       Foreground="{DynamicResource HighContrastNeutralBrush}"
+                       Text="{DynamicResource BlogTitle}"
+                       VerticalAlignment="Center"
+                       Margin="0,0,20,0"/>
+            <TextBox Style="{StaticResource TextBox}"
+                     Width="590"
+                     Foreground="{DynamicResource HighContrastNeutralBrush}"
+                     Background="{DynamicResource BackgroundBrush}"
+                     VerticalAlignment="Center"
+                     FontSize="26" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,240,10"
+                    VerticalAlignment="Bottom"
+                    Grid.Row="3">
+            <TextBlock FontSize="26"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource HighContrastNeutralBrush}"
+                       Text="{DynamicResource BlogType}"
+                       Margin="0,0,20,0" />
+            <ComboBox x:Name="blogposttype"
+                      Foreground="{DynamicResource HighContrastNeutralBrush}"
+                      Background="{DynamicResource BackgroundBrush}"
+                      FontSize="26"
+                      Width="320"
+                      Margin="5,0,5,0"
+                      VerticalAlignment="Center"
+                      Style="{StaticResource MaterialDesignComboBox}"
+                      materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource BrandColorBrush}"
+                      ItemsSource="{Binding Path=BlogPostTypeCollection}"
+                      SelectedItem="{Binding SelectedBlogPostType, Mode=OneWay}" />
+        </StackPanel>
+
+
+        <TextBox Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                 Grid.Row="4"
+                 FontSize="24"
+                 HorizontalAlignment="Center"
+                 ScrollViewer.CanContentScroll="False"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Width="900"
+                 Foreground="{DynamicResource HighContrastNeutralBrush}"
+                 TextWrapping="Wrap"
+                 Height="Auto"
+                 AcceptsReturn="True"
+                 Margin="0,10"></TextBox>
+        <Button Grid.Row="5"
+                FontSize="24"
+                Height="42"
+                Margin="0,5,245,0"
+                VerticalAlignment="Top"
+                Style="{StaticResource PurpleButton}"
+                HorizontalAlignment="Right"
+                Width="250"
+                Content="{DynamicResource PublishButton}"
+                />
+    </Grid>
+</UserControl>

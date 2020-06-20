@@ -1,0 +1,94 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="BrandColor">#1560fb</Color>
+    <SolidColorBrush x:Key="BrandColorBrush"
+                     Color="{StaticResource BrandColor}" />
+    <Color x:Key="BrandColorGrayedOut">#86AEFE
+    </Color>
+    <SolidColorBrush x:Key="BrandColorGrayedOutBrush"
+                     Color="{StaticResource BrandColorGrayedOut}" />
+
+    <!-- Light Background -->
+    <Color x:Key="BackgroundLight">#fafafa</Color>
+    <SolidColorBrush x:Key="BackgroundLightBrush"
+                     Color="{StaticResource BackgroundLight}" />
+
+    <Color x:Key="LowContrastNeutralLight">#f1f1f1</Color>
+    <SolidColorBrush x:Key="LowContrastNeutralLightBrush"
+                     Color="{StaticResource LowContrastNeutralLight}" />
+
+    <Color x:Key="HighContrastNeutralLight">#313436</Color>
+    <SolidColorBrush x:Key="HighContrastNeutralLightBrush"
+                     Color="{StaticResource HighContrastNeutralLight}" />
+
+    <Color x:Key="ReducedHighContrastNeutralLight">#3d3f41</Color>
+    <SolidColorBrush x:Key="ReducedHighContrastNeutralLightBrush"
+                     Color="{StaticResource ReducedHighContrastNeutralLight}" />
+
+    <!-- Dark Background -->
+    <Color x:Key="BackgroundDark">#313436</Color>
+    <SolidColorBrush x:Key="BackgroundDarkBrush"
+                     Color="{StaticResource BackgroundDark}" />
+
+    <Color x:Key="LowContrastNeutralDark">#3d3f41</Color>
+    <SolidColorBrush x:Key="LowContrastNeutralDarkBrush"
+                     Color="{StaticResource LowContrastNeutralDark}" />
+
+    <Color x:Key="HighContrastNeutralDark">#fafafa</Color>
+    <SolidColorBrush x:Key="HighContrastNeutralDarkBrush"
+                     Color="{StaticResource HighContrastNeutralDark}" />
+
+    <Color x:Key="ReducedHighContrastNeutralDark">#f1f1f1</Color>
+    <SolidColorBrush x:Key="ReducedHighContrastNeutralDarkBrush"
+                     Color="{StaticResource ReducedHighContrastNeutralDark}" />
+
+    <!-- Denotive Colors -->
+    <Color x:Key="Error">#d63e3e</Color>
+    <SolidColorBrush x:Key="ErrorBrush"
+                     Color="{StaticResource Error}" />
+
+    <Color x:Key="Success">#32d29f</Color>
+    <SolidColorBrush x:Key="SuccessBrush"
+                     Color="{StaticResource Success}" />
+
+    <Color x:Key="Checkup">#d23232</Color>
+    <SolidColorBrush x:Key="CheckupBrush"
+                     Color="{StaticResource Checkup}" />
+
+
+    <Color x:Key="DisabledLight">#d6d9db</Color>
+    <SolidColorBrush x:Key="DisabledLightBrush"
+                     Color="{StaticResource DisabledLight}" />
+
+    <Color x:Key="DisabledDark">#d6d9db</Color>
+    <SolidColorBrush x:Key="DisabledDarkBrush"
+                     Color="{StaticResource DisabledDark}" />
+
+    <Color x:Key="Gray">#858585</Color>
+    <SolidColorBrush x:Key="GrayBrush"
+                     Color="{StaticResource Gray}" />
+
+    <!-- Interactive Colors -->
+    <Color x:Key="ButtonMinus2">#3b0774</Color>
+    <SolidColorBrush x:Key="ButtonMinus2Brush"
+                     Color="{StaticResource ButtonMinus2}" />
+
+    <Color x:Key="ButtonMinus1">#6509c7</Color>
+    <SolidColorBrush x:Key="ButtonMinus1Brush"
+                     Color="{StaticResource ButtonMinus1}" />
+
+    <Color x:Key="Button0">#862fe3</Color>
+    <SolidColorBrush x:Key="Button0Brush"
+                     Color="{StaticResource Button0}" />
+
+    <Color x:Key="ButtonPlus1">#a361e9</Color>
+    <SolidColorBrush x:Key="ButtonPlus1Brush"
+                     Color="{StaticResource ButtonPlus1}" />
+
+    <Color x:Key="ButtonPlus2">#cfabf6</Color>
+    <SolidColorBrush x:Key="ButtonPlus2Brush"
+                     Color="{StaticResource ButtonPlus2}" />
+
+
+</ResourceDictionary>

@@ -1,0 +1,209 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--#region Sidebar -->
+    <system:String x:Key="HomeLabel">Početna</system:String>
+    <system:String x:Key="CalendarLabel">Kalendar</system:String>
+    <system:String x:Key="ScheduleLabel">Zakazivanje</system:String>
+    <system:String x:Key="BlogLabel">Blog</system:String>
+    <!--#endregion-->
+
+
+    <!--#region Settings -->
+    <system:String x:Key="AccountSettings">Podešavanja naloga</system:String>
+    <system:String x:Key="DoctorAccount">Doktorski nalog</system:String>
+    <system:String x:Key="ChangeEmail">Promijenite email</system:String>
+    <system:String x:Key="ChangePassword">Promijenite šifru</system:String>
+    <system:String x:Key="ConfirmPassword">Potvrdite novu šifru</system:String>
+    <system:String x:Key="ChangeLanguage">Promijenite jezik</system:String>
+    <system:String x:Key="DarkTheme">Tamna tema</system:String>
+    <system:String x:Key="SaveChanges">Sačuvaj promjene</system:String>
+    <system:String x:Key="Serbian">Srpski</system:String>
+    <system:String x:Key="English">Engleski</system:String>
+    <!--#endregion-->
+
+    <!--#region Blog -->
+    <system:String x:Key="RecentStories">Najnovije priče</system:String>
+    <system:String x:Key="WriteArticle">Napiši članak</system:String>
+    <system:String x:Key="ContinueReading">Nastavi sa čitanjem</system:String>
+    <system:String x:Key="AddComment">Dodaj komentar</system:String>
+    <system:String x:Key="CommentButton">Komentariši</system:String>
+    <system:String x:Key="Science">Nauka</system:String>
+    <system:String x:Key="Dentist">Zubar</system:String>
+    <system:String x:Key="BlogTitle">Naslov</system:String>
+    <system:String x:Key="BlogType">Izaberi tip članka</system:String>
+    <system:String x:Key="PublishButton">Objavi</system:String>
+    <!--#endregion-->
+
+    <!--#region Calendar -->
+    <system:String x:Key="CheckupsLabel">Pregledi</system:String>
+    <system:String x:Key="OperationsLabel">Operacije</system:String>
+    <system:String x:Key="MyCalendars">Moji kalendari</system:String>
+    <system:String x:Key="CheckupLabel">Pregled</system:String>
+    <system:String x:Key="OperationLabel">Operacija</system:String>
+    <system:String x:Key="Details">Detalji</system:String>
+    <system:String x:Key="DateLabel">Datum</system:String>
+    <system:String x:Key="StartDateLabel">Početni datum:</system:String>
+    <system:String x:Key="EndDateLabel">Krajnji datum:</system:String>
+    <system:String x:Key="SelectTime">Izaberite vrijeme</system:String>
+    <system:String x:Key="RoomNumber">Broj sobe</system:String>
+    <system:String x:Key="PatientLabel">Pacijent</system:String>
+    <system:String x:Key="AppointmentTypeLabel">Tip termina</system:String>
+    <!--#endregion-->
+
+    <!--#region Home -->
+    <system:String x:Key="PatientList">Lista Pacijenata</system:String>
+    <system:String x:Key="MedicinesAwaitingApprovalLabel">Lijekovi na čekanju</system:String>
+    <system:String x:Key="Closest3Terms">Najbliža 3 termina</system:String>
+    <system:String x:Key="PriceLabel">Cijena:</system:String>
+    <system:String x:Key="TypeLabel">Tip:</system:String>
+    <system:String x:Key="IngredientsLabel">Sastojci:</system:String>
+    <system:String x:Key="ApproveButtonLabel">Prihvati</system:String>
+    <system:String x:Key="DeclineButtonLabel">Odbij</system:String>
+    <!--#endregion-->
+
+    <!--#region Patients Profile -->
+    <system:String x:Key="BirthLabel">Rođen:</system:String>
+    <system:String x:Key="GenderLabel">Pol:</system:String>
+    <system:String x:Key="EmailLabel">Email:</system:String>
+    <system:String x:Key="PhoneLabel">Telefon:</system:String>
+    <system:String x:Key="BloodTypeLabel">Krvna grupa:</system:String>
+    <system:String x:Key="AllergiesLabel">Alergije:</system:String>
+    <system:String x:Key="DiseasesLabel">Bolesti:</system:String>
+    <system:String x:Key="AccommodatedLabel">Smješten u:</system:String>
+    <system:String x:Key="AccommodateButton">Smjesti u sobu</system:String>
+    <system:String x:Key="GeneralPracticionerLabel">Porodični ljekar:</system:String>
+    <system:String x:Key="StatusInASpecificTimePeriod">Generiši status za vremenski period</system:String>
+    <system:String x:Key="WriteReportButton">Napiši izvještaj</system:String>
+    <system:String x:Key="WritePrescriptionButton">Propiši recept</system:String>
+    <system:String x:Key="GenerateReportButton">Generiši izvještaj</system:String>
+    <system:String x:Key="MedicalHistoryLabel">Medicinska istorija</system:String>
+    <system:String x:Key="LastYearLabel">PROŠLE GODINE</system:String>
+    <system:String x:Key="CurrentTherapyLabel">Trenutna terapija</system:String>
+    <!--#endregion-->
+
+    <!--#region Medical Report -->
+    <system:String x:Key="PatientInfoLabel">Informacije o pacijentu</system:String>
+    <system:String x:Key="FullNameLabel">Puno ime</system:String>
+    <system:String x:Key="DoctorinChargeLabel">Nadležni doktor</system:String>
+    <system:String x:Key="ClinicInfoLabel">Ulica, Grad i Naziv klinike</system:String>
+    <system:String x:Key="DateTimeLabel">Datum &amp; vrijeme</system:String>
+    <system:String x:Key="PurposeLabel">Razlog</system:String>
+    <system:String x:Key="PatientsRemarksLabel">Pacijentovi komentari</system:String>
+    <system:String x:Key="ObservationsLabel">Zapažanja</system:String>
+    <system:String x:Key="AirwayLabel">Disajni putevi:</system:String>
+    <system:String x:Key="BreathingLabel">Disanje:</system:String>
+    <system:String x:Key="BloodPressureLabel">Krvni pritisak:</system:String>
+    <system:String x:Key="HeartRateLabel">Broj otkucaja:</system:String>
+    <system:String x:Key="TemperatureLabel">Temperatura:</system:String>
+    <system:String x:Key="PupilsLabel">Zjenice:</system:String>
+    <system:String x:Key="CommonConditionsLabel">Česta stanja</system:String>
+    <system:String x:Key="DoctorsRemarksLabel">Doktorovi komentari</system:String>
+    <system:String x:Key="ViewReportButton">Izvještaj</system:String>
+    <!--#endregion-->
+
+    <!--#region Schedule Appointment -->
+    <system:String x:Key="ScheduleAppointmentLabel">Zakaži pregled</system:String>
+    <system:String x:Key="SelectAppTypeLabel">Izaberi tip termina</system:String>
+    <system:String x:Key="SelectSpecTypeLabel">Izaberi tip specijalnosti</system:String>
+    <system:String x:Key="SelectDoctor">Izaberi doktora</system:String>
+    <system:String x:Key="SelectPatient">Izaberi pacijenta</system:String>
+    <system:String x:Key="SelecttheFloor">Izaberi sprat</system:String>
+    <system:String x:Key="SelecttheRoom">Izaberi sobu</system:String>
+    <system:String x:Key="SelectDateandTime">Izaberi datum i vrijeme</system:String>
+    <system:String x:Key="ScheduleButton">Zakaži</system:String>
+    <!--#endregion-->
+
+    <!--#region Search -->
+    <system:String x:Key="SearchLabel">Pretraga</system:String>
+    <system:String x:Key="ResultsFound">rezultata pronađeno</system:String>
+    <!--#endregion-->
+
+    <!--#region Medical Prescription -->
+    <system:String x:Key="MedicalPrescriptionLabel">Propisivanje recepta</system:String>
+    <system:String x:Key="PatientRecordButton">Pacijentov karton</system:String>
+    <system:String x:Key="MedicineLabel">Lijek</system:String>
+    <system:String x:Key="QuantityLabel">Količina</system:String>
+    <system:String x:Key="FrequencyLabel">Učestalost</system:String>
+    <system:String x:Key="NameLabel">Naziv</system:String>
+    <system:String x:Key="AddMoreLabel">Dodaj više</system:String>
+    <system:String x:Key="InstructionsLabel">Instrukcije</system:String>
+    <system:String x:Key="SubmitButton">Potvrdi</system:String>
+    <!--#endregion-->
+
+    <!--#region Medical Report -->
+    <system:String x:Key="MedicalReportLabel">Medicinski izvještaj</system:String>
+    <system:String x:Key="SelectedConditionsLabel">Izabrana stanja</system:String>
+    <system:String x:Key="RemarksExplanation">Molim vas navedite daljnja objašnjenja kliničkog stanja: Dijagnoze, druge relevantne kliničke informacije (npr. trenutno stanje, uključujući rezultate istraživanja, lijekove,
+                tretmane i prognoze) i da li je stanje ozbiljan rizik za drumsku ili socijalnu bezbjednost.
+    </system:String>
+    <system:String x:Key="ClearLabel">Čisto</system:String>
+    <system:String x:Key="ObstructedLabel">Otežano</system:String>
+    <system:String x:Key="NoisyLabel">Bučno</system:String>
+    <system:String x:Key="NormalLabel">Normalno</system:String>
+    <system:String x:Key="ShallowLabel">Plitko</system:String>
+    <system:String x:Key="IrregularLabel">Nepravilno</system:String>
+    <system:String x:Key="ReactiveLabel">Reaktivno</system:String>
+    <!--#endregion-->
+
+    <!--#region Entities -->
+    <system:String x:Key="OperatingRoomLabel">Operaciona sala</system:String>
+    <system:String x:Key="OrdinationLabel">Ordinacija</system:String>
+    <system:String x:Key="RoomLabel">Soba</system:String>
+    <system:String x:Key="MaleLabel">Muški</system:String>
+    <system:String x:Key="FemaleLabel">Ženski</system:String>
+    <system:String x:Key="PeanutsLabel">Kikiriki</system:String>
+    <system:String x:Key="SunLabel">Sunce</system:String>
+    <system:String x:Key="AtHomeLabel">Kod kuće</system:String>
+    <system:String x:Key="NoneLabel">Ništa</system:String>
+    <system:String x:Key="GeneralHealthLabel">Generalno zdravlje</system:String>
+    <system:String x:Key="EpidemiologistLabel">Epidemiologija</system:String>
+    <!--#endregion-->
+
+    <!--#region Common Conditions -->
+    <system:String x:Key="AlcoholLabel">Alkoholna zavisnost</system:String>
+    <system:String x:Key="StrokeLabel">Šlog ili povreda glave</system:String>
+    <system:String x:Key="Fever">Groznica</system:String>
+    <system:String x:Key="Drug Dependence">Zavisnost od droge</system:String>
+    <system:String x:Key="Seizure(s) - Cerebral">Moždani udar</system:String>
+    <system:String x:Key="Seizure(s) - Alcohol related">Alkoholni kolaps</system:String>
+    <system:String x:Key="Heart Disease">Srčana bolest</system:String>
+    <system:String x:Key="Motor Function/Ability Impaired">Ograničene motorne sposobnosti</system:String>
+    <system:String x:Key="Visual Acuity Impairment">Oštećenje oštrine vida</system:String>
+    <system:String x:Key="Visual Field Impairment">Oštećenje vidnog polja</system:String>
+    <system:String x:Key="Mental or Emotional Illness">Mentalne ili emocionalne bolesti</system:String>
+    <system:String x:Key="Dementia or Alzheimer's">Zaboravnost ili Alchajmer</system:String>
+    <system:String x:Key="Sleep Apnea">Nedostatak sna</system:String>
+    <system:String x:Key="Narcolepsy">Narkolepsija</system:String>
+    <system:String x:Key="Diabetes or Hypoglicemia">Dijabetes ili Hipoglikemija</system:String>
+    <system:String x:Key="Blackout or Loss of Awareness">Onesvješćivanje</system:String>
+    <system:String x:Key="Bone or Join deformity">Koščani deformitet</system:String>
+    <system:String x:Key="Loss of Memory">Gbbitak pamćenja</system:String>
+    <system:String x:Key="Skin Disease">Bolesti kože</system:String>
+    <system:String x:Key="Intestinal Troubles">Stomačni problemi</system:String>
+    <system:String x:Key="Swollen or Painful Joints">Natečeni ili bolni zglobovi</system:String>
+    <system:String x:Key="Chronic Cough">Hronični kašalj</system:String>
+    <system:String x:Key="Car or Sea Sickness">Morska bolest</system:String>
+    <system:String x:Key="Rapid Gain/Loss of Weight">Ubrzan gubitak/dobitak težine</system:String>
+
+    <system:String x:Key="General Checkup">Generalni pregled</system:String>
+    <system:String x:Key="Post-operation Checkup">Post-operacioni pregled</system:String>
+    <system:String x:Key="Pre-operation Checkup">Pre-operacioni pregled</system:String>
+    <system:String x:Key="Control Checkup">Kontrolni pregled</system:String>
+    <system:String x:Key="Surgery Report">Operacioni izvještaj</system:String>
+    <system:String x:Key="Accident Report">Izvještaj nakon nezgode</system:String>
+    <system:String x:Key="Emergency Report">Hitan izvještaj</system:String>
+    <!--#endregion-->
+    <system:String x:Key="AccommodatePatientLabel">Smjestite pacijenta u sobu</system:String>
+
+    <!--#region Poruke -->
+    <system:String x:Key="PreviewPDF">Da li želite pregledati ovaj PDF izvještaj?</system:String>
+    <system:String x:Key="PreviewPDFMessage">Kreiran PDF izvještaj</system:String>
+    <system:String x:Key="DatesInvalid">Početni datum ne može biti posle krajnjeg datuma. Molim vas da izaberete prave datume.</system:String>
+    <system:String x:Key="DatesInvalidMessage">Greška prilikom odabira datuma</system:String>
+    <system:String x:Key="NoTerms">Nije pronađen nijedan termin u izabranom periodu.</system:String>
+    <system:String x:Key="NoTermsMessage">Nema termina</system:String>
+    <!--#endregion-->
+
+</ResourceDictionary>

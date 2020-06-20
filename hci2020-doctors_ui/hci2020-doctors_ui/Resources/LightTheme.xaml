@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:hci2020_doctors_ui.Resources">
+    <!-- Light Background -->
+    <Color x:Key="BackgroundColor">#fafafa</Color>
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="{StaticResource BackgroundColor}" />
+
+    <Color x:Key="LowContrastNeutralColor">#f1f1f1</Color>
+    <SolidColorBrush x:Key="LowContrastNeutralBrush"
+                     Color="{StaticResource LowContrastNeutralColor}" />
+
+    <Color x:Key="HighContrastNeutral">#313436</Color>
+    <SolidColorBrush x:Key="HighContrastNeutralBrush"
+                     Color="{StaticResource HighContrastNeutral}" />
+
+    <Color x:Key="ReducedHighContrastNeutralColor">#3d3f41</Color>
+    <SolidColorBrush x:Key="ReducedHighContrastNeutralBrush"
+                     Color="{StaticResource ReducedHighContrastNeutralColor}" />
+
+    <Color x:Key="DisabledColor">#737373</Color>
+    <SolidColorBrush x:Key="DisabledBrush"
+                     Color="{StaticResource DisabledColor}" />
+
+</ResourceDictionary>

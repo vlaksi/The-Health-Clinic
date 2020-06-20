@@ -1,0 +1,365 @@
+﻿<UserControl x:Class="hci2020_doctors_ui.View.WritePrescription"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:toolkit1="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
+             x:Name="thisWindow"
+             xmlns:validation="clr-namespace:hci2020_doctors_ui.Validation"
+             mc:Ignorable="d"
+             d:DesignHeight="900"
+             d:DesignWidth="1385">
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid Background="{DynamicResource BackgroundBrush}"
+              ScrollViewer.CanContentScroll="False">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource HighContrastNeutralBrush}"></Setter>
+                </Style>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="200" />
+                <RowDefinition Height="200" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="400" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="98*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock FontSize="36"
+                       FontWeight="DemiBold"
+                       VerticalAlignment="Bottom"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Foreground="{DynamicResource HighContrastNeutralBrush}"
+                       Text="{DynamicResource MedicalPrescriptionLabel}"
+                       />
+
+            <Grid x:Name="PatientInfo"
+                  Grid.Row="1"
+                  Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="21*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="12*"
+                                      x:Name="Blank" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="24"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{DynamicResource PatientInfoLabel}"
+                           Margin="0,0,0,130" />
+                <DockPanel Grid.Column="0">
+                    <materialDesign:PackIcon Kind="Face"
+                                             Height="100"
+                                             Foreground="{DynamicResource HighContrastNeutralBrush}"
+                                             Width="100"
+                                             Margin="-10,30,0,0"
+                                             VerticalAlignment="Center"
+                                             DockPanel.Dock="Left" />
+                    <StackPanel Orientation="Vertical"
+                                DockPanel.Dock="Right"
+                                VerticalAlignment="Center"
+                                Width="425"
+                                Margin="0,30,0,0"
+                                HorizontalAlignment="Left">
+                        <StackPanel Margin="5,0,0,3"
+                                    Width="400"
+                                    HorizontalAlignment="Left"
+                                    Orientation="Horizontal">
+                            <TextBlock FontWeight="SemiBold"
+                                       FontSize="20"
+                                       Text="{DynamicResource FullNameLabel}" />
+                            <TextBlock Margin="130,0,0,0"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       FontSize="20"
+                                       Text="{Binding Patient.Name, FallbackValue=Jovan Jovanovic}" />
+                        </StackPanel>
+                        <StackPanel Margin="5,5,0,3"
+                                    Width="400"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left">
+                            <TextBlock FontWeight="SemiBold"
+                                       FontSize="20"
+                                       DockPanel.Dock="Left"
+                                       Text="{DynamicResource BirthLabel}" />
+                            <TextBlock Margin="101,0,0,0"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       Text="{Binding Patient.Birth, FallbackValue=27/07/1998, StringFormat={}{0:d MMMM yyyy}}" />
+                        </StackPanel>
+                        <StackPanel Margin="5,5,0,3"
+                                    Orientation="Horizontal"
+                                    Width="480"
+                                    HorizontalAlignment="Left">
+                            <TextBlock FontWeight="SemiBold"
+                                       FontSize="20"
+                                       Text="{DynamicResource GenderLabel}" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       Margin="152,0,0,0"
+                                       FontSize="20"
+                                       Text="{Binding Patient.Gender, FallbackValue=Male}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+                <StackPanel Orientation="Vertical"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Margin="0,30,0,0">
+
+                    <DockPanel>
+                        <StackPanel x:Name="doctorInCharge"
+                                    DockPanel.Dock="Left">
+                            <TextBlock FontSize="20"
+                                       FontWeight="DemiBold"
+                                       Text="{DynamicResource DoctorinChargeLabel}" />
+                            <TextBlock FontSize="20">Petar Peric</TextBlock>
+                        </StackPanel>
+                    </DockPanel>
+                    <StackPanel x:Name="clinicInfo"
+                                DockPanel.Dock="Left"
+                                Margin="0,5,0,0">
+                        <TextBlock FontSize="20"
+                                   FontWeight="DemiBold"
+                                   Text="{DynamicResource ClinicInfoLabel}" />
+                        <TextBlock FontSize="20">Street XY, Novi Sad, The Health Clinic</TextBlock>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="135,0,0,20"
+                        Style="{StaticResource EmptyPurpleButton}"
+                        Width="175"
+                        Content="{DynamicResource PatientRecordButton}"
+                        Click="patientProfile_click" />
+
+            </Grid>
+
+            <StackPanel Grid.Row="2"
+                        Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center"
+                        Margin="0,30,0,0">
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,20,20,0">
+                    <TextBlock VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               FontSize="24"
+                               Text="{DynamicResource MedicineLabel}" />
+                    <toolkit1:AutoCompleteBox ItemsSource="{Binding MedicineCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedItem="{Binding SelectedMedicine, Mode=OneWayToSource}"
+                                              ValueMemberPath="Name"
+                                              x:Name="medicineName"
+                                              Background="{DynamicResource LowContrastNeutralBrush}"
+                                              Width="300"
+                                              FilterMode="ContainsOrdinal"
+                                              MinimumPrefixLength="1"
+                                              VerticalAlignment="Center"
+                                              FontSize="24"
+                                              Foreground="{DynamicResource HighContrastNeutralBrush}"
+                                              Margin="10,0,0,0"
+                                              materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource BrandColorBrush}">
+                        <toolkit1:AutoCompleteBox.Text>
+                            <Binding Path="SelectedMedicine.Name"
+                                     Mode="TwoWay"
+                                     NotifyOnValidationError="True"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:EmptyFieldRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </toolkit1:AutoCompleteBox.Text>
+                        <toolkit1:AutoCompleteBox.TextBoxStyle>
+                            <Style TargetType="TextBox"
+                                   BasedOn="{StaticResource TextBox}" />
+                        </toolkit1:AutoCompleteBox.TextBoxStyle>
+                        <toolkit1:AutoCompleteBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource HighContrastNeutralBrush}" />
+                                <Setter Property="Margin"
+                                        Value="0,10" />
+                            </Style>
+                        </toolkit1:AutoCompleteBox.ItemContainerStyle>
+                    <toolkit1:AutoCompleteBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel VerticalAlignment="Center" Margin="3" Width="285" >
+                                <TextBlock Text="{Binding Name}"
+                                       Foreground="{StaticResource BackgroundDarkBrush}"
+                                       FontSize="24" HorizontalAlignment="Left" 
+                                       VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Price,StringFormat={}${0}}"
+                                       FontSize="22"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource GrayBrush}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </toolkit1:AutoCompleteBox.ItemTemplate>
+                    </toolkit1:AutoCompleteBox>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="24"
+                               FontWeight="SemiBold"
+                               Margin="20,0,0,0"
+                               Text="{DynamicResource QuantityLabel}" />
+                    <TextBox Width="100"
+                             FontSize="24"
+                             Margin="10,5,0,0"
+                             PreviewTextInput="NumberValidationTextBox"
+                             Foreground="{DynamicResource HighContrastNeutralBrush}"
+                             Background="{DynamicResource BackgroundBrush}"
+                             x:Name="quantity"
+                             Style="{StaticResource TextBox}"
+                             HorizontalAlignment="Center"
+                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource BrandColorBrush}">
+                        <TextBox.Text>
+                            <Binding Path="Quantity"
+                                     Mode="TwoWay"
+                                     TargetNullValue="0"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:EmptyNumberFieldRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="24"
+                               FontWeight="SemiBold"
+                               Margin="20,0,0,0"
+                               Text="{DynamicResource FrequencyLabel}" />
+                    <TextBox Width="225"
+                             FontSize="24"
+                             x:Name="frequency"
+                             TextChanged="frequency_TextChanged"
+                             Margin="10,5,0,0"
+                             Style="{StaticResource TextBox}"
+                             Foreground="{DynamicResource HighContrastNeutralBrush}"
+                             Background="{DynamicResource BackgroundBrush}"
+                             HorizontalAlignment="Center"
+                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource BrandColorBrush}">
+                        <TextBox.Text>
+                            <Binding Path="Frequency"
+                                     Mode="TwoWay"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:EmptyFieldRule ValidationStep="ConvertedProposedValue" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    
+                    </TextBox>
+                </StackPanel>
+                <Button Width="150"
+                        Style="{StaticResource TransparentStyle}"
+                        Foreground="{StaticResource BrandColorBrush}"
+                        HorizontalAlignment="Right"
+                        Margin="0,25,0,0"
+                        Click="checkIfEmpty"
+                        Command="{Binding AddCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <TextBlock FontSize="22"
+                                       Margin="0,0,5,0"
+                                       FontWeight="Regular"
+                                       Text="{DynamicResource AddMoreLabel}" />
+                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                     Height="30"
+                                                     Width="30" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Grid Margin="0,5"
+                      Width="500" HorizontalAlignment="Left">
+                    <TextBlock Text="{DynamicResource NameLabel}"
+                               FontSize="22" FontWeight="SemiBold" />
+                    <TextBlock Text="{DynamicResource QuantityLabel}"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Text="{DynamicResource FrequencyLabel}"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Right" />
+                </Grid>
+
+            </StackPanel>
+
+            <ListView Grid.Row="3" Grid.Column="1" ItemsSource="{Binding PrescriptionMedicineCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      HorizontalAlignment="Left"
+                      Margin="161,0,0,0">
+                <ListView.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Button Style="{StaticResource TransparentStyle}"
+                                Foreground="{StaticResource BackgroundDarkBrush}"
+                                Height="40"
+                                FontWeight="Regular"
+                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                CommandParameter="{Binding Name}">
+
+                            <Grid Margin="0,5"
+                                  Width="505">
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="22" />
+                                <TextBlock Text="{Binding Quantity}"
+                                           Margin="0,0,12,0"
+                                           FontSize="22"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Frequency}"
+                                           FontSize="22"
+                                           HorizontalAlignment="Right" />
+                            </Grid>
+                        </Button>
+                    </ItemContainerTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel Grid.Row="4"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"
+                        Orientation="Vertical"
+                        Margin="0,80,0,30"
+                        HorizontalAlignment="Center">
+                <TextBlock FontSize="24"
+                           Text="{DynamicResource InstructionsLabel}" />
+                <TextBox TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Background="{DynamicResource BackgroundBrush}"
+                         Text="{Binding Path=Instructions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="24"
+                         Height="175"
+                         Width="1000"
+                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                         Margin="0,10,10,0"></TextBox>
+                <Button Width="200"
+                        Height="40"
+                        Style="{StaticResource PurpleButton}"
+                        FontSize="20"
+                        Margin="0,10,10,0"
+                        Click="Submit_Click"
+                        Content="{DynamicResource SubmitButton}"
+                        HorizontalAlignment="Right" />
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

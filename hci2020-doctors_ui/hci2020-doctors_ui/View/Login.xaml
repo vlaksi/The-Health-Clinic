@@ -1,0 +1,295 @@
+﻿<Window x:Class="hci2020_doctors_ui.View.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewmodels="clr-namespace:hci2020_doctors_ui.ViewModel"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hci2020_doctors_ui.View"
+        xmlns:validation="clr-namespace:hci2020_doctors_ui.Validation"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+        mc:Ignorable="d"
+        Height="900"
+        Width="1600"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground"
+                    Value="{StaticResource ReducedHighContrastNeutralLightBrush}"></Setter>
+        </Style>
+
+        <viewmodels:LoginViewModel x:Key="LoginViewModel" />
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="10"
+                      GlassFrameThickness="0"
+                      CornerRadius="0" />
+    </WindowChrome.WindowChrome>
+
+    <Grid Background="{StaticResource BackgroundLightBrush}" DataContext="{StaticResource LoginViewModel}">
+        <Grid.RowDefinitions>
+            <!-- Title bar -->
+            <RowDefinition Height="30" />
+            <!-- Window Content -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- Minimize/Close buttons -->
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="95*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Title bar -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Panel.ZIndex="1"
+                    HorizontalAlignment="Left">
+            <Button Width="Auto"
+                    Height="Auto"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    ToolTip="Close"
+                    Cursor="Hand"
+                    Margin="7,7,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Padding="0"
+                    Click="CloseApp">
+                <Button.Content>
+                    <Ellipse Fill="#f23838"
+                             Height="15"
+                             Width="15"
+                             Style="{StaticResource CloseButton}" />
+                </Button.Content>
+            </Button>
+            <Button Width="Auto"
+                    Height="Auto"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
+                    ToolTip="Minimize"
+                    Cursor="Hand"
+                    Margin="7,7,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Padding="0"
+                    Click="MinimizeApp">
+                <Button.Content>
+                    <Ellipse Fill="#f2ef38"
+                             Height="15"
+                             Width="15"
+                             Style="{StaticResource MinimizeButton}" />
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <!--  Content -->
+        <Grid Grid.Column="0"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition Width="9*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <!-- Margin="-20,0,0,0" ako je SingleBorder WindowStyle -->
+                <Image Source="Images/login-cover.png"></Image>
+            </Grid>
+            <Grid Grid.Column="1"
+                  Name="login"
+                  Background="{StaticResource BackgroundLightBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Name="Logo">
+                </Grid>
+                <TextBlock Grid.Row="1"
+                           FontSize="60"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource BrandColorBrush}"
+                           VerticalAlignment="Top"
+                           Margin="0,0,0,0">Login</TextBlock>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="2"
+                            Width="500"
+                            Margin="0,20,0,0"
+                            Name="emailPanel">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="EmailOutline"
+                                                 Margin="0,5,6,0"
+                                                 Width="20"
+                                                 Height="20"
+                                                 Foreground="{StaticResource BrandColorBrush}" />
+                        <TextBlock FontSize="20"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{StaticResource HighContrastNeutralLightBrush}">EMAIL ADDRESS</TextBlock>
+                    </StackPanel>
+                    <TextBox Width="600"
+                             Margin="0,15,0,0"
+                             FontSize="22"
+                             x:Name="email"
+                             Style="{StaticResource TextBox}"
+                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource BrandColorBrush}">
+                        <TextBox.Text>
+                            <Binding Path="EmailBinding"
+                                     Mode="TwoWay"
+                                     ValidatesOnNotifyDataErrors="True"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:EmailValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="3"
+                            Width="500"
+                            Name="passwordPanel">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="LockOutline"
+                                                 Margin="0,5,6,0"
+                                                 Width="20"
+                                                 Height="20"
+                                                 Foreground="{StaticResource BrandColorBrush}" />
+                        <TextBlock FontSize="20"
+                                   HorizontalAlignment="Left"
+                                   Foreground="{StaticResource HighContrastNeutralLightBrush}">PASSWORD</TextBlock>
+                    </StackPanel>
+                    <TextBox Width="600"
+                             Margin="0,15,0,0"
+                             FontSize="22"
+                             x:Name="password"
+                             Style="{StaticResource TextBox}"
+                             FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot"
+                             materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource BrandColorBrush}">
+                        <TextBox.Text>
+                            <Binding Path="PasswordBinding"
+                                     Mode="TwoWay"
+                                     ValidatesOnNotifyDataErrors="True"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:EmptyFieldRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock FontSize="14"
+                               Margin="0,7,0,0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Foreground="{StaticResource ReducedHighContrastNeutralLightBrush}">Forgot Password?</TextBlock>
+                </StackPanel>
+                <Button Grid.Row="4"
+                        Width="500"
+                        FontSize="22"
+                        Height="Auto"
+                        Margin="0,10,0,0"
+                        FontWeight="Bold"
+                        Background="{StaticResource BrandColorBrush}"
+                        BorderBrush="{StaticResource BrandColorBrush}"
+                        Click="Login_Clicked">
+                    <Button.Content>
+                        <TextBlock Foreground="{StaticResource BackgroundLightBrush}">LOGIN</TextBlock>
+                    </Button.Content>
+                    <Button.Style>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource {x:Type Button}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=email}"
+                                             Value="True">
+                                    <Setter Property="IsEnabled"
+                                            Value="false" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="5"
+                            Width="600"
+                            Margin="0,32,0,0">
+                    <StackPanel Orientation="Horizontal"
+                                Width="500">
+                        <Separator Width="175"
+                                   Background="LightGray" />
+                        <TextBlock Margin="23,0,21,0"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource ReducedHighContrastNeutralLightBrush}">Or log in using</TextBlock>
+                        <Separator Width="175"
+                                   Background="LightGray" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Width="500"
+                                Margin="0,24,0,0">
+                        <Button Width="200"
+                                Height="40"
+                                FontSize="20"
+                                Style="{StaticResource EmptyPurpleButton}"
+                                BorderBrush="#cccccc">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="Facebook"
+                                                             Height="20"
+                                                             Width="20"
+                                                             Margin="-6,0,12,0"
+                                                             Foreground="{StaticResource BrandColorBrush}" />
+                                    <TextBlock FontSize="14"
+                                               Foreground="{StaticResource HighContrastNeutralLightBrush}">FACEBOOK</TextBlock>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="200"
+                                Margin="100,0,0,0"
+                                Height="40"
+                                FontSize="20"
+                                Style="{StaticResource EmptyPurpleButton}"
+                                BorderBrush="#cccccc">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <svgc:SvgViewbox Source="Images/google-icon.svg"
+                                                     Height="20"
+                                                     Width="20"
+                                                     Margin="-6,0,12,0"
+                                                     Cursor="Hand" />
+                                    <TextBlock FontSize="14"
+                                               Foreground="{StaticResource HighContrastNeutralLightBrush}">GOOGLE</TextBlock>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="6"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,30,0,0">
+                    <TextBlock FontSize="14"
+                               Foreground="{StaticResource ReducedHighContrastNeutralLightBrush}">Don't have an account?</TextBlock>
+                    <TextBlock FontSize="14"
+                               Margin="5,0,0,0"
+                               Foreground="#0076e0"
+                               TextDecorations="Underline">Sign up.</TextBlock>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>
