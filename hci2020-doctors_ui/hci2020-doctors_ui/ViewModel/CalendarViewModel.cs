@@ -1,4 +1,5 @@
 ﻿using hci2020_doctors_ui.Model;
+using HealthClinic;
 using Syncfusion.UI.Xaml.Schedule;
 using System;
 using System.Windows;
@@ -30,6 +31,8 @@ namespace hci2020_doctors_ui.ViewModel
             StartDate = DateTime.Now;
             StartTime = DateTime.Now;
             EndTime = DateTime.Now;
+
+            RoomHistory rc = new RoomHistory();
         }
 
 

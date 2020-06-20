@@ -404,7 +404,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\HealthClinic\HealthClinic\HealthClinic.csproj">
+      <Project>{8b8cc58c-605d-4035-b34e-3984f60efe20}</Project>
+      <Name>HealthClinic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Images\google-icon.svg" />
     <Resource Include="View\Images\login-cover.png" />
