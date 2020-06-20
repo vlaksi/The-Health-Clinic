@@ -15,7 +15,8 @@
     <Grid Background="#cdfbf4">
         <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox
-                IsEnabled="False"
+                Text="{Binding NuspojavaDijalog}"
+                
                 Width="250"
                 Height="120"
                 HorizontalContentAlignment="Center"
@@ -28,7 +29,6 @@
                 FontSize="14" 
                 materialDesign:HintAssist.Hint="Izmeni lek za dodavanje nuspojave"
                 materialDesign:HintAssist.HelperText="Nuspojave koje lek ima"
-                Text="{Binding SelektovaniLek.Nuspojave}"
                 >
 
             </TextBox>

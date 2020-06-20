@@ -35,7 +35,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje naziva leka + validacija-->
                     <Binding 
-                        Path="LekZaDodavanje.NazivLeka"
+                        Path="LekZaDodavanje.Name"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -66,7 +66,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje kolicine leka + validacija-->
                     <Binding 
-                        Path="LekZaDodavanje.Kolicina"
+                        Path="LekZaDodavanje.Quantity"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -98,7 +98,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje nuspojave leka + validacija-->
                     <Binding 
-                        Path="LekZaDodavanje.Nuspojave"
+                        Path="LekZaDodavanje.SideEffects"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -157,7 +157,7 @@
                 materialDesign:HintAssist.Hint="Izaberite vrstu leka"
                 materialDesign:HintAssist.HelperText="Vrsta leka"
                 ItemsSource="{Binding MoguceVrsteLekova}"
-                SelectedValue="{Binding LekZaDodavanje.VrstaLeka }"
+                SelectedValue="{Binding LekZaDodavanje.MedicineType }"
                 >
                 
 

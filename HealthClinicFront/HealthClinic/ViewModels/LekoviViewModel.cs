@@ -23,11 +23,13 @@ using Syncfusion.DocIO.DLS;
 using Syncfusion.DocToPDFConverter;
 using HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment;
 
+using Model.Medicine;
+
 namespace HealthClinic.ViewModels
 {
     public class LekoviViewModel : ObservableObject
     {
-        
+
         public LekoviViewModel()
         {
             ucitavanjeLekova();
@@ -51,20 +53,19 @@ namespace HealthClinic.ViewModels
             AlergijeCommand = new RelayCommand(PrikaziAlergije);
         }
 
-        
 
 
 
         #region Selektovani lek
 
-        private Lek _selektovaniLek;
+        private Medicine _selektovaniLek;
 
 
         // Bajndujem na SelectedItem u tabeli i dalje radim sa njim sta hocu
         // mogu ga dalje prikazivati
         // a moze se i proslediti u dijalog
         // tako sto se .DatContext tog dijalog postavi na this
-        public Lek SelektovaniLek
+        public Medicine SelektovaniLek
         {
             get { return _selektovaniLek; }
             set { _selektovaniLek = value; OnPropertyChanged("SelektovaniLek"); }
@@ -75,9 +76,9 @@ namespace HealthClinic.ViewModels
 
         #region Lek za izmenu
 
-        private Lek _lekZaIzmenu;
+        private Medicine _lekZaIzmenu;
 
-        public Lek LekZaIzmenu
+        public Medicine LekZaIzmenu
         {
             get { return _lekZaIzmenu; }
             set { _lekZaIzmenu = value; OnPropertyChanged("LekZaIzmenu"); }
@@ -87,9 +88,9 @@ namespace HealthClinic.ViewModels
 
         #region Lek za dodavanje
 
-        private Lek _lekZaDodavanje;
+        private Medicine _lekZaDodavanje;
 
-        public Lek LekZaDodavanje
+        public Medicine LekZaDodavanje
         {
             get { return _lekZaDodavanje; }
             set { _lekZaDodavanje = value; OnPropertyChanged("LekZaDodavanje"); }
@@ -135,14 +136,14 @@ namespace HealthClinic.ViewModels
             // sprecavam kada nije selektovan lek da ne pukne program
             if (SelektovaniLek is null)
                 return;
-            foreach (Lek trenutniLek in Lekovi)
+            foreach (Medicine trenutniLek in Lekovi)
             {
-                if (trenutniLek.NazivLeka == SelektovaniLek.NazivLeka)
+                if (trenutniLek.Name == SelektovaniLek.Name)
                 {
-                    MessageBox.Show("Uspesno ste izbrisali lek " + trenutniLek.NazivLeka);
+                    MessageBox.Show("Uspesno ste izbrisali lek " + trenutniLek.Name);
                     podesiBrojOdredjenihLekova(trenutniLek, -1);        // -1 da bih mu smanjio kolicinu vrste ovog leka
                     Lekovi.Remove(trenutniLek);
-                    
+
                     break;
                 }
             }
@@ -157,7 +158,7 @@ namespace HealthClinic.ViewModels
 
             // dodajem lek u listu lekova
             Lekovi.Add(LekZaDodavanje);
-            podesiBrojOdredjenihLekova(LekZaDodavanje,1);
+            podesiBrojOdredjenihLekova(LekZaDodavanje, 1);
 
             this.TrenutniProzor.Close();            // gasenje trenutnog prozora
         }
@@ -175,11 +176,11 @@ namespace HealthClinic.ViewModels
                 return;
 
             // selektovani objekat prima vrednosti od menjanog objekta
-            SelektovaniLek.Kolicina = LekZaIzmenu.Kolicina;
-            SelektovaniLek.NazivLeka = LekZaIzmenu.NazivLeka;
-            SelektovaniLek.VrstaLeka = LekZaIzmenu.VrstaLeka;
-            SelektovaniLek.Alergije = LekZaIzmenu.Alergije;
-            SelektovaniLek.Nuspojave = LekZaIzmenu.Nuspojave;
+            SelektovaniLek.Name = LekZaIzmenu.Name;
+            SelektovaniLek.Quantity = LekZaIzmenu.Quantity;
+            SelektovaniLek.MedicineType = LekZaIzmenu.MedicineType;
+            SelektovaniLek.Alergen = LekZaIzmenu.Alergen;
+            SelektovaniLek.SideEffects = LekZaIzmenu.SideEffects;
 
             this.TrenutniProzor.Close();            // gasenje trenutnog prozora
         }
@@ -198,7 +199,7 @@ namespace HealthClinic.ViewModels
                 //Set Margin of the section
                 section.PageSetup.Margins.All = 20;
 
-                
+
                 #region Create paragraph styles
                 WParagraphStyle style = document.AddParagraphStyle("Normal") as WParagraphStyle;
                 style.CharacterFormat.FontName = "Calibri";
@@ -255,7 +256,7 @@ namespace HealthClinic.ViewModels
 
 
                 // Dodavnje kroz for petlju
-                for(int red = 1; red < Lekovi.Count+1; red++)
+                for (int red = 1; red < Lekovi.Count + 1; red++)
                 {
                     int kolona = 0;
                     int indexElementaNiza = red - 1;
@@ -264,18 +265,18 @@ namespace HealthClinic.ViewModels
                     paragraphTable.AppendText(red.ToString());
 
                     paragraphTable = table[red, kolona++].AddParagraph();
-                    paragraphTable.AppendText(Lekovi[indexElementaNiza].NazivLeka);
+                    paragraphTable.AppendText(Lekovi[indexElementaNiza].Name);
 
                     paragraphTable = table[red, kolona++].AddParagraph();
-                    paragraphTable.AppendText(Lekovi[indexElementaNiza].VrstaLeka);
+                    paragraphTable.AppendText(Lekovi[indexElementaNiza].MedicineType);
 
                     paragraphTable = table[red, kolona++].AddParagraph();
-                    paragraphTable.AppendText(Lekovi[indexElementaNiza].Kolicina);
+                    paragraphTable.AppendText(Lekovi[indexElementaNiza].Quantity.ToString());
                 }
 
                 int redova = Lekovi.Count + 1;
                 table[redova, 0].CellFormat.HorizontalMerge = CellMerge.Start;
-                for(int kolona=1; kolona < 4; kolona++)
+                for (int kolona = 1; kolona < 4; kolona++)
                 {
                     table[redova, kolona].CellFormat.HorizontalMerge = CellMerge.Continue;
                 }
@@ -302,7 +303,7 @@ namespace HealthClinic.ViewModels
         public void DodajLek(object obj)
         {
             // ako bude potvrda za dodavanje ovaj lek cu dodati
-            LekZaDodavanje = new Lek();
+            LekZaDodavanje = new Medicine();
 
             // prikaz dijaloga dodavanja leka
             TrenutniProzor = new DodajLekDijalog();
@@ -316,22 +317,21 @@ namespace HealthClinic.ViewModels
             // Lek za izmenu/stimanje preuzima podatke od selektovanog leka
             if (!(SelektovaniLek is null))
             {
-                LekZaIzmenu = new Lek()
+                LekZaIzmenu = new Medicine()
                 {
-                    NazivLeka = SelektovaniLek.NazivLeka,
-                    Kolicina = SelektovaniLek.Kolicina,
-                    SifraLeka = SelektovaniLek.SifraLeka,
-                    VrstaLeka = SelektovaniLek.VrstaLeka,
-                    Nuspojave = SelektovaniLek.Nuspojave,
-                    Alergije = SelektovaniLek.Alergije
-                    
+                    Name = SelektovaniLek.Name,
+                    Quantity = SelektovaniLek.Quantity,
+                    Id = SelektovaniLek.Id,
+                    MedicineType = SelektovaniLek.MedicineType,
+                    SideEffects = SelektovaniLek.SideEffects,
+                    Alergen = SelektovaniLek.Alergen
                 };
             }
             else
             {
                 return;
             }
-                
+
 
 
 
@@ -370,10 +370,10 @@ namespace HealthClinic.ViewModels
         #endregion
 
         #region Tabela & vrste lekova
-        
-        private ObservableCollection<Lek> _lek;
 
-        public ObservableCollection<Lek> Lekovi
+        private ObservableCollection<Medicine> _lek;
+
+        public ObservableCollection<Medicine> Lekovi
         {
             get { return _lek; }
             set { _lek = value; OnPropertyChanged("Lekovi"); }
@@ -381,16 +381,16 @@ namespace HealthClinic.ViewModels
 
         private void ucitavanjeLekova()
         {
-            Lekovi = new ObservableCollection<Lek>();
-            Lekovi.Add(new Lek() { NazivLeka = "Andol", SifraLeka = "0x21FDAF", Kolicina = "10" , VrstaLeka="antibiotik"});
-            Lekovi.Add(new Lek() { NazivLeka = "Sabax", SifraLeka = "0x22FDAF", Kolicina = "11", VrstaLeka = "analgetik" });
-            Lekovi.Add(new Lek() { NazivLeka = "Kafetin", SifraLeka = "0x23FDAF", Kolicina = "12", VrstaLeka = "kardio vaskularni" });
-            Lekovi.Add(new Lek() { NazivLeka = "Bensedin", SifraLeka = "0x24FDAF", Kolicina = "13", VrstaLeka = "anestetik" });
-            
+            Lekovi = new ObservableCollection<Medicine>();
+            Lekovi.Add(new Medicine() { Name = "Andol", Id = 1, Quantity = 10, MedicineType = "antibiotik" , SideEffects="nema"});
+            Lekovi.Add(new Medicine() { Name = "Sabax", Id = 2, Quantity = 11, MedicineType = "analgetik" });
+            Lekovi.Add(new Medicine() { Name = "Kafetin", Id = 3, Quantity = 12, MedicineType = "kardio vaskularni" });
+            Lekovi.Add(new Medicine() { Name = "Bensedin", Id = 4, Quantity = 13, MedicineType = "anestetik" });
+
             // Odredjivanje koliko imamo kog leka
-            foreach (Lek lek in Lekovi)
+            foreach (Medicine lek in Lekovi)
             {
-                podesiBrojOdredjenihLekova(lek,1);
+                podesiBrojOdredjenihLekova(lek, 1);
             }
 
         }
@@ -399,9 +399,9 @@ namespace HealthClinic.ViewModels
         /// </summary>
         /// <param name="lek"></param>
         /// <param name="koeficijentPravca"> Prosledjuje se broj koji govori koliko povecavam/smanjujem odredjenog leka</param>
-        private void podesiBrojOdredjenihLekova(Lek lek, int koeficijentPravca)
+        private void podesiBrojOdredjenihLekova(Medicine lek, int koeficijentPravca)
         {
-            if (lek.VrstaLeka == "antibiotik")
+            if (lek.MedicineType == "antibiotik")
             {
                 if (this.UkupnoAntibiotika is null)
                     BrojacAntibiotika = 1;
@@ -410,7 +410,7 @@ namespace HealthClinic.ViewModels
                 this.UkupnoAntibiotika = new ChartValues<int>() { BrojacAntibiotika };
 
             }
-            else if (lek.VrstaLeka == "analgetik")
+            else if (lek.MedicineType == "analgetik")
             {
                 if (this.UkupnoAnalgetika is null)
                     BrojacAnalgetika = 1;
@@ -418,7 +418,7 @@ namespace HealthClinic.ViewModels
                     BrojacAnalgetika += koeficijentPravca;
                 this.UkupnoAnalgetika = new ChartValues<int>() { BrojacAnalgetika };
             }
-            else if (lek.VrstaLeka == "kardio vaskularni")
+            else if (lek.MedicineType == "kardio vaskularni")
             {
                 if (this.UkupnoKardioVaskularnih is null)
                     BrojacKardioVaskularnih = 1;
@@ -426,7 +426,7 @@ namespace HealthClinic.ViewModels
                     BrojacKardioVaskularnih += koeficijentPravca;
                 this.UkupnoKardioVaskularnih = new ChartValues<int>() { BrojacKardioVaskularnih };
             }
-            else if (lek.VrstaLeka == "anestetik")
+            else if (lek.MedicineType == "anestetik")
             {
                 if (this.UkupnoAnestetika is null)
                     BrojacAnestetika = 1;
@@ -483,7 +483,7 @@ namespace HealthClinic.ViewModels
         private ChartValues<int> _ukupnoKardioVaskularnih;
         private ChartValues<int> _ukupnoAnestetika;
 
-       
+
         public ChartValues<int> UkupnoAntibiotika
         {
             get { return _ukupnoAntibiotika; }
@@ -501,7 +501,7 @@ namespace HealthClinic.ViewModels
             get { return _ukupnoKardioVaskularnih; }
             set { _ukupnoKardioVaskularnih = value; OnPropertyChanged("UkupnoKardioVaskularnih"); }
         }
-        
+
         public ChartValues<int> UkupnoAnestetika
         {
             get { return _ukupnoAnestetika; }
@@ -540,23 +540,22 @@ namespace HealthClinic.ViewModels
 
         #endregion
 
-
         #region Validiranje lekova
-        private bool validanLek(Lek lek)
+        private bool validanLek(Medicine lek)
         {
-            if (lek.Kolicina is null)
+            if (lek.Quantity <= 0)
             {
                 MessageBox.Show("Niste uneli kolicinu leka");
                 return false;
             }
 
-            if (lek.NazivLeka is null)
+            if (lek.Name is null)
             {
                 MessageBox.Show("Niste uneli naziv leka");
                 return false;
             }
 
-            if (lek.VrstaLeka is null)
+            if (lek.MedicineType is null)
             {
                 MessageBox.Show("Niste uneli vrstu leka");
                 return false;
@@ -564,9 +563,9 @@ namespace HealthClinic.ViewModels
 
 
             // TODO: Kako da proverim da li nasa aplikacija ima ErrorContenta da bih bacio poruku greske ovde neku
-            
 
-            
+
+
 
             return true;
         }

@@ -60,8 +60,8 @@
                           >
                     <!-- Custom kolone tabele-->
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding NazivLeka}" Header="Naziv leka"/>
-                        <DataGridTextColumn Binding="{Binding Kolicina}" Header="Koli&#x10D;ina"/>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Naziv leka"/>
+                        <DataGridTextColumn Binding="{Binding Quantity}" Header="Koli&#x10D;ina"/>
                         <!-- Dugmad u tabeli -->
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>

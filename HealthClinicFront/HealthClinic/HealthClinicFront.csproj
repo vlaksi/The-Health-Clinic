@@ -189,7 +189,6 @@
     <Compile Include="Views\Dialogs\ZauzetostAktivnostDijalog.xaml.cs">
       <DependentUpon>ZauzetostAktivnostDijalog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lek.cs" />
     <Compile Include="Models\Prostorija.cs" />
     <Compile Include="Models\Zaposlen.cs" />
     <Compile Include="Utilities\ObservableObject.cs" />

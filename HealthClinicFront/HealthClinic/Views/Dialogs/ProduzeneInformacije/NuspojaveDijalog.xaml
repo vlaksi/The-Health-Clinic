@@ -27,7 +27,7 @@
                 FontSize="14" 
                 materialDesign:HintAssist.Hint="Izmeni lek za dodavanje nuspojave"
                 materialDesign:HintAssist.HelperText="Nuspojave koje lek ima"
-                Text="{Binding SelektovaniLek.Nuspojave}"
+                Text="{Binding SelektovaniLek.SideEffects}"
                 >
 
             </TextBox>
