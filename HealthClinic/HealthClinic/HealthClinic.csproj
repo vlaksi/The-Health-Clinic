@@ -199,6 +199,7 @@
     <Compile Include="Service\UserServ\ManagerService.cs" />
     <Compile Include="Service\UserServ\PatientService.cs" />
     <Compile Include="Service\UserServ\UserFactoryService.cs" />
+    <Compile Include="Utilities\ObservableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

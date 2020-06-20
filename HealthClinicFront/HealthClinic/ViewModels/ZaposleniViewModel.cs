@@ -19,6 +19,7 @@ using System.Windows.Input;
 using Syncfusion.Pdf.Tables;
 using System.Data;
 using HealthClinic.Views.Dialogs.ProduzeneInformacije;
+using Model.BusinessHours;
 
 namespace HealthClinic.ViewModels
 {
@@ -206,7 +207,7 @@ namespace HealthClinic.ViewModels
                 return;
 
             // dodajem zaposlenog ukoliko je odgovor bio potvrdan
-            ZaposleniZaDodavanje.RadniKalendar = new BusinessHours();
+            ZaposleniZaDodavanje.RadniKalendar = new BusinessHoursModel();
             ZaposleniZaDodavanje.RadniKalendar.FromDate = DateTime.Now;
             ZaposleniZaDodavanje.RadniKalendar.ToDate = DateTime.Now;
 
@@ -460,7 +461,7 @@ namespace HealthClinic.ViewModels
         {
             //Tabela - popunjavanje
             Zaposleni = new ObservableCollection<Zaposlen>();
-            BusinessHours bs = new BusinessHours() { FromDate = new DateTime(2020,1,1), ToDate = new DateTime(2020, 2,1), FromHour= new DateTime(2020,1,1,9,30,30), ToHour= new DateTime(2020, 2, 1, 17, 30, 30) };
+            BusinessHoursModel bs = new BusinessHoursModel() { FromDate = new DateTime(2020,1,1), ToDate = new DateTime(2020, 2,1), FromHour= new DateTime(2020,1,1,9,30,30), ToHour= new DateTime(2020, 2, 1, 17, 30, 30) };
             Zaposleni.Add(new Zaposlen()
             {
                 KorisnickoIme = "zikaa",
@@ -468,7 +469,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Vojvodic",
                 Struka = "Otorinolaringolog",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -484,7 +485,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Zigic",
                 Struka = "Oftamolog",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -500,7 +501,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Bogdanovic",
                 Struka = "Kardio hirurg",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -516,7 +517,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Jokic",
                 Struka = "Pedijatar",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -532,7 +533,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Marjanovic",
                 Struka = "Lekar opste prakse",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -548,7 +549,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Vojvodic",
                 Struka = "Otorinolaringolog",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -564,7 +565,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Zigic",
                 Struka = "Sekretar",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -580,7 +581,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Bogdanovic",
                 Struka = "Kardio hirurg",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -596,7 +597,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Jokic",
                 Struka = "Pedijatar",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -612,7 +613,7 @@ namespace HealthClinic.ViewModels
                 Prezime = "Marjanovic",
                 Struka = "Lekar opste prakse",
                 Sifra = "*****",
-                RadniKalendar = new BusinessHours()
+                RadniKalendar = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,

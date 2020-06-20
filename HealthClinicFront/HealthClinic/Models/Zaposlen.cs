@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;        // za podatke/tabelu
+using Model.BusinessHours;
 
 namespace HealthClinic.Models
 {
@@ -14,9 +15,9 @@ namespace HealthClinic.Models
         private string _struka;
         private string _sifra;  
         private string _korisnickoIme;
-        private BusinessHours _businessHours;
+        private BusinessHoursModel _businessHours;
 
-        public BusinessHours RadniKalendar
+        public BusinessHoursModel RadniKalendar
         {
             get { return _businessHours; }
             set
