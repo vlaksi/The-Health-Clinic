@@ -1,0 +1,181 @@
+﻿<Window x:Class="HealthClinic.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HealthClinic"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels="clr-namespace:HealthClinic.ViewModels"
+        xmlns:views="clr-namespace:HealthClinic.Views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Height="620" Width="1080"  WindowStyle="None" MinHeight="620" MinWidth="1080"  >
+    <Window.Resources>
+        <!-- Bajndovanje DateConteksta za svaki view zasebno -->
+        <DataTemplate x:Name="ucitavanjeViewTemplate" DataType="{x:Type viewmodels:UcitavanjeViewModel}">
+            <views:UcitavanjeView DataContext="{Binding}"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Name="homePageViewTemplate" DataType="{x:Type viewmodels:HomeViewModel}">
+            <views:HomeView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="blogViewTemplate" DataType="{x:Type viewmodels:BlogViewModel}">
+            <views:BlogView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="aboutViewTemplate" DataType="{x:Type viewmodels:AboutViewModel}">
+            <views:AboutView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="recenzijeViewTemplate" DataType="{x:Type viewmodels:RecenzijaViewModel}">
+            <views:RecenzijaView DataContext="{Binding}"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Name="zaposleniViewTemplate" DataType="{x:Type viewmodels:ZaposleniViewModel}">
+            <views:ZaposleniView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="prostorijeViewTemplate" DataType="{x:Type viewmodels:ProstorijeViewModel}">
+            <views:ProstorijeView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="lekoviViewTemplate" DataType="{x:Type viewmodels:LekoviViewModel}">
+            <views:LekoviView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="profilViewTemplate" DataType="{x:Type viewmodels:ProfilViewModel}">
+            <views:ProfilView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <!-- Kraj bajndovanja -->
+        
+    </Window.Resources>
+
+    <StackPanel Background="#cdfbf4" MouseDown="StackPanel_MouseDown">
+
+        <!-- Gornji deo iznad menija-->
+        <Grid Height="40" Background="WhiteSmoke">
+
+            <!-- Biranje jezika aplikacije -->
+            <StackPanel HorizontalAlignment="Left" Margin="20 0">
+                <ComboBox FontSize="15" Width="50" Foreground="#FFA2A2A2" SelectedIndex="0" VerticalAlignment="Center">
+                    <ComboBoxItem Content="EN"/>
+                    <ComboBoxItem Content="DE"/>
+                    <ComboBoxItem Content="RS"/>
+                </ComboBox>
+            </StackPanel>
+            <!-- Kraj biranja jezika aplikacije. -->
+
+            <!-- Meni deo iznad glavnog menija koji omogucue odredjene funkcionalnosti za sve korisnike aplikacije. -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20 0">
+                <Button Content="FAQ" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2A2A2" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Button Content="CONTACT" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2A2A2" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Button Content="ABOUT US" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2A2A2" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Button Content="HELP" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFA2A2A2" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                <!-- Dugme za gasenje aplikacije. -->
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Click="ExitApp_Click">
+                    <materialDesign:PackIcon Kind="Power" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                    <!-- Dugme za gasenje iz materijal design-era-->
+                </Button>
+                <!-- Kraj dugmeta za gasenje aplikacije. -->
+
+            </StackPanel>
+            <!-- Kraj meni dela iznad menija -->
+
+        </Grid>
+        <!-- Kraj gornjeg dela iznad menija-->
+
+
+        <Grid Height="550">
+            <!-- Pravljenje table 10x10 kako bi vrsio laksu manipulaciju elementima + RESPONSIVE-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <!-- 5 -->
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <!-- 10 -->
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <!-- 5 -->
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <!-- 10 -->
+            </Grid.RowDefinitions>
+            <!-- Kraj definisanja table -->
+
+            <!-- Meni bar aplikacije-->
+
+            <!-- Glavni deo meni bara.-->
+            <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="10">
+    
+                <Grid>
+                    <!-- OMOGUCUJE RESPONSIVE DEO: Definisanje koliko narednih kolona ce primiti button-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Kraj definisanja broja kolona za meni -->
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0" Height="50" Uid="0" Content="Pocetna" Click="PocetnaTab_Click"/>
+                    <Button Grid.Column="1" Height="50" Uid="1" Content="Blog" Click="BlogTab_Click" />
+                    <Button Grid.Column="2" Height="50" Uid="2" Content="O klinici" Click="AboutTab_Click" />
+                    <Button Grid.Column="3" Height="50" Uid="3" Content="Recenzije" Click="RecenzijeTab_Click" />
+                    <Button Grid.Column="4" Height="50" Uid="4" Content="Zaposleni" Click="ZaposleniTab_Click" />
+                    <Button Grid.Column="5" Height="50" Uid="5" Content="Prostorije" Click="ProstorijeTab_Click" />
+                    <Button Grid.Column="6" Height="50" Uid="6" Content="Lekovi" Click="LekoviTab_Click" />
+                    <Button Grid.Column="7" Height="50" Uid="7" Content="Profil" Click="ProfilTab_Click" />
+
+                    <StackPanel x:Name="GridCursor" Grid.Column="0" Grid.ColumnSpan="8" Width="110" Height="3" Opacity="1" Background="White" HorizontalAlignment="Left" Margin="10, 40, 0, 0"/>
+                </Grid>
+                
+            </DockPanel>
+            <!--Kraj glavnog dela meni bara. -->
+            
+            <!--Kraj meni bara aplikacije.-->
+
+
+            <!-- Kontrola izmene 'body' dela aplikacije -->
+            <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="22" Content="{Binding}"/>
+            <!-- Kraj kontrolnog dela izmene bodija. -->
+
+            <!--
+            NAPOMENA SAMOM SEBI U BUDUCNOSTI: Kada budes hteo da kazes koje ces row/column
+            da budu za sta, koristi ContentControler koji ce da bajnduje razlicite View,
+            a njih ces onda u tom opsegu row/column da postavljas.
+            
+        -->
+
+        </Grid>
+        
+        
+        
+    </StackPanel>
+</Window>

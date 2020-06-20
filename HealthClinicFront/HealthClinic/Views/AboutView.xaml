@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="HealthClinic.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HealthClinic.Views"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1080">
+    <Grid Background="#cdfbf4">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Deo sa videom -->
+        <StackPanel Grid.Column="0">
+
+            <!-- Text iznad promocije-->
+            <TextBlock 
+                HorizontalAlignment="Left"
+                FontFamily="Times New Roman" 
+                FontSize="22" 
+                FontStyle="Italic"
+                Text="Korporacija Zdravo, klinika zdravlja i rehabilitacije!"
+                Margin="60, 20, 0, 0"
+                Foreground="#FF2196F3">
+
+            </TextBlock>
+            <!-- Kraj teksta iznad promocije -->
+
+            <!-- Shadow karta za VIDEO -->
+            <materialDesign:Card
+                Height="360"
+                Width="560"
+                HorizontalAlignment="Center"
+                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                Margin="10, 20, 0, 0"
+                Padding="0" 
+                Background="#FFCDFBF8">
+                
+                <!-- Pocetak dela sa video promocijom. -->
+                <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+
+        
+                    <!-- Video promocija-->
+                    <ContentControl Height="300" Width="500" Content="{Binding MediaElementObject}">
+                        
+                    </ContentControl>
+                    <!-- Kraj video promocije -->
+
+                    <!-- Slajderi -->
+                    <StackPanel Orientation="Horizontal">
+
+                        <!-- Vremena -->
+                        <Slider
+                            Margin="10"
+                            TickFrequency="5"
+                            Orientation="Horizontal"
+                            Minimum="1"
+                            Maximum="{Binding MaxVreme}"
+                            Value="{Binding TrenutniProgresKlipa}"
+                            Width="410" 
+                          
+                            Name="SlajderVremenaVidea" 
+                            
+                                        />
+                        <!-- Kraj slajdera vremena -->
+
+                        <!-- Slajder zvuka -->
+                        <Slider
+                          Margin="40 0 0 0"
+                          TickFrequency="5"
+                          TickPlacement="BottomRight"
+                          Orientation="Vertical"
+                          Minimum="0"
+                          Maximum="1"
+                          LargeChange="0.1"
+                          SmallChange="0.01"
+                          Value="{Binding TrenutniProgresZvuka}"
+                          Name="SlajderZvuka" 
+                                        />
+                        <!-- Kraj slajdera zvuka -->
+
+                    </StackPanel>
+                    <!-- Kraj slajdera -->
+
+                </StackPanel>
+                <!-- Kraj dela sa video promocijom -->
+
+            </materialDesign:Card>
+        </StackPanel>
+        <!-- Kraj dela sa videom-->
+        
+
+        
+
+        <!-- Moj najednostavniji nacin pravljenja separatora. -->
+        <StackPanel Grid.Column="1" Width="2" Height="300" Background="Black" Opacity="0.2"/>
+        
+        <!-- Slika gde nalazi nasa klinika-->
+        <StackPanel Grid.Column="2" Width="363" Margin="10, 60, 0, 0">
+            <!-- Adresa-->
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontFamily="Times New Roman" 
+                FontSize="20" 
+                FontStyle="Italic"
+                Text="Pronadjite nas na adresi ispod."
+                Margin="10, 20, 0, 0"
+                Foreground="#FF2196F3">
+
+            </TextBlock>
+            <!-- Kraj adrese -->
+
+            <Image VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+               Source="C:\Users\Vaxi\Desktop\6-semestar\HCI\projekat\Vaksi\HealthClinic\HealthClinic\videos\findus.png" 
+               Height="287"/>
+            <!-- Adresa-->
+            <TextBlock 
+                HorizontalAlignment="Center"
+                FontFamily="Times New Roman" 
+                FontSize="20" 
+                FontStyle="Italic"
+                Text="Novi Sad, Topolska 18."
+                Margin="10, 10, 0, 0"
+                Foreground="#FF2196F3">
+
+            </TextBlock>
+            <!-- Kraj adrese -->
+            
+        </StackPanel>
+        <!-- Kraj slike gde se nalazi nasa klinika-->
+
+
+    </Grid>
+</UserControl>

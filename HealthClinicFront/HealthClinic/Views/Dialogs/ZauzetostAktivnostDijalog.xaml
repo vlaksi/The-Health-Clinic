@@ -1,0 +1,296 @@
+﻿<Window x:Class="HealthClinic.Dialogs.ZauzetostAktivnostDijalog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:HealthClinic.Dialogs"
+        xmlns:validations ="clr-namespace:HealthClinic.Utilities.Validations"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Zauzetost/Aktivnost" Height="500" Width="600"
+        MaxHeight="450" MinHeight="500"
+        MaxWidth="400" MinWidth="800">
+    <Grid Background="#cdfbf4">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Stek za kalendar-->
+        <StackPanel Grid.Column="0">
+            <!-- Text iznad kalendara -->
+            <TextBlock 
+                HorizontalAlignment="Left"
+                FontFamily="Times New Roman" 
+                FontSize="22" 
+                FontStyle="Italic"
+                Text="Zauzeti/slobodni termini"
+                Margin="60, 10, 0, 0"
+                Foreground="#FF2196F3">
+            </TextBlock>
+            <!-- Kraj teksta iznad kalendara  -->
+
+            <!-- 
+                Imam informaciju kada je prostorija zauzeta
+                a i kada je slobodna.
+                Zauzeta - onemogucen izbor tog datuma
+                Slobodna - omogucen
+            -->
+            <!-- Kalendar-->
+            <Viewbox 
+                Stretch="Fill"
+                Height="390"
+                Width="300"
+                Grid.Column="0"
+                Margin="0, 10, 0, 0"
+            >
+                <ContentControl Content="{Binding KalendarObject}">
+
+                </ContentControl>
+            </Viewbox>
+            <!-- Kraj kalendara -->
+        </StackPanel>
+        <!-- Kraj steka za kalendar -->
+        
+        <!-- Manipulacija prostorijom-->
+        <StackPanel Grid.Column="1">
+            <!-- Podaci -->
+            <StackPanel >
+                <Label
+                    Margin="40,10 ,0, 0"
+                    FontFamily="Times New Roman" 
+                    FontSize="18" 
+                    Content="Izaberi &#x17E;eljenu manipulaciju"
+                    Foreground="#FF2196F3"/>
+                <!-- Radio buttons-->
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="80,10,0,0">
+                    <RadioButton 
+                        Width="200" 
+                        Content="Renoviranje" 
+                        IsChecked="{Binding Renoviranje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <RadioButton 
+                        Width="200" 
+                        Content="Spajanje s drugom prostorijom"
+                        IsChecked="{Binding Spajanje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <RadioButton 
+                        Width="200" 
+                        Content="Deljenje trenutne prostorije"
+                        IsChecked="{Binding Deljenje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <!-- Kraj radio buttons-->
+
+                <!-- Pocetni datum -->
+                <DatePicker
+                    Visibility="{Binding PrikazTipaRenoviranja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="U desnom delu mozes klikom na kalendar, izabrati zeljeni datum"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10, 20, 10, 10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    materialDesign:HintAssist.HelperText="Od datuma"
+                    materialDesign:HintAssist.Hint="Izaberite od kog datuma">
+                    <DatePicker.SelectedDate>
+                        <Binding
+                        Path="TrenutniFizickiRad.OdDatuma"
+                        UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <!-- Kraj pocetni datum-->
+
+                <!-- Krajnji datum -->
+                <DatePicker
+                    Visibility="{Binding PrikazTipaRenoviranja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="U desnom delu mozes klikom na kalendar, izabrati zeljeni datum"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10, 20, 10, 10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    materialDesign:HintAssist.HelperText="Do datuma"
+                    materialDesign:HintAssist.Hint="Izaberite do kog datuma">
+                    <DatePicker.SelectedDate>
+                        <Binding
+                        Path="TrenutniFizickiRad.DoDatuma"
+                        UpdateSourceTrigger="PropertyChanged">
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <!-- Kraj pocetni datum-->
+
+                <!-- Tip renoviranja -->
+                <TextBox
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                    Text="{Binding TrenutniFizickiRad.NazivRada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding PrikazTipaRenoviranja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    x:Name="TipRenoviranja"
+                    materialDesign:HintAssist.Hint="Unesite tip renoviranja"
+                    materialDesign:HintAssist.HelperText="Tip renoviranja"
+                    >
+
+                </TextBox>
+                <!-- Kraj tipa renoviranja -->
+
+                <!-- Izbor prostorije s kojom vrsimo spajanje -->
+                <TextBox
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                    Visibility="{Binding PrikazSobeSaKojomSpajamo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding BrojSobeSaKojomVrsimoSpajanje}"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    x:Name="ProstorijaSaKojomSpajam"
+                    materialDesign:HintAssist.Hint="Unesite broj prostorije sa kojom vr&#x161;ite spajanje"
+                    materialDesign:HintAssist.HelperText="Broj sobe prostorije sa kojom vr&#x161;ite spajanje"
+                    >
+
+
+                </TextBox>
+                <!-- Kraj izbora prostorije s kojom vrsimo spajanje -->
+
+                
+                
+                <!-- Broj nove prostorije -->
+                <TextBox
+                    TextWrapping="Wrap"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                    Visibility="{Binding PrikazNoveProstorije, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    x:Name="NazivNoveProstorije"
+                    materialDesign:HintAssist.Hint="Ovde unesite broj nove prostorije"
+                    materialDesign:HintAssist.HelperText="Broj nove prostorije">
+                    <TextBox.Text>
+                        <!-- Bajndovanje broja nove prostorije + validacija-->
+                        <Binding 
+                        Path="BrojNoveSobe"
+                        ValidatesOnDataErrors="True"
+                        UpdateSourceTrigger="PropertyChanged"
+                        >
+                            <Binding.ValidationRules>
+                                <validations:MinimumCharacterRule MinimumCharacters="1"/>
+                                <validations:MaximumCharacterRule MaximumCharacters="20"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                        <!-- Kraj bajndovanje broja nove prostorije + validacija-->
+                    </TextBox.Text>
+                </TextBox>
+                <!-- Kraj naziva nove prostorije -->
+
+                <!-- Tip prostorije -->
+                <ComboBox
+                    Visibility="{Binding PrikazSobeSaKojomSpajamo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                    ItemsSource="{Binding MoguciTipoviProstorije}"
+                    SelectedItem="{Binding NamenaProstorije}"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    x:Name="TipLeka"
+                    materialDesign:HintAssist.Hint="Izaberite tip prostorije"
+                    materialDesign:HintAssist.HelperText="Tip prostorije">
+
+                </ComboBox>
+                <!-- Kraj tipa prostorije -->
+
+                <!-- Naziv druge nove prostorije -->
+                <TextBox
+                    TextWrapping="Wrap"
+                    Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                    Visibility="{Binding PrikazDrugeNoveProstorije, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Background="WhiteSmoke"
+                    FontWeight="DemiBold"
+                    Width="320"
+                    Height="40"
+                    Margin="10"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    x:Name="NazivDrugeNoveProstorije"
+                    materialDesign:HintAssist.Hint="Ovde unesite broj druge nove prostorije"
+                    materialDesign:HintAssist.HelperText="Broj druge nove prostorije">
+                    <TextBox.Text>
+                        <!-- Bajndovanje broja nove prostorije + validacija-->
+                        <Binding 
+                        Path="BrojDrugeNoveSobe"
+                        ValidatesOnDataErrors="True"
+                        UpdateSourceTrigger="PropertyChanged"
+                        >
+                            <Binding.ValidationRules>
+                                <validations:MinimumCharacterRule MinimumCharacters="1"/>
+                                <validations:MaximumCharacterRule MaximumCharacters="20"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                        <!-- Kraj bajndovanje broja nove prostorije + validacija-->
+                    </TextBox.Text>
+                </TextBox>
+                <!-- Kraj naziva nove prostorije -->
+                
+                
+
+            </StackPanel>
+            <!-- Kraj dela sa podacima -->
+
+
+            <!-- Dugmad -->
+            <StackPanel Margin="0, 20, 0, 0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Button
+                    Command="{Binding PotvrdiZauzetostAktivnostCommand}"
+                    IsDefault="True"
+                    Height="40"
+                    Width="120"
+                    Margin="10"
+                >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="CheckboxMarkedCircle" Margin="0, 2, 5, 0" />
+                        <TextBlock Text="Potvrdi"/>
+                    </StackPanel>
+                </Button>
+
+                <Button 
+                    
+                    IsCancel="True"
+                    Height="40"
+                    Width="120"
+                    Margin="10"
+                >
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="CloseCircle" Margin="0, 2, 5, 0" />
+                        <TextBlock Text="Odustani"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+            <!-- Kraj dugmad dela-->
+        </StackPanel>
+        <!-- Kraj manipulacije prostorijom-->
+
+    </Grid>
+</Window>

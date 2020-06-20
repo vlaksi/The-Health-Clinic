@@ -1,0 +1,226 @@
+﻿<Window x:Class="HealthClinic.Dialogs.IzmeniZaposlenogDijalog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:HealthClinic.Dialogs"
+        xmlns:validations ="clr-namespace:HealthClinic.Utilities.Validations"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Izmeni zaposlenog" Height="510" Width="400">
+    <Grid Background="#cdfbf4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Podaci -->
+        <StackPanel Grid.Row="0">
+
+            <!-- Ime zaposlenog -->
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                Background="WhiteSmoke"
+                FontWeight="DemiBold"
+                Width="320"
+                Height="40"
+                Margin="10"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                x:Name="Ime"
+                materialDesign:HintAssist.Hint="Ovde unesite ime"
+                materialDesign:HintAssist.HelperText="Ime zaposlenog">
+                <TextBox.Text>
+                    <!-- Bajndovanje imena zaposlenog + validacija-->
+                    <Binding 
+                        Path="ZaposleniZaIzmenu.Ime"
+                        ValidatesOnDataErrors="True"
+                        UpdateSourceTrigger="PropertyChanged"
+                        >
+                        <Binding.ValidationRules>
+                            <validations:MinimumCharacterRule MinimumCharacters="2"/>
+                            <validations:MaximumCharacterRule MaximumCharacters="20"/>
+                            <validations:WordRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                    <!-- Kraj bajndovanje imena zaposlenog + validacija-->
+                </TextBox.Text>
+            </TextBox>
+            <!-- Kraj imena -->
+
+            <!-- Prezime -->
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                Background="WhiteSmoke"
+                FontWeight="DemiBold"
+                Width="320"
+                Height="40"
+                Margin="10"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                x:Name="Prezime"
+                materialDesign:HintAssist.Hint="Ovde unesite prezime"
+                materialDesign:HintAssist.HelperText="Prezime zaposlenog">
+                <TextBox.Text>
+                    <!-- Bajndovanje prezimena zaposlenog + validacija-->
+                    <Binding 
+                        Path="ZaposleniZaIzmenu.Prezime"
+                        ValidatesOnDataErrors="True"
+                        UpdateSourceTrigger="PropertyChanged"
+                        >
+                        <Binding.ValidationRules>
+                            <validations:MinimumCharacterRule MinimumCharacters="2"/>
+                            <validations:MaximumCharacterRule MaximumCharacters="20"/>
+                            <validations:WordRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                    <!-- Kraj bajndovanje prezimena zaposlenog + validacija-->
+                </TextBox.Text>
+            </TextBox>
+            <!-- Kraj prezimena -->
+
+            <!-- Korisnicko ime -->
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                Background="WhiteSmoke"
+                FontWeight="DemiBold"
+                Width="320"
+                Height="40"
+                Margin="10"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                x:Name="KorisnickoIme"
+                materialDesign:HintAssist.Hint="Ovde unesite korisn&#x10D;cko ime"
+                materialDesign:HintAssist.HelperText="Korisni&#x10D;ko ime zaposlenog">
+                <TextBox.Text>
+                    <!-- Bajndovanje korisnickog imena zaposlenog + validacija-->
+                    <Binding 
+                        Path="ZaposleniZaIzmenu.KorisnickoIme"
+                        ValidatesOnDataErrors="True"
+                        UpdateSourceTrigger="PropertyChanged"
+                        >
+                        <Binding.ValidationRules>
+                            <validations:MinimumCharacterRule MinimumCharacters="2"/>
+                            <validations:MaximumCharacterRule MaximumCharacters="20"/>
+                            <validations:UsernameRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                    <!-- Kraj bajndovanje korisnickog imena zaposlenog + validacija-->
+                </TextBox.Text>
+            </TextBox>
+            <!-- Kraj korisnickog imena -->
+
+            <!-- Lozinka -->
+            <TextBox
+                Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                Background="WhiteSmoke"
+                FontWeight="DemiBold"
+                Width="320"
+                Height="40"
+                Margin="10"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                x:Name="Lozinka"
+                materialDesign:HintAssist.Hint="Ovde unesite lozinku"
+                materialDesign:HintAssist.HelperText="Lozinka zaposlenog">
+                <TextBox.Text>
+                    <!-- Bajndovanje sifre zaposlenog + validacija-->
+                    <Binding 
+                        Path="ZaposleniZaIzmenu.Sifra"
+                        ValidatesOnDataErrors="True"
+                        UpdateSourceTrigger="PropertyChanged"
+                        >
+                        <Binding.ValidationRules>
+                            <validations:MinimumCharacterRule MinimumCharacters="2"/>
+                            <validations:MaximumCharacterRule MaximumCharacters="20"/>
+                            <validations:PasswordRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                    <!-- Kraj bajndovanje sifre zaposlenog + validacija-->
+                </TextBox.Text>
+            </TextBox>
+            <!-- Kraj lozinke -->
+
+            <!-- Tip zaposlenog -->
+            <ComboBox
+                Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                ItemsSource="{Binding MoguciTipoviZaposlenih}"
+                SelectedItem="{Binding ZaposleniZaIzmenu.Struka}"
+                Background="WhiteSmoke"
+                FontWeight="DemiBold"
+                Width="320"
+                Height="40"
+                Margin="10"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                x:Name="TipZaposlenog"
+                materialDesign:HintAssist.Hint="Izaberite tip zaposlenog"
+                materialDesign:HintAssist.HelperText="Tip zaposlenog"
+                >
+
+            </ComboBox>
+            <!-- Tip zaposlenog -->
+
+            <!-- Specijalizacija -->
+            <ComboBox
+                Validation.ErrorTemplate="{StaticResource errorTemplate}"
+                Background="WhiteSmoke"
+                FontWeight="DemiBold"
+                Width="320"
+                Height="40"
+                Margin="10"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                x:Name="Specijalizacija"
+                materialDesign:HintAssist.Hint="Izaberite specijalizaciju u slu&#x10D;aju lekara"
+                materialDesign:HintAssist.HelperText="[Samo u slu&#x10D;aju lekara] Specijalizacija lekara"
+                >
+                <ComboBoxItem>
+                    Opste prakse
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Hirurg
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Psiholog
+                </ComboBoxItem>
+            </ComboBox>
+            <!-- Tip zaposlenog -->
+
+        </StackPanel>
+        <!-- Kraj dela sa podacima -->
+
+
+        <!-- Dugmad -->
+        <StackPanel Margin="0, 40, 0, 0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Button 
+                IsDefault="True"
+                Command="{Binding PotvrdaIzmenePodatakaCommand}"
+                Height="40"
+                Width="130"
+                Margin="10"
+                >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="CheckboxMarkedCircle" Margin="0, 2, 5, 0" />
+                    <TextBlock Text="Potvrdi"/>
+                </StackPanel>
+            </Button>
+
+            <Button
+                IsCancel="True"
+                Height="40"
+                Width="120"
+                Margin="10"
+                >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="CloseCircle" Margin="0, 2, 5, 0" />
+                    <TextBlock Text="Odustani"/>
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+        <!-- Kraj dugmad dela-->
+    </Grid>
+</Window>
