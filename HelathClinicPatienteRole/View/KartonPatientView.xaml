@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="HelathClinicPatienteRole.View.KartonPatientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HelathClinicPatienteRole.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1300">
+    <Grid>
+        <StackPanel Background="White">
+            <Grid Height="700"  DataContext="{Binding MedicinskiKarton}">
+
+                <Canvas Background="#FF148DF0" Grid.ColumnSpan="15" Grid.RowSpan="15" HorizontalAlignment="Left" Width="556" Margin="29,11,0,0" Grid.Row="6"/>
+                <Border Margin="29,11,20,23" Background="#FF148DF0" Grid.ColumnSpan="15" Grid.RowSpan="16" Grid.Row="6" >
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15"></DropShadowEffect>
+                    </Border.Effect>
+                </Border>
+                <TextBlock FontWeight="Bold" Foreground="#FF148DF0" FontSize="40"  HorizontalAlignment="Right" Text="Lekarski karton " Grid.Column="8" Grid.Row="1"  Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="0,0,0.143,0" Width="316" />
+                <TextBlock Foreground="#FF148DF0" FontSize="40"  Text="{Binding FirstAndLastName}"  Grid.Column="15" Grid.Row="1"  Grid.ColumnSpan="9" Grid.RowSpan="2" Margin="29,0,12,0" />
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Ime jednog roditelja: " Grid.Column="1" Grid.Row="7"  Grid.ColumnSpan="7" Grid.RowSpan="3" />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding ParentName}"  Grid.Column="7" Grid.Row="7"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="39.429,0,0,0" RenderTransformOrigin="0.567,0.493"  />
+
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Datum rođenja: " Grid.Column="1" Grid.Row="9"  Grid.ColumnSpan="6" Grid.RowSpan="3" Width="218" />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding DateOfBirth}"  Grid.Column="6" Grid.Row="9"  Grid.ColumnSpan="7" Grid.RowSpan="3" Margin="15.857,0,4,0"  />
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="JMBG:   " Grid.Column="1" Grid.Row="11"  Grid.ColumnSpan="6" Grid.RowSpan="3"  />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding Jmbg}"  Grid.Column="3" Grid.Row="11"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="10.143,0,39,0"  />
+
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Adresa: " Grid.Column="1" Grid.Row="13"  Grid.ColumnSpan="5" Grid.RowSpan="3"  />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding Address}"  Grid.Column="3" Grid.Row="13"  Grid.ColumnSpan="16" Grid.RowSpan="3" Margin="25.143,0,14,0"  />
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Broj telefona: " Grid.Column="1" Grid.Row="15"  Grid.ColumnSpan="5" Grid.RowSpan="3" />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding PhoneNumber}"  Grid.Column="5" Grid.Row="15"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="24.286,0,23,0"  />
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Broj zdravstvenog: " Grid.Column="1" Grid.Row="17"  Grid.ColumnSpan="7" Grid.RowSpan="3"  />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding HealthInsuranceNumber}"  Grid.Column="7" Grid.Row="17"  Grid.ColumnSpan="7" Grid.RowSpan="3" Margin="9.571,0,9.857,0"  />
+
+                <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Nosilac zdravstvenog: " Grid.Column="1" Grid.Row="19"  Grid.ColumnSpan="8" Grid.RowSpan="3" Width="302" />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding HealthInsuranceCarrier}"  Grid.Column="8" Grid.Row="19"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="9.143,0,30.857,0"  />
+
+                <TextBlock Foreground="#FF148DF0" FontSize="30"  HorizontalAlignment="Right" Text="Lista obaveljenih pregleda: " Grid.Column="15" Grid.Row="4"  Grid.ColumnSpan="13" Grid.RowSpan="2" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="15" Grid.Row="6" Grid.ColumnSpan="16" Grid.RowSpan="18" Margin="29,0,0,0">
+                    <Border BorderThickness="1,1,1,1" BorderBrush="#FF148DF0" >
+                        <ItemsControl  Background="Wheat"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="10" Width="614">
+                            <Grid  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="6" Grid.RowSpan="10" Height="900" Margin="10,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label  FontWeight="Bold" Background="WhiteSmoke" Content= "Specijalisticki pregled - 30.05.2020  11:00h"  HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="25" Grid.Row="0" Grid.ColumnSpan="3" Margin="43,0,50,0" Width="511" />
+                                <Label   Background="WhiteSmoke"  Content= "Lekar: Miodrag Mitrović"  HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="20" Grid.Row="1" Grid.ColumnSpan="2" Margin="183,10,0,0" Width="220" />
+                                <Label  FontWeight="Bold" Content= "Anamneza:" Background="WhiteSmoke" HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="20" Grid.Row="2" Grid.Column="1" Margin="44,0,35,5" Height="35" VerticalAlignment="Bottom" Width="122" />
+                                <TextBlock Background="WhiteSmoke" Foreground="#FF148DF0" FontSize="15" Grid.Row="3"  Grid.ColumnSpan="3"  HorizontalAlignment="Center" Text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit, &#x0a; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &#x0a; Ut enim ad minim veniam, &#x0a; quis nostrud exercitation ullamco laboris nisi ut aliquip ex  &#x0a; ea commodo consequat.&#x0a; Duis aute irure dolor  in reprehenderit in voluptate velit esse &#x0a; cillum dolore eu fugiat nulla pariatur.&#x0a; Excepteur sint occaecat cupidatat non proident,&#x0a; sunt in culpa qui officia deserunt mollit anim id est laborum." Margin="77,0,66,34" Grid.RowSpan="5" />
+                                <Label  FontWeight="Bold" Background="WhiteSmoke" Content= "Ortorinolaringoloski pregled - 26.04.2020  9:00h"  HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="25" Grid.Row="7" Grid.ColumnSpan="3" Margin="0,35,24,10" Width="580" Grid.RowSpan="2" />
+                                <Label   Background="WhiteSmoke"  Content= "Lekar: Mika Mikić"  HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="20" Grid.Row="8" Grid.ColumnSpan="2" Margin="183,44,10,11" Grid.RowSpan="2" />
+                                <Label FontWeight="Bold" Content= "Anamneza:" Background="WhiteSmoke" HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="20" Grid.Row="9" Grid.Column="1" Margin="31,0,35,18" Height="35" VerticalAlignment="Bottom" Grid.RowSpan="2" Width="135" />
+                                <TextBlock Background="WhiteSmoke" Foreground="#FF148DF0" FontSize="15" Grid.Row="10"  Grid.ColumnSpan="3"  HorizontalAlignment="Center" Text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit, &#xA; sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. &#xA; Ut enim ad minim veniam, &#xA; quis nostrud exercitation ullamco laboris nisi ut aliquip ex  &#xA; ea commodo consequat.&#xA; Duis aute irure dolor  in reprehenderit in voluptate velit esse &#xA; cillum dolore eu fugiat nulla pariatur.&#xA; Excepteur sint occaecat cupidatat non proident,&#xA; sunt in culpa qui officia deserunt mollit anim id est laborum." Margin="76,34,66,0" Grid.RowSpan="5" />
+
+                            </Grid>
+                        </ItemsControl>
+                    </Border>
+                </ScrollViewer>
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

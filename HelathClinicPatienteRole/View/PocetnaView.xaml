@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="HelathClinicPatienteRole.View.PocetnaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HelathClinicPatienteRole.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1300">
+    <Grid>
+        <StackPanel Background="White">
+            <Grid Height="700">
+
+
+
+                <Label FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="6" Grid.RowSpan="3" Grid.Row="3" HorizontalAlignment="Center"  Content="Zdravo klinika" Foreground="#FF148DF0" FontSize="40"/>
+                <MediaElement Name="VideoControl"  Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="12" Grid.RowSpan="14" 
+                    Source="C:\Users\Pufke\Desktop\interakcija-covek-racunar\projekat\Pufke\Health Clinic-Patient role\HelathClinicPatienteRole\Images and Videos\WPF.mp4"  >
+                </MediaElement>
+                <StackPanel Orientation="Horizontal" Width="1" Background="#FF148DF0" Grid.Column="12" Grid.Row="4" Grid.RowSpan="21"></StackPanel>
+
+                <Label Grid.Column="2" Grid.ColumnSpan="8" Grid.RowSpan="3" Grid.Row="22" HorizontalAlignment="Center"  Content="Možete pogledati još jedan novi video koji smo &#10;      izdvojili za vas iz naše bogate biblioteke" Foreground="#FF148DF0" FontSize="20" />
+
+                <Label HorizontalAlignment="Center"  Content="Koristiš softver kao?" Foreground="#FF148DF0" FontSize="36" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="10" Grid.Column="13"/>
+
+
+
+                <Image Source="C:\Users\Pufke\Desktop\interakcija-covek-racunar\projekat\Pufke\Health Clinic-Patient role\HelathClinicPatienteRole\Images and Videos\doctorIcon.png" Grid.Row="7" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="14" />
+                <Label HorizontalAlignment="Left"  Content="Lekar" Foreground="#FF148DF0"  FontSize="32"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="10" Grid.Column="17"/>
+
+                <Image Source="C:\Users\Pufke\Desktop\interakcija-covek-racunar\projekat\Pufke\Health Clinic-Patient role\HelathClinicPatienteRole\Images and Videos\Patient.png"  Grid.Row="12" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="14" />
+                <Label HorizontalAlignment="Left"  Content="Pacijent" Foreground="#FF148DF0" FontSize="32"  Grid.Row="13" Grid.RowSpan="3" Grid.ColumnSpan="10" Grid.Column="17"/>
+
+                <Image Source="C:\Users\Pufke\Desktop\interakcija-covek-racunar\projekat\Pufke\Health Clinic-Patient role\HelathClinicPatienteRole\Images and Videos\Secretary.png" Grid.Row="17" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="14" />
+                <Label HorizontalAlignment="Left"  Content="Upravnik" Foreground="#FF148DF0"  FontSize="32"  Grid.Row="18" Grid.RowSpan="3" Grid.ColumnSpan="10" Grid.Column="17"/>
+
+
+                <Image Source="C:\Users\Pufke\Desktop\interakcija-covek-racunar\projekat\Pufke\Health Clinic-Patient role\HelathClinicPatienteRole\Images and Videos\Upravnik.png"  Grid.Row="22" Grid.RowSpan="4" Grid.ColumnSpan="3" Grid.Column="14" />
+                <Label HorizontalAlignment="Left"  Content="Sekretar" Foreground="#FF148DF0"   FontSize="32"  Grid.Row="23" Grid.RowSpan="3" Grid.ColumnSpan="10" Grid.Column="17"/>
+
+                <Button Content="Ulogujte se" VerticalAlignment="Top" Click="Login_Click"  Grid.Row="13" Grid.RowSpan="3" Grid.ColumnSpan="3" Grid.Column="19" Margin="30,17,33,0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Ulogujte se</TextBlock>
+                                <TextBlock>Personalizovana aplikacija za lekare naše klinike</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button Content="Ulogujte se" VerticalAlignment="Top" Click="PersonalizovaniLogin_Click"  Grid.Row="8" Grid.RowSpan="3" Grid.ColumnSpan="3" Grid.Column="19" Margin="30,17,33,0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Ulogujte se</TextBlock>
+                                <TextBlock>Personalizovana aplikacija za pacijnte naše klinike</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <Button Content="Ulogujte se" VerticalAlignment="Top" Click="PersonalizovaniLogin_Click"  Grid.Row="18" Grid.RowSpan="3" Grid.ColumnSpan="3" Grid.Column="19" Margin="30,17,33,0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Ulogujte se</TextBlock>
+                                <TextBlock>Personalizovana aplikacija za upravnike naše klinike</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+                
+                <Button Content="Ulogujte se" VerticalAlignment="Top" Click="PersonalizovaniLogin_Click"  Grid.Row="23" Grid.RowSpan="3" Grid.ColumnSpan="3" Grid.Column="19" Margin="30,17,33,0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Ulogujte se</TextBlock>
+                                <TextBlock>Personalizovana aplikacija za sekretare naše klinike</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            
+                <Grid.ColumnDefinitions>
+                    <!--16 columns-->
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

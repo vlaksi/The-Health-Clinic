@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="HelathClinicPatienteRole.View.RecenzijaAppPatientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HelathClinicPatienteRole.View"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1300">
+    <Grid>
+        <StackPanel Background="White" >
+            <Grid Height="700" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label  FontWeight="Bold" Content= "Recenzije"  HorizontalAlignment="Center" Foreground="#FF148DF0" FontSize="50" Grid.Column="12"  Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="6" />
+
+                <Label  Content= "   Ostavite vaš komentar"  HorizontalAlignment="Left" Foreground="#FF148DF0" FontSize="35" Grid.Column="10"  Grid.Row="19" Grid.RowSpan="5" Grid.ColumnSpan="10" Margin="10,11,0,10" />
+
+                <StackPanel  Grid.Row="22" Grid.Column="9" Grid.ColumnSpan="14" Grid.RowSpan="8" HorizontalAlignment="Left" Width="500" >
+                    <TextBox Background="WhiteSmoke" FontWeight="DemiBold" Height="131" x:Name="Komentar" materialDesign:HintAssist.HelperText="Iznad unesite vaš komentar" Text="{Binding NoviKomentar, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0,0,-32,0"/>
+                </StackPanel>
+
+                <DataGrid x:Name="dataGridRecenzije"
+                    SelectedItem="{Binding SelektovanaRecenzija, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Recenzije}"
+                    AutoGenerateColumns="True" 
+                    SelectionMode="Single" 
+                    IsReadOnly="True" 
+                    HorizontalAlignment="Center"
+                    Width="951" 
+                    Background="#FF148DF0" Grid.ColumnSpan="22" Grid.RowSpan="16" Grid.Column="4" Grid.Row="4" Margin="0,0,0,5"
+                    />
+
+                <Button Content="Pošalji recenziju" Grid.Row="28" Grid.Column="12" Grid.ColumnSpan="5" Grid.RowSpan="3" Margin="33,15,10,5" Command="{Binding OstaviRecenzijuCommand}" Height="Auto">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Vaše mišljenje o aplikaciji</TextBlock>
+                                <TextBlock>Vaše mišljenje nam puno znači! Učinimo zajedno našu aplikaciju još boljom!</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,83 @@
+﻿<Window x:Class="HelathClinicPatienteRole.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:HelathClinicPatienteRole.View"
+        xmlns:viewModel="clr-namespace:HelathClinicPatienteRole.ViewModel"
+        Title="Zdravo Klinika" Height="700" Width="1300">
+
+    <StackPanel Background="White">
+
+        <Menu DockPanel.Dock ="Top" Background="#FF148DF0">
+            <MenuItem Header="_Početna" FontSize="18" Foreground="White"  Background="#FF148DF0" BorderBrush="#FF1489E9" Click="PocetnaItem_Click" />
+            <MenuItem Header="_Blog" FontSize="18" Foreground="White" Background="#FF148DF0" BorderBrush="#FF1489E9" Click="BlogView_Click"/>
+            <MenuItem Header="_O Klinici" FontSize="18"  Foreground="White" Background="#FF148DF0" BorderBrush="#FF1489E9" Click="OKliniciItem_Click"/>
+            <MenuItem Header="_Kontakt" FontSize="18" Foreground="White" Background="#FF148DF0" BorderBrush="#FF1489E9" Click="KontaktItem_Click"/>
+            <MenuItem Header="_Recenzija" FontSize="18" Foreground="White" Background="#FF148DF0" BorderBrush="#FF1489E9" Click="RecenzijeItem_Click"></MenuItem>
+        </Menu>
+   
+        <Grid Height="620">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+
+
+            <ContentControl Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="14" Content="{Binding}"/>
+        </Grid>
+    </StackPanel>
+
+    <Window.Resources>
+        <DataTemplate x:Name="pocetnaViewTemplate" DataType="{x:Type viewModel:PocetnaViewModel}">
+            <view:PocetnaView DataContext="{Binding}"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Name="blogViewTemplate" DataType="{x:Type viewModel:BlogViewModel}">
+            <view:BlogView DataContext="{Binding}"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Name="OKliniciViewTemplate" DataType="{x:Type viewModel:OKliniciViewModel}">
+            <view:OKliniciView DataContext="{Binding}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Name="KontaktViewTemplate" DataType="{x:Type viewModel:KontaktViewModel}">
+            <view:KontaktView DataContext="{Binding}"/>
+        </DataTemplate>
+
+
+        <DataTemplate x:Name="RecenzijeViewTemplate" DataType="{x:Type viewModel:RecenzijeViewModel}">
+            <view:RecenzijeView DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+
+    
+    
+</Window>
