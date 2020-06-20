@@ -3,11 +3,12 @@
 // Created: Wednesday, April 1, 2020 9:45:03 PM
 // Purpose: Definition of Class Person
 
+using HealthClinic.Utilities;
 using System;
 
 namespace Model.Users
 {
-    public class Person
+    public class Person : ObservableObject
     {
         private string name;
         private string surname;
@@ -22,6 +23,7 @@ namespace Model.Users
             set
             {
                 this.name = value;
+                OnPropertyChanged("Name");
             }
         }
 
@@ -34,6 +36,7 @@ namespace Model.Users
             set
             {
                 this.surname = value;
+                OnPropertyChanged("Surname");
             }
         }
 
@@ -46,6 +49,7 @@ namespace Model.Users
             set
             {
                 this.id = value;
+                OnPropertyChanged("Id");
             }
         }
 

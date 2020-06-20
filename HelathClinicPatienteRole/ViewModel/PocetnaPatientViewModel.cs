@@ -1,6 +1,7 @@
 ﻿using HelathClinicPatienteRole.Dialogs;
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace HelathClinicPatienteRole.ViewModel
     class PocetnaPatientViewModel : INotifyPropertyChanged
     {
         private IList<Pregled> _PregledList;
-        private ObservableCollection<Lekar> _LekariList;
+        private ObservableCollection<Doctor> _LekariList;
 
         public PocetnaPatientViewModel()
         {
@@ -98,7 +99,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 {
                     if (!(SelektovaniLekar is null))
                     {
-                        pregled.Lekar = SelektovaniLekar.FirstAndLastName;
+                        pregled.Lekar = SelektovaniLekar.Name + SelektovaniLekar.Surname ;
                     }
                     if (!(SelektovaniDatum.Day == DateTime.Now.Day))
                     {
@@ -114,9 +115,9 @@ namespace HelathClinicPatienteRole.ViewModel
 
         #region Selektovani Lekar
 
-        private Lekar _selektovaniLekar;
+        private Doctor _selektovaniLekar;
 
-        public Lekar SelektovaniLekar
+        public Doctor SelektovaniLekar
         {
             get { return _selektovaniLekar; }
             set { _selektovaniLekar = value; OnPropertyChanged("SelektovaniLekar"); }
@@ -295,7 +296,7 @@ namespace HelathClinicPatienteRole.ViewModel
         }
         #endregion
 
-        public ObservableCollection<Lekar> Lekari
+        public ObservableCollection<Doctor> Lekari
         {
             get
             {

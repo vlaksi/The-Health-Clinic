@@ -21,21 +21,31 @@
 
                 <DataGrid  x:Name="dataGridLekari" ItemsSource="{Binding Lekari}"
                   IsReadOnly="True"  CanUserAddRows="false"  SelectedItem="{Binding Path=SelektovaniLekar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                AutoGenerateColumns="False" SelectionMode="Single" Grid.ColumnSpan="12" Margin="18,10,21,18" Grid.RowSpan="11" Grid.Row="11" Background="#FF148DF0" Grid.Column="15" HorizontalScrollBarVisibility="Disabled">
+                AutoGenerateColumns="False" SelectionMode="Single" Grid.ColumnSpan="10"  Grid.RowSpan="10" Grid.Row="12" Background="#FF148DF0" Grid.Column="16" HorizontalScrollBarVisibility="Disabled" Margin="0,0,2,10">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="          Ime i prezime lekara"
-                            Binding="{Binding FirstAndLastName}">
+                        <DataGridTextColumn Header=" Ime lekara"
+                            Binding="{Binding Name}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
-                                    <Setter Property="Width" Value="500"/>
+
                                     <Setter Property="FontSize" Value="24"/>
-                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                 </Style>
                             </DataGridColumn.HeaderStyle>
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="       Prezime lekara"
+                            Binding="{Binding Surname}">
+                            <DataGridColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="DarkGray"/>
 
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridColumn.HeaderStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>

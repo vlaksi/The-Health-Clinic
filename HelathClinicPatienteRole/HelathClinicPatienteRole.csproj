@@ -124,7 +124,6 @@
     <Compile Include="LoginPacijent.xaml.cs">
       <DependentUpon>LoginPacijent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Lekar.cs" />
     <Compile Include="Model\MedicinskiKarton.cs" />
     <Compile Include="Model\Meeting.cs" />
     <Compile Include="Model\Pregled.cs" />
