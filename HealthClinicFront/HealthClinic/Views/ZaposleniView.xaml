@@ -78,9 +78,9 @@
                     >
                     <!-- Custom kolone tabele-->
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Ime}" Header="Ime"/>
-                        <DataGridTextColumn Binding="{Binding Prezime}" Header="Prezime"/>
-                        <DataGridTextColumn Binding="{Binding Struka}" Header="Struka"/>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Ime"/>
+                        <DataGridTextColumn Binding="{Binding Surname}" Header="Prezime"/>
+                        <DataGridTextColumn Binding="{Binding JobPosition}" Header="Struka"/>
 
                         <!-- Dugme u tabeli -->
                         <DataGridTemplateColumn>

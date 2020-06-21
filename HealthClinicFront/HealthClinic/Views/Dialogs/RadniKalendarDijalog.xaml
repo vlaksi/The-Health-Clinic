@@ -182,8 +182,8 @@
                     >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding Ime}" Width="100"/>
-                            <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding Prezime}" Width="100"/>
+                            <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding Name}" Width="100"/>
+                            <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding Surname}" Width="100"/>
 
                         </GridView>
                     </ListView.View>
@@ -212,8 +212,8 @@
                     >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding Ime}" Width="100"/>
-                            <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding Prezime}" Width="100"/>
+                            <GridViewColumn Header="Ime" DisplayMemberBinding="{Binding Name}" Width="100"/>
+                            <GridViewColumn Header="Prezime" DisplayMemberBinding="{Binding Surname}" Width="100"/>
 
                         </GridView>
                     </ListView.View>

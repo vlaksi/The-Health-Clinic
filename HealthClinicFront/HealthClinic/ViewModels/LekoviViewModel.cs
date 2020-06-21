@@ -1,5 +1,4 @@
 ﻿using HealthClinic.Dialogs;
-using HealthClinic.Models;
 using HealthClinic.Utilities;
 using LiveCharts;
 using System;

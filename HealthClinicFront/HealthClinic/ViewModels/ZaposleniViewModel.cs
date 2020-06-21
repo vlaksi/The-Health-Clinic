@@ -1,5 +1,4 @@
 ﻿using HealthClinic.Dialogs;
-using HealthClinic.Models;
 using HealthClinic.Utilities;
 using LiveCharts;
 using System;
@@ -20,6 +19,7 @@ using Syncfusion.Pdf.Tables;
 using System.Data;
 using HealthClinic.Views.Dialogs.ProduzeneInformacije;
 using Model.BusinessHours;
+using HealthClinic.Model.Users;
 
 namespace HealthClinic.ViewModels
 {
@@ -102,14 +102,14 @@ namespace HealthClinic.ViewModels
 
         #region Selektovani zaposlen
 
-        private Zaposlen _selektovaniZaposleni;
+        private Employee _selektovaniZaposleni;
 
 
         // Bajndujem na SelectedItem u tabeli i dalje radim sa njim sta hocu
         // mogu ga dalje prikazivati
         // a moze se i proslediti u dijalog
         // tako sto se .DatContext tog dijalog postavi na this
-        public Zaposlen SelektovaniZaposleni
+        public Employee SelektovaniZaposleni
         {
             get { return _selektovaniZaposleni; }
             set { _selektovaniZaposleni = value; OnPropertyChanged("SelektovaniZaposleni"); }
@@ -119,9 +119,9 @@ namespace HealthClinic.ViewModels
 
         #region Zaposleni za izmenu
 
-        private Zaposlen _zaposleniZaIzmenu;
+        private Employee _zaposleniZaIzmenu;
 
-        public Zaposlen ZaposleniZaIzmenu
+        public Employee ZaposleniZaIzmenu
         {
             get { return _zaposleniZaIzmenu; }
             set { _zaposleniZaIzmenu = value; OnPropertyChanged("ZaposleniZaIzmenu"); }
@@ -132,9 +132,9 @@ namespace HealthClinic.ViewModels
 
         #region Zaposleni za dodavanje
 
-        private Zaposlen _zaposleniZaDodavanje;
+        private Employee _zaposleniZaDodavanje;
 
-        public Zaposlen ZaposleniZaDodavanje
+        public Employee ZaposleniZaDodavanje
         {
             get { return _zaposleniZaDodavanje; }
             set { _zaposleniZaDodavanje = value; OnPropertyChanged("ZaposleniZaDodavanje"); }
@@ -186,11 +186,11 @@ namespace HealthClinic.ViewModels
                 return;
 
 
-            foreach (Zaposlen trenutniZaposleni in Zaposleni)
+            foreach (Employee trenutniZaposleni in Zaposleni)
             {
-                if(trenutniZaposleni.KorisnickoIme == SelektovaniZaposleni.KorisnickoIme)
+                if(trenutniZaposleni.Username == SelektovaniZaposleni.Username)
                 {
-                    MessageBox.Show("Uspesno ste izbrisali radnika sa korisnickim imenom " + trenutniZaposleni.KorisnickoIme);
+                    MessageBox.Show("Uspesno ste izbrisali radnika sa korisnickim imenom " + trenutniZaposleni.Username);
                     podesiBrojOdredjenihZaposlenih(trenutniZaposleni, -1);
                     Zaposleni.Remove(trenutniZaposleni);
 
@@ -207,9 +207,9 @@ namespace HealthClinic.ViewModels
                 return;
 
             // dodajem zaposlenog ukoliko je odgovor bio potvrdan
-            ZaposleniZaDodavanje.RadniKalendar = new BusinessHoursModel();
-            ZaposleniZaDodavanje.RadniKalendar.FromDate = DateTime.Now;
-            ZaposleniZaDodavanje.RadniKalendar.ToDate = DateTime.Now;
+            ZaposleniZaDodavanje.BusinessHours = new BusinessHoursModel();
+            ZaposleniZaDodavanje.BusinessHours.FromDate = DateTime.Now;
+            ZaposleniZaDodavanje.BusinessHours.ToDate = DateTime.Now;
 
             Zaposleni.Add(ZaposleniZaDodavanje);
             podesiBrojOdredjenihZaposlenih(ZaposleniZaDodavanje, 1);
@@ -228,21 +228,21 @@ namespace HealthClinic.ViewModels
                 return;
 
             // selektovani objekat prima vrednosti od menjanog objekta
-            SelektovaniZaposleni.Ime = ZaposleniZaIzmenu.Ime;
-            SelektovaniZaposleni.Prezime = ZaposleniZaIzmenu.Prezime;
-            SelektovaniZaposleni.Struka = ZaposleniZaIzmenu.Struka;
-            SelektovaniZaposleni.Sifra = ZaposleniZaIzmenu.Sifra;
-            SelektovaniZaposleni.KorisnickoIme = ZaposleniZaIzmenu.KorisnickoIme;
+            SelektovaniZaposleni.Name = ZaposleniZaIzmenu.Name;
+            SelektovaniZaposleni.Surname = ZaposleniZaIzmenu.Surname;
+            SelektovaniZaposleni.JobPosition = ZaposleniZaIzmenu.JobPosition;
+            SelektovaniZaposleni.Password = ZaposleniZaIzmenu.Password;
+            SelektovaniZaposleni.Username = ZaposleniZaIzmenu.Username;
 
             this.TrenutniProzor.Close();
         }
 
         public void PodesavanjeRadnihKalendaraZaposlenih(object obj)
         {
-            IzabraniLekari = new ObservableCollection<Zaposlen>();
-            IzabraniLekar = new Zaposlen();
-            IzabraniLekarZaUklanjanje = new Zaposlen();
-            SlobodniLekari = new ObservableCollection<Zaposlen>();
+            IzabraniLekari = new ObservableCollection<Employee>();
+            IzabraniLekar = new Employee();
+            IzabraniLekarZaUklanjanje = new Employee();
+            SlobodniLekari = new ObservableCollection<Employee>();
 
             TrenutniProzor = new RadniKalendarDijalog();
             TrenutniProzor.DataContext = this;             // kako bi povezao i ViewModel Zaposlenih za ovaj dijalog
@@ -273,9 +273,9 @@ namespace HealthClinic.ViewModels
                 table.Columns.Add("Struka");
 
                 //Include rows to the DataTable.
-                foreach (Zaposlen zaposlen in Zaposleni)
+                foreach (Employee zaposlen in Zaposleni)
                 {
-                    table.Rows.Add(new string[] { zaposlen.Ime, zaposlen.Prezime, zaposlen.Struka });
+                    table.Rows.Add(new string[] { zaposlen.Name, zaposlen.Surname, zaposlen.JobPosition });
                 }
 
 
@@ -299,7 +299,7 @@ namespace HealthClinic.ViewModels
         public void DodajZaposlenog(object obj)
         {
             // kreiram novog zaposlenog da u slucaju potvrde mogu da ga dodam u listu zaposlenih
-            ZaposleniZaDodavanje = new Zaposlen();
+            ZaposleniZaDodavanje = new Employee();
 
             // prikaz dijaloga za dodavanje
             TrenutniProzor = new DodajZaposlenogDijalog();
@@ -314,12 +314,12 @@ namespace HealthClinic.ViewModels
                 return;
 
             // Zaposleni za izmenu/stimanje preuzima podatke od selektovanog zaposlenog
-            ZaposleniZaIzmenu = new Zaposlen() {
-                Ime = SelektovaniZaposleni.Ime,
-                Prezime = SelektovaniZaposleni.Prezime,
-                Sifra = SelektovaniZaposleni.Sifra,
-                Struka = SelektovaniZaposleni.Struka,
-                KorisnickoIme = SelektovaniZaposleni.KorisnickoIme
+            ZaposleniZaIzmenu = new Employee() {
+                Name = SelektovaniZaposleni.Name,
+                Surname = SelektovaniZaposleni.Surname,
+                Password = SelektovaniZaposleni.Password,
+                JobPosition = SelektovaniZaposleni.JobPosition,
+                Username = SelektovaniZaposleni.Username
             };
 
 
@@ -343,11 +343,11 @@ namespace HealthClinic.ViewModels
         public void PrikaziRadniKalendarZaposlenog(object obj)
         {
             // prikazivanje bez vremena, samo datum ovako dobijam
-            OdDatuma = SelektovaniZaposleni.RadniKalendar.FromDate.ToShortDateString();
-            DoDatuma = SelektovaniZaposleni.RadniKalendar.ToDate.ToShortDateString();
+            OdDatuma = SelektovaniZaposleni.BusinessHours.FromDate.ToShortDateString();
+            DoDatuma = SelektovaniZaposleni.BusinessHours.ToDate.ToShortDateString();
 
-            OdVremena = SelektovaniZaposleni.RadniKalendar.FromHour.ToShortTimeString();
-            DoVremena = SelektovaniZaposleni.RadniKalendar.ToHour.ToShortTimeString();
+            OdVremena = SelektovaniZaposleni.BusinessHours.FromHour.ToShortTimeString();
+            DoVremena = SelektovaniZaposleni.BusinessHours.ToHour.ToShortTimeString();
 
             TrenutniProzor = new RadnoVremeZaposlenogDijalog();
             TrenutniProzor.DataContext = this;
@@ -357,12 +357,12 @@ namespace HealthClinic.ViewModels
         public void OdrediRadnoVremeZaposlenih(object ojb)
         {
             // dodajem sve izabrane lekare
-            foreach (Zaposlen lekar in IzabraniLekari)
+            foreach (Employee lekar in IzabraniLekari)
             {
-                lekar.RadniKalendar.FromDate = PocetniDatum;
-                lekar.RadniKalendar.ToDate = KrajnjiDatum;
-                lekar.RadniKalendar.FromHour = PocetniSat;
-                lekar.RadniKalendar.ToHour = KrajnjiSat;
+                lekar.BusinessHours.FromDate = PocetniDatum;
+                lekar.BusinessHours.ToDate = KrajnjiDatum;
+                lekar.BusinessHours.FromHour = PocetniSat;
+                lekar.BusinessHours.ToHour = KrajnjiSat;
 
             }
             this.TrenutniProzor.Close();
@@ -376,9 +376,9 @@ namespace HealthClinic.ViewModels
         #endregion
 
         #region Slobodni lekari u tom opsegu
-        private ObservableCollection<Zaposlen> _slobodniLekari;
+        private ObservableCollection<Employee> _slobodniLekari;
 
-        public ObservableCollection<Zaposlen> SlobodniLekari
+        public ObservableCollection<Employee> SlobodniLekari
         {
             get { return _slobodniLekari; }
             set { _slobodniLekari = value; OnPropertyChanged("SlobodniLekari"); }
@@ -389,18 +389,18 @@ namespace HealthClinic.ViewModels
 
         #region Izabrani lekari kojima je potrebno promeniti radno vreme
 
-        private ObservableCollection<Zaposlen> _izabraniLekari;
+        private ObservableCollection<Employee> _izabraniLekari;
 
-        public ObservableCollection<Zaposlen> IzabraniLekari
+        public ObservableCollection<Employee> IzabraniLekari
         {
             get { return _izabraniLekari; }
             set { _izabraniLekari = value; OnPropertyChanged("IzabraniLekari"); }
         }
 
         // izabrani lekar u odredjenom trenutku
-        private Zaposlen _izabraniLekar;
+        private Employee _izabraniLekar;
 
-        public Zaposlen IzabraniLekar
+        public Employee IzabraniLekar
         {
             get { return _izabraniLekar; }
             set
@@ -417,9 +417,9 @@ namespace HealthClinic.ViewModels
 
         // izabrani lekar za uklanjanje
 
-        private Zaposlen _izabraniLekarZaUklanjanje;
+        private Employee _izabraniLekarZaUklanjanje;
 
-        public Zaposlen IzabraniLekarZaUklanjanje
+        public Employee IzabraniLekarZaUklanjanje
         {
             get { return _izabraniLekarZaUklanjanje; }
             set
@@ -428,12 +428,12 @@ namespace HealthClinic.ViewModels
                 {
                     _izabraniLekarZaUklanjanje = value;
 
-                    foreach (Zaposlen lekar in IzabraniLekari)
+                    foreach (Employee lekar in IzabraniLekari)
                     {
                         if (IzabraniLekarZaUklanjanje is null)
                             break;
 
-                        if (lekar.KorisnickoIme == IzabraniLekarZaUklanjanje.KorisnickoIme)
+                        if (lekar.Username == IzabraniLekarZaUklanjanje.Username)
                         {
                             IzabraniLekari.Remove(lekar);
                             break;
@@ -449,9 +449,9 @@ namespace HealthClinic.ViewModels
 
         #region Ucitavanje podataka zaposlenih
 
-        private ObservableCollection<Zaposlen> _zaposleni;
+        private ObservableCollection<Employee> _zaposleni;
 
-        public ObservableCollection<Zaposlen> Zaposleni
+        public ObservableCollection<Employee> Zaposleni
         {
             get { return _zaposleni; }
             set { _zaposleni = value; OnPropertyChanged("Zaposleni"); }
@@ -460,16 +460,16 @@ namespace HealthClinic.ViewModels
         private void ucitavanjePodatakaUTabelu()
         {
             //Tabela - popunjavanje
-            Zaposleni = new ObservableCollection<Zaposlen>();
+            Zaposleni = new ObservableCollection<Employee>();
             BusinessHoursModel bs = new BusinessHoursModel() { FromDate = new DateTime(2020,1,1), ToDate = new DateTime(2020, 2,1), FromHour= new DateTime(2020,1,1,9,30,30), ToHour= new DateTime(2020, 2, 1, 17, 30, 30) };
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "zikaa",
-                Ime = "Zika",
-                Prezime = "Vojvodic",
-                Struka = "Otorinolaringolog",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "zikaa",
+                Name = "Zika",
+                Surname = "Vojvodic",
+                JobPosition = "Otorinolaringolog",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -478,14 +478,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "dzoni",
-                Ime = "Nikola",
-                Prezime = "Zigic",
-                Struka = "Oftamolog",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "dzoni",
+                Name = "Nikola",
+                Surname = "Zigic",
+                JobPosition = "Oftamolog",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -494,14 +494,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "markoni",
-                Ime = "Marko",
-                Prezime = "Bogdanovic",
-                Struka = "Kardio hirurg",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "markoni",
+                Name = "Marko",
+                Surname = "Bogdanovic",
+                JobPosition = "Kardio hirurg",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -510,14 +510,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "bobi",
-                Ime = "Boban",
-                Prezime = "Jokic",
-                Struka = "Pedijatar",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "bobi",
+                Name = "Boban",
+                Surname = "Jokic",
+                JobPosition = "Pedijatar",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -526,14 +526,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "niki",
-                Ime = "Nikola",
-                Prezime = "Marjanovic",
-                Struka = "Lekar opste prakse",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "niki",
+                Name = "Nikola",
+                Surname = "Marjanovic",
+                JobPosition = "Lekar opste prakse",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -542,14 +542,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "zare",
-                Ime = "Zika",
-                Prezime = "Vojvodic",
-                Struka = "Otorinolaringolog",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "zare",
+                Name = "Zika",
+                Surname = "Vojvodic",
+                JobPosition = "Otorinolaringolog",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -558,14 +558,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "nidroni",
-                Ime = "Nikola",
-                Prezime = "Zigic",
-                Struka = "Sekretar",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "nidroni",
+                Name = "Nikola",
+                Surname = "Zigic",
+                JobPosition = "Sekretar",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -574,14 +574,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "maron",
-                Ime = "Marko",
-                Prezime = "Bogdanovic",
-                Struka = "Kardio hirurg",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "maron",
+                Name = "Marko",
+                Surname = "Bogdanovic",
+                JobPosition = "Kardio hirurg",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -590,14 +590,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "bobi2",
-                Ime = "Boban",
-                Prezime = "Jokic",
-                Struka = "Pedijatar",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "bobi2",
+                Name = "Boban",
+                Surname = "Jokic",
+                JobPosition = "Pedijatar",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -606,14 +606,14 @@ namespace HealthClinic.ViewModels
 
                 }
             });
-            Zaposleni.Add(new Zaposlen()
+            Zaposleni.Add(new Employee()
             {
-                KorisnickoIme = "dzoni2",
-                Ime = "Nikola",
-                Prezime = "Marjanovic",
-                Struka = "Lekar opste prakse",
-                Sifra = "*****",
-                RadniKalendar = new BusinessHoursModel()
+                Username = "dzoni2",
+                Name = "Nikola",
+                Surname = "Marjanovic",
+                JobPosition = "Lekar opste prakse",
+                Password = "*****",
+                BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = bs.FromDate,
                     ToDate = bs.ToDate,
@@ -623,7 +623,7 @@ namespace HealthClinic.ViewModels
                 }
             });
 
-            foreach (Zaposlen zaposlen in Zaposleni)
+            foreach (Employee zaposlen in Zaposleni)
             {
                 podesiBrojOdredjenihZaposlenih(zaposlen, 1);
             }
@@ -639,9 +639,9 @@ namespace HealthClinic.ViewModels
         /// </summary>
         /// <param name="zaposlen"></param>
         /// <param name="koeficijentPravca"> Prosledjuje se broj koji govori koliko povecavam/smanjujem broj odredjenih zaposlenih </param>
-        private void podesiBrojOdredjenihZaposlenih(Zaposlen zaposlen, int koeficijentPravca)
+        private void podesiBrojOdredjenihZaposlenih(Employee zaposlen, int koeficijentPravca)
         {
-            if (zaposlen.Struka == "Lekar opste prakse")
+            if (zaposlen.JobPosition == "Lekar opste prakse")
             {
                 if (this.UkupnoLekaraOpstePrakse is null)
                     BrojacLekaraOpstePrakse = 1;
@@ -650,7 +650,7 @@ namespace HealthClinic.ViewModels
                 this.UkupnoLekaraOpstePrakse = new ChartValues<int>() { BrojacLekaraOpstePrakse };
 
             }
-            else if (zaposlen.Struka == "Stomatolog" || zaposlen.Struka == "Kardio hirurg" || zaposlen.Struka == "Pedijatar" || zaposlen.Struka == "Otorinolaringolog" || zaposlen.Struka == "Oftamolog")
+            else if (zaposlen.JobPosition == "Stomatolog" || zaposlen.JobPosition == "Kardio hirurg" || zaposlen.JobPosition == "Pedijatar" || zaposlen.JobPosition == "Otorinolaringolog" || zaposlen.JobPosition == "Oftamolog")
             {
                 if (this.UkupnoLekaraSpecijalista is null)
                     BrojacLekaraSpecijalista = 1;
@@ -658,7 +658,7 @@ namespace HealthClinic.ViewModels
                     BrojacLekaraSpecijalista += koeficijentPravca;
                 this.UkupnoLekaraSpecijalista = new ChartValues<int>() { BrojacLekaraSpecijalista };
             }
-            else if (zaposlen.Struka == "Sekretar")
+            else if (zaposlen.JobPosition == "Sekretar")
             {
                 if (this.UkupnoOstalihZaposlenih is null)
                     BrojacOstalihZaposlenih = 1;
@@ -764,27 +764,27 @@ namespace HealthClinic.ViewModels
 
         #region Validacija zaposlenog
 
-        private bool validanZaposleni(Zaposlen zaposlen)
+        private bool validanZaposleni(Employee zaposlen)
         {
-            if(zaposlen.Ime is null)
+            if(zaposlen.Name is null)
             {
                 MessageBox.Show("Niste uneli ime zaposlenog");
                 return false;
             }
 
-            if (zaposlen.Prezime is null)
+            if (zaposlen.Surname is null)
             {
                 MessageBox.Show("Niste uneli prezime zaposlenog");
                 return false;
             }
 
-            if (zaposlen.Struka is null)
+            if (zaposlen.JobPosition is null)
             {
                 MessageBox.Show("Niste uneli zanimanje/struku zaposlenog");
                 return false;
             }
 
-            if (zaposlen.KorisnickoIme is null)
+            if (zaposlen.Username is null)
             {
                 MessageBox.Show("Niste uneli korisnicko ime zaposlenog");
                 return false;
@@ -819,13 +819,13 @@ namespace HealthClinic.ViewModels
         #endregion
 
         #region Dobavljanje slobodnih lekara
-        private ObservableCollection<Zaposlen> dobaviSlobodneLekare()
+        private ObservableCollection<Employee> dobaviSlobodneLekare()
         {
-            ObservableCollection<Zaposlen> slobodniLekari = new ObservableCollection<Zaposlen>();
+            ObservableCollection<Employee> slobodniLekari = new ObservableCollection<Employee>();
 
-            foreach (Zaposlen lekar in Zaposleni)
+            foreach (Employee lekar in Zaposleni)
             {
-                if (lekar.RadniKalendar.ToDate < PocetniDatum)
+                if (lekar.BusinessHours.ToDate < PocetniDatum)
                     slobodniLekari.Add(lekar);
             }
 

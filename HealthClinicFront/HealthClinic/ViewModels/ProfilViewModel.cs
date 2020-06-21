@@ -1,5 +1,4 @@
 ﻿using HealthClinic.Dialogs;
-using HealthClinic.Models;
 using HealthClinic.Utilities;
 using LiveCharts;
 using LiveCharts.Wpf;
@@ -10,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Model.Users;
 
 namespace HealthClinic.ViewModels
 {
@@ -36,9 +36,9 @@ namespace HealthClinic.ViewModels
 
         #region Upravnikov profil
 
-        private Upravnik _upravnik;
+        private Manager _upravnik;
 
-        public Upravnik Upravnik
+        public Manager Upravnik
         {
             get { return _upravnik; }
             set { _upravnik = value; OnPropertyChanged("Upravnik"); }
@@ -48,14 +48,14 @@ namespace HealthClinic.ViewModels
         #endregion
 
         #region Upravnik za cuvanje podataka
-        private Upravnik _upravnikZaCuvanjePodataka;
+        private Manager _upravnikZaCuvanjePodataka;
 
         /// <summary>
         /// Kada se klikne na izmenu profila, sacuvam trenutke podatke
         /// koje imam o upravniku, da u slucaju opcije 'Odustani'
         /// ovi podaci budu sacuvani a ne oni koji su menjani.
         /// </summary>
-        public Upravnik UpravnikZaCuvanjePodataka
+        public Manager UpravnikZaCuvanjePodataka
         {
             get { return _upravnikZaCuvanjePodataka; }
             set { _upravnikZaCuvanjePodataka = value; OnPropertyChanged("UpravnikZaCuvanjePodataka"); }
@@ -84,21 +84,20 @@ namespace HealthClinic.ViewModels
         {
             
             if(Upravnik is null)
-                Upravnik = new Upravnik();
+                Upravnik = new Manager();
 
             if(UpravnikZaCuvanjePodataka is null)
-                UpravnikZaCuvanjePodataka = new Upravnik();
+                UpravnikZaCuvanjePodataka = new Manager();
 
             // u temp upravniku cuvam trenutne podatke
-            UpravnikZaCuvanjePodataka.AdresaStanovanja = Upravnik.AdresaStanovanja;
-            UpravnikZaCuvanjePodataka.Biografija = Upravnik.Biografija;
-            UpravnikZaCuvanjePodataka.Ime = Upravnik.Ime;
-            UpravnikZaCuvanjePodataka.KontaktTelefon = Upravnik.KontaktTelefon;
-            UpravnikZaCuvanjePodataka.Prezime = Upravnik.Prezime;
-            UpravnikZaCuvanjePodataka.Sifra = Upravnik.Sifra;
-            UpravnikZaCuvanjePodataka.Struka = Upravnik.Struka;
-            UpravnikZaCuvanjePodataka.KorisnickoIme = Upravnik.KorisnickoIme;
-            UpravnikZaCuvanjePodataka.DatumRodjenja = Upravnik.DatumRodjenja;
+            UpravnikZaCuvanjePodataka.Adress = Upravnik.Adress;
+            UpravnikZaCuvanjePodataka.Biography = Upravnik.Biography;
+            UpravnikZaCuvanjePodataka.Name = Upravnik.Name;
+            UpravnikZaCuvanjePodataka.PhoneNumber = Upravnik.PhoneNumber;
+            UpravnikZaCuvanjePodataka.Surname = Upravnik.Surname;
+            UpravnikZaCuvanjePodataka.Password = Upravnik.Password;
+            UpravnikZaCuvanjePodataka.Username = Upravnik.Username;
+            UpravnikZaCuvanjePodataka.Birthday = Upravnik.Birthday;
 
             // sada je moguca izmena profila
             IzmenaProfila = true;
@@ -112,15 +111,14 @@ namespace HealthClinic.ViewModels
         public void OdustaniOdIzmene(object obj)
         {
             // kada se odustane, podaci se vracaju na stare
-            Upravnik.AdresaStanovanja = UpravnikZaCuvanjePodataka.AdresaStanovanja;
-            Upravnik.Biografija = UpravnikZaCuvanjePodataka.Biografija;
-            Upravnik.Ime = UpravnikZaCuvanjePodataka.Ime;
-            Upravnik.KontaktTelefon = UpravnikZaCuvanjePodataka.KontaktTelefon;
-            Upravnik.Prezime = UpravnikZaCuvanjePodataka.Prezime;
-            Upravnik.Sifra = UpravnikZaCuvanjePodataka.Sifra;
-            Upravnik.Struka = UpravnikZaCuvanjePodataka.Struka;
-            Upravnik.KorisnickoIme = UpravnikZaCuvanjePodataka.KorisnickoIme;
-            Upravnik.DatumRodjenja = UpravnikZaCuvanjePodataka.DatumRodjenja;
+            Upravnik.Adress = UpravnikZaCuvanjePodataka.Adress;
+            Upravnik.Biography = UpravnikZaCuvanjePodataka.Biography;
+            Upravnik.Name = UpravnikZaCuvanjePodataka.Name;
+            Upravnik.PhoneNumber = UpravnikZaCuvanjePodataka.PhoneNumber;
+            Upravnik.Surname = UpravnikZaCuvanjePodataka.Surname;
+            Upravnik.Password = UpravnikZaCuvanjePodataka.Password;
+            Upravnik.Username = UpravnikZaCuvanjePodataka.Username;
+            Upravnik.Birthday = UpravnikZaCuvanjePodataka.Birthday;
 
             IzmenaProfila = false;
         }
@@ -145,12 +143,12 @@ namespace HealthClinic.ViewModels
         #region Ucitavanje nakon logina
         private void ucitavanjeUpravnikaPosleLogina()
         {
-            Upravnik = new Upravnik()
+            Upravnik = new Manager()
             {
-                Ime = "Dusan",
-                Prezime = "Marjanski",
-                Sifra = "Upravnik1",
-                DatumRodjenja = new DateTime(1990, 01, 01)
+                Name = "Dusan",
+                Surname = "Marjanski",
+                Password = "Upravnik1",
+                Birthday = new DateTime(1990, 01, 01)
             };
         }
 

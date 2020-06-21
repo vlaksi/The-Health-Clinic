@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model.BusinessHours;
-using HealthClinic.Models;
 
 namespace HealthClinic.ViewModels
 {

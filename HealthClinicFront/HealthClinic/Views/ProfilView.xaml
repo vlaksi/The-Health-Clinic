@@ -61,7 +61,7 @@
                                 <TextBox.Text>
                                     <!-- Bajndovanje KontaktTelefona + validacija-->
                                     <Binding 
-                                        Path="Upravnik.KontaktTelefon"
+                                        Path="Upravnik.PhoneNumber"
                                         ValidatesOnDataErrors="True"
                                         UpdateSourceTrigger="PropertyChanged"
                                         >
@@ -93,7 +93,7 @@
                                 <TextBox.Text>
                                     <!-- Bajndovanje AdresaStanovanja + validacija-->
                                     <Binding 
-                                        Path="Upravnik.AdresaStanovanja"
+                                        Path="Upravnik.Adress"
                                         ValidatesOnDataErrors="True"
                                         UpdateSourceTrigger="PropertyChanged"
                                         >
@@ -126,7 +126,7 @@
                                 <TextBox.Text>
                                     <!-- Bajndovanje Sifra + validacija-->
                                     <Binding 
-                                        Path="Upravnik.Sifra"
+                                        Path="Upravnik.Password"
                                         ValidatesOnDataErrors="True"
                                         UpdateSourceTrigger="PropertyChanged"
                                         >
@@ -154,7 +154,7 @@
                                 materialDesign:HintAssist.Hint="Izaberite datum ro&#x111;enja">
                                 <DatePicker.SelectedDate>
                                     <Binding
-                                        Path="Upravnik.DatumRodjenja"
+                                        Path="Upravnik.Birthday"
                                         UpdateSourceTrigger="PropertyChanged">
                                     </Binding>
                                 </DatePicker.SelectedDate>
@@ -185,7 +185,7 @@
                                 <TextBox.Text>
                                     <!-- Bajndovanje imena + validacija-->
                                     <Binding 
-                                        Path="Upravnik.Ime"
+                                        Path="Upravnik.Name"
                                         ValidatesOnDataErrors="True"
                                         UpdateSourceTrigger="PropertyChanged"
                                         >
@@ -218,7 +218,7 @@
                                 <TextBox.Text>
                                     <!-- Bajndovanje prezimena + validacija-->
                                     <Binding 
-                                        Path="Upravnik.Prezime"
+                                        Path="Upravnik.Surname"
                                         ValidatesOnDataErrors="True"
                                         UpdateSourceTrigger="PropertyChanged"
                                         >
@@ -253,7 +253,7 @@
                                 <TextBox.Text>
                                     <!-- Bajndovanje biografije + validacija-->
                                     <Binding 
-                                        Path="Upravnik.Biografija"
+                                        Path="Upravnik.Biography"
                                         ValidatesOnDataErrors="True"
                                         UpdateSourceTrigger="PropertyChanged"
                                         >
@@ -360,7 +360,7 @@
                            VerticalContentAlignment="Center"
                            AcceptsReturn="True"
                            AcceptsTab="True"
-                           Text="{Binding Upravnik.Biografija}"
+                           Text="{Binding Upravnik.Biography}"
                            materialDesign:HintAssist.Hint="Izmenite profil i dopunite biografiju"
                            materialDesign:HintAssist.HelperText="Moja biografija"
                            TextWrapping="Wrap">

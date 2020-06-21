@@ -1,4 +1,4 @@
-﻿using HealthClinic.Models;
+﻿using HealthClinic.Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +9,12 @@ namespace HealthClinic.ViewModels
 {
     public class UcitavanjeViewModel
     {
-        public Zaposlen Zaposlen { get; set; } = new Zaposlen()
+        public Employee Zaposlen { get; set; } = new Employee()
         {
-            Ime = "Vlado",
-            Prezime = "Maksimovic",
-            Struka = "Dr.",
-            Sifra = "1234"
+            Name = "Vlado",
+            Surname = "Maksimovic",
+            JobPosition = "Dr.",
+            Password = "1234"
         };
 
     }

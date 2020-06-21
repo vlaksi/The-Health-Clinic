@@ -116,7 +116,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Upravnik.cs" />
     <Compile Include="Utilities\RoutedCommands.cs" />
     <Compile Include="Utilities\Validations\MaximumCharacterRule.cs" />
     <Compile Include="Utilities\Validations\MinimumCharacterRule.cs" />
@@ -187,7 +186,6 @@
     <Compile Include="Views\Dialogs\ZauzetostAktivnostDijalog.xaml.cs">
       <DependentUpon>ZauzetostAktivnostDijalog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Zaposlen.cs" />
     <Compile Include="Utilities\ObservableObject.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />

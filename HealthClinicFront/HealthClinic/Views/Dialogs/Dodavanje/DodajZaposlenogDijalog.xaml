@@ -33,7 +33,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje imena zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaDodavanje.Ime"
+                        Path="ZaposleniZaDodavanje.Name"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -64,7 +64,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje prezimena zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaDodavanje.Prezime"
+                        Path="ZaposleniZaDodavanje.Surname"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -95,7 +95,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje korisnickog imena zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaDodavanje.KorisnickoIme"
+                        Path="ZaposleniZaDodavanje.Username"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -126,7 +126,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje sifre zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaDodavanje.Sifra"
+                        Path="ZaposleniZaDodavanje.Password"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -145,7 +145,7 @@
             <ComboBox
                 Validation.ErrorTemplate="{StaticResource errorTemplate}"
                 ItemsSource="{Binding MoguciTipoviZaposlenih}"
-                SelectedItem="{Binding ZaposleniZaDodavanje.Struka}"
+                SelectedItem="{Binding ZaposleniZaDodavanje.JobPosition}"
                 Background="WhiteSmoke"
                 FontWeight="DemiBold"
                 Width="320"

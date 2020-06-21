@@ -34,7 +34,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje imena zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaIzmenu.Ime"
+                        Path="ZaposleniZaIzmenu.Name"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -65,7 +65,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje prezimena zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaIzmenu.Prezime"
+                        Path="ZaposleniZaIzmenu.Surname"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -96,7 +96,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje korisnickog imena zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaIzmenu.KorisnickoIme"
+                        Path="ZaposleniZaIzmenu.Username"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -127,7 +127,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje sifre zaposlenog + validacija-->
                     <Binding 
-                        Path="ZaposleniZaIzmenu.Sifra"
+                        Path="ZaposleniZaIzmenu.Password"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -146,7 +146,7 @@
             <ComboBox
                 Validation.ErrorTemplate="{StaticResource errorTemplate}"
                 ItemsSource="{Binding MoguciTipoviZaposlenih}"
-                SelectedItem="{Binding ZaposleniZaIzmenu.Struka}"
+                SelectedItem="{Binding ZaposleniZaIzmenu.JobPosition}"
                 Background="WhiteSmoke"
                 FontWeight="DemiBold"
                 Width="320"
