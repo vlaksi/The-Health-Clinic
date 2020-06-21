@@ -10,7 +10,7 @@ namespace Model.Users
     public class RegisteredUser : Person
     {
         private String username;
-        private String[] password;
+        private String password;
         private String photo;
         public Residence residence; //TODO: Proveriti da li da pravimo properti za ovo ?, posto se to ne moze izgenerisati u PD, a treba nam properti ?
 
@@ -28,7 +28,7 @@ namespace Model.Users
             }
         }
 
-        public String[] Password
+        public String Password
         {
             get
             {
