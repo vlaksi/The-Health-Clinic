@@ -15,23 +15,23 @@
         <StackPanel Margin="0, 20, 0, 0" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Prostorija broj "/>
-                <TextBlock Text="{Binding SelektovanaProstorija.BrojSobe}"/>
+                <TextBlock Text="{Binding SelektovanaProstorija.NumberOfRoom}"/>
                 <TextBlock Text=" u narednom periodu ima fizi&#x10D;ke radove tipa"/>
             </StackPanel>
             <StackPanel>
                 <!-- Vrsta fizickog rada -->
-                <TextBlock Text="{Binding SelektovanaProstorija.FizickiRadovi.NazivRada}"/>
+                <TextBlock Text="{Binding SelektovanaProstorija.PhysicalWork.NameOfWork}"/>
                 <!-- Kraj vrste fizickog rada-->
             </StackPanel>
             
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Od: "/>
-                <TextBlock Text="{Binding SelektovanaProstorija.FizickiRadovi.OdDatuma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{Binding SelektovanaProstorija.PhysicalWork.FromDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Od: "/>
-                <TextBlock Text="{Binding SelektovanaProstorija.FizickiRadovi.DoDatuma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{Binding SelektovanaProstorija.PhysicalWork.ToDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
         </StackPanel>

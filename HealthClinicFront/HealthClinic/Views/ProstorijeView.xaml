@@ -58,9 +58,9 @@
                     
                     <!-- Custom kolone tabele-->
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Odeljenje}" Header="Odeljenje"/>
-                        <DataGridTextColumn Binding="{Binding BrojSobe}" Header="Broj sobe"/>
-                        <DataGridTextColumn Binding="{Binding Namena}" Header="Namena"/>
+                        <DataGridTextColumn Binding="{Binding Department}" Header="Odeljenje"/>
+                        <DataGridTextColumn Binding="{Binding NumberOfRoom}" Header="Broj sobe"/>
+                        <DataGridTextColumn Binding="{Binding Purpose}" Header="Namena"/>
                         <!-- Dugmad u tabeli -->
                         <!-- Aktivnosti -->
                         <DataGridTemplateColumn>

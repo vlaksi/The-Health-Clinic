@@ -33,7 +33,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje naziva odeljenja + validacija-->
                     <Binding 
-                        Path="ProstorijaZaDodavanje.Odeljenje"
+                        Path="ProstorijaZaDodavanje.Department"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -64,7 +64,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje broja prostorije + validacija-->
                     <Binding 
-                        Path="ProstorijaZaDodavanje.BrojSobe"
+                        Path="ProstorijaZaDodavanje.NumberOfRoom"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -82,7 +82,7 @@
             <ComboBox
                 Validation.ErrorTemplate="{StaticResource errorTemplate}"
                 ItemsSource="{Binding MoguciTipoviProstorije}"
-                SelectedItem="{Binding ProstorijaZaDodavanje.Namena}"
+                SelectedItem="{Binding ProstorijaZaDodavanje.Purpose}"
                 Background="WhiteSmoke"
                 FontWeight="DemiBold"
                 Width="320"

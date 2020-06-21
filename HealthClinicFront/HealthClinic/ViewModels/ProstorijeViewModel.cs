@@ -19,6 +19,8 @@ using HealthClinic.Views.Dialogs.Brisanje;
 using Syncfusion.Pdf.Tables;
 using System.Data;
 using HealthClinic.Views.Dialogs.ProduzeneInformacije;
+using Model.Rooms;
+using HealthClinic.Model.Rooms;
 
 namespace HealthClinic.ViewModels
 {
@@ -71,9 +73,9 @@ namespace HealthClinic.ViewModels
         
         #region Prostorija koja sluzi za dodavanje u listu prostorija
 
-        private Prostorija _prostorijaZaDodavanje;
+        private Room _prostorijaZaDodavanje;
 
-        public Prostorija ProstorijaZaDodavanje
+        public Room ProstorijaZaDodavanje
         {
             get { return _prostorijaZaDodavanje; }
             set { _prostorijaZaDodavanje = value; OnPropertyChanged("ProstorijaZaDodavanje"); }
@@ -214,14 +216,14 @@ namespace HealthClinic.ViewModels
 
         #region Selektovana prostorija
 
-        private Prostorija _selektovanaProstorija;
+        private Room _selektovanaProstorija;
 
 
         // Bajndujem na SelectedItem u tabeli i dalje radim sa njim sta hocu
         // mogu ga dalje prikazivati
         // a moze se i proslediti u dijalog
         // tako sto se .DatContext tog dijalog postavi na this
-        public Prostorija SelektovanaProstorija
+        public Room SelektovanaProstorija
         {
             get { return _selektovanaProstorija; }
             set 
@@ -236,13 +238,11 @@ namespace HealthClinic.ViewModels
 
         #region Prostorija za izmene
 
-
-
-        private Prostorija _prostorijaZaIzmenu;
+        private Room _prostorijaZaIzmenu;
         /// <summary>
         /// Algoritam izmene prostorije: http://prntscr.com/sul6bj
         /// </summary>
-        public Prostorija ProstorijaZaIzmenu
+        public Room ProstorijaZaIzmenu
         {
             get { return _prostorijaZaIzmenu; }
             set { _prostorijaZaIzmenu = value; OnPropertyChanged("ProstorijaZaIzmenu"); }
@@ -294,11 +294,11 @@ namespace HealthClinic.ViewModels
             if (SelektovanaProstorija is null)
                 return;
 
-            foreach (Prostorija trenutnaProstorija in Prostorije)
+            foreach (Room trenutnaProstorija in Prostorije)
             {
-                if(trenutnaProstorija.BrojSobe == SelektovanaProstorija.BrojSobe)
+                if(trenutnaProstorija.NumberOfRoom == SelektovanaProstorija.NumberOfRoom)
                 {
-                    MessageBox.Show("Uspesno ste izbrisali sobu broj " + trenutnaProstorija.BrojSobe);
+                    MessageBox.Show("Uspesno ste izbrisali sobu broj " + trenutnaProstorija.NumberOfRoom);
                     podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
                     Prostorije.Remove(trenutnaProstorija);
 
@@ -332,9 +332,9 @@ namespace HealthClinic.ViewModels
                 return;
 
             // selektovani objekat prima vrednosti od menjanog objekta
-            SelektovanaProstorija.BrojSobe = ProstorijaZaIzmenu.BrojSobe;
-            SelektovanaProstorija.Namena = ProstorijaZaIzmenu.Namena;
-            SelektovanaProstorija.Odeljenje = ProstorijaZaIzmenu.Odeljenje;
+            SelektovanaProstorija.NumberOfRoom = ProstorijaZaIzmenu.NumberOfRoom;
+            SelektovanaProstorija.Purpose = ProstorijaZaIzmenu.Purpose;
+            SelektovanaProstorija.Department = ProstorijaZaIzmenu.Department;
             this.TrenutniProzor.Close();
         }
         
@@ -343,17 +343,17 @@ namespace HealthClinic.ViewModels
             
             if (Renoviranje)
             {   // preuzimam od pomocne promenljive podatke iz forme
-                SelektovanaProstorija.FizickiRadovi.NazivRada = TrenutniFizickiRad.NazivRada;
-                SelektovanaProstorija.FizickiRadovi.DoDatuma = TrenutniFizickiRad.DoDatuma;
-                SelektovanaProstorija.FizickiRadovi.OdDatuma = TrenutniFizickiRad.OdDatuma;
+                SelektovanaProstorija.PhysicalWork.NameOfWork = TrenutniFizickiRad.NameOfWork;
+                SelektovanaProstorija.PhysicalWork.FromDate = TrenutniFizickiRad.FromDate;
+                SelektovanaProstorija.PhysicalWork.ToDate = TrenutniFizickiRad.ToDate;
             }
             else if (Deljenje)
             {
                 MessageBox.Show("deljenje" + BrojNoveSobe +" " + BrojDrugeNoveSobe);
                 // obrisem trenutno selektovanu prostoriju
-                foreach (Prostorija trenutnaProstorija in Prostorije)
+                foreach (Room trenutnaProstorija in Prostorije)
                 {
-                    if (trenutnaProstorija.BrojSobe == SelektovanaProstorija.BrojSobe)
+                    if (trenutnaProstorija.NumberOfRoom == SelektovanaProstorija.NumberOfRoom)
                     {
                         podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
                         Prostorije.Remove(trenutnaProstorija);
@@ -363,17 +363,17 @@ namespace HealthClinic.ViewModels
                 }
 
                 // dodam ove dve nove
-                Prostorija p1 = new Prostorija()
+                Room p1 = new Room()
                 {
-                    BrojSobe = BrojNoveSobe,
-                    Namena ="soba za pacijente"
+                    NumberOfRoom = int.Parse(BrojNoveSobe),
+                    Purpose ="soba za pacijente"
                     
                 };
 
-                Prostorija p2 = new Prostorija()
+                Room p2 = new Room()
                 {
-                    BrojSobe = BrojDrugeNoveSobe,
-                    Namena = "soba za pacijente"
+                    NumberOfRoom = int.Parse(BrojDrugeNoveSobe),
+                    Purpose = "soba za pacijente"
 
                 };
                 Prostorije.Add(p1);
@@ -385,9 +385,9 @@ namespace HealthClinic.ViewModels
             else if (Spajanje)
             {
                 // prvo moram uklonite ove 2 prostorije
-                foreach (Prostorija trenutnaProstorija in Prostorije)
+                foreach (Room trenutnaProstorija in Prostorije)
                 {
-                    if (trenutnaProstorija.BrojSobe == SelektovanaProstorija.BrojSobe)
+                    if (trenutnaProstorija.NumberOfRoom == SelektovanaProstorija.NumberOfRoom)
                     {
                         podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
                         Prostorije.Remove(trenutnaProstorija);
@@ -396,9 +396,9 @@ namespace HealthClinic.ViewModels
                     }
                 }
                 // namerno 2 fora kako ne bih doslo do errora zbog brisanja
-                foreach (Prostorija trenutnaProstorija in Prostorije)
+                foreach (Room trenutnaProstorija in Prostorije)
                 {
-                    if (trenutnaProstorija.BrojSobe == BrojSobeSaKojomVrsimoSpajanje)
+                    if (trenutnaProstorija.NumberOfRoom == int.Parse(BrojSobeSaKojomVrsimoSpajanje))
                     {
                         podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
                         Prostorije.Remove(trenutnaProstorija);
@@ -408,10 +408,10 @@ namespace HealthClinic.ViewModels
                 }
 
                 // dodajem prostoriju
-                Prostorija tempProstorija = new Prostorija()
+                Room tempProstorija = new Room()
                 {
-                    BrojSobe = BrojNoveSobe,
-                    Namena = NamenaProstorije
+                    NumberOfRoom = int.Parse(BrojNoveSobe),
+                    Purpose = NamenaProstorije
                 };
 
                 Prostorije.Add(tempProstorija);
@@ -435,17 +435,17 @@ namespace HealthClinic.ViewModels
 
         public void PrikaziSpisakOpreme(object obj)
         {
-            SpisakOpreme = new ObservableCollection<Oprema>();
+            SpisakOpreme = new ObservableCollection<InventoryType>();
 
-            TrenutnaOprema = new Oprema();
-            if(SelektovanaProstorija.OpremaProstorije is null)
+            TrenutnaOprema = new InventoryType();
+            if(SelektovanaProstorija.RoomInventory is null)
             {
-                SelektovanaProstorija.OpremaProstorije = new List<Oprema>();
+                SelektovanaProstorija.RoomInventory = new List<InventoryType>();
 
             }
 
             // preuzimanje od prave opreme prostorije
-            foreach (Oprema oprema in SelektovanaProstorija.OpremaProstorije)
+            foreach (InventoryType oprema in SelektovanaProstorija.RoomInventory)
             {
                 SpisakOpreme.Add(oprema);
             }
@@ -477,9 +477,9 @@ namespace HealthClinic.ViewModels
                 table.Columns.Add("Namena");
 
                 //Include rows to the DataTable.
-                foreach (Prostorija prostorija in Prostorije)
+                foreach (Room prostorija in Prostorije)
                 {
-                    table.Rows.Add(new string[] { prostorija.Odeljenje, prostorija.BrojSobe, prostorija.Namena  });
+                    table.Rows.Add(new string[] { prostorija.Department, prostorija.NumberOfRoom.ToString(), prostorija.Purpose  });
                 }
 
 
@@ -500,7 +500,7 @@ namespace HealthClinic.ViewModels
         public void DodajProstoriju(object obj)
         {
             // kreiramo novi objekat koji cemo kasnije u slucaju potvrde dodavanja dodati u listu prostorija
-            ProstorijaZaDodavanje = new Prostorija();
+            ProstorijaZaDodavanje = new Room();
 
             // prikaz dijaloga za dodavanje
             TrenutniProzor = new DodajProstorijuDijalog();
@@ -514,7 +514,7 @@ namespace HealthClinic.ViewModels
             // Prostorija za izmenu/stimanje preuzima podatke od selektovane prostorije
             if (!(SelektovanaProstorija is null))
             {
-                ProstorijaZaIzmenu = new Prostorija() { Odeljenje = SelektovanaProstorija.Odeljenje, BrojSobe = SelektovanaProstorija.BrojSobe, Namena = SelektovanaProstorija.Namena };
+                ProstorijaZaIzmenu = new Room() { Department = SelektovanaProstorija.Department, NumberOfRoom = SelektovanaProstorija.NumberOfRoom, Purpose = SelektovanaProstorija.Purpose };
             }
             else
             {
@@ -539,11 +539,11 @@ namespace HealthClinic.ViewModels
 
         public void PrikaziFizickeRadove(object obj)
         {
-            if (SelektovanaProstorija.FizickiRadovi is null)
+            if (SelektovanaProstorija.PhysicalWork is null)
             {
                 MessageBox.Show("Izabrana prostorija u narednom periodu nema zakazanih fizickih radova");
                 return;
-            }else if(SelektovanaProstorija.FizickiRadovi.NazivRada is null)
+            }else if(SelektovanaProstorija.PhysicalWork.NameOfWork is null)
             {
                 MessageBox.Show("Izabrana prostorija u narednom periodu nema zakazanih fizickih radova");
                 return;
@@ -557,42 +557,42 @@ namespace HealthClinic.ViewModels
 
         public void DodajOpremu(object obj)
         {
-            foreach (Oprema oprema in SpisakOpreme)
+            foreach (InventoryType oprema in SpisakOpreme)
             {
-                if (oprema.NazivOpreme == TrenutnaOprema.NazivOpreme)
+                if (oprema.InventoryName == TrenutnaOprema.InventoryName)
                 {
-                    oprema.KolicinaOpreme += TrenutnaOprema.KolicinaOpreme;
+                    oprema.Quantity += TrenutnaOprema.Quantity;
                     return;
                 }
             }
 
             // ako dodjem dovde znaci da moram celu tu trenutnu opremu dodati jer je nema u spisku opreme
-            Oprema opremaZaDodavanje = new Oprema()
+            InventoryType opremaZaDodavanje = new InventoryType()
             {
-                NazivOpreme = TrenutnaOprema.NazivOpreme,
-                KolicinaOpreme = TrenutnaOprema.KolicinaOpreme
+                InventoryName = TrenutnaOprema.InventoryName,
+                Quantity = TrenutnaOprema.Quantity
             };
             // i kolekciji i zapravo selektovanom dodam
             SpisakOpreme.Add(opremaZaDodavanje);
-            SelektovanaProstorija.OpremaProstorije.Add(opremaZaDodavanje);
+            SelektovanaProstorija.RoomInventory.Add(opremaZaDodavanje);
             
         }
 
         public void UkloniOpremu(object obj)
         {
-            foreach (Oprema oprema in SpisakOpreme)
+            foreach (InventoryType oprema in SpisakOpreme)
             {
-                if (oprema.NazivOpreme == TrenutnaOprema.NazivOpreme)
+                if (oprema.InventoryName == TrenutnaOprema.InventoryName)
                 {
-                    oprema.KolicinaOpreme -= TrenutnaOprema.KolicinaOpreme;
-                    if(oprema.KolicinaOpreme <= 0)
+                    oprema.Quantity -= TrenutnaOprema.Quantity;
+                    if(oprema.Quantity <= 0)
                     {
                         // uklonim iz prave opreme
-                        foreach (Oprema opremaPrava in SelektovanaProstorija.OpremaProstorije)
+                        foreach (InventoryType opremaPrava in SelektovanaProstorija.RoomInventory)
                         {
-                            if(opremaPrava.NazivOpreme == oprema.NazivOpreme)
+                            if(opremaPrava.InventoryName == oprema.InventoryName)
                             {
-                                SelektovanaProstorija.OpremaProstorije.Remove(opremaPrava);
+                                SelektovanaProstorija.RoomInventory.Remove(opremaPrava);
                                 break;
                             }
                         }
@@ -611,9 +611,9 @@ namespace HealthClinic.ViewModels
 
         #region Tabela
 
-        private ObservableCollection<Prostorija> _prostorije;
+        private ObservableCollection<Room> _prostorije;
 
-        public ObservableCollection<Prostorija> Prostorije
+        public ObservableCollection<Room> Prostorije
         {
             get { return _prostorije; }
             set { _prostorije = value; OnPropertyChanged("Prostorije"); }
@@ -621,16 +621,16 @@ namespace HealthClinic.ViewModels
 
         private void ucitavanjeProstorija()
         {
-            Prostorije = new ObservableCollection<Prostorija>();
-            Prostorije.Add(new Prostorija() { Odeljenje = "interno", BrojSobe = "12", Namena = "operaciona sala", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
-            Prostorije.Add(new Prostorija() { Odeljenje = "interno", BrojSobe = "9", Namena = "soba za preglede", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
-            Prostorije.Add(new Prostorija() { Odeljenje = "interno", BrojSobe = "13", Namena = "soba za pacijente", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
-            Prostorije.Add(new Prostorija() { Odeljenje = "decije", BrojSobe = "8", Namena = "soba za pacijente", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
-            Prostorije.Add(new Prostorija() { Odeljenje = "decije", BrojSobe = "10", Namena = "operaciona sala", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
-            Prostorije.Add(new Prostorija() { Odeljenje = "otorinolaringologija", BrojSobe = "2", Namena = "soba za preglede", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
-            Prostorije.Add(new Prostorija() { Odeljenje = "interno", BrojSobe = "7", Namena = "operaciona sala", UvidZauzetosti = "otvori uvid", SpisakOpreme = "prikazi spisak" });
+            Prostorije = new ObservableCollection<Room>();
+            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 12, Purpose = "operaciona sala"});
+            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 1, Purpose = "soba za preglede" });
+            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 2, Purpose = "soba za pacijente"});
+            Prostorije.Add(new Room() { Department = "decije", NumberOfRoom = 3, Purpose = "soba za pacijente" });
+            Prostorije.Add(new Room() { Department = "decije", NumberOfRoom = 9, Purpose = "operaciona sala"});
+            Prostorije.Add(new Room() { Department = "otorinolaringologija", NumberOfRoom = 8, Purpose = "soba za preglede" });
+            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 7, Purpose = "operaciona sala"});
 
-            foreach (Prostorija prostorija in Prostorije)
+            foreach (Room prostorija in Prostorije)
             {
                 podesiBrojOdredjenihProstorija(prostorija, 1);
             }
@@ -649,9 +649,9 @@ namespace HealthClinic.ViewModels
         /// </summary>
         /// <param name="prostorija"></param>
         /// <param name="koeficijentPravca"> Prosledjuje se broj koji govori koliko povecavam/smanjujem broj odredjenih prostorija</param>
-        private void podesiBrojOdredjenihProstorija(Prostorija prostorija, int koeficijentPravca)
+        private void podesiBrojOdredjenihProstorija(Room prostorija, int koeficijentPravca)
         {
-            if (prostorija.Namena == "soba za preglede")
+            if (prostorija.Purpose == "soba za preglede")
             {
                 if (this.UkupnoSobaZaPreglede is null)
                     BrojacSobaZaPreglede = 1;
@@ -660,7 +660,7 @@ namespace HealthClinic.ViewModels
                 this.UkupnoSobaZaPreglede = new ChartValues<int>() { BrojacSobaZaPreglede };
 
             }
-            else if (prostorija.Namena == "soba za pacijente")
+            else if (prostorija.Purpose == "soba za pacijente")
             {
                 if (this.UkupnoSobaZaPacijente is null)
                     BrojacSobaZaPacijente = 1;
@@ -668,7 +668,7 @@ namespace HealthClinic.ViewModels
                     BrojacSobaZaPacijente += koeficijentPravca;
                 this.UkupnoSobaZaPacijente = new ChartValues<int>() { BrojacSobaZaPacijente };
             }
-            else if (prostorija.Namena == "operaciona sala")
+            else if (prostorija.Purpose == "operaciona sala")
             {
                 if (this.UkupnoOperacionihSala is null)
                     BrojacOperacionihSala = 1;
@@ -770,21 +770,21 @@ namespace HealthClinic.ViewModels
 
         #region Validiranje prostorije
 
-        private bool validnaProstorija(Prostorija prostorija)
+        private bool validnaProstorija(Room prostorija)
         {
-            if(prostorija.BrojSobe is null)
+            if(prostorija.NumberOfRoom <= 0 )
             {
                 MessageBox.Show("Niste popunili polje za broj sobe");
                 return false;
             }
 
-            if (prostorija.Namena is null)
+            if (prostorija.Purpose is null)
             {
                 MessageBox.Show("Niste popunili namenu sobe(tip prostorije)");
                 return false;
             }
 
-            if (prostorija.Odeljenje is null)
+            if (prostorija.Department is null)
             {
                 MessageBox.Show("Niste popunili polje za odeljenje na kojem se nalazi soba");
                 return false;
@@ -819,9 +819,9 @@ namespace HealthClinic.ViewModels
         #endregion
 
         #region Spisak opreme odredjene prostorije
-        private ObservableCollection<Oprema> _spisakOpreme;
+        private ObservableCollection<InventoryType> _spisakOpreme;
 
-        public ObservableCollection<Oprema> SpisakOpreme
+        public ObservableCollection<InventoryType> SpisakOpreme
         {
             get { return _spisakOpreme; }
             set { _spisakOpreme = value; OnPropertyChanged("SpisakOpreme"); }
@@ -832,9 +832,9 @@ namespace HealthClinic.ViewModels
 
         #region Trenutna oprema
 
-        private Oprema _trenutnaOprema;
+        private InventoryType _trenutnaOprema;
 
-        public Oprema TrenutnaOprema
+        public InventoryType TrenutnaOprema
         {
             get { return _trenutnaOprema; }
             set { _trenutnaOprema = value; OnPropertyChanged("TrenutnaOprema"); }
@@ -842,9 +842,9 @@ namespace HealthClinic.ViewModels
         #endregion
 
         #region Fizicki radovi za dodavanje/prikaz
-        private FizickiRad _trenutniFizickiRad;
+        private PhysicalWork _trenutniFizickiRad;
 
-        public FizickiRad TrenutniFizickiRad
+        public PhysicalWork TrenutniFizickiRad
         {
             get { return _trenutniFizickiRad; }
             set { _trenutniFizickiRad = value; OnPropertyChanged("TrenutniFizickiRad"); }
@@ -854,17 +854,17 @@ namespace HealthClinic.ViewModels
         {
             if (TrenutniFizickiRad is null)
             {
-                TrenutniFizickiRad = new FizickiRad()
+                TrenutniFizickiRad = new PhysicalWork()
                 {
-                    OdDatuma = new DateTime(2020, 1, 1),
-                    DoDatuma = new DateTime(2020, 12, 12)
+                    FromDate = new DateTime(2020, 1, 1),
+                    ToDate = new DateTime(2020, 12, 12)
                 };
             }
 
             // instanciram fizicke radove selektovane prostorije
-            if (SelektovanaProstorija.FizickiRadovi is null)
+            if (SelektovanaProstorija.PhysicalWork is null)
             {
-                SelektovanaProstorija.FizickiRadovi = new FizickiRad();
+                SelektovanaProstorija.PhysicalWork = new PhysicalWork();
             }
         }
 

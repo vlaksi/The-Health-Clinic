@@ -96,7 +96,7 @@
                     materialDesign:HintAssist.Hint="Izaberite od kog datuma">
                     <DatePicker.SelectedDate>
                         <Binding
-                        Path="TrenutniFizickiRad.OdDatuma"
+                        Path="TrenutniFizickiRad.FromDate"
                         UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </DatePicker.SelectedDate>
@@ -118,7 +118,7 @@
                     materialDesign:HintAssist.Hint="Izaberite do kog datuma">
                     <DatePicker.SelectedDate>
                         <Binding
-                        Path="TrenutniFizickiRad.DoDatuma"
+                        Path="TrenutniFizickiRad.ToDate"
                         UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </DatePicker.SelectedDate>
@@ -128,7 +128,7 @@
                 <!-- Tip renoviranja -->
                 <TextBox
                     Validation.ErrorTemplate="{StaticResource errorTemplate}"
-                    Text="{Binding TrenutniFizickiRad.NazivRada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding TrenutniFizickiRad.NameOfWork, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding PrikazTipaRenoviranja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Background="WhiteSmoke"
                     FontWeight="DemiBold"

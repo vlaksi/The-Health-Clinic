@@ -116,8 +116,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\FizickiRad.cs" />
-    <Compile Include="Models\Oprema.cs" />
     <Compile Include="Models\Upravnik.cs" />
     <Compile Include="Utilities\RoutedCommands.cs" />
     <Compile Include="Utilities\Validations\MaximumCharacterRule.cs" />
@@ -189,7 +187,6 @@
     <Compile Include="Views\Dialogs\ZauzetostAktivnostDijalog.xaml.cs">
       <DependentUpon>ZauzetostAktivnostDijalog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Prostorija.cs" />
     <Compile Include="Models\Zaposlen.cs" />
     <Compile Include="Utilities\ObservableObject.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />

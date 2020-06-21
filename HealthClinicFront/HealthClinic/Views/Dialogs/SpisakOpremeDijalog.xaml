@@ -94,8 +94,8 @@
                     >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Naziv" DisplayMemberBinding="{Binding NazivOpreme}" Width="100"/>
-                            <GridViewColumn Header="Koli&#x10D;ina" DisplayMemberBinding="{Binding KolicinaOpreme}" Width="100"/>
+                            <GridViewColumn Header="Naziv" DisplayMemberBinding="{Binding InventoryName}" Width="100"/>
+                            <GridViewColumn Header="Koli&#x10D;ina" DisplayMemberBinding="{Binding Quantity}" Width="100"/>
 
                         </GridView>
                     </ListView.View>
@@ -135,7 +135,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje naziva opreme + validacija-->
                     <Binding 
-                        Path="TrenutnaOprema.NazivOpreme"
+                        Path="TrenutnaOprema.InventoryName"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
@@ -166,7 +166,7 @@
                 <TextBox.Text>
                     <!-- Bajndovanje kolicina opreme + validacija-->
                     <Binding 
-                        Path="TrenutnaOprema.KolicinaOpreme"
+                        Path="TrenutnaOprema.Quantity"
                         ValidatesOnDataErrors="True"
                         UpdateSourceTrigger="PropertyChanged"
                         >
