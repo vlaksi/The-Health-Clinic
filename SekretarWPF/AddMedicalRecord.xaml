@@ -1,0 +1,139 @@
+﻿<Window x:Class="SekretarWPF.AddMedicalRecord"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:SekretarWPF"
+        xmlns:model="clr-namespace:SekretarWPF.Model"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sfInput="clr-namespace:Syncfusion.Windows.Controls.Input;assembly=Syncfusion.SfInput.Wpf"
+        xmlns:shared="clr-namespace:Syncfusion.Windows.Shared;assembly=Syncfusion.Shared.Wpf"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Name="customEditor"
+        Title="CustomEditor"
+        Width="450"
+        Height="650"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+        </Style>
+
+        <Style TargetType="syncfusion:DateTimeEdit">
+            <Setter Property="Pattern" Value="ShortDate" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="BorderBrush" Value="DarkGray" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Margin" Value="5,0,5,5" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5,0,5,5" />
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="Gray" BorderThickness="2">
+        <Grid Background="white">
+            <StackPanel
+                Margin="3">
+
+                <Button
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        HorizontalAlignment="Right" Click="Button_Click">
+                    <StackPanel>
+                        <TextBlock Foreground="#1976d2" >X</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <StackPanel
+                        Orientation="Horizontal"
+                   HorizontalAlignment="Center"
+                        Margin="5">
+
+                    <RadioButton x:Name="rbMale" Margin="10" GroupName="type" Background="#1976d2" BorderBrush="#1976d2" IsChecked="True">Male</RadioButton>
+                    <RadioButton x:Name="rbFemale" Margin="10" GroupName="type" Background="#1976d2" BorderBrush="#1976d2">Female</RadioButton>
+
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="Gray" VerticalAlignment="Center" >*Name:</TextBlock>
+                        <TextBlock x:Name="nameFieldError" Margin="5,0,0,0" Foreground="Red" >Required field</TextBlock>
+                    </StackPanel>
+                    <TextBox x:Name="tbName" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Name, Mode=OneWay}" TextChanged="tbName_TextChanged"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="Gray" VerticalAlignment="Center" >*Surname:</TextBlock>
+                        <TextBlock x:Name="surnameFieldError" Margin="5,0,0,0" Foreground="Red" >Required field</TextBlock>
+                    </StackPanel>
+                    <TextBox x:Name="tbSurname" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Surname, Mode=OneWay}" TextChanged="tbSurname_TextChanged"></TextBox>
+                </StackPanel>
+                
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Date of birth:</TextBlock>
+                    <DatePicker
+                    Width="380"
+                    x:Name="dpBirth"
+                    Height="25"
+                    Margin="5,0,5,15"
+                    SelectedDate="{Binding MedicalRecord.DateOfBirth, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Address:</TextBlock>
+                    <TextBox x:Name="tbAddress" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Address, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center">ID:</TextBlock>
+                    <TextBox x:Name="tbJMBG" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.JMBG, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Parents name:</TextBlock>
+                    <TextBox x:Name="tbParentName" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.ParentName, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Health insurance number:</TextBlock>
+                    <TextBox x:Name="tbHealthInsuranceNumber" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.HealthInsuranceNumber, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Phone number:</TextBlock>
+                    <TextBox x:Name="tbPhone" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Phone, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Health insurance carrier:</TextBlock>
+                    <TextBox x:Name="tbHealthInsuranceCarrier" Width="380" Margin="5,0,5,0" Text="{Binding MedicalRecord.HealthInsuranceCarrier, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                    <Button
+                            x:Name="save"
+                            Margin="20"
+                            Background="#1976d2"
+                            Click="save_Click">Save</Button>
+
+                    <Button
+                            x:Name="delete"
+                            Margin="20"
+                            Background="#1976d2"
+                            Click="delete_Click">Delete</Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

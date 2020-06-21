@@ -1,0 +1,229 @@
+﻿<Window x:Class="SekretarWPF.CustomEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:SekretarWPF"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sfInput="clr-namespace:Syncfusion.Windows.Controls.Input;assembly=Syncfusion.SfInput.Wpf"
+        xmlns:shared="clr-namespace:Syncfusion.Windows.Shared;assembly=Syncfusion.Shared.Wpf"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Name="customEditor"
+        Title="CustomEditor"
+        Width="450"
+        Height="340"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+        </Style>
+
+        <Style TargetType="syncfusion:DateTimeEdit">
+            <Setter Property="Pattern" Value="ShortDate" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="BorderBrush" Value="DarkGray" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Margin" Value="5,0,5,5" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5,0,5,5" />
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="Gray" BorderThickness="2">
+        <Grid Background="white">
+            <StackPanel
+                Margin="3">
+
+                <Button
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        HorizontalAlignment="Right" Click="Button_Click">
+                    <StackPanel>
+                        <TextBlock Foreground="#1976d2" >X</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <StackPanel
+                        Orientation="Horizontal"
+                        Margin="20,0,20,5">
+
+                    <RadioButton x:Name="rbCheckUp" Margin="10" GroupName="type" Checked="CheckUp_Checked" Background="#1976d2" BorderBrush="#1976d2">Check Up</RadioButton>
+                    <RadioButton x:Name="rbOperation" Margin="10" GroupName="type" Checked="Operation_Checked" Background="#1976d2" BorderBrush="#1976d2">Operation</RadioButton>
+
+                </StackPanel>
+
+                <StackPanel
+                        Orientation="Horizontal"
+                        Margin="5,5,5,20">
+
+                    <DatePicker
+                            x:Name="editstartmonth"
+                            Height="25"
+                            Margin="5,0,5,5"
+                            SelectedDate="{Binding Appointment.StartTime, Mode=OneWay}"/>
+
+                    <materialDesign:TimePicker
+                            x:Name="editstarttime"
+                            Height="25"
+                            Margin="5,0,5,5"
+                            SelectedTime="{Binding Appointment.StartTime, Mode=OneWay}"/>
+
+                    <TextBlock
+                            Height="25"
+                            Margin="5"
+                            Foreground="Black"
+                            Text="-"/>
+
+                    <DatePicker
+                            x:Name="editendmonth"
+                            Height="25"
+                            Margin="5,0,5,5"
+                            SelectedDate="{Binding Appointment.EndTime, Mode=OneWay}"/>
+
+                    <materialDesign:TimePicker
+                            x:Name="editendtime"
+                            Height="25"
+                            Margin="5,0,5,5"
+                            SelectedTime="{Binding Appointment.EndTime, Mode=OneWay}"/>
+                </StackPanel>
+
+                <StackPanel
+                    Orientation="Horizontal">
+
+                    <Image
+                        Margin="8,5,15,5"
+                        Width="30"
+                        Height="30"
+                        Source="pack://application:,,,/SekretarWPF;Component/Assets/patient_icon.png"/>
+
+                    <syncfusion:ComboBoxAdv
+                        x:Name="cbPatient"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        SelectedValuePath="Content">
+                        <syncfusion:ComboBoxItemAdv>Patient1</syncfusion:ComboBoxItemAdv>
+                        <syncfusion:ComboBoxItemAdv>Patient2</syncfusion:ComboBoxItemAdv>
+                        <syncfusion:ComboBoxItemAdv>Patient3</syncfusion:ComboBoxItemAdv>
+                    </syncfusion:ComboBoxAdv>
+
+                </StackPanel>
+
+                <StackPanel
+                    x:Name="CheckUp_Panel"
+                    Visibility="Visible">
+
+                    <StackPanel
+                        Orientation="Horizontal">
+
+                        <Image
+                            Margin="8,5,15,5"
+                            Width="30"
+                            Height="30"
+                            Source="pack://application:,,,/SekretarWPF;Component/Assets/doctor_icon.png"/>
+
+                        <syncfusion:ComboBoxAdv
+                            x:Name="cbDoctor"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                            <syncfusion:ComboBoxItemAdv>Doctor1</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>Doctor2</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>Doctor3</syncfusion:ComboBoxItemAdv>
+                        </syncfusion:ComboBoxAdv>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal">
+
+                        <Image
+                            Margin="8,5,15,5"
+                            Width="30"
+                            Height="30"
+                            Source="pack://application:,,,/SekretarWPF;Component/Assets/ordination_icon.png"/>
+
+                        <syncfusion:ComboBoxAdv
+                            x:Name="cbOrdination"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                            <syncfusion:ComboBoxItemAdv>Ordination1</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>Ordination2</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>Ordination3</syncfusion:ComboBoxItemAdv>
+                        </syncfusion:ComboBoxAdv>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel 
+                        x:Name="Operation_Panel"
+                        Visibility="Collapsed">
+
+                    <StackPanel
+                            Orientation="Horizontal">
+
+                        <Image
+                                Margin="8,5,15,5"
+                                Width="30"
+                                Height="30"
+                                Source="pack://application:,,,/SekretarWPF;Component/Assets/doctor_icon.png"/>
+
+                        <syncfusion:ComboBoxAdv
+                            x:Name="cbSpecialist"
+                                Background="Transparent"
+                                BorderBrush="Transparent">
+                            <syncfusion:ComboBoxItemAdv>Specialist1</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>Specialist2</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>Specialist3</syncfusion:ComboBoxItemAdv>
+                        </syncfusion:ComboBoxAdv>
+
+                    </StackPanel>
+
+                    <StackPanel
+                            Orientation="Horizontal">
+
+                        <Image
+                                Margin="8,5,15,5"
+                                Width="30"
+                                Height="30"
+                                Source="pack://application:,,,/SekretarWPF;Component/Assets/operating_room_icon.png"/>
+
+                        <syncfusion:ComboBoxAdv
+                            x:Name="cbOperatingRoom"
+                                Background="Transparent"
+                                BorderBrush="Transparent">
+                            <syncfusion:ComboBoxItemAdv>OperatingRoom1</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>OperatingRoom2</syncfusion:ComboBoxItemAdv>
+                            <syncfusion:ComboBoxItemAdv>OperatingRoom3</syncfusion:ComboBoxItemAdv>
+                        </syncfusion:ComboBoxAdv>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                    <Button
+                            x:Name="save"
+                            Margin="20"
+                            Background="#1976d2"
+                            Click="save_Click">Save</Button>
+
+                    <Button
+                            x:Name="delete"
+                            Margin="20"
+                            Background="#1976d2"
+                            Click="delete_Click">Delete</Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
