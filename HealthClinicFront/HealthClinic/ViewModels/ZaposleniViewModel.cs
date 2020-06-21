@@ -19,7 +19,8 @@ using Syncfusion.Pdf.Tables;
 using System.Data;
 using HealthClinic.Views.Dialogs.ProduzeneInformacije;
 using Model.BusinessHours;
-using HealthClinic.Model.Users;
+using Model.Users;
+using Controller.EmployeeContr;
 
 namespace HealthClinic.ViewModels
 {
@@ -29,7 +30,7 @@ namespace HealthClinic.ViewModels
         {
             PieChart();                // init piecharta
 
-            ucitavanjePodatakaUTabelu();
+            ucitavanjaTabeleZaposlenih();
             DodajZaposlenogCommand = new RelayCommand(DodajZaposlenog);
             
             IzmeniZaposlenogCommand = new RelayCommand(IzmeniZaposlenog);
@@ -198,6 +199,7 @@ namespace HealthClinic.ViewModels
                 }
             }
 
+            sacuvajSveZaposlene();
             this.TrenutniProzor.Close();
         }
 
@@ -213,6 +215,8 @@ namespace HealthClinic.ViewModels
 
             Zaposleni.Add(ZaposleniZaDodavanje);
             podesiBrojOdredjenihZaposlenih(ZaposleniZaDodavanje, 1);
+
+            sacuvajSveZaposlene();
             this.TrenutniProzor.Close();
         }
 
@@ -234,6 +238,7 @@ namespace HealthClinic.ViewModels
             SelektovaniZaposleni.Password = ZaposleniZaIzmenu.Password;
             SelektovaniZaposleni.Username = ZaposleniZaIzmenu.Username;
 
+            sacuvajSveZaposlene();
             this.TrenutniProzor.Close();
         }
 
@@ -447,7 +452,7 @@ namespace HealthClinic.ViewModels
 
         #endregion
 
-        #region Ucitavanje podataka zaposlenih
+        #region Ucitavanje tabele zaposlenih
 
         private ObservableCollection<Employee> _zaposleni;
 
@@ -457,176 +462,53 @@ namespace HealthClinic.ViewModels
             set { _zaposleni = value; OnPropertyChanged("Zaposleni"); }
         }
 
-        private void ucitavanjePodatakaUTabelu()
+        private void ucitavanjaTabeleZaposlenih()
         {
-            //Tabela - popunjavanje
-            Zaposleni = new ObservableCollection<Employee>();
-            BusinessHoursModel bs = new BusinessHoursModel() { FromDate = new DateTime(2020,1,1), ToDate = new DateTime(2020, 2,1), FromHour= new DateTime(2020,1,1,9,30,30), ToHour= new DateTime(2020, 2, 1, 17, 30, 30) };
-            Zaposleni.Add(new Employee()
-            {
-                Username = "zikaa",
-                Name = "Zika",
-                Surname = "Vojvodic",
-                JobPosition = "Otorinolaringolog",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
 
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "dzoni",
-                Name = "Nikola",
-                Surname = "Zigic",
-                JobPosition = "Oftamolog",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
+            ucitajSveZaposlene();
+            sacuvajSveZaposlene();
 
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "markoni",
-                Name = "Marko",
-                Surname = "Bogdanovic",
-                JobPosition = "Kardio hirurg",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "bobi",
-                Name = "Boban",
-                Surname = "Jokic",
-                JobPosition = "Pedijatar",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "niki",
-                Name = "Nikola",
-                Surname = "Marjanovic",
-                JobPosition = "Lekar opste prakse",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "zare",
-                Name = "Zika",
-                Surname = "Vojvodic",
-                JobPosition = "Otorinolaringolog",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "nidroni",
-                Name = "Nikola",
-                Surname = "Zigic",
-                JobPosition = "Sekretar",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "maron",
-                Name = "Marko",
-                Surname = "Bogdanovic",
-                JobPosition = "Kardio hirurg",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "bobi2",
-                Name = "Boban",
-                Surname = "Jokic",
-                JobPosition = "Pedijatar",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-            Zaposleni.Add(new Employee()
-            {
-                Username = "dzoni2",
-                Name = "Nikola",
-                Surname = "Marjanovic",
-                JobPosition = "Lekar opste prakse",
-                Password = "*****",
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = bs.FromDate,
-                    ToDate = bs.ToDate,
-                    FromHour = bs.FromHour,
-                    ToHour = bs.ToHour
-
-                }
-            });
-
+            
             foreach (Employee zaposlen in Zaposleni)
             {
                 podesiBrojOdredjenihZaposlenih(zaposlen, 1);
             }
+        }
+
+
+        #endregion
+
+        #region Ucitaj/sacuvaj sve zaposlene iz fajlova
+
+        private void ucitajSveZaposlene()
+        {
+            EmployeeController employeeContr = new EmployeeController();
+
+            // iscitam ih sve
+            List<Employee> tempEmploye = new List<Employee>();
+            tempEmploye = employeeContr.readAllEmployees();
+
+            // a onda to dodam u listu koja se prikazuje na frontu
+            Zaposleni = new ObservableCollection<Employee>();
+            foreach (Employee medicine in tempEmploye)
+            {
+                Zaposleni.Add(medicine);
+            }
+        }
+
+        private void sacuvajSveZaposlene()
+        {
+            EmployeeController employeeContr = new EmployeeController();
+
+            // preuzimanje trenutnih zaposlenih
+            List<Employee> tempZaposleni = new List<Employee>();
+            foreach (Employee empl in Zaposleni)
+            {
+                tempZaposleni.Add(empl);
+            }
+
+            // njihovo cuvanje
+            employeeContr.saveAllEmployees(tempZaposleni);
         }
 
 
