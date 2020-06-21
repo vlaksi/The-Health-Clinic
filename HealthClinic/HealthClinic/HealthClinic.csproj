@@ -92,6 +92,7 @@
     <Compile Include="Model\Survey\SurveyResponse.cs" />
     <Compile Include="Model\Users\Country.cs" />
     <Compile Include="Model\Users\Doctor.cs" />
+    <Compile Include="Model\Users\Employee.cs" />
     <Compile Include="Model\Users\Manager.cs" />
     <Compile Include="Model\Users\PatientModel.cs" />
     <Compile Include="Model\Users\Person.cs" />
