@@ -10,9 +10,70 @@ namespace Model.Users
 {
     public class Person : ObservableObject
     {
+        #region Attributes
+
         private string name;
         private string surname;
         private int id;
+        private DateTime _birthday;
+        private string _biography;
+        private string _adress;
+        private string _phoneNumber;
+
+        #endregion
+
+        public string PhoneNumber
+        {
+            get { return _phoneNumber; }
+            set
+            {
+                if (value != _phoneNumber)
+                {
+                    _phoneNumber = value;
+                    OnPropertyChanged("PhoneNumber");
+                }
+            }
+        }
+
+        #region Properties
+        public string Adress
+        {
+            get { return _adress; }
+            set
+            {
+                if (value != _adress)
+                {
+                    _adress = value;
+                    OnPropertyChanged("Adress");
+                }
+            }
+        }
+
+        public string Biography
+        {
+            get { return _biography; }
+            set
+            {
+                if (value != _biography)
+                {
+                    _biography = value;
+                    OnPropertyChanged("Biography");
+                }
+            }
+        }
+
+        public DateTime Birthday
+        {
+            get { return _birthday; }
+            set
+            {
+                if (value != _birthday)
+                {
+                    _birthday = value;
+                    OnPropertyChanged("Birthday");
+                }
+            }
+        }
 
         public string Name
         {
@@ -53,5 +114,6 @@ namespace Model.Users
             }
         }
 
+        #endregion
     }
 }
