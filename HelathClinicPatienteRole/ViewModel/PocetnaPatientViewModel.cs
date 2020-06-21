@@ -1,6 +1,7 @@
 ﻿using HelathClinicPatienteRole.Dialogs;
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
+using Model.Calendar;
 using Model.Users;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class PocetnaPatientViewModel : INotifyPropertyChanged
     {
-        private IList<Pregled> _PregledList;
+        private IList<Checkup> _PregledList;
         private ObservableCollection<Doctor> _LekariList;
 
         public PocetnaPatientViewModel()
@@ -29,16 +30,14 @@ namespace HelathClinicPatienteRole.ViewModel
             IzmeniPregledCommand = new RelayCommand(IzmeniPregled);
             _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
 
-            _PregledList = new List<Pregled>
+            _PregledList = new List<Checkup>
             {
-                new Pregled{IdPregleda=1, NazivPregleda = "Specijalisticki pregled",TerminPregleda = "22.06.2020  19:00h",StatusPregleda="Zakazan",Lekar="Pera Perić"},
-                new Pregled{IdPregleda=2,NazivPregleda = "Ortorinolaringoloski pregled",TerminPregleda = "26.04.2020  9:00h",StatusPregleda="Obavljen",Lekar="Mika Mikić"},
-                new Pregled{IdPregleda=3,NazivPregleda = "Očni pregled",TerminPregleda = "28.06.2020  8:00h",StatusPregleda="Zakazan",Lekar="Miodrag Milić"},
-                new Pregled{IdPregleda=4,NazivPregleda = "Specijalisticki pregled",TerminPregleda ="30.05.2020  11:00h",StatusPregleda="Obavljen",Lekar="Miodrag Mitrović"},
-                new Pregled{IdPregleda=5,NazivPregleda = "Specijalisticki pregled",TerminPregleda ="30.06.2020  11:00h",StatusPregleda="Otkazan",Lekar="Jovan Jovanović"},
-                new Pregled{IdPregleda=6,NazivPregleda = "Specijalisticki pregled",TerminPregleda = "22.06.2020  19:00h",StatusPregleda="Zakazan",Lekar="Milomir Mirković"},
-                new Pregled{IdPregleda=7,NazivPregleda = "Ortorinolaringoloski pregled",TerminPregleda = "26.06.2020  9:00h",StatusPregleda="Obavljen",Lekar="Stevan Jovanić"},
-                new Pregled{IdPregleda=8,NazivPregleda = "Očni pregled",TerminPregleda = "28.06.2020  8:00h",StatusPregleda="Zakazan",Lekar="Mirko Mikić"}
+                new Checkup{Id=1, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Zakazan",Doctor= _LekariList.First() },
+                new Checkup{Id=2, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Otkazan",Doctor= _LekariList.First() },
+                new Checkup{Id=3, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Obavljen",Doctor= _LekariList.First() },
+                new Checkup{Id=4, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Otkazan",Doctor= _LekariList.First() },
+                new Checkup{Id=5, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Zakazan",Doctor= _LekariList.First() },
+             
             };
         }
 
@@ -91,19 +90,19 @@ namespace HelathClinicPatienteRole.ViewModel
                 return;
             }
 
-            string termin = SelektovaniDatum.Day + "." + SelektovaniDatum.Month + "." + SelektovaniDatum.Year + "   " + "08:00h";
+         
 
-            foreach (Pregled pregled in Pregledi)
+            foreach (Checkup pregled in Pregledi)
             {
-                if (pregled.IdPregleda == SelektovaniPregled.IdPregleda)
+                if (pregled.Id == SelektovaniPregled.Id)
                 {
                     if (!(SelektovaniLekar is null))
                     {
-                        pregled.Lekar = SelektovaniLekar.Name + SelektovaniLekar.Surname ;
+                        pregled.Doctor = SelektovaniLekar ;
                     }
                     if (!(SelektovaniDatum.Day == DateTime.Now.Day))
                     {
-                        pregled.TerminPregleda = termin;
+                        pregled.StartTime = SelektovaniDatum;
                     }
                     MessageBox.Show("Uspešno ste izmenili pregled!");
                 }
@@ -148,12 +147,12 @@ namespace HelathClinicPatienteRole.ViewModel
                 return;
             }
                
-            foreach (Pregled pregled in Pregledi)
+            foreach (Checkup pregled in Pregledi)
             {
-                if (pregled.IdPregleda == SelektovaniPregled.IdPregleda)
+                if (pregled.Id == SelektovaniPregled.Id)
                 {
-                    pregled.StatusPregleda = "Otkazan";
-                    MessageBox.Show("Uspesno ste otkazali " + pregled.NazivPregleda);
+                    pregled.CheckupStatus = "Otkazan";
+                    MessageBox.Show("Uspesno ste otkazali " + pregled.CheckupName);
                     //Pregledi.Remove(pregled); Ovo je komanda za brisanje 
                     break;
                 }
@@ -187,7 +186,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Niste selektovali ni jedan pregled u tabeli!");
                 return;
             }
-            if (SelektovaniPregled.StatusPregleda != "Obavljen")
+            if (SelektovaniPregled.CheckupStatus != "Obavljen")
             {
                 MessageBox.Show("Selektovani pregled mora da ima status 'Obavljen'!");
                 return;
@@ -211,7 +210,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Niste selektovali ni jedan pregled u tabeli!");
                 return;
             }
-            if(SelektovaniPregled.StatusPregleda != "Zakazan")
+            if(SelektovaniPregled.CheckupStatus != "Zakazan")
             {
                 MessageBox.Show("Selektovani pregled mora da ima status 'Zakazan'!");
                 return;
@@ -234,7 +233,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Niste selektovali ni jedan pregled u tabeli!");
                 return;
             }
-            if (SelektovaniPregled.StatusPregleda != "Zakazan")
+            if (SelektovaniPregled.CheckupStatus != "Zakazan")
             {
                 MessageBox.Show("Selektovani pregled mora da ima status 'Zakazan'!");
                 return;
@@ -249,15 +248,15 @@ namespace HelathClinicPatienteRole.ViewModel
 
         #region Selektovani pregled
 
-        private Pregled _selektovaniPregled;
+        private Checkup _selektovaniPregled;
 
-        public Pregled SelektovaniPregled
+        public Checkup SelektovaniPregled
         {
             get { return _selektovaniPregled; }
             set { _selektovaniPregled = value; OnPropertyChanged("SelektovaniPregled"); }
         }
         #endregion
-        public IList<Pregled> Pregledi
+        public IList<Checkup> Pregledi
         {
             get
             {

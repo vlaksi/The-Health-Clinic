@@ -2,6 +2,7 @@
 using HelathClinicPatienteRole.Dialogs;
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
+using Model.Calendar;
 using Model.Users;
 using System;
 using System.Collections.Generic;
@@ -157,7 +158,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
             string termin = SelektovaniDatum.Day + "." + SelektovaniDatum.Month+ "." + SelektovaniDatum.Year + "   " + SelektovaniDatum.Hour + ":" + SelektovaniDatum.Minute ;
             MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
-            Pregled pregled = new Pregled { IdPregleda = 9, NazivPregleda = "Pregled kod lekara opšte prakse", TerminPregleda = termin, StatusPregleda = "Zakazan", Lekar = SelektovaniLekar.Name + " " + SelektovaniLekar.Surname };
+            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
 
@@ -186,7 +187,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
             string termin = PreporucenTermin.Day + "." + PreporucenTermin.Month + "." + PreporucenTermin.Year + "   " + PreporucenTermin.Hour + ":" + PreporucenTermin.Minute;
             MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + " " + SelektovaniLekar.Surname + ".");
-            Pregled pregled = new Pregled { IdPregleda = 9, NazivPregleda = "Pregled kod lekara opšte prakse", TerminPregleda = termin, StatusPregleda = "Zakazan", Lekar = SelektovaniLekar.Name + " " + SelektovaniLekar.Surname };
+            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
 

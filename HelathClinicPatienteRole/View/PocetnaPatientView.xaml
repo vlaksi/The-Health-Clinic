@@ -46,19 +46,19 @@
                             <Setter Property="IsHitTestVisible" Value="True" ></Setter>
                             <Style.Triggers>
 
-                                <DataTrigger Binding="{Binding StatusPregleda}" Value="Zakazan">
+                                <DataTrigger Binding="{Binding CheckupStatus}" Value="Zakazan">
                                     <Setter  Property="Background" Value="#FF148DF0"></Setter>
                                     <Setter Property="Height" Value="40"/>
                                     <Setter Property="FontSize" Value="17"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding StatusPregleda}" Value="Otkazan">
+                                <DataTrigger Binding="{Binding CheckupStatus}" Value="Otkazan">
                                     <Setter Property="Background" Value="Red"></Setter>
                                     <Setter Property="Height" Value="40"/>
                                     <Setter Property="FontSize" Value="17"/>
         
 
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding StatusPregleda}" Value="Obavljen">
+                                <DataTrigger Binding="{Binding CheckupStatus}" Value="Obavljen">
                                     <Setter Property="Background" Value="Green"></Setter>
                                     <Setter Property="Height" Value="40"/>
                                     <Setter Property="FontSize" Value="17"/>
@@ -86,7 +86,7 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header=" Status"
-                            Binding="{Binding StatusPregleda}">
+                            Binding="{Binding CheckupStatus}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
@@ -98,7 +98,7 @@
 
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="  Termin pregleda"
-                            Binding="{Binding TerminPregleda}">
+                            Binding="{Binding StartTime}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
@@ -109,7 +109,7 @@
                             </DataGridColumn.HeaderStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="  Naziv Pregleda"
-                            Binding="{Binding NazivPregleda}">
+                            Binding="{Binding CheckupName}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
@@ -120,7 +120,7 @@
                             </DataGridColumn.HeaderStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="   Lekar"
-                            Binding="{Binding Lekar}">
+                            Binding="{Binding Doctor.Name}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
