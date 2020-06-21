@@ -20,7 +20,7 @@ namespace Model.Rooms
         private string _purpose;
         private int floor;
         private bool full = false;
-        public List<InventoryType> _roomInventory;
+        private List<InventoryType> _roomInventory;
         private PhysicalWork _physicalWork;
 
         #endregion
@@ -101,11 +101,13 @@ namespace Model.Rooms
             }
             set
             {
-                RemoveAllInventoryAmount();
+                //RemoveAllInventoryAmount();
                 if (value != null)
                 {
-                    foreach (InventoryType oInventoryAmount in value)
-                        AddInventoryAmount(oInventoryAmount);
+                    //foreach (InventoryType oInventoryAmount in value)
+                    //    AddInventoryAmount(oInventoryAmount);
+                    _roomInventory = value;
+                    //OnPropertyChanged("RoomInventory");
                 }
             }
         }
