@@ -24,6 +24,7 @@ namespace Model.Users
             set
             {
                 this.username = value;
+                OnPropertyChanged("Username");
             }
         }
 
@@ -36,6 +37,7 @@ namespace Model.Users
             set
             {
                 this.password = value;
+                OnPropertyChanged("Password");
             }
         }
 
@@ -48,6 +50,7 @@ namespace Model.Users
             set
             {
                 this.photo = value;
+                OnPropertyChanged("Photo");
             }
         }
 
