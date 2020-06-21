@@ -13,6 +13,21 @@ namespace Controller.EmployeeContr
     {
         public EmployeeService employeeService = new EmployeeService();
 
+        public void makeUpdateFor(Employee employee)
+        {
+            employeeService.makeUpdateFor(employee);
+        }
+
+        public void addEmployee(Employee employee)
+        {
+            employeeService.addEmployee(employee);
+        }
+
+        public void removeEmployee(Employee employee)
+        {
+            employeeService.removeEmployee(employee);
+        }
+
         public List<Employee> readAllEmployees()
         {
             return employeeService.readAllEmployees();

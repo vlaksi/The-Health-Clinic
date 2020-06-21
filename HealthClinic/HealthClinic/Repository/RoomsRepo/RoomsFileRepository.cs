@@ -14,6 +14,31 @@ namespace Repository.RoomsRepo
 {
     public class RoomsFileRepository : RoomsRepository
     {
+
+        public void makeUpdateFor(Room room)
+        {
+            List<Room> allRooms = (List<Room>)FindAll();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                // For now, room is uniq by number of room, but we need to change that !
+                if (tempRoom.NumberOfRoom.Equals(room.NumberOfRoom))
+                {
+                    tempRoom.Department = room.Department;
+                    tempRoom.Purpose = room.Purpose;
+
+                    tempRoom.RoomInventory = new List<InventoryType>();
+                    tempRoom.RoomInventory.AddRange(room.RoomInventory);
+
+                    break;
+                }
+            }
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
+
+        }
+
         private void OpenFIle()
         {
             throw new NotImplementedException();
@@ -116,5 +141,7 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }
