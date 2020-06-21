@@ -4,22 +4,24 @@
 // Purpose: Definition of Class MedicineFileRepository
 
 using Model.Medicine;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.MedicineRepo
 {
-   public class MedicineFileRepository : MedicineRepository
-   {
-      private void OpenFile()
-      {
-         throw new NotImplementedException();
-      }
-      
-      private void CloseFile()
-      {
-         throw new NotImplementedException();
-      }
+    public class MedicineFileRepository : MedicineRepository
+    {
+        private void OpenFile()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CloseFile()
+        {
+            throw new NotImplementedException();
+        }
 
         public int Count()
         {
@@ -48,7 +50,16 @@ namespace Repository.MedicineRepo
 
         public IEnumerable<Medicine> FindAll()
         {
-            throw new NotImplementedException();
+            List<Medicine> allMedicine = new List<Medicine>();
+
+
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+            currentPath += @"\medicine.json";
+
+            // read file into a string and deserialize JSON to a type
+            allMedicine = JsonConvert.DeserializeObject<List<Medicine>>(File.ReadAllText(currentPath));
+
+            return allMedicine;
         }
 
         public Medicine FindById(int id)
@@ -58,12 +69,30 @@ namespace Repository.MedicineRepo
 
         public void Save(Medicine entity)
         {
-            throw new NotImplementedException();
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+            currentPath += @"\medicine.json";
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(currentPath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entity);
+            }
+
         }
 
         public void SaveAll(IEnumerable<Medicine> entities)
         {
-            throw new NotImplementedException();
+
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+            currentPath += @"\medicine.json";
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(currentPath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
         }
 
         public IEnumerable<Medicine> FindAllById(IEnumerable<int> ids)
@@ -72,6 +101,6 @@ namespace Repository.MedicineRepo
         }
 
         private string filePath;
-   
-   }
+
+    }
 }

@@ -23,6 +23,7 @@ using Syncfusion.DocToPDFConverter;
 using HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment;
 
 using Model.Medicine;
+using Controller.MedicineContr;
 
 namespace HealthClinic.ViewModels
 {
@@ -31,7 +32,7 @@ namespace HealthClinic.ViewModels
 
         public LekoviViewModel()
         {
-            ucitavanjeLekova();
+            ucitavanjeTabeleLekova();
             PieChart();
 
             DodajLekCommand = new RelayCommand(DodajLek);
@@ -146,6 +147,7 @@ namespace HealthClinic.ViewModels
                     break;
                 }
             }
+            sacuvajSveLekove();
             this.TrenutniProzor.Close();
         }
 
@@ -159,6 +161,7 @@ namespace HealthClinic.ViewModels
             Lekovi.Add(LekZaDodavanje);
             podesiBrojOdredjenihLekova(LekZaDodavanje, 1);
 
+            sacuvajSveLekove();
             this.TrenutniProzor.Close();            // gasenje trenutnog prozora
         }
 
@@ -181,6 +184,7 @@ namespace HealthClinic.ViewModels
             SelektovaniLek.Alergen = LekZaIzmenu.Alergen;
             SelektovaniLek.SideEffects = LekZaIzmenu.SideEffects;
 
+            sacuvajSveLekove();
             this.TrenutniProzor.Close();            // gasenje trenutnog prozora
         }
 
@@ -378,13 +382,10 @@ namespace HealthClinic.ViewModels
             set { _lek = value; OnPropertyChanged("Lekovi"); }
         }
 
-        private void ucitavanjeLekova()
+        private void ucitavanjeTabeleLekova()
         {
-            Lekovi = new ObservableCollection<Medicine>();
-            Lekovi.Add(new Medicine() { Name = "Andol", Id = 1, Quantity = 10, MedicineType = "antibiotik" , SideEffects="nema"});
-            Lekovi.Add(new Medicine() { Name = "Sabax", Id = 2, Quantity = 11, MedicineType = "analgetik" });
-            Lekovi.Add(new Medicine() { Name = "Kafetin", Id = 3, Quantity = 12, MedicineType = "kardio vaskularni" });
-            Lekovi.Add(new Medicine() { Name = "Bensedin", Id = 4, Quantity = 13, MedicineType = "anestetik" });
+            ucitajSveLekove();
+            sacuvajSveLekove();
 
             // Odredjivanje koliko imamo kog leka
             foreach (Medicine lek in Lekovi)
@@ -393,6 +394,43 @@ namespace HealthClinic.ViewModels
             }
 
         }
+
+        #endregion
+
+        #region Ucitaj/sacuvaj sve lekove iz fajlova
+
+        private void ucitajSveLekove()
+        { 
+            MedicineController medicineContr = new MedicineController();
+
+            // iscitam ih sve
+            List<Medicine> tempLekovi = new List<Medicine>();
+            tempLekovi = medicineContr.readAllMedicine();
+
+            // a onda to dodam u listu koja se prikazuje na frontu
+            Lekovi = new ObservableCollection<Medicine>();
+            foreach (Medicine medicine in tempLekovi)
+            {
+                Lekovi.Add(medicine);
+            }
+        }
+
+        private void sacuvajSveLekove()
+        {
+            MedicineController medicineContr = new MedicineController();
+
+            List<Medicine> tempLekovi = new List<Medicine>();
+            foreach (Medicine medicine1 in Lekovi)
+            {
+                tempLekovi.Add(medicine1);
+            }
+
+            medicineContr.saveAllMedicine(tempLekovi);
+        }
+
+        #endregion
+
+        #region Podesavanje odredjenog broja lekova u odredjenoj grupi lekova
         /// <summary>
         /// Podesavam trenutnu kolicinu odredjene GRUPE LEKOVA
         /// </summary>
