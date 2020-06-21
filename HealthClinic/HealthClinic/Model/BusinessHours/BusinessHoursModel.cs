@@ -3,140 +3,156 @@
 // Created: Tuesday, April 21, 2020 8:27:16 PM
 // Purpose: Definition of Class BusinessHoursModel
 
+using HealthClinic.Utilities;
+using Model.Users;
 using System;
+using System.Collections;
 
 namespace Model.BusinessHours
 {
-   public class BusinessHoursModel
-   {
-      private int fromHour;
-      private int toHour;
-      private DateTime fromDate;
-      private DateTime toDate;
-      
-      public int FromHour
-      {
-         get
-         {
-            return fromHour;
-         }
-         set
-         {
-            this.fromHour = value;
-         }
-      }
-      
-      public int ToHour
-      {
-         get
-         {
-            return toHour;
-         }
-         set
-         {
-            this.toHour = value;
-         }
-      }
-      
-      public DateTime FromDate
-      {
-         get
-         {
-            return fromDate;
-         }
-         set
-         {
-            this.fromDate = value;
-         }
-      }
-      
-      public DateTime ToDate
-      {
-         get
-         {
-            return toDate;
-         }
-         set
-         {
-            this.toDate = value;
-         }
-      }
-      
-      public System.Collections.ArrayList doctor;
-      
-      /// <summary>
-      /// Property for collection of Model.Users.Doctor
-      /// </summary>
-      /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      public System.Collections.ArrayList Doctor
-      {
-         get
-         {
-            if (doctor == null)
-               doctor = new System.Collections.ArrayList();
-            return doctor;
-         }
-         set
-         {
-            RemoveAllDoctor();
-            if (value != null)
+    public class BusinessHoursModel : ObservableObject
+    {
+        #region Attributes
+
+        private DateTime _fromDate;
+        private DateTime _toDate;
+        private DateTime _fromHour;
+        private DateTime _toHour;
+        public ArrayList _doctor;
+
+        #endregion
+
+        #region Properties
+
+        public DateTime FromDate
+        {
+            get { return _fromDate; }
+            set
             {
-               foreach (Model.Users.Doctor oDoctor in value)
-                  AddDoctor(oDoctor);
+                if (value != _fromDate)
+                {
+                    _fromDate = value;
+                    OnPropertyChanged("FromDate");
+                }
             }
-         }
-      }
-      
-      /// <summary>
-      /// Add a new Model.Users.Doctor in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
-      public void AddDoctor(Model.Users.Doctor newDoctor)
-      {
-         if (newDoctor == null)
-            return;
-         if (this.doctor == null)
-            this.doctor = new System.Collections.ArrayList();
-         if (!this.doctor.Contains(newDoctor))
-         {
-            this.doctor.Add(newDoctor);
-            newDoctor.AddBusinessHours(this);      
-         }
-      }
-      
-      /// <summary>
-      /// Remove an existing Model.Users.Doctor from the collection
-      /// </summary>
-      /// <pdGenerated>Default Remove</pdGenerated>
-      public void RemoveDoctor(Model.Users.Doctor oldDoctor)
-      {
-         if (oldDoctor == null)
-            return;
-         if (this.doctor != null)
-            if (this.doctor.Contains(oldDoctor))
+        }
+        public DateTime ToDate
+        {
+            get { return _toDate; }
+            set
             {
-               this.doctor.Remove(oldDoctor);
-               oldDoctor.RemoveBusinessHours(this);
+                if (value != _toDate)
+                {
+                    _toDate = value;
+                    OnPropertyChanged("ToDate");
+                }
             }
-      }
-      
-      /// <summary>
-      /// Remove all instances of Model.Users.Doctor from the collection
-      /// </summary>
-      /// <pdGenerated>Default removeAll</pdGenerated>
-      public void RemoveAllDoctor()
-      {
-         if (doctor != null)
-         {
-            System.Collections.ArrayList tmpDoctor = new System.Collections.ArrayList();
-            foreach (Model.Users.Doctor oldDoctor in doctor)
-               tmpDoctor.Add(oldDoctor);
-            doctor.Clear();
-            foreach (Model.Users.Doctor oldDoctor in tmpDoctor)
-               oldDoctor.RemoveBusinessHours(this);
-            tmpDoctor.Clear();
-         }
-      }
-   
-   }
+        }
+        public DateTime FromHour
+        {
+            get { return _fromHour; }
+            set
+            {
+                if (value != _fromHour)
+                {
+                    _fromHour = value;
+                    OnPropertyChanged("FromHour");
+                }
+            }
+        }
+        public DateTime ToHour
+        {
+            get { return _toHour; }
+            set
+            {
+                if (value != _toHour)
+                {
+                    _toHour = value;
+                    OnPropertyChanged("ToHour");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Property for collection of Model.Users.Doctor
+        /// </summary>
+        /// <pdGenerated>Default opposite class collection property</pdGenerated>
+        public ArrayList Doctor
+        {
+            get
+            {
+                if (_doctor == null)
+                    _doctor = new ArrayList();
+                return _doctor;
+            }
+            set
+            {
+                RemoveAllDoctor();
+                if (value != null)
+                {
+                    foreach (Doctor oDoctor in value)
+                        AddDoctor(oDoctor);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Manipulation with property Doctor
+
+        /// <summary>
+        /// Add a new Model.Users.Doctor in the collection
+        /// </summary>
+        /// <pdGenerated>Default Add</pdGenerated>
+        public void AddDoctor(Doctor newDoctor)
+        {
+            if (newDoctor == null)
+                return;
+            if (this._doctor == null)
+                this._doctor = new ArrayList();
+            if (!this._doctor.Contains(newDoctor))
+            {
+                this._doctor.Add(newDoctor);
+                newDoctor.AddBusinessHours(this);
+            }
+        }
+
+        /// <summary>
+        /// Remove an existing Model.Users.Doctor from the collection
+        /// </summary>
+        /// <pdGenerated>Default Remove</pdGenerated>
+        public void RemoveDoctor(Doctor oldDoctor)
+        {
+            if (oldDoctor == null)
+                return;
+            if (this._doctor != null)
+                if (this._doctor.Contains(oldDoctor))
+                {
+                    this._doctor.Remove(oldDoctor);
+                    oldDoctor.RemoveBusinessHours(this);
+                }
+        }
+
+        /// <summary>
+        /// Remove all instances of Model.Users.Doctor from the collection
+        /// </summary>
+        /// <pdGenerated>Default removeAll</pdGenerated>
+        public void RemoveAllDoctor()
+        {
+            if (_doctor != null)
+            {
+                ArrayList tmpDoctor = new ArrayList();
+                foreach (Doctor oldDoctor in _doctor)
+                    tmpDoctor.Add(oldDoctor);
+                _doctor.Clear();
+                foreach (Model.Users.Doctor oldDoctor in tmpDoctor)
+                    oldDoctor.RemoveBusinessHours(this);
+                tmpDoctor.Clear();
+            }
+        }
+
+        #endregion
+
+       
+    }
 }

@@ -6,38 +6,57 @@
 using Model.Medicine;
 using Repository.MedicineRepo;
 using System;
+using System.Collections.Generic;
 
 namespace Service.MedicineServ
 {
-   public class MedicineService
-   {
-      public MedicineRepositoryFactory medicineRepositoryFactory;
+    public class MedicineService
+    {
+        public MedicineRepositoryFactory medicineRepositoryFactory;
 
-      public Medicine ValidateMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Medicine GetMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool RemoveMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Medicine EditMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Medicine AddMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-   
-   }
+        public List<Medicine> readAllMedicine()
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+
+            List<Medicine> retMedicine = new List<Medicine>();
+            retMedicine = (List<Medicine>)repoForMedicine.FindAll();
+
+            return retMedicine;
+        }
+
+        public void saveAllMedicine(List<Medicine> medicinesForSave)
+        {
+            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+
+            repoForMedicine.SaveAll(medicinesForSave);
+        }
+
+        public Medicine ValidateMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medicine GetMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medicine EditMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medicine AddMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+
+    }
 }
