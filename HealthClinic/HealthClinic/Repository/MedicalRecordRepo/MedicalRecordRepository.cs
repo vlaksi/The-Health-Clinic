@@ -10,7 +10,7 @@ using Model.MedicalRecord;
 
 namespace Repository.MedicalRecordRepo
 {
-   public interface MedicalRecordRepository : GenericInterfaceCRUDDao<MedicalRecord,int>
+   public interface MedicalRecordRepository : GenericInterfaceCRUDDao<MedicalRecord,string>
    {
       void SaveReport(Report report);
       
