@@ -20,6 +20,7 @@ using System.Data;
 using HealthClinic.Views.Dialogs.ProduzeneInformacije;
 using Model.Rooms;
 using HealthClinic.Model.Rooms;
+using Controller.RoomsContr;
 
 namespace HealthClinic.ViewModels
 {
@@ -29,7 +30,7 @@ namespace HealthClinic.ViewModels
         public ProstorijeViewModel()
         {
             PieChart();
-            ucitavanjeProstorija();
+            ucitavanjeTabeleProstorija();
 
             
             DodajProstorijuCommand = new RelayCommand(DodajProstoriju);
@@ -305,6 +306,7 @@ namespace HealthClinic.ViewModels
                 }
             }
 
+            sacuvajSveProstorije();
             this.TrenutniProzor.Close();
         }
 
@@ -316,6 +318,8 @@ namespace HealthClinic.ViewModels
             // dodajem prostoriju za dodavanje ukoliko je odgovor bio potvrdan
             Prostorije.Add(ProstorijaZaDodavanje);
             podesiBrojOdredjenihProstorija(ProstorijaZaDodavanje, 1);
+
+            sacuvajSveProstorije();
             this.TrenutniProzor.Close();
         }
 
@@ -334,6 +338,8 @@ namespace HealthClinic.ViewModels
             SelektovanaProstorija.NumberOfRoom = ProstorijaZaIzmenu.NumberOfRoom;
             SelektovanaProstorija.Purpose = ProstorijaZaIzmenu.Purpose;
             SelektovanaProstorija.Department = ProstorijaZaIzmenu.Department;
+
+            sacuvajSveProstorije();
             this.TrenutniProzor.Close();
         }
         
@@ -418,7 +424,7 @@ namespace HealthClinic.ViewModels
 
             }
 
-
+            sacuvajSveProstorije();
             this.TrenutniProzor.Close();
         }
 
@@ -434,9 +440,10 @@ namespace HealthClinic.ViewModels
 
         public void PrikaziSpisakOpreme(object obj)
         {
-            SpisakOpreme = new ObservableCollection<InventoryType>();
 
+            SpisakOpreme = new ObservableCollection<InventoryType>();
             TrenutnaOprema = new InventoryType();
+
             if(SelektovanaProstorija.RoomInventory is null)
             {
                 SelektovanaProstorija.RoomInventory = new List<InventoryType>();
@@ -574,7 +581,10 @@ namespace HealthClinic.ViewModels
             // i kolekciji i zapravo selektovanom dodam
             SpisakOpreme.Add(opremaZaDodavanje);
             SelektovanaProstorija.RoomInventory.Add(opremaZaDodavanje);
-            
+
+            //dodajOpremuSelektovaneProstorijProstorijama(SelektovanaProstorija);
+
+            sacuvajSveProstorije();
         }
 
         public void UkloniOpremu(object obj)
@@ -598,6 +608,7 @@ namespace HealthClinic.ViewModels
                         // ali i iz observable liste
                         SpisakOpreme.Remove(oprema);
                     }
+                    sacuvajSveProstorije();
                     return;
                 }
             }
@@ -608,7 +619,7 @@ namespace HealthClinic.ViewModels
 
         #endregion
 
-        #region Tabela
+        #region Ucitavanje tabele
 
         private ObservableCollection<Room> _prostorije;
 
@@ -618,26 +629,58 @@ namespace HealthClinic.ViewModels
             set { _prostorije = value; OnPropertyChanged("Prostorije"); }
         }
 
-        private void ucitavanjeProstorija()
+        private void ucitavanjeTabeleProstorija()
         {
-            Prostorije = new ObservableCollection<Room>();
-            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 12, Purpose = "operaciona sala"});
-            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 1, Purpose = "soba za preglede" });
-            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 2, Purpose = "soba za pacijente"});
-            Prostorije.Add(new Room() { Department = "decije", NumberOfRoom = 3, Purpose = "soba za pacijente" });
-            Prostorije.Add(new Room() { Department = "decije", NumberOfRoom = 9, Purpose = "operaciona sala"});
-            Prostorije.Add(new Room() { Department = "otorinolaringologija", NumberOfRoom = 8, Purpose = "soba za preglede" });
-            Prostorije.Add(new Room() { Department = "interno", NumberOfRoom = 7, Purpose = "operaciona sala"});
+
+            ucitajSveProstorije();
+            sacuvajSveProstorije();
+
+            
 
             foreach (Room prostorija in Prostorije)
             {
                 podesiBrojOdredjenihProstorija(prostorija, 1);
             }
+
+            
         }
 
 
-        
 
+
+
+        #endregion
+
+        #region Ucitaj/sacuvaj sve prostorije iz fajlova
+
+        private void ucitajSveProstorije()
+        {
+            RoomsController roomsContr = new RoomsController();
+
+            // iscitam ih sve
+            List<Room> tempRooms = new List<Room>();
+            tempRooms = roomsContr.GetAllRooms();
+
+            // a onda to dodam u listu koja se prikazuje na frontu
+            Prostorije = new ObservableCollection<Room>();
+            foreach (Room room in tempRooms)
+            {
+                Prostorije.Add(room);
+            }
+        }
+
+        private void sacuvajSveProstorije()
+        {
+            RoomsController roomsContr = new RoomsController();
+
+            List<Room> tempProstorije = new List<Room>();
+            foreach (Room medicine1 in Prostorije)
+            {
+                tempProstorije.Add(medicine1);
+            }
+
+            roomsContr.saveAllRooms(tempProstorije);
+        }
 
         #endregion
 
@@ -907,6 +950,26 @@ namespace HealthClinic.ViewModels
         {
             get { return _namenaProstorije; }
             set { _namenaProstorije = value; OnPropertyChanged("NamenaProstorije"); }
+        }
+
+        #endregion
+
+        #region Dodavanje/uklanjanje opreme selektovane prostorije 
+
+        private void dodajOpremuSelektovaneProstorijProstorijama(Room selektovanaProstorija)
+        {
+            foreach (Room room in Prostorije)
+            {
+                // prostoriji iz liste prostorija dodajem opremu koja je dodata 
+                if(room.NumberOfRoom == selektovanaProstorija.NumberOfRoom)
+                {
+                    room.RoomInventory = new List<InventoryType>();
+                    foreach (InventoryType inventory in selektovanaProstorija.RoomInventory)
+                    {
+                        room.RoomInventory.Add(inventory);
+                    }
+                }
+            }
         }
 
         #endregion

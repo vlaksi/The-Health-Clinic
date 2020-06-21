@@ -90,7 +90,7 @@
                     
                     SelectionMode="Single"
                     FontSize="14"
-                    ItemsSource="{Binding SpisakOpreme}" 
+                    ItemsSource="{Binding SelektovanaProstorija.RoomInventory}" 
                     >
                     <ListView.View>
                         <GridView>
