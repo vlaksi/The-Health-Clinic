@@ -5,8 +5,10 @@
 
 using Model.Rooms;
 using Model.Users;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.RoomsRepo
 {
@@ -76,7 +78,15 @@ namespace Repository.RoomsRepo
 
         public IEnumerable<Room> FindAll()
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = new List<Room>();
+
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\rooms.json";
+
+            // read file into a string and deserialize JSON to a type
+            allRooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(currentPath));
+
+            return allRooms;
         }
 
         public Room FindById(int id)
@@ -91,7 +101,15 @@ namespace Repository.RoomsRepo
 
         public void SaveAll(IEnumerable<Room> entities)
         {
-            throw new NotImplementedException();
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\rooms.json";
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(currentPath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
         }
 
         public IEnumerable<Room> FindAllById(IEnumerable<int> ids)
