@@ -52,9 +52,8 @@ namespace Repository.MedicineRepo
         {
             List<Medicine> allMedicine = new List<Medicine>();
 
-
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-            currentPath += @"\medicine.json";
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\medicine.json";
 
             // read file into a string and deserialize JSON to a type
             allMedicine = JsonConvert.DeserializeObject<List<Medicine>>(File.ReadAllText(currentPath));
@@ -69,8 +68,8 @@ namespace Repository.MedicineRepo
 
         public void Save(Medicine entity)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-            currentPath += @"\medicine.json";
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\medicine.json";
 
             // serialize JSON directly to a file
             using (StreamWriter file = File.CreateText(currentPath))
@@ -84,8 +83,8 @@ namespace Repository.MedicineRepo
         public void SaveAll(IEnumerable<Medicine> entities)
         {
 
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-            currentPath += @"\medicine.json";
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\medicine.json";
 
             // serialize JSON directly to a file
             using (StreamWriter file = File.CreateText(currentPath))
