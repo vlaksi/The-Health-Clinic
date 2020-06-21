@@ -6,38 +6,49 @@
 using Model.Medicine;
 using Service.MedicineServ;
 using System;
+using System.Collections.Generic;
 
 namespace Controller.MedicineContr
 {
-   public class MedicineController
-   {
-      public MedicineService medicineService;
+    public class MedicineController
+    {
+        public MedicineService medicineService = new MedicineService();
 
-      public Medicine ValidateMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Medicine GetMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool RemoveMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Medicine EditMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Medicine AddMedicine(Medicine medicine)
-      {
-         throw new NotImplementedException();
-      }
-      
-   
-   }
+        public List<Medicine> readAllMedicine()
+        {
+            return medicineService.readAllMedicine();
+        }
+
+        public void saveAllMedicine(List<Medicine> medicinesForSave)
+        {
+            medicineService.saveAllMedicine(medicinesForSave);
+        }
+
+        public Medicine ValidateMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medicine GetMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medicine EditMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Medicine AddMedicine(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
+
+    }
 }
