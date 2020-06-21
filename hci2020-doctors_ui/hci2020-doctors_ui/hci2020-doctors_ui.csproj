@@ -406,7 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HealthClinic\HealthClinic\HealthClinic.csproj">
-      <Project>{8b8cc58c-605d-4035-b34e-3984f60efe20}</Project>
+      <Project>{e4bc9e47-f0db-41e3-92dd-06ba8430c03d}</Project>
       <Name>HealthClinic</Name>
     </ProjectReference>
   </ItemGroup>

@@ -10,7 +10,7 @@ namespace Model.Users
     public class RegisteredUser : Person
     {
         private String username;
-        private String[] password;
+        private String password;
         private String photo;
         public Residence residence; //TODO: Proveriti da li da pravimo properti za ovo ?, posto se to ne moze izgenerisati u PD, a treba nam properti ?
 
@@ -24,10 +24,11 @@ namespace Model.Users
             set
             {
                 this.username = value;
+                OnPropertyChanged("Username");
             }
         }
 
-        public String[] Password
+        public String Password
         {
             get
             {
@@ -36,6 +37,7 @@ namespace Model.Users
             set
             {
                 this.password = value;
+                OnPropertyChanged("Password");
             }
         }
 
@@ -48,6 +50,7 @@ namespace Model.Users
             set
             {
                 this.photo = value;
+                OnPropertyChanged("Photo");
             }
         }
 

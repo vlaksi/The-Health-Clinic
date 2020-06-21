@@ -3,16 +3,17 @@
 // Created: Sunday, April 5, 2020 12:02:01 AM
 // Purpose: Definition of Class Term
 
+using HealthClinic.Utilities;
 using System;
 
 namespace Model.Calendar
 {
-   public class Term
-   {
+   public class Term : ObservableObject
+    {
       private System.DateTime startTime;
       private System.DateTime endTime;
       private int id;
-      
+
       public System.DateTime StartTime
       {
          get
@@ -22,6 +23,7 @@ namespace Model.Calendar
          set
          {
             this.startTime = value;
+            OnPropertyChanged("StartTime");
          }
       }
       
@@ -34,6 +36,7 @@ namespace Model.Calendar
          set
          {
             this.endTime = value;
+            OnPropertyChanged("EndTime");
          }
       }
       
@@ -41,11 +44,12 @@ namespace Model.Calendar
       {
          get
          {
-            throw new NotImplementedException();
+                return id;
          }
          set
          {
-            throw new NotImplementedException();
+               this.id = value;
+               OnPropertyChanged("Id");
          }
       }
       
