@@ -81,10 +81,11 @@
     <Compile Include="Model\Rooms\DynamicInvertory.cs" />
     <Compile Include="Model\Rooms\InventoryAmount.cs" />
     <Compile Include="Model\Rooms\Invertory.cs" />
-    <Compile Include="Model\Rooms\InvertoryType.cs" />
+    <Compile Include="Model\Rooms\InventoryType.cs" />
     <Compile Include="Model\Rooms\OperatingRoom.cs" />
     <Compile Include="Model\Rooms\Ordination.cs" />
     <Compile Include="Model\Rooms\PatientRoom.cs" />
+    <Compile Include="Model\Rooms\PhysicalWork.cs" />
     <Compile Include="Model\Rooms\Room.cs" />
     <Compile Include="Model\Rooms\StaticInvertory.cs" />
     <Compile Include="Model\Survey\Rate.cs" />
