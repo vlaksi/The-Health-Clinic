@@ -15,6 +15,12 @@ namespace Service.RoomServ
     {
         public RoomsRepositoryFactory roomsRepositoryFactory;
 
+        public void makeUpdateFor(Room room)
+        {
+            RoomsFileRepository fileRepository = new RoomsFileRepository();
+            fileRepository.makeUpdateFor(room);
+        }
+
         public void saveAllRooms(List<Room> roomsForSave)
         {
             RoomsFileRepository repoForRooms = new RoomsFileRepository();

@@ -186,20 +186,13 @@ namespace HealthClinic.ViewModels
             if (SelektovaniZaposleni is null)
                 return;
 
+            EmployeeController emplContr = new EmployeeController();
 
-            foreach (Employee trenutniZaposleni in Zaposleni)
-            {
-                if(trenutniZaposleni.Username == SelektovaniZaposleni.Username)
-                {
-                    MessageBox.Show("Uspesno ste izbrisali radnika sa korisnickim imenom " + trenutniZaposleni.Username);
-                    podesiBrojOdredjenihZaposlenih(trenutniZaposleni, -1);
-                    Zaposleni.Remove(trenutniZaposleni);
+            string obrisaniUsername = SelektovaniZaposleni.Username;
+            emplContr.removeEmployee(SelektovaniZaposleni);
+            MessageBox.Show("Uspesno ste izbrisali radnika sa korisnickim imenom " + obrisaniUsername);
 
-                    break;
-                }
-            }
-
-            sacuvajSveZaposlene();
+            ucitajSveZaposlene();       // jer su se izmenili pa treba dobiti najnovije sad
             this.TrenutniProzor.Close();
         }
 
@@ -213,10 +206,13 @@ namespace HealthClinic.ViewModels
             ZaposleniZaDodavanje.BusinessHours.FromDate = DateTime.Now;
             ZaposleniZaDodavanje.BusinessHours.ToDate = DateTime.Now;
 
-            Zaposleni.Add(ZaposleniZaDodavanje);
+
+            EmployeeController emplContr = new EmployeeController();
+            emplContr.addEmployee(ZaposleniZaDodavanje);
+            ucitajSveZaposlene();               // jer su se desile promene pa moram dobiti nove podatke
+   
             podesiBrojOdredjenihZaposlenih(ZaposleniZaDodavanje, 1);
 
-            sacuvajSveZaposlene();
             this.TrenutniProzor.Close();
         }
 
@@ -231,14 +227,10 @@ namespace HealthClinic.ViewModels
             if (!validanZaposleni(ZaposleniZaIzmenu))
                 return;
 
-            // selektovani objekat prima vrednosti od menjanog objekta
-            SelektovaniZaposleni.Name = ZaposleniZaIzmenu.Name;
-            SelektovaniZaposleni.Surname = ZaposleniZaIzmenu.Surname;
-            SelektovaniZaposleni.JobPosition = ZaposleniZaIzmenu.JobPosition;
-            SelektovaniZaposleni.Password = ZaposleniZaIzmenu.Password;
-            SelektovaniZaposleni.Username = ZaposleniZaIzmenu.Username;
+            EmployeeController employeeController = new EmployeeController();
+            employeeController.makeUpdateFor(ZaposleniZaIzmenu);
 
-            sacuvajSveZaposlene();
+            ucitajSveZaposlene(); // ucitavam novo stanje zaposlenih
             this.TrenutniProzor.Close();
         }
 

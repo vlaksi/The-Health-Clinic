@@ -440,20 +440,12 @@ namespace HealthClinic.ViewModels
 
         public void PrikaziSpisakOpreme(object obj)
         {
-
-            SpisakOpreme = new ObservableCollection<InventoryType>();
             TrenutnaOprema = new InventoryType();
 
             if(SelektovanaProstorija.RoomInventory is null)
             {
                 SelektovanaProstorija.RoomInventory = new List<InventoryType>();
 
-            }
-
-            // preuzimanje od prave opreme prostorije
-            foreach (InventoryType oprema in SelektovanaProstorija.RoomInventory)
-            {
-                SpisakOpreme.Add(oprema);
             }
             
 
@@ -563,7 +555,7 @@ namespace HealthClinic.ViewModels
 
         public void DodajOpremu(object obj)
         {
-            foreach (InventoryType oprema in SpisakOpreme)
+            foreach (InventoryType oprema in SelektovanaProstorija.RoomInventory)
             {
                 if (oprema.InventoryName == TrenutnaOprema.InventoryName)
                 {
@@ -579,17 +571,21 @@ namespace HealthClinic.ViewModels
                 Quantity = TrenutnaOprema.Quantity
             };
             // i kolekciji i zapravo selektovanom dodam
-            SpisakOpreme.Add(opremaZaDodavanje);
+
+            //SpisakOpreme.Add(opremaZaDodavanje);
+            RoomsController roomsContr = new RoomsController();
             SelektovanaProstorija.RoomInventory.Add(opremaZaDodavanje);
+            roomsContr.makeUpdateFor(SelektovanaProstorija);
+
 
             //dodajOpremuSelektovaneProstorijProstorijama(SelektovanaProstorija);
 
-            sacuvajSveProstorije();
+            //sacuvajSveProstorije();
         }
 
         public void UkloniOpremu(object obj)
         {
-            foreach (InventoryType oprema in SpisakOpreme)
+            foreach (InventoryType oprema in SelektovanaProstorija.RoomInventory)
             {
                 if (oprema.InventoryName == TrenutnaOprema.InventoryName)
                 {
@@ -606,7 +602,7 @@ namespace HealthClinic.ViewModels
                             }
                         }
                         // ali i iz observable liste
-                        SpisakOpreme.Remove(oprema);
+                        SelektovanaProstorija.RoomInventory.Remove(oprema);
                     }
                     sacuvajSveProstorije();
                     return;
@@ -633,20 +629,13 @@ namespace HealthClinic.ViewModels
         {
 
             ucitajSveProstorije();
-            sacuvajSveProstorije();
-
-            
 
             foreach (Room prostorija in Prostorije)
             {
                 podesiBrojOdredjenihProstorija(prostorija, 1);
             }
 
-            
         }
-
-
-
 
 
         #endregion
@@ -858,18 +847,6 @@ namespace HealthClinic.ViewModels
                 }
             }
         }
-        #endregion
-
-        #region Spisak opreme odredjene prostorije
-        private ObservableCollection<InventoryType> _spisakOpreme;
-
-        public ObservableCollection<InventoryType> SpisakOpreme
-        {
-            get { return _spisakOpreme; }
-            set { _spisakOpreme = value; OnPropertyChanged("SpisakOpreme"); }
-        }
-
-
         #endregion
 
         #region Trenutna oprema

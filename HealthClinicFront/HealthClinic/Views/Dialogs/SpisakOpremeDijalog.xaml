@@ -37,7 +37,7 @@
                         FontSize="20" 
                         FontStyle="Italic"
                         FontWeight="Bold"
-                        Text="{Binding SelektovanaProstorija.Odeljenje}"
+                        Text="{Binding SelektovanaProstorija.Department}"
                         Margin="10, 20, 0, 0"
                         Foreground="#FF2196F3">
                     </TextBlock>
@@ -62,7 +62,7 @@
                         FontSize="20" 
                         FontStyle="Italic"
                         FontWeight="Bold"
-                        Text="{Binding SelektovanaProstorija.BrojSobe}"
+                        Text="{Binding SelektovanaProstorija.NumberOfRoom}"
                         Margin="10, 5, 0, 0"
                         Foreground="#FF2196F3">
                     </TextBlock>
