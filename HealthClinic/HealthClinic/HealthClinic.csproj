@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <UserSecretsId>39fe80e4-4746-4d5d-887e-ebc4ffa9de37</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +35,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+<<<<<<< HEAD
       <HintPath>..\..\HelathClinicPatienteRole\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+=======
+      <HintPath>..\..\hci2020-doctors_ui\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+>>>>>>> c13a04e849adf728197b7f9ba07064f1f49335a9
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +55,7 @@
     <Compile Include="Controller\BlogPostContr\BlogPostController.cs" />
     <Compile Include="Controller\BusinessHoursContr\BusinessHoursController.cs" />
     <Compile Include="Controller\DoctorContr\DoctorController.cs" />
+    <Compile Include="Controller\EmployeeContr\EmployeeController.cs" />
     <Compile Include="Controller\InventoryContr\InventoryController.cs" />
     <Compile Include="Controller\ManagerContr\ManagerController.cs" />
     <Compile Include="Controller\MedicalRecordContr\MedicalRecordController.cs" />
@@ -119,6 +126,12 @@
     <Compile Include="Repository\BusinessHoursRepo\BusinessHoursFileRepositoryFactory.cs" />
     <Compile Include="Repository\BusinessHoursRepo\BusinessHoursRepository.cs" />
     <Compile Include="Repository\BusinessHoursRepo\BusinessHoursRepositoryFactory.cs" />
+    <Compile Include="Repository\EmployeeRepo\EmployeeDataBaseRepository.cs" />
+    <Compile Include="Repository\EmployeeRepo\EmployeeDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\EmployeeRepo\EmployeeFileRepository.cs" />
+    <Compile Include="Repository\EmployeeRepo\EmployeeFileRepositoryFactory.cs" />
+    <Compile Include="Repository\EmployeeRepo\EmployeeRepository.cs" />
+    <Compile Include="Repository\EmployeeRepo\EmployeeRepositoryFactory.cs" />
     <Compile Include="Repository\GenericCRUD\GenericInterfaceCRUDDao.cs" />
     <Compile Include="Repository\InventoryRepo\InvertoryDataBaseRepository.cs" />
     <Compile Include="Repository\InventoryRepo\InvertoryDataBaseRepositoryFactory.cs" />
@@ -192,6 +205,7 @@
     <Compile Include="Repository\UserRepo\SecretaryRepository.cs" />
     <Compile Include="Service\BlogPostServ\BlogPostService.cs" />
     <Compile Include="Service\BusinessHoursServ\BusinessHoursService.cs" />
+    <Compile Include="Service\EmployeeServ\EmployeeService.cs" />
     <Compile Include="Service\InventoryServ\InvertoryService.cs" />
     <Compile Include="Service\MedicalRecordServ\MedicalRecordService.cs" />
     <Compile Include="Service\MedicineServ\MedicineService.cs" />
@@ -210,5 +224,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

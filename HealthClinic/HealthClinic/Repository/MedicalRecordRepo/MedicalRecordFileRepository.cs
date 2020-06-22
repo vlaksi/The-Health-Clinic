@@ -7,11 +7,21 @@ using System;
 using Model.MedicalRecord;
 using Model.Calendar;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
+        
+        public MedicalRecordFileRepository()
+        {
+            filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            filePath += @"\HealthClinic\FileStorage\medicalRecords.json";
+        }
+
         private void OpenFile()
         {
             throw new NotImplementedException();
@@ -36,52 +46,101 @@ namespace Repository.MedicalRecordRepo
 
         public int Count()
         {
-            throw new NotImplementedException();
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            return allRecords.Count;
         }
 
         public void Delete(MedicalRecord entity)
         {
-            throw new NotImplementedException();
+            DeleteById(entity.Jmbg);
         }
 
         public void DeleteAll()
         {
-            throw new NotImplementedException();
+            System.IO.File.WriteAllText(filePath, string.Empty);
         }
 
-        public void DeleteById(int identificator)
+        public void DeleteById(string identificator)
         {
-            throw new NotImplementedException();
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            MedicalRecord toRemove = null;
+
+            foreach (MedicalRecord record in allRecords)
+                if (record.Jmbg.Equals(identificator))
+                    toRemove = record;
+
+            if (toRemove != null)
+            {
+                allRecords.Remove(toRemove);
+                DeleteAll();
+                SaveAll(allRecords);
+            }
+
         }
 
-        public bool ExistsById(int id)
+        public bool ExistsById(string id)
         {
-            throw new NotImplementedException();
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+
+            foreach (MedicalRecord record in allRecords)
+                if (record.Jmbg.Equals(id))
+                    return true;
+
+            return false;
         }
 
         public IEnumerable<MedicalRecord> FindAll()
         {
-            throw new NotImplementedException();
+            List<MedicalRecord> medicalRecords = new List<MedicalRecord>();
+
+            medicalRecords = JsonConvert.DeserializeObject<List<MedicalRecord>>(File.ReadAllText(filePath));
+
+            return medicalRecords;
         }
 
-        public MedicalRecord FindById(int id)
+        public MedicalRecord FindById(string id)
         {
-            throw new NotImplementedException();
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+
+            foreach (MedicalRecord record in allRecords)
+                if (record.Jmbg.Equals(id))
+                    return record;
+
+            return null;
         }
 
         public void Save(MedicalRecord entity)
         {
-            throw new NotImplementedException();
+
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entity);
+            }
+
         }
 
         public void SaveAll(IEnumerable<MedicalRecord> entities)
         {
-            throw new NotImplementedException();
+
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
+
         }
 
-        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<string> ids)
         {
-            throw new NotImplementedException();
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
+
+            foreach (MedicalRecord record in allRecords)
+                if (ids.Contains(record.Jmbg))
+                    matchingRecords.Add(record);
+
+            return matchingRecords;
         }
     }
 }
