@@ -42,19 +42,28 @@ namespace Service.MedicineServ
             throw new NotImplementedException();
         }
 
-        public bool RemoveMedicine(Medicine medicine)
+        public void RemoveMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            MedicineFileRepository repoForEmployees = new MedicineFileRepository();
+            repoForEmployees.Delete(medicine);
+
         }
 
-        public Medicine EditMedicine(Medicine medicine)
+        public void EditMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            MedicineFileRepository repoForEmployees = new MedicineFileRepository();
+            repoForEmployees.makeUpdateFor(medicine);
+
         }
 
-        public Medicine AddMedicine(Medicine medicine)
+        public void AddMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            MedicineFileRepository repoForEmployees = new MedicineFileRepository();
+            repoForEmployees.Save(medicine);
+
         }
 
 

@@ -136,18 +136,17 @@ namespace HealthClinic.ViewModels
             // sprecavam kada nije selektovan lek da ne pukne program
             if (SelektovaniLek is null)
                 return;
-            foreach (Medicine trenutniLek in Lekovi)
-            {
-                if (trenutniLek.Name == SelektovaniLek.Name)
-                {
-                    MessageBox.Show("Uspesno ste izbrisali lek " + trenutniLek.Name);
-                    podesiBrojOdredjenihLekova(trenutniLek, -1);        // -1 da bih mu smanjio kolicinu vrste ovog leka
-                    Lekovi.Remove(trenutniLek);
 
-                    break;
-                }
-            }
-            sacuvajSveLekove();
+            MedicineController medicineContr = new MedicineController();
+
+            string imeObrisanogLeka = SelektovaniLek.Name;
+            podesiBrojOdredjenihLekova(SelektovaniLek, -1);
+
+            medicineContr.RemoveMedicine(SelektovaniLek);
+            MessageBox.Show("Uspesno ste izbrisali lek " + imeObrisanogLeka);
+
+
+            ucitajSveLekove();
             this.TrenutniProzor.Close();
         }
 
@@ -157,11 +156,11 @@ namespace HealthClinic.ViewModels
             if (!validanLek(LekZaDodavanje))
                 return;
 
-            // dodajem lek u listu lekova
-            Lekovi.Add(LekZaDodavanje);
+            MedicineController medicineContr = new MedicineController();
+            medicineContr.AddMedicine(LekZaDodavanje);
             podesiBrojOdredjenihLekova(LekZaDodavanje, 1);
 
-            sacuvajSveLekove();
+            ucitajSveLekove();
             this.TrenutniProzor.Close();            // gasenje trenutnog prozora
         }
 
@@ -177,14 +176,11 @@ namespace HealthClinic.ViewModels
             if (!validanLek(LekZaIzmenu))
                 return;
 
-            // selektovani objekat prima vrednosti od menjanog objekta
-            SelektovaniLek.Name = LekZaIzmenu.Name;
-            SelektovaniLek.Quantity = LekZaIzmenu.Quantity;
-            SelektovaniLek.MedicineType = LekZaIzmenu.MedicineType;
-            SelektovaniLek.Alergen = LekZaIzmenu.Alergen;
-            SelektovaniLek.SideEffects = LekZaIzmenu.SideEffects;
+            MedicineController medicineContr = new MedicineController();
+            medicineContr.EditMedicine(LekZaIzmenu);
 
-            sacuvajSveLekove();
+
+            ucitajSveLekove();
             this.TrenutniProzor.Close();            // gasenje trenutnog prozora
         }
 
@@ -385,7 +381,6 @@ namespace HealthClinic.ViewModels
         private void ucitavanjeTabeleLekova()
         {
             ucitajSveLekove();
-            sacuvajSveLekove();
 
             // Odredjivanje koliko imamo kog leka
             foreach (Medicine lek in Lekovi)
