@@ -3,11 +3,12 @@
 // Created: Sunday, April 5, 2020 5:30:42 PM
 // Purpose: Definition of Class Treatment
 
+using HealthClinic.Utilities;
 using System;
 
 namespace Model.Medicine
 {
-   public class Treatment
+   public class Treatment : ObservableObject
    {
       private System.DateTime dateTimeStart;
       private System.DateTime dateTimeEnd;
@@ -21,7 +22,7 @@ namespace Model.Medicine
          }
          set
          {
-            this.dateTimeStart = value;
+            this.dateTimeStart = value; OnPropertyChanged("DateTimeStart");
          }
       }
       
@@ -33,8 +34,8 @@ namespace Model.Medicine
          }
          set
          {
-            this.dateTimeEnd = value;
-         }
+            this.dateTimeEnd = value; OnPropertyChanged("DateTimeEnd");
+            }
       }
       
       public String Instructions
@@ -45,8 +46,8 @@ namespace Model.Medicine
          }
          set
          {
-            this.instructions = value;
-         }
+            this.instructions = value; OnPropertyChanged("Instructions");
+            }
       }
       
       public Medicine[] medicine;

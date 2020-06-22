@@ -17,9 +17,9 @@ namespace Controller.TermContr
       /// Get all past operations for user if ID is provided, if not, get all past operations in general. Similarly to Mongoose's find.
       List<Term> GetAllPastTerm(int userId);
       
-      Term ScheduleTerm(Term newTerm);
+      void ScheduleTerm(Term newTerm);
       
-      Term EditTerm(Term newTerm);
+      void EditTerm(Term newTerm);
       
       bool CancelTerm(Term term);
    
