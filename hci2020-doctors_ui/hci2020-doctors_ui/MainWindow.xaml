@@ -22,6 +22,10 @@
                       DataType="{x:Type viewmodels:HomeViewModel}">
             <views:Home DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="surveysViewTemplate"
+                      DataType="{x:Type viewmodels:SurveysViewModel}">
+            <views:SurveysView DataContext="{Binding}" />
+        </DataTemplate>
         <DataTemplate x:Name="patientsProfileViewTemplate"
                       DataType="{x:Type viewmodels:PatientsProfileViewModel}">
             <views:PatientProfile DataContext="{Binding}" />
@@ -82,7 +86,7 @@
                       CornerRadius="0" />
     </WindowChrome.WindowChrome>
 
-    
+
 
     <DockPanel Background="{StaticResource BackgroundLightBrush}">
         <Grid DockPanel.Dock="Left"
@@ -145,8 +149,7 @@
                                   Margin="0 5">
                         <Button Style="{StaticResource TransparentStyle}"
                                 x:Name="homeViewBtn"
-                                Click="HomeView_Clicked"
-                                >
+                                Click="HomeView_Clicked">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Home"
                                                          Width="30"
@@ -176,8 +179,7 @@
                                            FontSize="20"
                                            VerticalAlignment="Center"
                                            Margin="17 0"
-                                           Foreground="{StaticResource BackgroundLightBrush}"
-                                           />
+                                           Foreground="{StaticResource BackgroundLightBrush}" />
                             </StackPanel>
                         </Button>
                     </ListViewItem>
@@ -210,7 +212,8 @@
                                 <materialDesign:PackIcon Kind="FileDocument"
                                                          Width="30"
                                                          Height="30"
-                                                         VerticalAlignment="Center" Foreground="{StaticResource BackgroundLightBrush}" />
+                                                         VerticalAlignment="Center"
+                                                         Foreground="{StaticResource BackgroundLightBrush}" />
                                 <TextBlock Text="{DynamicResource BlogLabel}"
                                            FontSize="20"
                                            VerticalAlignment="Center"
@@ -231,6 +234,25 @@
                                                          Foreground="{StaticResource BackgroundLightBrush}"
                                                          VerticalAlignment="Center" />
                                 <TextBlock Text="{DynamicResource SearchLabel}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"
+                                           Margin="17 0"
+                                           Foreground="{StaticResource BackgroundLightBrush}" />
+                            </StackPanel>
+                        </Button>
+                    </ListViewItem>
+                    <ListViewItem HorizontalAlignment="Left"
+                                  Height="60"
+                                  Margin="0 5">
+                        <Button Style="{StaticResource TransparentStyle}"
+                                Click="SurveysView_Clicked">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileAccountOutline"
+                                                         Width="30"
+                                                         Height="30"
+                                                         Foreground="{StaticResource BackgroundLightBrush}"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="{DynamicResource SurveyLabel}"
                                            FontSize="20"
                                            VerticalAlignment="Center"
                                            Margin="17 0"

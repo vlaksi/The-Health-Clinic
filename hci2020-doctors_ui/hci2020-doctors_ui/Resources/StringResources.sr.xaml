@@ -7,6 +7,7 @@
     <system:String x:Key="CalendarLabel">Kalendar</system:String>
     <system:String x:Key="ScheduleLabel">Zakazivanje</system:String>
     <system:String x:Key="BlogLabel">Blog</system:String>
+    <system:String x:Key="SurveyLabel">Ankete</system:String>
     <!--#endregion-->
 
 

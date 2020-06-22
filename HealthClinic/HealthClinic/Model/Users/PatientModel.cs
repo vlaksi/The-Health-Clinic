@@ -51,7 +51,7 @@ namespace Model.Users
          if (!this.surveyResponses.Contains(newSurveyResponse))
          {
             this.surveyResponses.Add(newSurveyResponse);
-            newSurveyResponse.Patient = this;
+            newSurveyResponse.PatientId = this.Id;
          }
       }
       
@@ -67,8 +67,8 @@ namespace Model.Users
             if (this.surveyResponses.Contains(oldSurveyResponse))
             {
                this.surveyResponses.Remove(oldSurveyResponse);
-               oldSurveyResponse.Patient = null;
-            }
+               oldSurveyResponse.PatientId = 0;
+                }
       }
       
       /// <summary>
@@ -84,8 +84,8 @@ namespace Model.Users
                tmpSurveyResponses.Add(oldSurveyResponse);
             surveyResponses.Clear();
             foreach (SurveyResponse oldSurveyResponse in tmpSurveyResponses)
-               oldSurveyResponse.Patient = null;
-            tmpSurveyResponses.Clear();
+               oldSurveyResponse.PatientId = 0;
+                tmpSurveyResponses.Clear();
          }
       }
       public RoomsHistory[] roomsHistory;

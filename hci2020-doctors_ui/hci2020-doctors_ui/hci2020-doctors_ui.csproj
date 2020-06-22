@@ -165,6 +165,7 @@
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\SurveysViewModel.cs" />
     <Compile Include="ViewModel\TermItemViewModel.cs" />
     <Compile Include="ViewModel\WriteBlogPostViewModel.cs" />
     <Compile Include="ViewModel\WritePrescriptionViewModel.cs" />
@@ -226,6 +227,9 @@
     </Compile>
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SurveysView.xaml.cs">
+      <DependentUpon>SurveysView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WriteBlogPost.xaml.cs">
       <DependentUpon>WriteBlogPost.xaml</DependentUpon>
@@ -361,6 +365,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SurveysView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

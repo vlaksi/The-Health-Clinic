@@ -92,34 +92,21 @@ namespace Model.Survey
         private ObservableCollection<int> doctors;
         public ObservableCollection<int> Doctors { get { return doctors; } set { doctors = value; OnPropertyChanged("Doctors"); } }
 
-        private PatientModel patient;
+        private int patientId;
 
         /// <summary>
         /// Property for Model.Users.Patient
         /// </summary>
         /// <pdGenerated>Default opposite class property</pdGenerated>
-        public PatientModel Patient
+        public int PatientId
         {
             get
             {
-                return patient;
+                return patientId;
             }
             set
             {
-                if (this.patient == null || !this.patient.Equals(value))
-                {
-                    if (this.patient != null)
-                    {
-                        Model.Users.PatientModel oldPatient = this.patient;
-                        this.patient = null;
-                        oldPatient.RemoveSurveyResponses(this);
-                    }
-                    if (value != null)
-                    {
-                        this.patient = value;
-                        this.patient.AddSurveyResponses(this);
-                    }
-                }
+                patientId = value; OnPropertyChanged("PatientId");
             }
         }
 

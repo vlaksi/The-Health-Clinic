@@ -72,6 +72,13 @@ namespace hci2020_doctors_ui
             DataContext = homeViewModel;
         }
 
+        private void SurveysView_Clicked(object sender, RoutedEventArgs e)
+        {
+            MainFrameContent.Content = new SurveysView();
+            DataContext = new SurveysViewModel();
+        }
+        
+
         private void CalendarView_Clicked(object sender, RoutedEventArgs e)
         {
             MainFrameContent.Content = calendarView;
