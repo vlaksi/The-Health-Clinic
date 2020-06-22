@@ -77,7 +77,6 @@ namespace Repository.TermRepo
         public void Update(Operation op)
         {
             List<Operation> allOperations = (List<Operation>)FindAll();
-
             // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
             //foreach (Operation tempOp in allOperations)
             //{
