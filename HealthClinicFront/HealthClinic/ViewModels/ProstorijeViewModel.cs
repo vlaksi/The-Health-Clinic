@@ -342,27 +342,25 @@ namespace HealthClinic.ViewModels
         
         public void PotvrdiZauzetostAktivnost(object obj)
         {
-            
+            RoomsController roomsController = new RoomsController();
+
             if (Renoviranje)
             {   // preuzimam od pomocne promenljive podatke iz forme
                 SelektovanaProstorija.PhysicalWork.NameOfWork = TrenutniFizickiRad.NameOfWork;
                 SelektovanaProstorija.PhysicalWork.FromDate = TrenutniFizickiRad.FromDate;
                 SelektovanaProstorija.PhysicalWork.ToDate = TrenutniFizickiRad.ToDate;
+
+                roomsController.makeUpdateFor(SelektovanaProstorija);
             }
             else if (Deljenje)
             {
-                MessageBox.Show("deljenje" + BrojNoveSobe +" " + BrojDrugeNoveSobe);
-                // obrisem trenutno selektovanu prostoriju
-                foreach (Room trenutnaProstorija in Prostorije)
-                {
-                    if (trenutnaProstorija.NumberOfRoom == SelektovanaProstorija.NumberOfRoom)
-                    {
-                        podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
-                        Prostorije.Remove(trenutnaProstorija);
+                MessageBox.Show("Deljenje" + BrojNoveSobe +" " + BrojDrugeNoveSobe);
 
-                        break;
-                    }
-                }
+                // obrisem trenutno selektovanu prostoriju
+                podesiBrojOdredjenihProstorija(SelektovanaProstorija, -1);
+                roomsController.removeRoom(SelektovanaProstorija);
+
+                
 
                 // dodam ove dve nove
                 Room p1 = new Room()
@@ -378,36 +376,26 @@ namespace HealthClinic.ViewModels
                     Purpose = "soba za pacijente"
 
                 };
-                Prostorije.Add(p1);
-                Prostorije.Add(p2);
+
+                roomsController.addRoom(p1);
+                roomsController.addRoom(p2);
+
                 podesiBrojOdredjenihProstorija(p1, 1);
                 podesiBrojOdredjenihProstorija(p2, 1);
+                
 
             }
             else if (Spajanje)
             {
-                // prvo moram uklonite ove 2 prostorije
-                foreach (Room trenutnaProstorija in Prostorije)
-                {
-                    if (trenutnaProstorija.NumberOfRoom == SelektovanaProstorija.NumberOfRoom)
-                    {
-                        podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
-                        Prostorije.Remove(trenutnaProstorija);
 
-                        break;
-                    }
-                }
-                // namerno 2 fora kako ne bih doslo do errora zbog brisanja
-                foreach (Room trenutnaProstorija in Prostorije)
-                {
-                    if (trenutnaProstorija.NumberOfRoom == int.Parse(BrojSobeSaKojomVrsimoSpajanje))
-                    {
-                        podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
-                        Prostorije.Remove(trenutnaProstorija);
+                // prvo moram uklonite ove 2 prostorije koje su za spajanje
+                podesiBrojOdredjenihProstorija(SelektovanaProstorija, -1);
+                roomsController.removeRoom(SelektovanaProstorija);
 
-                        break;
-                    }
-                }
+                int brojSobeSaKojomSpajamo = int.Parse(BrojSobeSaKojomVrsimoSpajanje);
+
+                podesiBrojOdredjenihProstorija(roomsController.findById(brojSobeSaKojomSpajamo), -1);
+                roomsController.removeRoomById(brojSobeSaKojomSpajamo);
 
                 // dodajem prostoriju
                 Room tempProstorija = new Room()
@@ -416,12 +404,12 @@ namespace HealthClinic.ViewModels
                     Purpose = NamenaProstorije
                 };
 
-                Prostorije.Add(tempProstorija);
+                roomsController.addRoom(tempProstorija);
                 podesiBrojOdredjenihProstorija(tempProstorija, 1);
 
             }
 
-            sacuvajSveProstorije();
+            ucitajSveProstorije();
             this.TrenutniProzor.Close();
         }
 

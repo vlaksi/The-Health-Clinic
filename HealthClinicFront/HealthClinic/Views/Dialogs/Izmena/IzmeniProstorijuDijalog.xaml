@@ -50,6 +50,7 @@
 
             <!-- Broj prostorije-->
             <TextBox
+                IsEnabled="False"
                 Validation.ErrorTemplate="{StaticResource errorTemplate}"
                 Background="WhiteSmoke"
                 FontWeight="DemiBold"
