@@ -56,6 +56,14 @@ namespace Controller.TermContr
             throw new NotImplementedException();
         }
 
+        void ITermStrategy.ScheduleTerm(Term newTerm)
+        {
+            throw new NotImplementedException();
+        }
 
+        void ITermStrategy.EditTerm(Term newTerm)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
