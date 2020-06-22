@@ -67,11 +67,8 @@ namespace Repository.SurveyResponseRepo
         {
             List<SurveyResponse> allSurveys;
 
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
-
-            // read file into a string and deserialize JSON to a type
-            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
+            string relativePath = @"./../../../HealthClinic/FileStorage/survey-responses.json";
+            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(relativePath));
 
             if (allSurveys == null) allSurveys = new List<SurveyResponse>();
 
@@ -114,11 +111,9 @@ namespace Repository.SurveyResponseRepo
 
         public void SaveAll(IEnumerable<SurveyResponse> entities)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
+            string relativePath = @"./../../../HealthClinic/FileStorage/survey-responses.json";
 
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
+            using (StreamWriter file = File.CreateText(relativePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, entities);
