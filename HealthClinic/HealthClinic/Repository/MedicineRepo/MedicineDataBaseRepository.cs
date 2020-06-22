@@ -51,6 +51,11 @@ namespace Repository.MedicineRepo
             throw new NotImplementedException();
         }
 
+        public void makeUpdateFor(Medicine medicine)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Save(Medicine entity)
         {
             throw new NotImplementedException();

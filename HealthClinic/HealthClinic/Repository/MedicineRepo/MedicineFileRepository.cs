@@ -30,7 +30,21 @@ namespace Repository.MedicineRepo
 
         public void Delete(Medicine entity)
         {
-            throw new NotImplementedException();
+            List<Medicine> allMedicines = (List<Medicine>)FindAll();
+
+            foreach (Medicine tempMed in allMedicines)
+            {
+                // For now medicine is uniq by name, but need to change it
+                if (tempMed.Name.Equals(entity.Name))
+                {
+                    allMedicines.Remove(tempMed);
+                    break;
+                }
+
+            }
+
+            // I want immediately to save changes
+            SaveAll(allMedicines);
         }
 
         public void DeleteAll()
@@ -68,15 +82,11 @@ namespace Repository.MedicineRepo
 
         public void Save(Medicine entity)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\medicine.json";
+            List<Medicine> allMedicines = (List<Medicine>)FindAll();
+            allMedicines.Add(entity);
 
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, entity);
-            }
+            // I want immediately to save changes
+            SaveAll(allMedicines);
 
         }
 
@@ -97,6 +107,35 @@ namespace Repository.MedicineRepo
         public IEnumerable<Medicine> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
+        }
+
+        public void makeUpdateFor(Medicine medicine)
+        {
+            List<Medicine> allMedicines = (List<Medicine>)FindAll();
+
+            foreach (Medicine tempMed in allMedicines)
+            {
+                // For now medicine is uniq by name, but need to change it
+                if (tempMed.Name.Equals(medicine.Name))
+                {
+
+                    tempMed.MedicineType = medicine.MedicineType;
+                    tempMed.Quantity = medicine.Quantity;
+                    tempMed.Price = medicine.Price;
+                    tempMed.Manufacturer = medicine.Manufacturer;
+                    tempMed.SideEffects = medicine.SideEffects;
+
+                    tempMed.Alergen = new List<Alergen>();
+                    tempMed.Alergen.AddRange(medicine.Alergen);
+
+                    tempMed.ExpirationDate = medicine.ExpirationDate;
+
+                    break;
+                }
+            }
+
+            // I want immediately to save changes
+            SaveAll(allMedicines);
         }
 
         private string filePath;
