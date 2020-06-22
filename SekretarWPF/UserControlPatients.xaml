@@ -53,7 +53,7 @@
                                 Width="50" Height="50"
                                 CornerRadius="100">
 
-                                <TextBlock Text="{Binding Initials}"
+                                <TextBlock Text="MR"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Foreground="White"
@@ -63,7 +63,7 @@
                             <TextBlock Text="{Binding Surname}" VerticalAlignment="Center"/>
 
                         </StackPanel>
-                        <TextBlock Grid.Column="1" Text="{Binding JMBG}" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Jmbg}" VerticalAlignment="Center"/>
                         <TextBlock Grid.Column="2" Text="{Binding DateOfBirth, StringFormat=dd/mm/yyyy}" VerticalAlignment="Center"/>
                         <StackPanel x:Name="Icons" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Hidden">
                             <Button x:Name="bEdit" Background="Transparent" BorderBrush="Transparent" Click="bEdit_Click">

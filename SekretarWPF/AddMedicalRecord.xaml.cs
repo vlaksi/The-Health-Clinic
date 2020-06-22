@@ -1,5 +1,5 @@
-﻿using SekretarWPF.Data;
-using SekretarWPF.Model;
+﻿using Controller.MedicalRecordContr;
+using Model.MedicalRecord;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +25,7 @@ namespace SekretarWPF
     {
 
         private MedicalRecord medicalRecord;
+        private MedicalRecordController medicalRecordController = new MedicalRecordController();
 
         public MedicalRecord MedicalRecord
         {
@@ -66,14 +67,15 @@ namespace SekretarWPF
             medicalRecord.Gender = getGender();
             medicalRecord.DateOfBirth = (DateTime)this.dpBirth.SelectedDate;
             medicalRecord.Address = this.tbAddress.Text;
-            medicalRecord.JMBG = this.tbJMBG.Text;
-            medicalRecord.ParentName = this.tbParentName.Text;
+            medicalRecord.Jmbg = this.tbJMBG.Text;
+            medicalRecord.ParentsName = this.tbParentName.Text;
             medicalRecord.HealthInsuranceNumber = this.tbHealthInsuranceNumber.Text;
             medicalRecord.Phone = this.tbPhone.Text;
             medicalRecord.HealthInsuranceCarrier = this.tbHealthInsuranceCarrier.Text;
 
-            if (!DummyData.medicalRecords.Contains(medicalRecord))
-                DummyData.medicalRecords.Add(medicalRecord);
+            medicalRecordController.CreateMedicalRecord(medicalRecord);
+            if (!UserControlPatients.data.Contains(medicalRecord))
+                UserControlPatients.data.Add(medicalRecord);
         }
 
         private void delete_Click(object sender, RoutedEventArgs e)
@@ -109,7 +111,7 @@ namespace SekretarWPF
 
         private void setGender()
         {
-            if(this.MedicalRecord.Gender == Gender.Male)
+            if(this.MedicalRecord.Gender.Equals("Male"))
             {
                 rbMale.IsChecked = true;
             } else
@@ -118,14 +120,14 @@ namespace SekretarWPF
             }
         }
 
-        private Gender getGender()
+        private String getGender()
         {
             if((bool)rbMale.IsChecked)
             {
-                return Gender.Male;
+                return "Male";
             } else
             {
-                return Gender.Female;
+                return "Female";
             }
         }
 

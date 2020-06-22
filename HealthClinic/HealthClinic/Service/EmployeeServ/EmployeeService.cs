@@ -17,6 +17,28 @@ namespace Service.EmployeeServ
     {
         public EmployeeRepositoryFactory employeeRepositoryFactory;
 
+        public void makeUpdateFor(Employee employee)
+        {
+            // TODO: Proveriti za Factory kako ide
+            EmployeeFileRepository employeeFileRepository = new EmployeeFileRepository();
+            employeeFileRepository.makeUpdateFor(employee);
+        }
+
+        public void addEmployee(Employee employee)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            EmployeeFileRepository repoForEmployees = new EmployeeFileRepository();
+            repoForEmployees.Save(employee);
+
+        }
+
+        public void removeEmployee(Employee employee)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            EmployeeFileRepository repoForEmployees = new EmployeeFileRepository();
+            repoForEmployees.Delete(employee);
+        }
+
         public List<Employee> readAllEmployees()
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija

@@ -1,5 +1,5 @@
-﻿using SekretarWPF.Data;
-using SekretarWPF.Model;
+﻿using Controller.MedicalRecordContr;
+using Model.MedicalRecord;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,17 +24,20 @@ namespace SekretarWPF
     /// </summary>
     public partial class UserControlPatients : UserControl
     {
+        MedicalRecordController medicalRecordController = new MedicalRecordController();
+        public static List<MedicalRecord> data;
 
         AddMedicalRecord addMedicalRecord;
         private CollectionView view;
 
         SortDescription dateSort = new SortDescription("DateOfBirth", ListSortDirection.Descending);
-        SortDescription nameSort = new SortDescription("Initials", ListSortDirection.Ascending);
+        SortDescription nameSort = new SortDescription("Name", ListSortDirection.Ascending);
 
         public UserControlPatients()
         {
             InitializeComponent();
-            this.lvMedicalRecords.ItemsSource = DummyData.medicalRecords;
+            data = medicalRecordController.GetAllMedicalRecords();
+            this.lvMedicalRecords.ItemsSource = data;
             addMedicalRecord = new AddMedicalRecord();
             var windows = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             addMedicalRecord.Owner = windows;
@@ -73,7 +76,6 @@ namespace SekretarWPF
         {
             MedicalRecord medicalRecord = ((FrameworkElement)e.OriginalSource).DataContext as MedicalRecord;
             addMedicalRecord.EditMedicalRecord(medicalRecord);
-            
         }
 
         private ListViewItem _currentItem = null;
@@ -137,7 +139,8 @@ namespace SekretarWPF
 
             if (Result.Value)
             {
-                DummyData.medicalRecords.Remove(_currentMRecord);
+                medicalRecordController.DeleteMedicalRecord(_currentMRecord);
+                data.Remove(_currentMRecord);
             }
 
         }
@@ -178,7 +181,6 @@ namespace SekretarWPF
                 currentSelection.Add(selectedMedicalRecord);
                 if (!selectedMedicalRecords.Contains(selectedMedicalRecord))
                 {
-                    selectedMedicalRecord.Selected = true;
                     selectedMedicalRecords.Add(selectedMedicalRecord);
                 }
             }
@@ -188,7 +190,6 @@ namespace SekretarWPF
             {
                 if(!currentSelection.Contains(medicalRecord))
                 {
-                    medicalRecord.Selected = false;
                     toRemove.Add(medicalRecord);
                 }
             }
@@ -217,7 +218,8 @@ namespace SekretarWPF
 
                 foreach (MedicalRecord medicalRecord in toDelete)
                 {
-                    DummyData.medicalRecords.Remove(medicalRecord);
+                    medicalRecordController.DeleteMedicalRecord(medicalRecord);
+                    data.Remove(medicalRecord);
                 }
             }
         }

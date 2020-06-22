@@ -93,13 +93,13 @@
                 </StackPanel>
 
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Foreground="Gray" VerticalAlignment="Center">ID:</TextBlock>
-                    <TextBox x:Name="tbJMBG" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.JMBG, Mode=OneWay}"></TextBox>
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center">JMBG:</TextBlock>
+                    <TextBox x:Name="tbJMBG" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Jmbg, Mode=OneWay}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Foreground="Gray" VerticalAlignment="Center" >Parents name:</TextBlock>
-                    <TextBox x:Name="tbParentName" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.ParentName, Mode=OneWay}"></TextBox>
+                    <TextBox x:Name="tbParentName" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.ParentsName, Mode=OneWay}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">

@@ -30,7 +30,7 @@ namespace Model.Rooms
                 if (value != _inventoryName)
                 {
                     _inventoryName = value;
-                    OnPropertyChanged("InventoryName");
+                    //OnPropertyChanged("InventoryName");
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace Model.Rooms
                 if (value != _inventoryQuantity)
                 {
                     _inventoryQuantity = value;
-                    OnPropertyChanged("Quantity");
+                    //OnPropertyChanged("Quantity");
                 }
             }
         }
