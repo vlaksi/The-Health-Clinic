@@ -16,12 +16,8 @@ namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
-        
-        public MedicalRecordFileRepository()
-        {
-            filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())));
-            filePath += @"\HealthClinic\FileStorage\medicalRecords.json";
-        }
+
+        private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
 
         private void OpenFile()
         {
@@ -32,8 +28,6 @@ namespace Repository.MedicalRecordRepo
         {
             throw new NotImplementedException();
         }
-
-        private string filePath;
 
         public void SaveReport(Report report)
         {

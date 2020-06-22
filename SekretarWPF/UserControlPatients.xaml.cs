@@ -25,7 +25,8 @@ namespace SekretarWPF
     public partial class UserControlPatients : UserControl
     {
         MedicalRecordController medicalRecordController = new MedicalRecordController();
-        public static List<MedicalRecord> data;
+
+        public static ObservableCollection<MedicalRecord> data = new ObservableCollection<MedicalRecord>();
 
         AddMedicalRecord addMedicalRecord;
         private CollectionView view;
@@ -36,7 +37,11 @@ namespace SekretarWPF
         public UserControlPatients()
         {
             InitializeComponent();
-            data = medicalRecordController.GetAllMedicalRecords();
+            if(data.Count == 0)
+                foreach(MedicalRecord mr in medicalRecordController.GetAllMedicalRecords())
+                {
+                    data.Add(mr);
+                }
             this.lvMedicalRecords.ItemsSource = data;
             addMedicalRecord = new AddMedicalRecord();
             var windows = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
