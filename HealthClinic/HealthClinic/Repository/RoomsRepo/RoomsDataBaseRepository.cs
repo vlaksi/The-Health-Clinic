@@ -86,10 +86,5 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
-
-        public void makeUpdateFor(Room room)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

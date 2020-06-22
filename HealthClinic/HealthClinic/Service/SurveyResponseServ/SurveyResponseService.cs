@@ -10,34 +10,25 @@ using System.Collections.Generic;
 
 namespace Service.SurveyResponseServ
 {
-    public class SurveyResponseService
-    {
-        public SurveyResponseRepositoryFactory surveyResponseRepositoryFactory;
+   public class SurveyResponseService
+   {
+      public SurveyResponseRepositoryFactory surveyResponseRepositoryFactory;
 
-        public List<SurveyResponse> GetAllSurveyResponses()
-        {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
-
-            List<SurveyResponse> surveys = new List<SurveyResponse>();
-            surveys = (List<SurveyResponse>)surveyRepo.FindAll();
-
-            return surveys;
-        }
-
-        public void AddSurveyResponses(List<SurveyResponse> surveysToSave)
-        {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
-
-            surveyRepo.SaveAll(surveysToSave);
-        }
-
-        public void DeleteSurveyResponse(SurveyResponse forDeletion)
-        {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
-
-            surveyRepo.Delete(forDeletion);
-        }
-
-
-    }
+      public List<SurveyResponse> GetAllServeyResponses()
+      {
+         throw new NotImplementedException();
+      }
+      
+      public void AddServeyResponses()
+      {
+         throw new NotImplementedException();
+      }
+      
+      public void DelteServeyResponse()
+      {
+         throw new NotImplementedException();
+      }
+      
+   
+   }
 }
