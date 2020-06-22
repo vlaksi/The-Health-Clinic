@@ -17,6 +17,7 @@ namespace Service.TermServ
 
         private int isChosenDoctorFree;
 
+
         public List<Checkup> readAllCheckups()
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija
@@ -34,6 +35,7 @@ namespace Service.TermServ
 
             repoCheckup.SaveAll(chekupsForSave);
         }
+
         /// Get all upcoming checkups for user if ID is provided, if not, get all upcoming checkups in general. Similarly to Mongoose's find.
         public List<Checkup> GetAllUpcomingCheckups(int userId)
         {

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+
 namespace Repository.TermRepo
 {
     public class CheckupFileRepository : CheckupRepository
@@ -49,6 +50,7 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
+
         public IEnumerable<Checkup> FindAll()
         {
             List<Checkup> allCheckups = new List<Checkup>();
@@ -69,6 +71,7 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
+
         public void SaveAll(IEnumerable<Checkup> entities)
         {
             string relativePath = @"./../../../HealthClinic/FileStorage/checkup.json";
@@ -78,6 +81,7 @@ namespace Repository.TermRepo
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, entities);
             }
+
         }
 
         public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
@@ -85,15 +89,6 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        IEnumerable<Term> GenericInterfaceCRUDDao<Term, int>.FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveAll(IEnumerable<Term> entities)
-        {
-            throw new NotImplementedException();
-        }
 
         private string filePath;
 
