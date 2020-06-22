@@ -5,40 +5,13 @@
 
 using Model.Rooms;
 using Model.Users;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Repository.RoomsRepo
 {
     public class RoomsFileRepository : RoomsRepository
     {
-
-        public void makeUpdateFor(Room room)
-        {
-            List<Room> allRooms = (List<Room>)FindAll();
-
-            foreach (Room tempRoom in allRooms)
-            {
-                // For now, room is uniq by number of room, but we need to change that !
-                if (tempRoom.NumberOfRoom.Equals(room.NumberOfRoom))
-                {
-                    tempRoom.Department = room.Department;
-                    tempRoom.Purpose = room.Purpose;
-
-                    tempRoom.RoomInventory = new List<InventoryType>();
-                    tempRoom.RoomInventory.AddRange(room.RoomInventory);
-
-                    break;
-                }
-            }
-
-            // I want immediately to save changes
-            SaveAll(allRooms);
-
-        }
-
         private void OpenFIle()
         {
             throw new NotImplementedException();
@@ -103,15 +76,7 @@ namespace Repository.RoomsRepo
 
         public IEnumerable<Room> FindAll()
         {
-            List<Room> allRooms = new List<Room>();
-
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\rooms.json";
-
-            // read file into a string and deserialize JSON to a type
-            allRooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(currentPath));
-
-            return allRooms;
+            throw new NotImplementedException();
         }
 
         public Room FindById(int id)
@@ -126,22 +91,12 @@ namespace Repository.RoomsRepo
 
         public void SaveAll(IEnumerable<Room> entities)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\rooms.json";
-
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, entities);
-            }
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Room> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }

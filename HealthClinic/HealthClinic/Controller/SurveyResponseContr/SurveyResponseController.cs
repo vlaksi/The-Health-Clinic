@@ -10,25 +10,25 @@ using System.Collections.Generic;
 
 namespace Controller.SurveyResponseContr
 {
-    public class SurveyResponseController
-    {
-        public SurveyResponseService surveyResponseService = new SurveyResponseService();
+   public class SurveyResponseController
+   {
+      public SurveyResponseService surveyResponseService;
 
-        public List<SurveyResponse> GetAllSurveyResponses()
-        {
-            return surveyResponseService.GetAllSurveyResponses();
-        }
-
-        public void AddSurveyResponses(List<SurveyResponse>surveysToSave)
-        {
-            surveyResponseService.AddSurveyResponses(surveysToSave);
-        }
-
-        public void DeleteSurveyResponse(SurveyResponse forDeletion)
-        {
-            surveyResponseService.DeleteSurveyResponse(forDeletion);
-        }
-
-
-    }
+      public List<SurveyResponse> GetAllServeyResponses()
+      {
+         throw new NotImplementedException();
+      }
+      
+      public void AddServeyResponses()
+      {
+         throw new NotImplementedException();
+      }
+      
+      public void DelteServeyResponse()
+      {
+         throw new NotImplementedException();
+      }
+      
+   
+   }
 }

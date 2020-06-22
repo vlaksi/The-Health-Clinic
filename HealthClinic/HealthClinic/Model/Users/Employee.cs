@@ -1,6 +1,12 @@
 ﻿using Model.BusinessHours;
+using Model.Users;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Model.Users
+namespace HealthClinic.Model.Users
 {
     public class Employee : RegisteredUser
     {
