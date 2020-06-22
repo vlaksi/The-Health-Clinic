@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Controller.TermContr;
+using Model.Survey;
+using Controller.SurveyResponseContr;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
@@ -21,10 +23,14 @@ namespace HelathClinicPatienteRole.ViewModel
     {
         private List<Checkup> _PregledList;
         private ObservableCollection<Doctor> _LekariList;
+        private List<SurveyResponse> _SurveyResponseList;
+
         private CheckupStrategyControler checkupStrategyControler;
+        private SurveyResponseController surveyResponseController;
         public PocetnaPatientViewModel()
         {
             checkupStrategyControler = new CheckupStrategyControler();
+            surveyResponseController = new SurveyResponseController();
 
             PirkaziIzmeniPregledDialogCommand = new RelayCommand(PirkaziIzmeniPregledDialog);
             PirkaziOtkaziPregledDialogCommand = new RelayCommand(PirkaziOtkaziPregledDialog);
@@ -32,18 +38,14 @@ namespace HelathClinicPatienteRole.ViewModel
             ProcitajViseDialogCommand = new RelayCommand(ProcitajViseDialog);
             ObrisiPregledPotvrdiButtonCommand = new RelayCommand(ObrisiPregledPotvrdiButton);
             IzmeniPregledCommand = new RelayCommand(IzmeniPregled);
-            _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
+            PosaljiAnketuCommand = new RelayCommand(PosaljIAnketu);
 
+            _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
+            _SurveyResponseList = surveyResponseController.GetAllSurveyResponses();
             _PregledList = checkupStrategyControler.readAllCheckups();
-            /*{
-                new Checkup{Id=1, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Zakazan",Doctor= _LekariList.First() },
-                new Checkup{Id=2, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Otkazan",Doctor= _LekariList.First() },
-                new Checkup{Id=3, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Obavljen",Doctor= _LekariList.First() },
-                new Checkup{Id=4, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Otkazan",Doctor= _LekariList.First() },
-                new Checkup{Id=5, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Zakazan",Doctor= _LekariList.First() },
-             
-            };*/
+            
         }
+
 
         # region ICommand
         private ICommand mUpdater;
@@ -81,6 +83,22 @@ namespace HelathClinicPatienteRole.ViewModel
         }
         #endregion
 
+        #region Posalji anketu Command
+
+        public RelayCommand PosaljiAnketuCommand { get; private set; }
+
+        public void PosaljIAnketu(object obj)
+        {
+            //PatientModel patient = new PatientModel { Id = 1 , Name = "Marko", Surname = "Markovic", PhoneNumber= "0602545687" , Adress = "Narodnog Fronta, Novi Sad", Birthday= new DateTime(1980, 1, 1, 0, 0, 0), Biography="IT radnik vec 20 godina, veoma fizicki aktivan" };
+            SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, Doctor = SelektovaniPregled.Doctor };
+            surveyResponseController.AddSurveyResponse(anketa);
+            MessageBox.Show("Uspesno ste uradili anketu ! Vas Komentar je : " + Comment + " A ocena je : " + SelektovaniMark);
+            return;
+
+        }
+
+        #endregion
+
         #region Izmeni pregled Command
 
         public RelayCommand IzmeniPregledCommand { get; private set; }
@@ -115,6 +133,28 @@ namespace HelathClinicPatienteRole.ViewModel
 
         }
 
+        #endregion
+
+        #region Comment
+
+        private string _comment;
+
+        public string Comment
+        {
+            get { return _comment; }
+            set { _comment = value; OnPropertyChanged("Comment"); }
+        }
+        #endregion
+
+        #region Selected Mark
+
+        private int _selektovaniMark = 3;
+
+        public int SelektovaniMark
+        {
+            get { return _selektovaniMark; }
+            set { _selektovaniMark = value; OnPropertyChanged("SelektovaniMark"); }
+        }
         #endregion
 
         #region Selektovani Lekar

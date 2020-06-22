@@ -10,10 +10,10 @@
     <Grid>
         <Label HorizontalAlignment="Center"  Content="ANKETA" Foreground="#FF148DF0"  FontSize="30" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="15" Grid.RowSpan="4"/>
         <Label HorizontalAlignment="Left"  Content="Lekar:" Foreground="#FF148DF0" Background="WhiteSmoke" FontSize="20" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0,0,0,7"/>
-        <Label HorizontalAlignment="Left"  Content="{Binding SelektovaniPregled.Lekar}" Background="WhiteSmoke" Foreground="#FF148DF0"  FontSize="20" Grid.Row="5" Grid.Column="3" Grid.RowSpan="3" Margin="15,0,0,7" Grid.ColumnSpan="9" Width="187"/>
+        <Label HorizontalAlignment="Left"  Content="{Binding SelektovaniPregled.Doctor.Name}" Background="WhiteSmoke" Foreground="#FF148DF0"  FontSize="20" Grid.Row="5" Grid.Column="3" Grid.RowSpan="3" Margin="15,0,0,7" Grid.ColumnSpan="9" Width="187"/>
         <Label HorizontalAlignment="Left"  Content="Ocena za lekara i osoblje: " Background="WhiteSmoke" Foreground="#FF148DF0"  FontSize="20" Grid.Row="9" Grid.ColumnSpan="11" Grid.RowSpan="3" Margin="1,0,0,5" Grid.Column="1"/>
         <materialDesign:RatingBar Grid.Row="9" Grid.Column="11" Grid.ColumnSpan="11" Grid.RowSpan="3"
-            Value="3"
+            Value="{Binding SelektovaniMark,UpdateSourceTrigger= PropertyChanged, Mode=TwoWay}"
             x:Name="BasicRatingBar" Margin="17,9,-17,5" RenderTransformOrigin="0.504,0.655" />
         <!--    ValueChanged="BasicRatingBar_ValueChanged" /> -->
 
@@ -31,10 +31,12 @@
                  VerticalScrollBarVisibility="Auto"
                  materialDesign:HintAssist.HelperText="Klikni iznad"
                   materialDesign:HintAssist.HintOpacity="1"
-                 IsEnabled="{Binding IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" RenderTransformOrigin="0.487,0.773" />
+                 IsEnabled="{Binding IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" RenderTransformOrigin="0.487,0.773" >
+                <Binding Path="Comment" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged"></Binding>
+            </TextBox>
         </StackPanel>
 
-        <Button Content="Posalji anketu" Grid.Row="23" Grid.Column="8" Grid.ColumnSpan="6" Grid.RowSpan="3" Margin="0,14,0,0" Click="AnketaButton_Click"/>
+        <Button Content="Posalji anketu" Grid.Row="23" Grid.Column="8" Grid.ColumnSpan="6" Grid.RowSpan="3" Margin="0,14,0,0" Command="{Binding PosaljiAnketuCommand}"/>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
