@@ -152,5 +152,7 @@ namespace Model.BusinessHours
         }
 
         #endregion
+
+       
     }
 }
