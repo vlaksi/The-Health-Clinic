@@ -12,13 +12,26 @@ namespace Controller.TermContr
 {
     public class CheckupStrategyControler : ITermStrategy
     {
-        public CheckupService checkupService;
+
+        public CheckupService checkupService = new CheckupService();
+
 
         // TODO: Resiti i ovo, jer mi ni ovde nije jasno sta se desava
         //public DateTime SuggestCheckup(Patient patient, List<Checkup>[] pastCheckups)
         //{
         //  calendarService.suggestingAnCheckup(Patient patient, Chekup[] allPastCheckups);
         //}
+
+
+        public List<Checkup> readAllCheckups()
+        {
+            return checkupService.readAllCheckups();
+        }
+
+        public void saveAllCheckups(List<Checkup> chekupsForSave)
+        {
+            checkupService.saveAllCheckups(chekupsForSave);
+        }
 
         public bool CancelTerm(Term term)
         {
