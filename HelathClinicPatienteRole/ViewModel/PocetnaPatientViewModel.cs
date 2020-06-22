@@ -2,6 +2,7 @@
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
 using Model.Calendar;
+using HealthClinic;
 using Model.Users;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Controller.TermContr;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
     class PocetnaPatientViewModel : INotifyPropertyChanged
     {
-        private IList<Checkup> _PregledList;
+        private List<Checkup> _PregledList;
         private ObservableCollection<Doctor> _LekariList;
-
+        private CheckupStrategyControler checkupStrategyControler;
         public PocetnaPatientViewModel()
         {
+            checkupStrategyControler = new CheckupStrategyControler();
+
             PirkaziIzmeniPregledDialogCommand = new RelayCommand(PirkaziIzmeniPregledDialog);
             PirkaziOtkaziPregledDialogCommand = new RelayCommand(PirkaziOtkaziPregledDialog);
             PirkaziAnketaLekaraDialogCommand = new RelayCommand(PirkaziAnketaLekaraDialog);
@@ -30,15 +34,15 @@ namespace HelathClinicPatienteRole.ViewModel
             IzmeniPregledCommand = new RelayCommand(IzmeniPregled);
             _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
 
-            _PregledList = new List<Checkup>
-            {
+            _PregledList = checkupStrategyControler.readAllCheckups();
+            /*{
                 new Checkup{Id=1, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Zakazan",Doctor= _LekariList.First() },
                 new Checkup{Id=2, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Otkazan",Doctor= _LekariList.First() },
                 new Checkup{Id=3, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Obavljen",Doctor= _LekariList.First() },
                 new Checkup{Id=4, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Otkazan",Doctor= _LekariList.First() },
                 new Checkup{Id=5, CheckupName = "Specijalisticki pregled", StartTime = DateTime.Now , CheckupStatus="Zakazan",Doctor= _LekariList.First() },
              
-            };
+            };*/
         }
 
         # region ICommand
@@ -83,7 +87,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
         public void IzmeniPregled(object obj)
         {
-
+           
             if (SelektovaniLekar is null || SelektovaniDatum == DateTime.MinValue)
             {
                 MessageBox.Show("Niste izmenili ni lekara ni datum!!!");
@@ -105,6 +109,7 @@ namespace HelathClinicPatienteRole.ViewModel
                         pregled.StartTime = SelektovaniDatum;
                     }
                     MessageBox.Show("Uspešno ste izmenili pregled!");
+                    checkupStrategyControler.saveAllCheckups(Pregledi);
                 }
             }
 
@@ -154,6 +159,7 @@ namespace HelathClinicPatienteRole.ViewModel
                     pregled.CheckupStatus = "Otkazan";
                     MessageBox.Show("Uspesno ste otkazali " + pregled.CheckupName);
                     //Pregledi.Remove(pregled); Ovo je komanda za brisanje 
+                    checkupStrategyControler.saveAllCheckups(Pregledi);
                     break;
                 }
             }
@@ -256,13 +262,15 @@ namespace HelathClinicPatienteRole.ViewModel
             set { _selektovaniPregled = value; OnPropertyChanged("SelektovaniPregled"); }
         }
         #endregion
-        public IList<Checkup> Pregledi
+        public List<Checkup> Pregledi
         {
             get
             {
                 return _PregledList;
             }
-            set { _PregledList = value; }
+            set { _PregledList = value;
+                checkupStrategyControler.saveAllCheckups(value);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

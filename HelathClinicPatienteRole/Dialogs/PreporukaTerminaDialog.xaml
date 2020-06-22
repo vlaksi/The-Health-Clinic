@@ -20,23 +20,34 @@
                 <Label FontWeight="Bold" HorizontalAlignment="Center"  Content=" Izaberite vaš prioritet. Datum ili lekar ?  " Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="25" Grid.Row="16" Grid.ColumnSpan="40" Grid.RowSpan="2"  Width="480" Margin="10,10,2,0"/>
 
 
-                <DataGrid  x:Name="dataGridLekari" ItemsSource="{Binding Lekari}" 
-                    IsReadOnly="True"  CanUserAddRows="false"  SelectedItem="{Binding Path=SelektovaniLekar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                AutoGenerateColumns="False" SelectionMode="Single" Grid.ColumnSpan="24" Margin="0,16,7,12" Grid.RowSpan="11" Grid.Row="6" Background="#FF148DF0" Grid.Column="9"  HorizontalScrollBarVisibility="Disabled">
-            
+                <DataGrid  x:Name="dataGridLekari" ItemsSource="{Binding Lekari}"
+                  IsReadOnly="True"  CanUserAddRows="false"  SelectedItem="{Binding Path=SelektovaniLekar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutoGenerateColumns="False" SelectionMode="Single" Grid.ColumnSpan="27"  Grid.RowSpan="11" Grid.Row="6" Background="#FF148DF0" Grid.Column="7" HorizontalScrollBarVisibility="Disabled" Margin="0,20,0,16">
+
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="     Ime i prezime lekara"
-                            Binding="{Binding FirstAndLastName}">
+                        <DataGridTextColumn Header=" Ime lekara"
+                            Binding="{Binding Name}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
-                                    <Setter Property="Width" Value="280"/>
+
                                     <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="       Prezime lekara"
+                            Binding="{Binding Surname}">
+                            <DataGridColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="DarkGray"/>
+
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                 </Style>
                             </DataGridColumn.HeaderStyle>
                         </DataGridTextColumn>
                     </DataGrid.Columns>
-
 
                 </DataGrid>
 
@@ -59,7 +70,7 @@
                         <ToolTip>
                             <StackPanel>
                                 <TextBlock FontWeight="Bold">Klikni na mene</TextBlock>
-                               
+
                             </StackPanel>
                         </ToolTip>
                     </CheckBox.ToolTip>
@@ -88,8 +99,8 @@
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
-                    <Label FontWeight="Bold" HorizontalAlignment="Center"  Content=" Preporučen termin je:   " Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="15" Grid.Row="21" Grid.ColumnSpan="31" Grid.RowSpan="2"  Width="480" Margin="0,17,-102,0" Grid.Column="9"/>
-                
+                <Label FontWeight="Bold" HorizontalAlignment="Center"  Content=" Preporučen termin je:   " Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="15" Grid.Row="21" Grid.ColumnSpan="31" Grid.RowSpan="2"  Width="480" Margin="0,17,-102,0" Grid.Column="9"/>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

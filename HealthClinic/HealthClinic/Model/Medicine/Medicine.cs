@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Model.Medicine
 {
-    public class Medicine: ObservableObject
+    public class Medicine : ObservableObject
     {
         #region Attributes
 
@@ -17,6 +17,7 @@ namespace Model.Medicine
         private string _medicineName;
         private string _manufacturer;
         private DateTime _expirationDate;
+        private int _price;
         private int _quantity;
         public SpecialtyType _specialtyType;
         public MedicineStatus _medicineStatus;
@@ -93,17 +94,21 @@ namespace Model.Medicine
             }
         }
 
-        public int price
+
+        public int Price
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return _price; }
             set
             {
-                throw new NotImplementedException();
+                if (value != _price)
+                {
+                    _price = value;
+                    OnPropertyChanged("Price");
+                }
             }
         }
+
+
 
         /// <summary>
         /// Property for collection of Alergen

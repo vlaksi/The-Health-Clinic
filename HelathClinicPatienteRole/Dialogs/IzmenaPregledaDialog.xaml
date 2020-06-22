@@ -18,24 +18,37 @@
 
                 <Button Content="Potvrdi" Grid.Row="23" Grid.Column="8" Grid.ColumnSpan="6" Grid.RowSpan="2" Margin="0,0,20,11" Command="{Binding IzmeniPregledCommand}"/>
 
-                <DataGrid  x:Name="dataGridLekari" ItemsSource="{Binding Lekari}" 
-                    IsReadOnly="True"  CanUserAddRows="false"  SelectedItem="{Binding Path=SelektovaniLekar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                AutoGenerateColumns="False" SelectionMode="Single" Grid.ColumnSpan="14" Margin="10,5,17,0" Grid.RowSpan="10" Grid.Row="10" Background="#FF148DF0" Grid.Column="4">
+                <DataGrid  x:Name="dataGridLekari" ItemsSource="{Binding Lekari}"
+                  IsReadOnly="True"  CanUserAddRows="false"  SelectedItem="{Binding Path=SelektovaniLekar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutoGenerateColumns="False" SelectionMode="Single" Grid.ColumnSpan="16"  Grid.RowSpan="12" Grid.Row="10" Background="#FF148DF0" Grid.Column="3" HorizontalScrollBarVisibility="Disabled" Margin="10,21,10,10">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="     Ime i prezime lekara"
-                            Binding="{Binding FirstAndLastName}">
+                        <DataGridTextColumn Header=" Ime lekara"
+                            Binding="{Binding Name}">
                             <DataGridColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="DarkGray"/>
-                                    <Setter Property="Width" Value="280"/>
+
                                     <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="       Prezime lekara"
+                            Binding="{Binding Surname}">
+                            <DataGridColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="DarkGray"/>
+
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
                                 </Style>
                             </DataGridColumn.HeaderStyle>
                         </DataGridTextColumn>
                     </DataGrid.Columns>
+
                 </DataGrid>
-                
+
                 <Label FontWeight="Bold" HorizontalAlignment="Center"  Content="Izaberite drugog lekara" Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="25" Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="14" Grid.RowSpan="2" Margin="10,1,16,0" Width="290"/>
 
                 <Grid.ColumnDefinitions>

@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Word;
+﻿using Controller.TermContr;
+using DocumentFormat.OpenXml.Office2010.Word;
 using HelathClinicPatienteRole.Dialogs;
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
@@ -19,9 +20,12 @@ namespace HelathClinicPatienteRole.ViewModel
     class ZakaziPregledPatientViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Doctor> _DoctorList;
+        private CheckupStrategyControler checkupStrategyControler;
 
         public ZakaziPregledPatientViewModel()
         {
+            checkupStrategyControler = new CheckupStrategyControler();
+
             PirkaziPreporukaTerminaDialogCommand = new RelayCommand(PirkaziPreporukaTerminaDialog);
             ZakaziPregledCommand = new RelayCommand(ZakaziPregled);
             PreporukaTerminaCommand = new RelayCommand(PreporukaTermina);
@@ -161,6 +165,7 @@ namespace HelathClinicPatienteRole.ViewModel
             Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
+            checkupStrategyControler.saveAllCheckups(PocetnaPatientViewModel.Instance.Pregledi);
 
         }
 
@@ -185,12 +190,12 @@ namespace HelathClinicPatienteRole.ViewModel
                 return;
             }
 
-            string termin = PreporucenTermin.Day + "." + PreporucenTermin.Month + "." + PreporucenTermin.Year + "   " + PreporucenTermin.Hour + ":" + PreporucenTermin.Minute;
+           
             MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + " " + SelektovaniLekar.Surname + ".");
             Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
-
+            checkupStrategyControler.saveAllCheckups(PocetnaPatientViewModel.Instance.Pregledi);
         }
 
         #endregion
