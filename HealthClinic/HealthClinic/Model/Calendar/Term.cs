@@ -13,34 +13,6 @@ namespace Model.Calendar
     //public class Term : ScheduleAppointment, INotifyPropertyChanged
     public class Term : ObservableObject
     {
-        /*
-         * Naslijedjeni od strane ScheduleAppointment 
-         * private System.DateTime startTime;
-        private System.DateTime endTime;
-
-        public System.DateTime StartTime
-        {
-           get
-           {
-              return startTime;
-           }
-           set
-           {
-              this.startTime = value;
-           }
-        }
-        public System.DateTime EndTime
-        {
-           get
-           {
-              return endTime;
-           }
-           set
-           {
-              this.endTime = value;
-           }
-        }*/
-
         private int id;
         public int Id
         {
@@ -80,6 +52,7 @@ namespace Model.Calendar
                 return medicalRecord;
             }
             set
+
             {
                 if (this.medicalRecord == null || !this.medicalRecord.Equals(value))
                 {
