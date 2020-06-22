@@ -11,19 +11,9 @@ using System.Collections.Generic;
 
 namespace Controller.RoomsContr
 {
-    public class RoomsController
+    public abstract class RoomsController
     {
-        public RoomsService roomsService = new RoomsService();
-
-        public void makeUpdateFor(Room room)
-        {
-            roomsService.makeUpdateFor(room);
-        }
-
-        public void saveAllRooms(List<Room> roomsForSave)
-        {
-            roomsService.saveAllRooms(roomsForSave);
-        }
+        public RoomsService roomsService;
 
         public bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room)
         {
@@ -40,20 +30,11 @@ namespace Controller.RoomsContr
             throw new NotImplementedException();
         }
 
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
-        {
-            return null;
-        }
+        public abstract List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate);
 
-        public List<Room> GetAllRooms()
-        {
-            return roomsService.GetAllRooms();
-        }
+        public abstract List<Room> GetAllRooms();
 
-        public bool TransferPatient(Room newRoom)
-        {
-            return false;
-        }
+        public abstract bool TransferPatient(Room newRoom);
 
         public List<OperatingRoom> GetFreeOperationRooms(DateTime start, DateTime end)
         {

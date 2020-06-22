@@ -11,20 +11,17 @@ using System.Collections.Generic;
 
 namespace Repository.RoomsRepo
 {
-    public interface RoomsRepository : GenericInterfaceCRUDDao<Room, int>
-    {
-
-        void makeUpdateFor(Room room);
-
-        List<OperatingRoom> GetAllOperatingRooms();
-
-        List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate);
-
-        bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room);
-
-        List<Room> GetAllRooms();
-
-        bool TransferPatient(Room newRoom);
-
-    }
+   public interface RoomsRepository : GenericInterfaceCRUDDao<Room, int>
+   {
+      List<OperatingRoom> GetAllOperatingRooms();
+      
+      List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate);
+      
+      bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room);
+      
+      List<Room> GetAllRooms();
+      
+      bool TransferPatient(Room newRoom);
+   
+   }
 }

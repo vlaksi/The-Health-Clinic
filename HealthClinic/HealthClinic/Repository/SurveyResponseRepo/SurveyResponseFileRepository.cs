@@ -4,11 +4,8 @@
 // Purpose: Definition of Class SurveyResponseFileRepository
 
 using Model.Survey;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace Repository.SurveyResponseRepo
 {
@@ -34,18 +31,7 @@ namespace Repository.SurveyResponseRepo
 
         public void Delete(SurveyResponse entity)
         {
-            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
-            Console.WriteLine(allSurveys[0].Id);
-            for (int i = 0; i < allSurveys.Count; i++)
-            {
-                if (allSurveys[i].Id == entity.Id)
-                {
-                    allSurveys.RemoveAt(i);
-                }
-            }
-
-            SaveAll(allSurveys);
-            Console.WriteLine(allSurveys[0].Id);
+            throw new NotImplementedException();
         }
 
         public void DeleteAll()
@@ -65,15 +51,7 @@ namespace Repository.SurveyResponseRepo
 
         public IEnumerable<SurveyResponse> FindAll()
         {
-            List<SurveyResponse> allSurveys = new List<SurveyResponse>();
-
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
-
-            // read file into a string and deserialize JSON to a type
-            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
-
-            return allSurveys;
+            throw new NotImplementedException();
         }
 
         public SurveyResponse FindById(int id)
@@ -88,15 +66,7 @@ namespace Repository.SurveyResponseRepo
 
         public void SaveAll(IEnumerable<SurveyResponse> entities)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
-
-            // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, entities);
-            }
+            throw new NotImplementedException();
         }
 
         public IEnumerable<SurveyResponse> FindAllById(IEnumerable<int> ids)
@@ -104,7 +74,7 @@ namespace Repository.SurveyResponseRepo
             throw new NotImplementedException();
         }
 
-
+        
 
     }
 }
