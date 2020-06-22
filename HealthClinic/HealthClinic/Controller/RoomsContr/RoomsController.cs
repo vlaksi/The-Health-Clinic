@@ -15,6 +15,11 @@ namespace Controller.RoomsContr
     {
         public RoomsService roomsService = new RoomsService();
 
+        public void makeUpdateFor(Room room)
+        {
+            roomsService.makeUpdateFor(room);
+        }
+
         public void saveAllRooms(List<Room> roomsForSave)
         {
             roomsService.saveAllRooms(roomsForSave);
