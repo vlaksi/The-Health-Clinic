@@ -89,82 +89,9 @@ namespace Model.Survey
             }
         }
 
-        private ObservableCollection<Doctor> doctors;
+        private ObservableCollection<int> doctors;
+        public ObservableCollection<int> Doctors { get { return doctors; } set { doctors = value; OnPropertyChanged("Doctors"); } }
 
-        /// <summary>
-        /// Property for collection of Model.Users.Doctor
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public ObservableCollection<Doctor> Doctors
-        {
-            get
-            {
-                if (doctors == null)
-                    doctors = new ObservableCollection<Doctor>();
-                return doctors;
-            }
-            set
-            {
-                RemoveAllDoctors();
-                if (value != null)
-                {
-                    foreach (Doctor oDoctor in value)
-                        AddDoctors(oDoctor);
-                }
-                OnPropertyChanged("Doctors");
-            }
-        }
-
-        /// <summary>
-        /// Add a new Model.Users.Doctor in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddDoctors(Doctor newDoctor)
-        {
-            if (newDoctor == null)
-                return;
-            if (this.doctors == null)
-                this.doctors = new ObservableCollection<Doctor>();
-            if (!this.doctors.Contains(newDoctor))
-            {
-                this.doctors.Add(newDoctor);
-                newDoctor.AddSurveyResponses(this);
-            }
-        }
-
-        /// <summary>
-        /// Remove an existing Model.Users.Doctor from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveDoctors(Doctor oldDoctor)
-        {
-            if (oldDoctor == null)
-                return;
-            if (this.doctors != null)
-                if (this.doctors.Contains(oldDoctor))
-                {
-                    this.doctors.Remove(oldDoctor);
-                    oldDoctor.RemoveSurveyResponses(this);
-                }
-        }
-
-        /// <summary>
-        /// Remove all instances of Model.Users.Doctor from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllDoctors()
-        {
-            if (doctors != null)
-            {
-                System.Collections.ArrayList tmpDoctors = new System.Collections.ArrayList();
-                foreach (Model.Users.Doctor oldDoctor in doctors)
-                    tmpDoctors.Add(oldDoctor);
-                doctors.Clear();
-                foreach (Model.Users.Doctor oldDoctor in tmpDoctors)
-                    oldDoctor.RemoveSurveyResponses(this);
-                tmpDoctors.Clear();
-            }
-        }
         private PatientModel patient;
 
         /// <summary>

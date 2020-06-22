@@ -9,10 +9,10 @@ namespace Model.Survey
 {
    public enum Rate
    {
-      terrible,
-      bad,
-      good,
-      great,
-      excellent
+      Terrible,
+      Bad,
+      Good,
+      Great,
+      Excellent
    }
 }

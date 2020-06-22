@@ -250,7 +250,7 @@ namespace Model.Users
             if (!this.surveyResponses.Contains(newSurveyResponse))
             {
                 this.surveyResponses.Add(newSurveyResponse);
-                newSurveyResponse.AddDoctors(this);
+                newSurveyResponse.Doctors.Add(this.Id);
             }
         }
 
@@ -266,7 +266,7 @@ namespace Model.Users
                 if (this.surveyResponses.Contains(oldSurveyResponse))
                 {
                     this.surveyResponses.Remove(oldSurveyResponse);
-                    oldSurveyResponse.RemoveDoctors(this);
+                    oldSurveyResponse.Doctors.Remove(this.Id);
                 }
         }
 
@@ -283,7 +283,7 @@ namespace Model.Users
                     tmpSurveyResponses.Add(oldSurveyResponse);
                 surveyResponses.Clear();
                 foreach (SurveyResponse oldSurveyResponse in tmpSurveyResponses)
-                    oldSurveyResponse.RemoveDoctors(this);
+                    oldSurveyResponse.Doctors.Remove(this.Id);
                 tmpSurveyResponses.Clear();
             }
         }
