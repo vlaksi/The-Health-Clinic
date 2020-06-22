@@ -3,6 +3,7 @@
 // Created: Sunday, May 3, 2020 8:58:30 PM
 // Purpose: Definition of Class EmployeeService
 
+using Model.BusinessHours;
 using Model.Users;
 using Repository.EmployeeRepo;
 using System;
@@ -16,6 +17,21 @@ namespace Service.EmployeeServ
     public class EmployeeService
     {
         public EmployeeRepositoryFactory employeeRepositoryFactory;
+
+        public void setBusinessHoursForEmployees(List<Employee> employees, BusinessHoursModel businessHours)
+        {
+            // TODO: Proveriti za Factory kako ide
+            EmployeeFileRepository employeeFileRepository = new EmployeeFileRepository();
+
+            employeeFileRepository.setBusinessHoursForEmployees(employees, businessHours);
+        }
+        public List<Employee> getAllFreeEmployees(BusinessHoursModel businessHours)
+        {
+            // TODO: Proveriti za Factory kako ide
+            EmployeeFileRepository employeeFileRepository = new EmployeeFileRepository();
+
+            return employeeFileRepository.getAllFreeEmployees(businessHours);
+        }
 
         public void makeUpdateFor(Employee employee)
         {

@@ -16,7 +16,7 @@
         <StackPanel Margin="0, 20, 0, 0" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Zaposleni-a "/>
-                <TextBlock Text="{Binding SelektovaniZaposleni.Ime}"/>
+                <TextBlock Text="{Binding SelektovaniZaposleni.Name}"/>
                 <TextBlock Text=" u narednom periodu radi "/>
 
             </StackPanel>
@@ -27,7 +27,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Od: "/>
+                <TextBlock Text="Do: "/>
                 <TextBlock Text="{Binding DoDatuma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             

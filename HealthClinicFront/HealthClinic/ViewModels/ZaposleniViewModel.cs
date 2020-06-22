@@ -57,7 +57,7 @@ namespace HealthClinic.ViewModels
 
 
             // potvrdujem odredjivanje radnog vremena zaposlenih
-            PotvrdaOdredjivanjaRadnogVremenaCommand = new RelayCommand(OdrediRadnoVremeZaposlenih);
+            PotvrdaOdredjivanjaRadnogVremenaCommand = new RelayCommand(PotvrdiRadnoVremeZaposlenih);
 
             PrikaziSlobodneLekareCommand = new RelayCommand(PrikaziSlobodneLekare);
 
@@ -235,6 +235,40 @@ namespace HealthClinic.ViewModels
             ucitajSveZaposlene(); // ucitavam novo stanje zaposlenih
             this.TrenutniProzor.Close();
         }
+        
+        public void PotvrdiRadnoVremeZaposlenih(object ojb)
+        {
+            EmployeeController employeeController = new EmployeeController();
+
+            // preuzmem sve izabrane zaposlene
+            List<Employee> izabraniLekari = new List<Employee>();
+            foreach (Employee employee in IzabraniLekari)
+            {
+                izabraniLekari.Add(employee);
+            }
+
+            BusinessHoursModel businessHours = new BusinessHoursModel();
+            // podesavam objekat za poredjenje
+            businessHours.FromDate = PocetniDatum;
+            businessHours.ToDate = KrajnjiDatum;
+            businessHours.FromHour = PocetniSat;
+            businessHours.ToHour = KrajnjiSat;
+
+            // njima promenim businessHours
+
+            employeeController.setBusinessHoursForEmployees(izabraniLekari, businessHours);
+            //foreach (Employee lekar in IzabraniLekari)
+            //{
+            //    lekar.BusinessHours.FromDate = PocetniDatum;
+            //    lekar.BusinessHours.ToDate = KrajnjiDatum;
+            //    lekar.BusinessHours.FromHour = PocetniSat;
+            //    lekar.BusinessHours.ToHour = KrajnjiSat;
+
+            //}
+
+            ucitajSveZaposlene();
+            this.TrenutniProzor.Close();
+        }
 
         public void PodesavanjeRadnihKalendaraZaposlenih(object obj)
         {
@@ -353,19 +387,6 @@ namespace HealthClinic.ViewModels
             TrenutniProzor.ShowDialog();
         }
         
-        public void OdrediRadnoVremeZaposlenih(object ojb)
-        {
-            // dodajem sve izabrane lekare
-            foreach (Employee lekar in IzabraniLekari)
-            {
-                lekar.BusinessHours.FromDate = PocetniDatum;
-                lekar.BusinessHours.ToDate = KrajnjiDatum;
-                lekar.BusinessHours.FromHour = PocetniSat;
-                lekar.BusinessHours.ToHour = KrajnjiSat;
-
-            }
-            this.TrenutniProzor.Close();
-        }
         
         public void PrikaziSlobodneLekare(object obj)
         {
@@ -697,18 +718,30 @@ namespace HealthClinic.ViewModels
         #region Dobavljanje slobodnih lekara
         private ObservableCollection<Employee> dobaviSlobodneLekare()
         {
-            ObservableCollection<Employee> slobodniLekari = new ObservableCollection<Employee>();
+            EmployeeController employeeController = new EmployeeController();
+            ObservableCollection<Employee> slobodniRadnici = new ObservableCollection<Employee>();
 
-            foreach (Employee lekar in Zaposleni)
+            BusinessHoursModel businessHours = new BusinessHoursModel();
+            // podesavam objekat za poredjenje
+            businessHours.FromDate = PocetniDatum;
+            businessHours.ToDate = KrajnjiDatum;
+            businessHours.FromHour = PocetniSat;
+            businessHours.ToHour = KrajnjiSat;
+
+            // dobavim sve zaposlene u tom periodu
+            List<Employee> freeEmployees = employeeController.getAllFreeEmployees(businessHours);
+
+            // dodam ih u listu za prikaz
+            foreach (Employee employee in freeEmployees)
             {
-                if (lekar.BusinessHours.ToDate < PocetniDatum)
-                    slobodniLekari.Add(lekar);
+                slobodniRadnici.Add(employee);
             }
+
 
             // foreach zaposlenog
             // if zadovoljava business hours
             // dodam ga u povratnu vrednost
-            return slobodniLekari;
+            return slobodniRadnici;
 
         }
 
