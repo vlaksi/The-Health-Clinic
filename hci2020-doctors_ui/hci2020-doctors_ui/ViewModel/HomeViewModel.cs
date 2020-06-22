@@ -14,11 +14,9 @@ namespace hci2020_doctors_ui.ViewModel
         private static HomeViewModel instance;
         public HomeViewModel()
         {
-            Navigate = new PatientModel();
             MedicinesWaitingApproval = WritePrescriptionViewModel.Instance.MedicinesWaitingApproval;
             ApproveMedicineCommand = new RelayCommand(ApproveMedicine);
             DeclineMedicineCommand = new RelayCommand(DeclineMedicine);
-            NavigateToPatientProfile = new RelayCommand(NavigateTo);
         }
         public static HomeViewModel Instance
         {
@@ -33,21 +31,6 @@ namespace hci2020_doctors_ui.ViewModel
         #region Command
         public RelayCommand ApproveMedicineCommand { get; set; }
         public RelayCommand DeclineMedicineCommand { get; set; }
-
-        public RelayCommand NavigateToPatientProfile { get; set; }
-
-        public void NavigateTo(object param)
-        {
-            string name = (string)param;
-            foreach (PatientModel pat in SearchViewModel.Instance.Patients)
-            {
-                if (pat.Name == name)
-                {
-                    Navigate = pat;
-                    return;
-                }
-            }
-        }
 
         public void ApproveMedicine(object param)
         {
@@ -67,14 +50,6 @@ namespace hci2020_doctors_ui.ViewModel
         #endregion
 
         #region Properties
-
-        private PatientModel navigate;
-
-        public PatientModel Navigate
-        {
-            get { return navigate; }
-            set { navigate = value; OnPropertyChanged("Navigate"); }
-        }
 
         private ScheduleAppointmentCollection appointmentsToShow;
 

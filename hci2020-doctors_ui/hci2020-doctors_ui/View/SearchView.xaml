@@ -137,7 +137,7 @@
                                             Margin="0,5,0,10"
                                             Cursor="Hand"
                                             Command="{Binding DataContext.NavigateToPatientProfile, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding Name}"
+                                            CommandParameter="{Binding Id}"
                                             Click="Button_Click">
                                         <Button.Content>
                                             <materialDesign:PackIcon Kind="ArrowRight"

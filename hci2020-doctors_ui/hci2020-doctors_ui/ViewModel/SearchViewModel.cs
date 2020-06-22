@@ -1,4 +1,5 @@
-﻿using hci2020_doctors_ui.Model;
+﻿using Controller.MedicalRecordContr;
+using hci2020_doctors_ui.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,9 @@ namespace hci2020_doctors_ui.ViewModel
 {
     public class SearchViewModel : BaseViewModel
     {
+
+        MedicalRecordController medicalRecordController = new MedicalRecordController();
+
         private ObservableCollection<PatientModel> patients;
 
         public ObservableCollection<PatientModel> Patients
@@ -39,13 +43,14 @@ namespace hci2020_doctors_ui.ViewModel
 
         public void NavigateTo(object param)
         {
-            string name = (string)param;
+            int id = (int)param;
+            Console.WriteLine(id);
             foreach (PatientModel pat in Patients)
             {
-                if (pat.Name == name)
+                if (pat.Id == id)
                 {
-                    Navigate = pat;
-                    return;
+                    Navigate = new PatientModel() { Id = id };
+                    break;
                 }
             }
         }
@@ -99,6 +104,7 @@ namespace hci2020_doctors_ui.ViewModel
         {
             PatientModel patient1 = new PatientModel()
             {
+                Id = 1,
                 Name = "Petar Perić",
                 Birth = new DateTime(1994, 7, 15),
                 Gender = (string)Application.Current.Resources["MaleLabel"],
@@ -210,10 +216,10 @@ namespace hci2020_doctors_ui.ViewModel
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[1].Name, 3, "Once a day"),
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[5].Name, 3, "Every 6 hours"),
                 },
-                Id = 1
             };
             PatientModel patient2 = new PatientModel()
             {
+                Id = 2,
                 Name = "Ildika Kisz",
                 Birth = new DateTime(1991, 9, 7),
                 Gender = (string)Application.Current.Resources["FemaleLabel"],
@@ -325,10 +331,10 @@ namespace hci2020_doctors_ui.ViewModel
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[2].Name, 6, "Every night before bed"),
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[1].Name, 4, "Every 6 hours"),
                 },
-                Id = 2
             };
             PatientModel patient3 = new PatientModel()
             {
+                Id = 3,
                 Name = "Ilija Stevanović",
                 Birth = new DateTime(1959, 1, 14),
                 Gender = (string)Application.Current.Resources["MaleLabel"],
@@ -502,10 +508,10 @@ namespace hci2020_doctors_ui.ViewModel
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[2].Name, 6, "Every night before bed"),
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[1].Name, 4, "Every 6 hours"),
                 },
-                Id = 3
             };
             PatientModel patient4 = new PatientModel()
             {
+                Id = 4,
                 Name = "Ivana Živanović",
                 Birth = new DateTime(1979, 4, 9),
                 Gender = (string)Application.Current.Resources["FemaleLabel"],
@@ -648,7 +654,6 @@ namespace hci2020_doctors_ui.ViewModel
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[3].Name, 1, "Every night before bed"),
                     new PrescriptionMedicineModel(WritePrescriptionViewModel.Instance.MedicineCollection[2].Name, 3, "Every 6 hours"),
                 },
-                Id = 4
             };
 
             Patients = new ObservableCollection<PatientModel>()

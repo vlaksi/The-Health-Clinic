@@ -84,7 +84,7 @@
                                        VerticalAlignment="Center"
                                        FontSize="32"
                                        FontWeight="DemiBold"
-                                       Text="{Binding Patient.Name, FallbackValue=Petar Peric}"
+                                       Text="{Binding MedicalRecord.Name, FallbackValue=Petar Peric}"
                                        Margin="0,0,0,3"
                                        Foreground="{DynamicResource HighContrastNeutralBrush}" />
                             <StackPanel Name="birthGender"
@@ -100,7 +100,7 @@
                                            />
                                 <TextBlock FontSize="16"
                                            Foreground="{DynamicResource HighContrastNeutralBrush}"
-                                           Text="{Binding Patient.Birth, FallbackValue=27/07/1998, StringFormat={}{0:dd MMMM yyyy}}" />
+                                           Text="{Binding MedicalRecord.DateOfBirth, FallbackValue=27/07/1998, StringFormat={}{0:dd MMMM yyyy}}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1"
                                         Grid.Column="1"
@@ -114,7 +114,7 @@
                                            />
                                 <TextBlock FontSize="16"
                                            Foreground="{DynamicResource HighContrastNeutralBrush}"
-                                           Text="{Binding Patient.Gender, FallbackValue=Male}" />
+                                           Text="{Binding MedicalRecord.Gender, FallbackValue=Male}" />
                             </StackPanel>
                             <StackPanel Name="contact"
                                         Grid.Row="2"
@@ -146,7 +146,7 @@
                                 <TextBlock FontSize="16"
                                            HorizontalAlignment="Right"
                                            Foreground="{DynamicResource HighContrastNeutralBrush}"
-                                           Text="{Binding Patient.Phone, FallbackValue=065/213215161}" />
+                                           Text="{Binding MedicalRecord.Phone, FallbackValue=065/213215161}" />
                             </StackPanel>
                             <Border CornerRadius="5,5,5,5"
                                     Background="{DynamicResource LowContrastNeutralBrush}"

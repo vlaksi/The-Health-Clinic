@@ -10,17 +10,15 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
+using System.CodeDom;
 
 namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
-        
-        public MedicalRecordFileRepository()
-        {
-            filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            filePath += @"\HealthClinic\FileStorage\medicalRecords.json";
-        }
+        // Igor - ne radi mi ovako :/
+        //private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
+        private string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) + @"\HealthClinic\FileStorage\medicalRecords.json";
 
         private void OpenFile()
         {
@@ -31,8 +29,6 @@ namespace Repository.MedicalRecordRepo
         {
             throw new NotImplementedException();
         }
-
-        private string filePath;
 
         public void SaveReport(Report report)
         {
@@ -52,38 +48,38 @@ namespace Repository.MedicalRecordRepo
 
         public void Delete(MedicalRecord entity)
         {
-            DeleteById(entity.Jmbg);
+            DeleteById(entity.Id);
         }
 
         public void DeleteAll()
         {
-            System.IO.File.WriteAllText(filePath, string.Empty);
+            List<MedicalRecord> emptyList = new List<MedicalRecord>();
+            SaveAll(emptyList);
         }
 
-        public void DeleteById(string identificator)
+        public void DeleteById(int identificator)
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
             MedicalRecord toRemove = null;
 
             foreach (MedicalRecord record in allRecords)
-                if (record.Jmbg.Equals(identificator))
+                if (record.Id == identificator)
                     toRemove = record;
 
             if (toRemove != null)
             {
                 allRecords.Remove(toRemove);
-                DeleteAll();
                 SaveAll(allRecords);
             }
 
         }
 
-        public bool ExistsById(string id)
+        public bool ExistsById(int id)
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
 
             foreach (MedicalRecord record in allRecords)
-                if (record.Jmbg.Equals(id))
+                if (record.Id == id)
                     return true;
 
             return false;
@@ -91,19 +87,19 @@ namespace Repository.MedicalRecordRepo
 
         public IEnumerable<MedicalRecord> FindAll()
         {
-            List<MedicalRecord> medicalRecords = new List<MedicalRecord>();
+            List<MedicalRecord> allRecords = JsonConvert.DeserializeObject<List<MedicalRecord>>(File.ReadAllText(filePath));
 
-            medicalRecords = JsonConvert.DeserializeObject<List<MedicalRecord>>(File.ReadAllText(filePath));
+            if (allRecords == null) allRecords = new List<MedicalRecord>();
 
-            return medicalRecords;
+            return allRecords;
         }
 
-        public MedicalRecord FindById(string id)
+        public MedicalRecord FindById(int id)
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
 
             foreach (MedicalRecord record in allRecords)
-                if (record.Jmbg.Equals(id))
+                if (record.Id == id)
                     return record;
 
             return null;
@@ -111,13 +107,14 @@ namespace Repository.MedicalRecordRepo
 
         public void Save(MedicalRecord entity)
         {
+            if (ExistsById(entity.Id))
+                Delete(entity);
+            else
+                entity.Id = GenerateId();
 
-            using (StreamWriter file = File.CreateText(filePath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, entity);
-            }
-
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            allRecords.Add(entity);
+            SaveAll(allRecords);
         }
 
         public void SaveAll(IEnumerable<MedicalRecord> entities)
@@ -131,16 +128,29 @@ namespace Repository.MedicalRecordRepo
 
         }
 
-        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<string> ids)
+        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<int> ids)
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
             List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
 
             foreach (MedicalRecord record in allRecords)
-                if (ids.Contains(record.Jmbg))
+                if (ids.Contains(record.Id))
                     matchingRecords.Add(record);
 
             return matchingRecords;
+        }
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            if (allRecords.Count == 0) return 1;
+            foreach (MedicalRecord record in allRecords)
+            {
+                if (record.Id > maxId) maxId = record.Id;
+            }
+
+            return maxId + 1;
         }
     }
 }

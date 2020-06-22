@@ -1,4 +1,6 @@
-﻿using hci2020_doctors_ui.Model;
+﻿using Controller.MedicalRecordContr;
+using hci2020_doctors_ui.Model;
+using Model.MedicalRecord;
 using System;
 using System.Collections.ObjectModel;
 
@@ -21,6 +23,8 @@ namespace hci2020_doctors_ui.ViewModel
         {
             Instance = this;
             Instance.Patient = pat;
+            CurrentMedicalRecord = medicalRecordController.GetMedicalRecordByPatientId(pat.Id);
+            Console.WriteLine(CurrentMedicalRecord.PatientId + " " + CurrentMedicalRecord.Name);
             NavigateToReport = new RelayCommand(NavigateTo);
             GetStatusReport = new RelayCommand(GetPatientsStatusInTimePeriod);
             AppointmentsInSelectedPeriod = new ObservableCollection<Appointment>();
@@ -29,12 +33,22 @@ namespace hci2020_doctors_ui.ViewModel
         }
 
         #region Properties
+        private MedicalRecordController medicalRecordController = new MedicalRecordController();
+
+
         private PatientModel patient;
 
         public PatientModel Patient
         {
             get { return patient; }
             set { patient = value; OnPropertyChanged("Patient"); }
+        }
+
+        private MedicalRecord currentMedicalRecord;
+        public MedicalRecord CurrentMedicalRecord
+        {
+            get { return currentMedicalRecord; }
+            set { currentMedicalRecord = value; OnPropertyChanged("CurrentMedicalRecord"); }
         }
 
         private Appointment appointmentBinding;
@@ -82,11 +96,11 @@ namespace hci2020_doctors_ui.ViewModel
             Console.WriteLine(start.ToString());
             Console.WriteLine(end.ToString());
 
-            foreach(Appointment app in Patient.Terms)
+            foreach (Appointment app in Patient.Terms)
             {
                 string[] parts = app.AppointmentDate.Split('/');
                 string appDate = parts[1] + "/" + parts[0] + "/" + parts[2];
-                if(DateTime.Compare(Convert.ToDateTime(appDate).ToLocalTime(), start.ToLocalTime()) > 0 
+                if (DateTime.Compare(Convert.ToDateTime(appDate).ToLocalTime(), start.ToLocalTime()) > 0
                     && DateTime.Compare(Convert.ToDateTime(appDate).ToLocalTime(), end.ToLocalTime()) < 0)
                 {
                     AppointmentsInSelectedPeriod.Add(app);

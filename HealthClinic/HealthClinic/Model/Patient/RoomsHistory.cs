@@ -40,10 +40,6 @@ namespace Model.Patient
       
       public System.Collections.Generic.List<PatientModel> patient;
       
-      /// <summary>
-      /// Property for collection of Model.Users.Patient
-      /// </summary>
-      /// <pdGenerated>Default opposite class collection property</pdGenerated>
       public System.Collections.Generic.List<PatientModel> Patient
       {
          get
@@ -62,11 +58,7 @@ namespace Model.Patient
             }
          }
       }
-      
-      /// <summary>
-      /// Add a new Model.Users.Patient in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
+
       public void AddPatient(Model.Users.PatientModel newPatient)
       {
          if (newPatient == null)
@@ -76,11 +68,7 @@ namespace Model.Patient
          if (!this.patient.Contains(newPatient))
             this.patient.Add(newPatient);
       }
-      
-      /// <summary>
-      /// Remove an existing Model.Users.Patient from the collection
-      /// </summary>
-      /// <pdGenerated>Default Remove</pdGenerated>
+
       public void RemovePatient(Model.Users.PatientModel oldPatient)
       {
          if (oldPatient == null)
@@ -90,10 +78,6 @@ namespace Model.Patient
                this.patient.Remove(oldPatient);
       }
       
-      /// <summary>
-      /// Remove all instances of Model.Users.Patient from the collection
-      /// </summary>
-      /// <pdGenerated>Default removeAll</pdGenerated>
       public void RemoveAllPatient()
       {
          if (patient != null)
@@ -101,10 +85,6 @@ namespace Model.Patient
       }
       public System.Collections.Generic.List<PatientRoom> patientRoom;
       
-      /// <summary>
-      /// Property for collection of Model.Rooms.PatientRoom
-      /// </summary>
-      /// <pdGenerated>Default opposite class collection property</pdGenerated>
       public System.Collections.Generic.List<PatientRoom> PatientRoom
       {
          get
@@ -124,10 +104,7 @@ namespace Model.Patient
          }
       }
       
-      /// <summary>
-      /// Add a new Model.Rooms.PatientRoom in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
+
       public void AddPatientRoom(Model.Rooms.PatientRoom newPatientRoom)
       {
          if (newPatientRoom == null)
@@ -137,11 +114,7 @@ namespace Model.Patient
          if (!this.patientRoom.Contains(newPatientRoom))
             this.patientRoom.Add(newPatientRoom);
       }
-      
-      /// <summary>
-      /// Remove an existing Model.Rooms.PatientRoom from the collection
-      /// </summary>
-      /// <pdGenerated>Default Remove</pdGenerated>
+
       public void RemovePatientRoom(Model.Rooms.PatientRoom oldPatientRoom)
       {
          if (oldPatientRoom == null)
@@ -151,10 +124,6 @@ namespace Model.Patient
                this.patientRoom.Remove(oldPatientRoom);
       }
       
-      /// <summary>
-      /// Remove all instances of Model.Rooms.PatientRoom from the collection
-      /// </summary>
-      /// <pdGenerated>Default removeAll</pdGenerated>
       public void RemoveAllPatientRoom()
       {
          if (patientRoom != null)

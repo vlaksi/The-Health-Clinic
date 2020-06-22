@@ -18,6 +18,7 @@ namespace hci2020_doctors_ui.View
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            Task.Delay(500);
             (Window.GetWindow(this) as MainWindow).DataContext = new PatientsProfileViewModel(SearchViewModel.Instance.Navigate);
             (Window.GetWindow(this) as MainWindow).MainFrameContent.Content = new PatientProfile();
         }

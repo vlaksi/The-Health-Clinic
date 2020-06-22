@@ -1,4 +1,5 @@
-﻿using hci2020_doctors_ui.ViewModel;
+﻿using hci2020_doctors_ui.Model;
+using hci2020_doctors_ui.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -23,7 +24,8 @@ namespace hci2020_doctors_ui.View
         {
             await Task.Delay(250);
             (Window.GetWindow(this) as MainWindow).MainFrameContent.Content = new PatientProfile();
-            (Window.GetWindow(this) as MainWindow).DataContext = new PatientsProfileViewModel(HomeViewModel.Instance.Navigate);
+            (Window.GetWindow(this) as MainWindow).DataContext = new PatientsProfileViewModel(new PatientModel());
+            /*HomeViewModel.Instance.Navigate je bilo ranije, prebaciti u WritePrescriptionViewModel.Instance.CurrentPatient! */
         }
 
         private void checkIfEmpty(object sender, RoutedEventArgs e)
