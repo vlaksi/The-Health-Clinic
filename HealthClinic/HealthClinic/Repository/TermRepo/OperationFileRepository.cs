@@ -77,20 +77,20 @@ namespace Repository.TermRepo
         public void Update(Operation op)
         {
             List<Operation> allOperations = (List<Operation>)FindAll();
-
-            foreach (Operation tempOp in allOperations)
-            {
-                if (tempOp.Id.Equals(op.Id))
-                {
-                    tempOp.EndTime = op.EndTime;
-                    tempOp.Location = op.Location;
-                    tempOp.MedicalRecord = op.MedicalRecord;
-                    tempOp.OperatingRoom = op.OperatingRoom;
-                    tempOp.Specialist = op.Specialist;
-                    tempOp.SpecialtyType = op.SpecialtyType;
-                    break;
-                }
-            }
+            // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
+            //foreach (Operation tempOp in allOperations)
+            //{
+            //    if (tempOp.Id.Equals(op.Id))
+            //    {
+            //        tempOp.EndTime = op.EndTime;
+            //        tempOp.Location = op.Location;
+            //        tempOp.MedicalRecord = op.MedicalRecord;
+            //        tempOp.OperatingRoom = op.OperatingRoom;
+            //        tempOp.Specialist = op.Specialist;
+            //        tempOp.SpecialtyType = op.SpecialtyType;
+            //        break;
+            //    }
+            //}
             SaveAll(allOperations);
         }
 
