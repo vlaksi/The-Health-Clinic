@@ -65,7 +65,7 @@ namespace Repository.SurveyResponseRepo
 
         public IEnumerable<SurveyResponse> FindAll()
         {
-            List<SurveyResponse> allSurveys = new List<SurveyResponse>();
+            List<SurveyResponse> allSurveys;
 
             string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
             currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
@@ -73,17 +73,43 @@ namespace Repository.SurveyResponseRepo
             // read file into a string and deserialize JSON to a type
             allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
 
+            if (allSurveys == null) allSurveys = new List<SurveyResponse>();
+
             return allSurveys;
         }
 
         public SurveyResponse FindById(int id)
         {
-            throw new NotImplementedException();
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            foreach (SurveyResponse sr in allSurveys)
+            {
+                if (sr.Id == id)
+                {
+                    return sr;
+                }
+            }
+            return null;
         }
 
         public void Save(SurveyResponse entity)
         {
-            throw new NotImplementedException();
+            entity.Id = GenerateId();
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            allSurveys.Add(entity);
+            SaveAll(allSurveys);
+        }
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            if (allSurveys.Count == 0) return 1;
+            foreach (SurveyResponse sr in allSurveys)
+            {
+                if (sr.Id > maxId) maxId = sr.Id;
+            }
+
+            return maxId + 1;
         }
 
         public void SaveAll(IEnumerable<SurveyResponse> entities)

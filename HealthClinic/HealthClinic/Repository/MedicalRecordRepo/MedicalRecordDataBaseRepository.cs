@@ -72,5 +72,25 @@ namespace Repository.MedicalRecordRepo
         {
             throw new NotImplementedException();
         }
+
+        public void DeleteById(string identificator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ExistsById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MedicalRecord FindById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<string> ids)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

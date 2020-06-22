@@ -50,6 +50,11 @@ namespace Repository.EmployeeRepo
             throw new System.NotImplementedException();
         }
 
+        public void makeUpdateFor(Employee employee)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Save(Employee entity)
         {
             throw new System.NotImplementedException();
