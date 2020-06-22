@@ -20,6 +20,16 @@ namespace Controller.RoomsContr
             roomsService.makeUpdateFor(room);
         }
 
+        public void addRoom(Room room)
+        {
+            roomsService.addRoom(room);
+        }
+
+        public void removeRoom(Room room)
+        {
+            roomsService.removeRoom(room);
+        }
+
         public void saveAllRooms(List<Room> roomsForSave)
         {
             roomsService.saveAllRooms(roomsForSave);
