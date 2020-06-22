@@ -4,8 +4,11 @@
 // Purpose: Definition of Class SurveyResponseFileRepository
 
 using Model.Survey;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Repository.SurveyResponseRepo
 {
@@ -31,7 +34,18 @@ namespace Repository.SurveyResponseRepo
 
         public void Delete(SurveyResponse entity)
         {
-            throw new NotImplementedException();
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            Console.WriteLine(allSurveys[0].Id);
+            for (int i = 0; i < allSurveys.Count; i++)
+            {
+                if (allSurveys[i].Id == entity.Id)
+                {
+                    allSurveys.RemoveAt(i);
+                }
+            }
+
+            SaveAll(allSurveys);
+            Console.WriteLine(allSurveys[0].Id);
         }
 
         public void DeleteAll()
@@ -51,22 +65,64 @@ namespace Repository.SurveyResponseRepo
 
         public IEnumerable<SurveyResponse> FindAll()
         {
-            throw new NotImplementedException();
+            List<SurveyResponse> allSurveys;
+
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
+
+            // read file into a string and deserialize JSON to a type
+            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
+
+            if (allSurveys == null) allSurveys = new List<SurveyResponse>();
+
+            return allSurveys;
         }
 
         public SurveyResponse FindById(int id)
         {
-            throw new NotImplementedException();
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            foreach (SurveyResponse sr in allSurveys)
+            {
+                if (sr.Id == id)
+                {
+                    return sr;
+                }
+            }
+            return null;
         }
 
         public void Save(SurveyResponse entity)
         {
-            throw new NotImplementedException();
+            entity.Id = GenerateId();
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            allSurveys.Add(entity);
+            SaveAll(allSurveys);
+        }
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<SurveyResponse> allSurveys = (List<SurveyResponse>)FindAll();
+            if (allSurveys.Count == 0) return 1;
+            foreach (SurveyResponse sr in allSurveys)
+            {
+                if (sr.Id > maxId) maxId = sr.Id;
+            }
+
+            return maxId + 1;
         }
 
         public void SaveAll(IEnumerable<SurveyResponse> entities)
         {
-            throw new NotImplementedException();
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(currentPath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
         }
 
         public IEnumerable<SurveyResponse> FindAllById(IEnumerable<int> ids)
@@ -74,7 +130,7 @@ namespace Repository.SurveyResponseRepo
             throw new NotImplementedException();
         }
 
-        
+
 
     }
 }

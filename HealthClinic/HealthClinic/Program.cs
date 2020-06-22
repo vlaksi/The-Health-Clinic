@@ -1,5 +1,8 @@
-﻿using Model.Users;
+﻿using Controller.SurveyResponseContr;
+using Model.Survey;
+using Model.Users;
 using System;
+using System.Collections.Generic;
 
 namespace HealthClinic
 {

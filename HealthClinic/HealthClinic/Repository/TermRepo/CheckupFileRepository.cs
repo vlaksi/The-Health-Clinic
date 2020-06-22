@@ -4,8 +4,11 @@
 // Purpose: Definition of Class CheckupFileRepository
 
 using Model.Calendar;
+using Newtonsoft.Json;
+using Repository.GenericCRUD;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.TermRepo
 {
@@ -46,9 +49,14 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Term> FindAll()
+        public IEnumerable<Checkup> FindAll()
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = new List<Checkup>();
+
+            string relativePath = @"./../../../HealthClinic/FileStorage/checkup.json";
+            allCheckups = JsonConvert.DeserializeObject<List<Checkup>>(File.ReadAllText(relativePath));
+
+            return allCheckups;
         }
 
         public Term FindById(int id)
@@ -61,12 +69,28 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<Term> entities)
+        public void SaveAll(IEnumerable<Checkup> entities)
+        {
+            string relativePath = @"./../../../HealthClinic/FileStorage/checkup.json";
+
+            using (StreamWriter file = File.CreateText(relativePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
+        }
+
+        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
+        IEnumerable<Term> GenericInterfaceCRUDDao<Term, int>.FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveAll(IEnumerable<Term> entities)
         {
             throw new NotImplementedException();
         }
