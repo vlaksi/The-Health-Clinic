@@ -82,15 +82,19 @@ namespace Repository.EmployeeRepo
                 if (tempEmployee.Username.Equals(employee.Username))
                 {
                     tempEmployee.Name = employee.Name;
-                    tempEmployee.Surname = tempEmployee.Surname;
+                    tempEmployee.Surname = employee.Surname;
                     tempEmployee.PhoneNumber = employee.Name;
                     tempEmployee.JobPosition = employee.JobPosition;
                     tempEmployee.Biography = employee.Biography;
                     tempEmployee.Adress = employee.Adress;
                     tempEmployee.Birthday = employee.Birthday;
-                    tempEmployee.BusinessHours.FromDate = tempEmployee.BusinessHours.FromDate;
-                    tempEmployee.BusinessHours.ToDate = tempEmployee.BusinessHours.ToDate;
-                    tempEmployee.Password = tempEmployee.Password;
+                    if(!(employee.BusinessHours is null))
+                    {
+                        tempEmployee.BusinessHours.FromDate = employee.BusinessHours.FromDate;
+                        tempEmployee.BusinessHours.ToDate = employee.BusinessHours.ToDate;
+                    }
+                    
+                    tempEmployee.Password = employee.Password;
                     break;
 
                 }

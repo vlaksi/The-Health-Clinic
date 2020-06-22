@@ -9,9 +9,15 @@ namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepositoryFactory : MedicalRecordRepositoryFactory
     {
+
+        private MedicalRecordFileRepository medicalRecordFileRepository;
+
         public MedicalRecordRepository CreateMedicalRecordRepository()
         {
-            throw new NotImplementedException();
+            if (medicalRecordFileRepository == null)
+                medicalRecordFileRepository = new MedicalRecordFileRepository();
+
+            return medicalRecordFileRepository;
         }
     }
 }

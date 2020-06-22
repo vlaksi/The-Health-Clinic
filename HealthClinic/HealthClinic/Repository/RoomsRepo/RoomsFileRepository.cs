@@ -28,7 +28,8 @@ namespace Repository.RoomsRepo
                     tempRoom.Purpose = room.Purpose;
 
                     tempRoom.RoomInventory = new List<InventoryType>();
-                    tempRoom.RoomInventory.AddRange(room.RoomInventory);
+                    if(!(room.RoomInventory is null))
+                        tempRoom.RoomInventory.AddRange(room.RoomInventory);
 
                     break;
                 }
@@ -83,7 +84,21 @@ namespace Repository.RoomsRepo
 
         public void Delete(Room entity)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                // Room is uniq by number of room for now
+                if (tempRoom.NumberOfRoom.Equals(entity.NumberOfRoom))
+                {
+                    allRooms.Remove(tempRoom);
+                    break;
+                }
+
+            }
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
         }
 
         public void DeleteAll()
@@ -121,7 +136,11 @@ namespace Repository.RoomsRepo
 
         public void Save(Room entity)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+            allRooms.Add(entity);
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
         }
 
         public void SaveAll(IEnumerable<Room> entities)
