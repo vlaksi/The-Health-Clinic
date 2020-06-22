@@ -291,22 +291,20 @@ namespace HealthClinic.ViewModels
 
         public void PotvrdaBrisanjaPodataka(object obj)
         {
+            // sprecavam kada niko nije selektovan da ne dodje do erroa
             if (SelektovanaProstorija is null)
                 return;
 
-            foreach (Room trenutnaProstorija in Prostorije)
-            {
-                if(trenutnaProstorija.NumberOfRoom == SelektovanaProstorija.NumberOfRoom)
-                {
-                    MessageBox.Show("Uspesno ste izbrisali sobu broj " + trenutnaProstorija.NumberOfRoom);
-                    podesiBrojOdredjenihProstorija(trenutnaProstorija, -1);
-                    Prostorije.Remove(trenutnaProstorija);
+            RoomsController roomsController = new RoomsController();
 
-                    break;
-                }
-            }
+            int brojObrisaneSobe = SelektovanaProstorija.NumberOfRoom;
+            podesiBrojOdredjenihProstorija(SelektovanaProstorija, -1);
 
-            sacuvajSveProstorije();
+            roomsController.removeRoom(SelektovanaProstorija);
+            MessageBox.Show("Uspesno ste izbrisali sobu broj " + brojObrisaneSobe.ToString());
+            
+
+            ucitajSveProstorije(); // jer su se izmenili pa treba dobiti najnovije sad
             this.TrenutniProzor.Close();
         }
 
@@ -316,10 +314,12 @@ namespace HealthClinic.ViewModels
                 return;
 
             // dodajem prostoriju za dodavanje ukoliko je odgovor bio potvrdan
-            Prostorije.Add(ProstorijaZaDodavanje);
+            RoomsController roomsController = new RoomsController();
+            roomsController.addRoom(ProstorijaZaDodavanje);
+            ucitajSveProstorije();
+
             podesiBrojOdredjenihProstorija(ProstorijaZaDodavanje, 1);
 
-            sacuvajSveProstorije();
             this.TrenutniProzor.Close();
         }
 
@@ -328,18 +328,15 @@ namespace HealthClinic.ViewModels
             // regulisem da prvo povecam kolicinu novo izmenjenog tipa prostorije
             podesiBrojOdredjenihProstorija(ProstorijaZaIzmenu, 1);
 
-            //podesiBrojOdredjenihLekova(SelektovaniLek, -1);
             podesiBrojOdredjenihProstorija(SelektovanaProstorija, -1);
 
             if (!validnaProstorija(ProstorijaZaIzmenu))
                 return;
 
-            // selektovani objekat prima vrednosti od menjanog objekta
-            SelektovanaProstorija.NumberOfRoom = ProstorijaZaIzmenu.NumberOfRoom;
-            SelektovanaProstorija.Purpose = ProstorijaZaIzmenu.Purpose;
-            SelektovanaProstorija.Department = ProstorijaZaIzmenu.Department;
+            RoomsController roomsController = new RoomsController();
+            roomsController.makeUpdateFor(ProstorijaZaIzmenu);
 
-            sacuvajSveProstorije();
+            ucitajSveProstorije();
             this.TrenutniProzor.Close();
         }
         

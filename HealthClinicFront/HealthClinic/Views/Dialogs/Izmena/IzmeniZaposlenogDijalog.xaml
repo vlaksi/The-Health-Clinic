@@ -88,6 +88,7 @@
                 Width="320"
                 Height="40"
                 Margin="10"
+                IsEnabled="False"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 x:Name="KorisnickoIme"

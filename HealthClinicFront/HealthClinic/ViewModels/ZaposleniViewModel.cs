@@ -189,6 +189,8 @@ namespace HealthClinic.ViewModels
             EmployeeController emplContr = new EmployeeController();
 
             string obrisaniUsername = SelektovaniZaposleni.Username;
+            podesiBrojOdredjenihZaposlenih(SelektovaniZaposleni, -1);
+
             emplContr.removeEmployee(SelektovaniZaposleni);
             MessageBox.Show("Uspesno ste izbrisali radnika sa korisnickim imenom " + obrisaniUsername);
 
