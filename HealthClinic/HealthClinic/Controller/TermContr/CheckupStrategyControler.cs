@@ -19,7 +19,6 @@ namespace Controller.TermContr
         //{
         //  calendarService.suggestingAnCheckup(Patient patient, Chekup[] allPastCheckups);
         //}
-
         public List<Checkup> readAllCheckups()
         {
             return checkupService.readAllCheckups();
