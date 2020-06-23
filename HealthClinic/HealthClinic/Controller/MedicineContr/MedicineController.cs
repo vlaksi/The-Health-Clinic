@@ -30,6 +30,11 @@ namespace Controller.MedicineContr
             medicineService.ValidateMedicine(medicine);
         }
 
+        public List<Medicine> GetAvailableMedicines()
+        {
+            return medicineService.GetAvailableMedicines();
+        }
+
         public List<Medicine> GetMedicinesAwaitingApproval()
         {
             return medicineService.GetMedicinesAwaitingApproval();

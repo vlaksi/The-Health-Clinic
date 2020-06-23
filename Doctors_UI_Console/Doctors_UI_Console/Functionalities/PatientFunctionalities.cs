@@ -78,8 +78,8 @@ namespace Doctors_UI_Console.Functionalities
                         MedicalRecord found = medicalRecordController.GetMedicalRecordByPatientId(Convert.ToInt32(input));
                         if (found != null)
                         {
-                            PrintSearchResults(new List<MedicalRecord>() { found });
-                            Console.ReadLine();
+                            EnterPatientsMedicalRecord(found);
+                            breakOut = true;
                         }
                         else
                         {
@@ -185,6 +185,7 @@ namespace Doctors_UI_Console.Functionalities
                 }
                 else
                 {
+                    Console.WriteLine("\t\tTreatments: ");
                     PrintTreatments(treatments);
                 }
                 Console.WriteLine("\t\tID: " + mr.Id);
@@ -198,10 +199,10 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\t\tTreatment which started on " + treatment.DateTimeStart.ToShortDateString() + " and ended/will end on " + treatment.DateTimeEnd.ToShortDateString() + ", patient took/takes: ");
                 foreach (Medicine med in treatment.Medicines)
                 {
-                    Console.WriteLine("\t\t\t- " + med.Name);
+                    Console.WriteLine("\t\t\t\t- " + med.Name);
                 }
-                Console.WriteLine("\t\tFollowing instructions were given:");
-                Console.WriteLine("\t\t\t'" + treatment.Instructions + "'");
+                Console.WriteLine("\t\t\tFollowing instructions were given:");
+                Console.WriteLine("\t\t\t\t'" + treatment.Instructions + "'");
             }
         }
 
@@ -228,22 +229,25 @@ namespace Doctors_UI_Console.Functionalities
             }
             else
             {
+                Console.WriteLine("\t\tTreatments: ");
                 PrintTreatments(treatments);
             }
             Console.WriteLine("\t\tID: " + mr.Id);
 
 
-            Console.WriteLine("\n\t1) Write a Prescription");
-            Console.WriteLine("\t2) Make a Referral to Specialist");
-            Console.WriteLine("\t3) Write a Report");
-            Console.WriteLine("\tX) Exit " + mr.Name + "'s Medical Record");
-
             bool breakOut = false;
             while (!breakOut)
             {
+                Console.WriteLine("\n\t1) Write a Prescription");
+                Console.WriteLine("\t2) Make a Referral to Specialist");
+                Console.WriteLine("\t3) Write a Report");
+                Console.WriteLine("\tX) Exit " + mr.Name + "'s Medical Record");
                 Console.Write("\t\tWhich action do you want to perform? ");
                 switch (Console.ReadLine().ToLower())
                 {
+                    case "1":
+                        MedicalRecordFunctionalities.WritePrescription(mr);
+                        break;
                     case "x":
                         breakOut = true;
                         break;

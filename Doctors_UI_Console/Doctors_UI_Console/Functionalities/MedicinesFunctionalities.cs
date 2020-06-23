@@ -29,7 +29,7 @@ namespace Doctors_UI_Console.Functionalities
             ValidateMedicineFromList(input, medicinesAwaitingApproval);
         }
 
-        private static void PrintMedicine(Medicine med)
+        public static void PrintMedicine(Medicine med)
         {
             Console.WriteLine("\n\t~~~ Name: " + med.Name + " ~~~");
             Console.WriteLine("\t\tID: " + med.Id);
