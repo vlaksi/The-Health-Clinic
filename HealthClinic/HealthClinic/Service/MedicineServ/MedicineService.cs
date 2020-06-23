@@ -32,9 +32,26 @@ namespace Service.MedicineServ
             repoForMedicine.SaveAll(medicinesForSave);
         }
 
-        public Medicine ValidateMedicine(Medicine medicine)
+        public List<Medicine> GetMedicinesAwaitingApproval()
         {
-            throw new NotImplementedException();
+            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            List<Medicine> allMedicines = (List<Medicine>)repoForMedicine.FindAll();
+            List<Medicine> result = new List<Medicine>();
+            foreach(Medicine med in allMedicines)
+            {
+                if (med.MedicineStatus == MedicineStatus.waiting)
+                {
+                    result.Add(med);
+                }
+            }
+
+            return result;
+        }
+
+        public void ValidateMedicine(Medicine medicine)
+        {
+            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            repoForMedicine.ValidateMedicine(medicine);
         }
 
         public Medicine GetMedicine(Medicine medicine)
