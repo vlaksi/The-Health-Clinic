@@ -14,56 +14,20 @@ namespace Controller.TermContr
     {
         public CheckupService checkupService = new CheckupService();
 
-        // TODO: Resiti i ovo, jer mi ni ovde nije jasno sta se desava
-        //public DateTime SuggestCheckup(Patient patient, List<Checkup>[] pastCheckups)
-        //{
-        //  calendarService.suggestingAnCheckup(Patient patient, Chekup[] allPastCheckups);
-        //}
-        public List<Checkup> readAllCheckups()
+        public void CancelTerm(Term term)
         {
-            return checkupService.readAllCheckups();
+            checkupService.CancelCheckup((Checkup)term);
         }
 
-        public void saveAllCheckups(List<Checkup> chekupsForSave)
-        {
-            checkupService.saveAllCheckups(chekupsForSave);
-        }
-
-        public bool CancelTerm(Term term)
-        {
-            return true;
-        }
-
-        public Term EditTerm(Term newTerm)
+        public void EditTerm(Term newTerm)
         {
             throw new NotImplementedException();
         }
 
-        public int ScheduleTerm(Checkup newTerm)
+        public void ScheduleTerm(Term newTerm)
         {
-            return checkupService.ScheduleCheckup(newTerm);
+            checkupService.ScheduleCheckup((Checkup)newTerm);
         }
 
-        /// Get all past operations for user if ID is provided, if not, get all past operations in general. Similarly to Mongoose's find.
-        public List<Term> GetAllPastTerm(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// Get all upcoming operations for user if ID is provided, if not, get all upcoming operations in general. Similarly to Mongoose's find.
-        public List<Term> GetAllUpcomingTerm(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        void ITermStrategy.ScheduleTerm(Term newTerm)
-        {
-            throw new NotImplementedException();
-        }
-
-        void ITermStrategy.EditTerm(Term newTerm)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

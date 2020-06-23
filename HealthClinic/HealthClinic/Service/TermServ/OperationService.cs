@@ -3,6 +3,7 @@
 // Created: Wednesday, May 20, 2020 12:28:47 PM
 // Purpose: Definition of Class OperationService
 
+using HealthClinic.Repository.TermRepo;
 using Model.Calendar;
 using Repository.TermRepo;
 using System;
@@ -12,64 +13,34 @@ namespace Service.TermServ
 {
     public class OperationService
     {
-        public ITermRepositoryFactory iTermRepositoryFactory;
-        public OperationFileRepository operationFileRepository;
+        private OperationRepositoryFactory operationRepositoryFactory;
+        private OperationRepository operationRepository;
 
         public OperationService()
         {
-            operationFileRepository = new OperationFileRepository();
+            operationRepositoryFactory = new OperationFileRepositoryFactory();
+            operationRepository = operationRepositoryFactory.CreateOperationRepository();
         }
 
-        /// Get all upcoming operations for user if ID is provided, if not, get all upcoming operations in general. Similarly to Mongoose's find.
-        public List<Operation> GetAllUpcomingOperations(int userId)
+        public void ScheduleOperation(Operation operation)
         {
-            List<Operation> result = new List<Operation>();
-
-            // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
-            //foreach (Operation op in operationFileRepository.FindAll())
-            //{
-            //    // vraca i za ljekara i za pacijenta
-            //    if ((op.MedicalRecord.PatientId == userId || op.MedicalRecord.Doctor.Id == userId) && DateTime.Compare(op.StartTime, DateTime.Now) > 0)
-            //    {
-            //        result.Add(op);
-            //    }
-            //}
-
-            return result;
+            operationRepository.Save(operation);
         }
 
-        /// Get all past operations for user if ID is provided, if not, get all past operations in general. Similarly to Mongoose's find.
-        public List<Operation> GetAllPastOperations(int userId)
-        {
-            List<Operation> result = new List<Operation>();
-            // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
-            //foreach (Operation op in operationFileRepository.FindAll())
-            //{
-            //    // vraca i za ljekara i za pacijenta
-            //    if ((op.MedicalRecord.PatientId == userId || op.MedicalRecord.Doctor.Id == userId) && DateTime.Compare(op.StartTime, DateTime.Now) < 0)
-            //    {
-            //        result.Add(op);
-            //    }
-            //}
-
-            return result;
-        }
-
-        public void ScheduleOperation(Operation newOp)
-        {
-            operationFileRepository.Save(newOp);
-        }
-
-        public void EditOperation(Operation newOp)
-        {
-            operationFileRepository.Update(newOp);
-        }
-
-        public bool CancelOperation(Operation operation)
+        public void EditOperation(Operation operation)
         {
             throw new NotImplementedException();
         }
+        
+        public void CancelOperation(Operation operation)
+        {
+            operationRepository.Delete(operation);
+        }
 
+        public List<Operation> getAllOperations()
+        {
+            return (List<Operation>) operationRepository.FindAll();
+        }
 
     }
 }

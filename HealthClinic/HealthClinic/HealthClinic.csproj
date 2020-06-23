@@ -225,6 +225,7 @@
     <Compile Include="Service\SurveyResponseServ\SurveyResponseService.cs" />
     <Compile Include="Service\TermServ\CheckupService.cs" />
     <Compile Include="Service\TermServ\OperationService.cs" />
+    <Compile Include="Service\TermServ\TermService.cs" />
     <Compile Include="Service\UserServ\DoctorService.cs" />
     <Compile Include="Service\UserServ\ManagerService.cs" />
     <Compile Include="Service\UserServ\PatientService.cs" />
