@@ -7,9 +7,8 @@ using System;
 
 namespace Repository.TermRepo
 {
-   public interface ITermRepositoryFactory
+   public interface CheckupRepositoryFactory
    {
-      OperationRepository CreateoperationRepository();
-   
-   }
+        CheckupRepository CreateCheckupRepository();
+    }
 }
