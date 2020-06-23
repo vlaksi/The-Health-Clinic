@@ -4,76 +4,127 @@
 // Purpose: Definition of Class OperationFileRepository
 
 using Model.Calendar;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Repository.TermRepo
 {
-    
+
     public class OperationFileRepository : OperationRepository
     {
-        private string OpenFile()
-        {
-            throw new NotImplementedException();
-        }
-
-        private string CloseFile()
-        {
-            throw new NotImplementedException();
-        }
+        private string filePath = @"./../../../HealthClinic/FileStorage/operation.json";
 
         public int Count()
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            return allOperations.Count;
         }
 
-        public void Delete(Term entity)
+        public void Delete(Operation entity)
         {
-            throw new NotImplementedException();
+            DeleteById(entity.Id);
         }
 
         public void DeleteAll()
         {
-            throw new NotImplementedException();
+            List<Operation> emptyList = new List<Operation>();
+            SaveAll(emptyList);
         }
 
         public void DeleteById(int identificator)
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            Operation toRemove = null;
+
+            foreach (Operation operation in allOperations)
+                if (operation.Id == identificator)
+                    toRemove = operation;
+
+            if (toRemove != null)
+            {
+                allOperations.Remove(toRemove);
+                SaveAll(allOperations);
+            }
         }
 
         public bool ExistsById(int id)
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = (List<Operation>)FindAll();
+
+            foreach (Operation operation in allOperations)
+                if (operation.Id == id)
+                    return true;
+
+            return false;
         }
 
-        public IEnumerable<Term> FindAll()
+        public IEnumerable<Operation> FindAll()
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = JsonConvert.DeserializeObject<List<Operation>>(File.ReadAllText(filePath));
+
+            if (allOperations == null) allOperations = new List<Operation>();
+
+            return allOperations;
         }
 
-        public Term FindById(int id)
+        public IEnumerable<Operation> FindAllById(IEnumerable<int> ids)
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            List<Operation> matchingOperations = new List<Operation>();
+
+            foreach (Operation operation in allOperations)
+                if (ids.Contains(operation.Id))
+                    matchingOperations.Add(operation);
+
+            return matchingOperations;
         }
 
-        // TODO: Proveriti, ali zbog polimorfizma, ovde se moglu klase naslednice od term-a proslediti i da sve radi bez problema
-        public void Save(Term entity)
+        public Operation FindById(int id)
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = (List<Operation>)FindAll();
+
+            foreach (Operation operation in allOperations)
+                if (operation.Id == id)
+                    return operation;
+
+            return null;
         }
 
-        public void SaveAll(IEnumerable<Term> entities)
+        public void Save(Operation entity)
         {
-            throw new NotImplementedException();
+            if (ExistsById(entity.Id))
+                Delete(entity);
+            else
+                entity.Id = GenerateId();
+
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            allOperations.Add(entity);
+            SaveAll(allOperations);
         }
 
-        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
+        public void SaveAll(IEnumerable<Operation> entities)
         {
-            throw new NotImplementedException();
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
         }
 
-        private string filePath;
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            if (allOperations.Count == 0) return 1;
+            foreach (Operation operation in allOperations)
+            {
+                if (operation.Id > maxId) maxId = operation.Id;
+            }
 
+            return maxId + 1;
+        }
     }
 }

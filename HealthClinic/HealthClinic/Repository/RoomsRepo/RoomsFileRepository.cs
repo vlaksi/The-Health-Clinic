@@ -3,6 +3,7 @@
 // Created: Monday, May 4, 2020 9:27:25 PM
 // Purpose: Definition of Class RoomsFileRepository
 
+using HealthClinic.Model.Rooms;
 using Model.Rooms;
 using Model.Users;
 using Newtonsoft.Json;
@@ -27,8 +28,22 @@ namespace Repository.RoomsRepo
                     tempRoom.Department = room.Department;
                     tempRoom.Purpose = room.Purpose;
 
+                    if(tempRoom.PhysicalWork is null)
+                    {
+                        tempRoom.PhysicalWork = new PhysicalWork();
+                    }
+
+                    if(!(room.PhysicalWork is null))
+                    {
+                        tempRoom.PhysicalWork.FromDate = room.PhysicalWork.FromDate;
+                        tempRoom.PhysicalWork.ToDate = room.PhysicalWork.ToDate;
+                        tempRoom.PhysicalWork.NameOfWork = room.PhysicalWork.NameOfWork;
+                    }
+                    
+
                     tempRoom.RoomInventory = new List<InventoryType>();
-                    tempRoom.RoomInventory.AddRange(room.RoomInventory);
+                    if(!(room.RoomInventory is null))
+                        tempRoom.RoomInventory.AddRange(room.RoomInventory);
 
                     break;
                 }
@@ -83,7 +98,21 @@ namespace Repository.RoomsRepo
 
         public void Delete(Room entity)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                // Room is uniq by number of room for now
+                if (tempRoom.NumberOfRoom.Equals(entity.NumberOfRoom))
+                {
+                    allRooms.Remove(tempRoom);
+                    break;
+                }
+
+            }
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
         }
 
         public void DeleteAll()
@@ -93,7 +122,21 @@ namespace Repository.RoomsRepo
 
         public void DeleteById(int identificator)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                // Room is uniq by number of room for now
+                if (tempRoom.NumberOfRoom.Equals(identificator))
+                {
+                    allRooms.Remove(tempRoom);
+                    break;
+                }
+
+            }
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
         }
 
         public bool ExistsById(int id)
@@ -116,12 +159,30 @@ namespace Repository.RoomsRepo
 
         public Room FindById(int id)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+            Room retRoom = new Room();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                // Room is uniq by number of room for now
+                if (tempRoom.NumberOfRoom.Equals(id))
+                {
+                    retRoom = tempRoom;
+                    break;
+                }
+
+            }
+
+            return retRoom;
         }
 
         public void Save(Room entity)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+            allRooms.Add(entity);
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
         }
 
         public void SaveAll(IEnumerable<Room> entities)

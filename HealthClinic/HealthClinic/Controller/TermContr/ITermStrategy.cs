@@ -9,19 +9,13 @@ using System.Collections.Generic;
 
 namespace Controller.TermContr
 {
-   public interface ITermStrategy
-   {
-      /// Get all upcoming operations for user if ID is provided, if not, get all upcoming operations in general. Similarly to Mongoose's find.
-      List<Term> GetAllUpcomingTerm(int userId);
-      
-      /// Get all past operations for user if ID is provided, if not, get all past operations in general. Similarly to Mongoose's find.
-      List<Term> GetAllPastTerm(int userId);
-      
-      Term ScheduleTerm(Term newTerm);
-      
-      Term EditTerm(Term newTerm);
-      
-      bool CancelTerm(Term term);
-   
-   }
+    public interface ITermStrategy
+    {
+        void ScheduleTerm(Term newTerm);
+
+        void EditTerm(Term newTerm);
+
+        void CancelTerm(Term term);
+
+    }
 }

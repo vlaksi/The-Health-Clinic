@@ -16,7 +16,7 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public void Delete(Term entity)
+        public void Delete(Checkup entity)
         {
             throw new NotImplementedException();
         }
@@ -36,27 +36,27 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Term> FindAll()
+        public IEnumerable<Checkup> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<Checkup> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public Term FindById(int id)
+        public Checkup FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(Term entity)
+        public void Save(Checkup entity)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<Term> entities)
+        public void SaveAll(IEnumerable<Checkup> entities)
         {
             throw new NotImplementedException();
         }

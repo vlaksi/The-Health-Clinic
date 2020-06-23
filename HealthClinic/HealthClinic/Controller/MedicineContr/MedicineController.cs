@@ -14,6 +14,7 @@ namespace Controller.MedicineContr
     {
         public MedicineService medicineService = new MedicineService();
 
+
         public List<Medicine> readAllMedicine()
         {
             return medicineService.readAllMedicine();
@@ -34,19 +35,19 @@ namespace Controller.MedicineContr
             throw new NotImplementedException();
         }
 
-        public bool RemoveMedicine(Medicine medicine)
+        public void RemoveMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            medicineService.RemoveMedicine(medicine);
         }
 
-        public Medicine EditMedicine(Medicine medicine)
+        public void EditMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            medicineService.EditMedicine(medicine);
         }
 
-        public Medicine AddMedicine(Medicine medicine)
+        public void AddMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            medicineService.AddMedicine(medicine);
         }
 
 
