@@ -13,101 +13,34 @@ namespace Service.TermServ
 {
     public class CheckupService
     {
-        public ITermRepositoryFactory iTermRepositoryFactory;
+        private CheckupRepositoryFactory checkupRepositoryFactory;
+        private CheckupRepository checkupRepository;
 
-        private int isChosenDoctorFree;
-
-        public List<Checkup> readAllCheckups()
+        public CheckupService()
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            CheckupFileRepository repoCheckup = new CheckupFileRepository();
-
-            List<Checkup> retCheckup = new List<Checkup>();
-            retCheckup = (List<Checkup>)repoCheckup.FindAll();
-
-            return retCheckup;
+            checkupRepositoryFactory = new CheckupFileRepositoryFactory();
+            checkupRepository = checkupRepositoryFactory.CreateCheckupRepository();
         }
 
-        public void saveAllCheckups(List<Checkup> chekupsForSave)
+        public void CancelCheckup(Checkup checkup)
         {
-            CheckupFileRepository repoCheckup = new CheckupFileRepository();
-
-            repoCheckup.SaveAll(chekupsForSave);
+            checkupRepository.Delete(checkup);
         }
-        /// Get all upcoming checkups for user if ID is provided, if not, get all upcoming checkups in general. Similarly to Mongoose's find.
-        public List<Checkup> GetAllUpcomingCheckups(int userId)
+
+        public void EditCheckup(Checkup checkup)
         {
             throw new NotImplementedException();
         }
 
-        /// Get all past checkups for user if ID is provided, if not, get all past checkups in general. Similarly to Mongoose's find.
-        public List<Checkup> GetAllPastCheckups(int userId)
+        public void ScheduleCheckup(Checkup checkup)
         {
-            throw new NotImplementedException();
+            checkupRepository.Save(checkup);
         }
 
-        public Checkup ScheduleCheckup(Checkup newCheckup)
+        public List<Checkup> getAllCheckups()
         {
-            throw new NotImplementedException();
+            return (List<Checkup>)checkupRepository.FindAll();
         }
-
-        public Checkup EditCheckup(Checkup newCheckup)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CancelCheckup(Checkup checkup)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        // TODO: Resiti ovo, stvarno ne znam sta se desava ovde
-        //public DateTime SuggestCheckup(PatientModel patient, List<Checkup>[] pastCheckups)
-        //{
-        //    calendarService.suggestingAnCheckup(PatientModel patient, Checkup[] allPastCheckups);
-        //}
-
-        public bool IsChosenDoctorFreeInChosenInterval(List<DateTime> dateInterval, Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime GetFirstFreeDateFromChosenInterval(List<DateTime> interval)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsChosenDoctorFree()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime GetFirstFreeDate(Model.Users.Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsAnyDoctorFreeForChosenDate(List<DateTime> interval)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int NumberOfFreeDoctors()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Doctor GetFreeDoctor(List<Doctor> doctors)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Doctor GetFirstFreeDoctor()
-        {
-            throw new NotImplementedException();
-        }
-
 
     }
 }
