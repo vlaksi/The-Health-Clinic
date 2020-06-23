@@ -30,6 +30,16 @@ namespace Controller.RoomsContr
             roomsService.removeRoom(room);
         }
 
+        public void removeRoomById(int id)
+        {
+            roomsService.removeRoomById(id);
+        }
+
+        public Room findById(int id)
+        {
+            return roomsService.findById(id);
+        }
+
         public void saveAllRooms(List<Room> roomsForSave)
         {
             roomsService.saveAllRooms(roomsForSave);

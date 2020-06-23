@@ -25,14 +25,15 @@ namespace Service.TermServ
         {
             List<Operation> result = new List<Operation>();
 
-            foreach (Operation op in operationFileRepository.FindAll())
-            {
-                // vraca i za ljekara i za pacijenta
-                if ((op.MedicalRecord.PatientId == userId || op.MedicalRecord.Doctor.Id == userId) && DateTime.Compare(op.StartTime, DateTime.Now) > 0)
-                {
-                    result.Add(op);
-                }
-            }
+            // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
+            //foreach (Operation op in operationFileRepository.FindAll())
+            //{
+            //    // vraca i za ljekara i za pacijenta
+            //    if ((op.MedicalRecord.PatientId == userId || op.MedicalRecord.Doctor.Id == userId) && DateTime.Compare(op.StartTime, DateTime.Now) > 0)
+            //    {
+            //        result.Add(op);
+            //    }
+            //}
 
             return result;
         }
@@ -41,15 +42,15 @@ namespace Service.TermServ
         public List<Operation> GetAllPastOperations(int userId)
         {
             List<Operation> result = new List<Operation>();
-
-            foreach (Operation op in operationFileRepository.FindAll())
-            {
-                // vraca i za ljekara i za pacijenta
-                if ((op.MedicalRecord.PatientId == userId || op.MedicalRecord.Doctor.Id == userId) && DateTime.Compare(op.StartTime, DateTime.Now) < 0)
-                {
-                    result.Add(op);
-                }
-            }
+            // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
+            //foreach (Operation op in operationFileRepository.FindAll())
+            //{
+            //    // vraca i za ljekara i za pacijenta
+            //    if ((op.MedicalRecord.PatientId == userId || op.MedicalRecord.Doctor.Id == userId) && DateTime.Compare(op.StartTime, DateTime.Now) < 0)
+            //    {
+            //        result.Add(op);
+            //    }
+            //}
 
             return result;
         }

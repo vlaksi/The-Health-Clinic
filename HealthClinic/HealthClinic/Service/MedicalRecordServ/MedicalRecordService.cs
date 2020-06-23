@@ -20,19 +20,31 @@ namespace Service.MedicalRecordServ
             medicalRecordRepositoryFactory = new MedicalRecordFileRepositoryFactory();
             medicalRecordRepository = medicalRecordRepositoryFactory.CreateMedicalRecordRepository();
         }
-
-
         public MedicalRecord GetMedicalRecord(int Id)
         {
             return medicalRecordRepository.FindById(Id);
         }
 
+        public List<MedicalRecord> GetMedicalRecordByPatientName(string Name)
+        {
+            List<MedicalRecord> allRecords = GetAllMedicalRecords();
+            List<MedicalRecord> result = new List<MedicalRecord>();
+            foreach(MedicalRecord mr in allRecords)
+            {
+                if (mr.Name.ToLower().Contains(Name.ToLower()) || mr.Surname.ToLower().Contains(Name.ToLower()))
+                {
+                    result.Add(mr);
+                }
+            }
+            return result;
+        }
+
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;
-            foreach(MedicalRecord mr in medicalRecordRepository.FindAll())
+            foreach (MedicalRecord mr in medicalRecordRepository.FindAll())
             {
-                if(mr.PatientId == Id)
+                if (mr.PatientId == Id)
                 {
                     return mr;
                 }
@@ -40,7 +52,6 @@ namespace Service.MedicalRecordServ
 
             return result;
         }
-
         public List<MedicalRecord> GetAllMedicalRecords()
         {
             return (List<MedicalRecord>)medicalRecordRepository.FindAll();
