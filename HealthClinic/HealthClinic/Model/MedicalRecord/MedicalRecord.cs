@@ -29,11 +29,7 @@ namespace Model.MedicalRecord
         private ObservableCollection<Treatment> treatments;
         private Doctor doctor;
         private List<int> terms;
-<<<<<<< HEAD
         private List<ReferralToSpecialist> referralToSpecialist;
-=======
-        public List<ReferralToSpecialist> referralToSpecialist;
->>>>>>> pufke-backend
         private int patientId;
 
         public int Id
@@ -226,11 +222,9 @@ namespace Model.MedicalRecord
         }
 
         //Referrals
-<<<<<<< HEAD
+
         #region Referrals
         
-=======
->>>>>>> pufke-backend
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get
@@ -271,9 +265,7 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
-<<<<<<< HEAD
         #endregion
-=======
->>>>>>> pufke-backend
+
     }
 }
