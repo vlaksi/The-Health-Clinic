@@ -21,6 +21,19 @@ namespace Service.RoomServ
             fileRepository.makeUpdateFor(room);
         }
 
+        public void addRoom(Room room)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            roomsFileRepository.Save(room);
+        }
+
+        public void removeRoom(Room room)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            roomsFileRepository.Delete(room);
+        }
         public void saveAllRooms(List<Room> roomsForSave)
         {
             RoomsFileRepository repoForRooms = new RoomsFileRepository();

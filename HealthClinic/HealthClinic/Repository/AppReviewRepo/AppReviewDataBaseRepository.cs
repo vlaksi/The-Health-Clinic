@@ -1,22 +1,22 @@
-// File:    MedicineDataBaseRepository.cs
+// File:    SurveyResponseDataBaseRepository.cs
 // Author:  Vaxi
 // Created: Saturday, May 2, 2020 5:16:42 PM
-// Purpose: Definition of Class MedicineDataBaseRepository
+// Purpose: Definition of Class SurveyResponseDataBaseRepository
 
-using Model.Medicine;
+using Model.Survey;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.MedicineRepo
+namespace Repository.AppReviewRepo
 {
-    public class MedicineDataBaseRepository : MedicineRepository
+    public class AppReviewDataBaseRepository : AppReviewRepository
     {
         public int Count()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Medicine entity)
+        public void Delete(AppReview entity)
         {
             throw new NotImplementedException();
         }
@@ -36,32 +36,27 @@ namespace Repository.MedicineRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Medicine> FindAll()
+        public IEnumerable<AppReview> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Medicine> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<AppReview> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public Medicine FindById(int id)
+        public AppReview FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void makeUpdateFor(Medicine medicine)
+        public void Save(AppReview entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(Medicine entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveAll(IEnumerable<Medicine> entities)
+        public void SaveAll(IEnumerable<AppReview> entities)
         {
             throw new NotImplementedException();
         }
