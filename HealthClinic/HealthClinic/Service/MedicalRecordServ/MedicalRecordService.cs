@@ -24,6 +24,20 @@ namespace Service.MedicalRecordServ
         {
             return medicalRecordRepository.FindById(Id);
         }
+
+        public List<MedicalRecord> GetMedicalRecordByPatientName(string Name)
+        {
+            List<MedicalRecord> allRecords = GetAllMedicalRecords();
+            List<MedicalRecord> result = new List<MedicalRecord>();
+            foreach (MedicalRecord mr in allRecords)
+            {
+                if (mr.Name.ToLower().Contains(Name.ToLower()) || mr.Surname.ToLower().Contains(Name.ToLower()))
+                {
+                    result.Add(mr);
+                }
+            }
+            return result;
+        }
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;
