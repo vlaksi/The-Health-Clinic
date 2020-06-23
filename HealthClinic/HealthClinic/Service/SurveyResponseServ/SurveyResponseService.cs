@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+//TODO: Resiti ove interakcije sa repo, preko factory patterna
 namespace Service.SurveyResponseServ
 {
     public class SurveyResponseService
@@ -24,6 +25,12 @@ namespace Service.SurveyResponseServ
             surveys = (List<SurveyResponse>)surveyRepo.FindAll();
 
             return surveys;
+        }
+
+        public void saveAllSurveyResponses(List<SurveyResponse> surveysToSave)
+        {
+            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            surveyRepo.SaveAll(surveysToSave);
         }
 
         public void AddSurveyResponses(List<SurveyResponse> surveysToSave)
