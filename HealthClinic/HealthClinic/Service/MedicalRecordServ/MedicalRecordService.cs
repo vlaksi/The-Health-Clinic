@@ -43,9 +43,10 @@ namespace Service.MedicalRecordServ
             MedicalRecord result = null;
             foreach(MedicalRecord mr in medicalRecordRepository.FindAll())
             {
-                if(mr.PatientId == Id)
+                if(mr.Id == Id)
                 {
-                    return mr;
+                    result = mr;
+                    break;
                 }
             }
 
