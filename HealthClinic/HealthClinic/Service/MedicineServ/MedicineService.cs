@@ -32,12 +32,28 @@ namespace Service.MedicineServ
             repoForMedicine.SaveAll(medicinesForSave);
         }
 
+        public List<Medicine> GetAvailableMedicines()
+        {
+            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            List<Medicine> allMedicines = (List<Medicine>)repoForMedicine.FindAll();
+            List<Medicine> result = new List<Medicine>();
+
+            foreach (Medicine med in allMedicines)
+            {
+                if (med.MedicineStatus == MedicineStatus.validated && med.Quantity > 0)
+                {
+                    result.Add(med);
+                }
+            }
+            return result;
+        }
+
         public List<Medicine> GetMedicinesAwaitingApproval()
         {
             MedicineFileRepository repoForMedicine = new MedicineFileRepository();
             List<Medicine> allMedicines = (List<Medicine>)repoForMedicine.FindAll();
             List<Medicine> result = new List<Medicine>();
-            foreach(Medicine med in allMedicines)
+            foreach (Medicine med in allMedicines)
             {
                 if (med.MedicineStatus == MedicineStatus.waiting)
                 {
