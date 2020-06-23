@@ -104,7 +104,6 @@
     <Compile Include="Model\Medicine\Ingredient.cs" />
     <Compile Include="Model\Medicine\Medicine.cs" />
     <Compile Include="Model\Medicine\MedicineStatus.cs" />
-    <Compile Include="Model\Medicine\SpecialtyType.cs" />
     <Compile Include="Model\Medicine\Treatment.cs" />
     <Compile Include="Model\Patient\Review.cs" />
     <Compile Include="Model\Patient\RoomsHistory.cs" />

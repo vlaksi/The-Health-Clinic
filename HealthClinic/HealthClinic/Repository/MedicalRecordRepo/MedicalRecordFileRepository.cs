@@ -11,6 +11,9 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
 using System.CodeDom;
+using System.Collections.ObjectModel;
+using Model.Medicine;
+
 
 namespace Repository.MedicalRecordRepo
 {
@@ -108,9 +111,14 @@ namespace Repository.MedicalRecordRepo
         public void Save(MedicalRecord entity)
         {
             if (ExistsById(entity.Id))
+            {
                 Delete(entity);
+            }
             else
+            {
                 entity.Id = GenerateId();
+                entity.Treatments = new ObservableCollection<Treatment>();
+            }
 
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
             allRecords.Add(entity);

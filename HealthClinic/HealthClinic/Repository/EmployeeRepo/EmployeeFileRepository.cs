@@ -1,4 +1,5 @@
-﻿using Model.Users;
+﻿using Model.BusinessHours;
+using Model.Users;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,33 @@ namespace Repository.EmployeeRepo
         public int Count()
         {
             throw new NotImplementedException();
+        }
+
+        public void setBusinessHoursForEmployees(List<Employee> employeesForSettingBH, BusinessHoursModel businessHours)
+        {
+
+            List<Employee> allEmployees = (List<Employee>)FindAll();
+
+            
+
+            foreach (Employee tempEmployeeForChange in employeesForSettingBH)
+            {
+                foreach (Employee employee in allEmployees)
+                {
+                    if (tempEmployeeForChange.Username.Equals(employee.Username))
+                    {
+                        employee.BusinessHours = new BusinessHoursModel();
+                        employee.BusinessHours.FromDate = businessHours.FromDate;
+                        employee.BusinessHours.ToDate = businessHours.ToDate;
+                        employee.BusinessHours.FromHour = businessHours.FromHour;
+                        employee.BusinessHours.ToHour = businessHours.ToHour;
+                        break;
+                    }
+                }
+            }
+
+            // I want immediately to save changes
+            SaveAll(allEmployees);
         }
 
         public void Delete(Employee entity)
@@ -32,6 +60,28 @@ namespace Repository.EmployeeRepo
             // I want immediately to save changes
             SaveAll(allEmployees);
 
+        }
+
+        public List<Employee> getAllFreeEmployees(BusinessHoursModel businessHours)
+        {
+            List<Employee> allEmployees = (List<Employee>)FindAll();
+            List<Employee> freeEmployees = new List<Employee>();
+
+            foreach (Employee tempEmployee in allEmployees)
+            {
+
+                /*
+                 * If businessHours is range 20.04 - 25.04
+                 * and my ToDate is 19.04, a im free at businessHours range
+                 */
+                if(tempEmployee.BusinessHours.ToDate < businessHours.FromDate)
+                {
+                    freeEmployees.Add(tempEmployee);
+                }
+
+            }
+
+            return freeEmployees;
         }
 
         public void DeleteAll()

@@ -29,7 +29,7 @@ namespace Model.MedicalRecord
         private ObservableCollection<Treatment> treatments;
         private Doctor doctor;
         private List<int> terms;
-        public List<ReferralToSpecialist> referralToSpecialist;
+        private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
 
         public int Id
@@ -222,6 +222,9 @@ namespace Model.MedicalRecord
         }
 
         //Referrals
+
+        #region Referrals
+        
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get
@@ -262,5 +265,7 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
+        #endregion
+
     }
 }
