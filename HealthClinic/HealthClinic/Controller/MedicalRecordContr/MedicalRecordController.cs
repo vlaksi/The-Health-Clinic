@@ -23,10 +23,14 @@ namespace Controller.MedicalRecordContr
         {
             return medicalRecordService.GetMedicalRecord(Id);
         }
-
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             return medicalRecordService.GetMedicalRecordByPatientId(Id);
+        }
+
+        public List<MedicalRecord> GetMedicalRecordByPatientName(string Name)
+        {
+            return medicalRecordService.GetMedicalRecordByPatientName(Name);
         }
 
         public void CreateMedicalRecord(MedicalRecord mr)

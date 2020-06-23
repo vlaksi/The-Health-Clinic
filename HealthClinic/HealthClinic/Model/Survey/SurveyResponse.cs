@@ -14,6 +14,14 @@ namespace Model.Survey
     {
 
         private int id;
+        private Rate quality;
+        private Rate security;
+        private Rate kindness;
+        private Rate professionalism;
+        private int mark; 
+        private string comment;
+        private Doctor doctor;
+        private int patientId;
 
         public int Id
         {
@@ -21,12 +29,18 @@ namespace Model.Survey
             set { id = value; }
         }
 
-
-        private Rate quality;
-        private Rate security;
-        private Rate kindness;
-        private Rate professionalism;
-        private string comment;
+        public int Mark
+        {
+            get
+            {
+                return mark;
+            }
+            set
+            {
+                this.mark = value;
+                OnPropertyChanged("Mark");
+            }
+        }
 
         public Rate Quality
         {
@@ -88,40 +102,40 @@ namespace Model.Survey
                 OnPropertyChanged("Comment");
             }
         }
-
-        private ObservableCollection<int> doctors;
-        public ObservableCollection<int> Doctors { get { return doctors; } set { doctors = value; OnPropertyChanged("Doctors"); } }
-
-        private PatientModel patient;
-
-        /// <summary>
-        /// Property for Model.Users.Patient
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public PatientModel Patient
+        public int PatientId
         {
             get
             {
-                return patient;
+                return patientId;
             }
             set
             {
-                if (this.patient == null || !this.patient.Equals(value))
-                {
-                    if (this.patient != null)
-                    {
-                        Model.Users.PatientModel oldPatient = this.patient;
-                        this.patient = null;
-                        oldPatient.RemoveSurveyResponses(this);
-                    }
-                    if (value != null)
-                    {
-                        this.patient = value;
-                        this.patient.AddSurveyResponses(this);
-                    }
-                }
+                this.patientId = value;
+                OnPropertyChanged("PatientId");
             }
         }
+
+        //TODO: Obrsati ovo polje ako nikome ne treba
+        private ObservableCollection<int> doctors;
+        public ObservableCollection<int> Doctors { get { return doctors; } set { doctors = value; OnPropertyChanged("Doctors"); } }
+
+        public Doctor Doctor 
+        { 
+            get 
+            { 
+                return doctor; 
+            } 
+            set 
+            { 
+                doctor = value; 
+                OnPropertyChanged("Doctors"); 
+            } 
+        }
+
+    
+
+       
+       
 
     }
 }

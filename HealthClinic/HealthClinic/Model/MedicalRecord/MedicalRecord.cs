@@ -15,6 +15,7 @@ namespace Model.MedicalRecord
     public class MedicalRecord : ObservableObject
     {
         private int id;
+
         private string name;
         private string surname;
         private string address;
@@ -36,6 +37,7 @@ namespace Model.MedicalRecord
             get { return id; }
             set { id = value; OnPropertyChanged("Id"); }
         }
+
         public string Name
         {
             get
@@ -162,7 +164,7 @@ namespace Model.MedicalRecord
             get { return treatments; }
             set { treatments = value; OnPropertyChanged("Treatments"); }
         }
-        
+
         // Terms
         public List<int> Terms
         {
@@ -218,7 +220,7 @@ namespace Model.MedicalRecord
                 tmpTerm.Clear();
             }
         }
-       
+
         //Referrals
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
