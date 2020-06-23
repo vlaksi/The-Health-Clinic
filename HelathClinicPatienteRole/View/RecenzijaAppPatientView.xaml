@@ -86,16 +86,35 @@
                     <TextBox Background="WhiteSmoke" FontWeight="DemiBold" Height="131" x:Name="Komentar" materialDesign:HintAssist.HelperText="Iznad unesite vaš komentar" Text="{Binding NoviKomentar, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="0,0,-32,0"/>
                 </StackPanel>
 
-                <DataGrid x:Name="dataGridRecenzije"
-                    SelectedItem="{Binding SelektovanaRecenzija, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ItemsSource="{Binding Recenzije}"
-                    AutoGenerateColumns="True" 
-                    SelectionMode="Single" 
-                    IsReadOnly="True" 
-                    HorizontalAlignment="Center"
-                    Width="951" 
-                    Background="#FF148DF0" Grid.ColumnSpan="22" Grid.RowSpan="16" Grid.Column="4" Grid.Row="4" Margin="0,0,0,5"
-                    />
+                <DataGrid  x:Name="dataGridRecenzije"  ItemsSource="{Binding Recenzije}"
+                  IsReadOnly="True"  CanUserAddRows="false"   SelectedItem="{Binding SelektovanaRecenzija, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutoGenerateColumns="False" SelectionMode="Single" Background="#FF148DF0" HorizontalScrollBarVisibility="Disabled" Margin="0,5,10,10" Grid.ColumnSpan="28" Grid.RowSpan="15" Grid.Column="1" Grid.Row="4">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header=" Ime recezenta    "
+                            Binding="{Binding Patient.Name}">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="DarkGray"/>
+
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="       Recenzija               "
+                            Binding="{Binding ReviewText}">
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Background" Value="DarkGray"/>
+
+                                    <Setter Property="FontSize" Value="24"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
                 <Button Content="Pošalji recenziju" Grid.Row="28" Grid.Column="12" Grid.ColumnSpan="5" Grid.RowSpan="3" Margin="33,15,10,5" Command="{Binding OstaviRecenzijuCommand}" Height="Auto">
                     <Button.ToolTip>

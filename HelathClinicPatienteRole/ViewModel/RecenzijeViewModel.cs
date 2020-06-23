@@ -1,4 +1,6 @@
-﻿using HelathClinicPatienteRole.Model;
+﻿using HealthClinic.Controller.AppReviewContr;
+using HelathClinicPatienteRole.Model;
+using Model.Survey;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,12 +14,12 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class RecenzijeViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Recenzije> _RecenzijeList;
-
+        private List<AppReview> _RecenzijeList;
+        private AppReviewController appReviewController = new AppReviewController();
 
         public RecenzijeViewModel()
         {
-            _RecenzijeList = RecenzijaAppPatientViewModel.Instance.Recenzije;
+            _RecenzijeList = appReviewController.GetAllAppReviews();
         }
 
       
@@ -60,7 +62,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
 
       
-        public ObservableCollection<Recenzije> Recenzije
+        public List<AppReview> Recenzije
         {
             get
             {
@@ -80,9 +82,9 @@ namespace HelathClinicPatienteRole.ViewModel
 
         #region Selektovana recenzija
 
-        private Recenzije _selektovanaRecenzija;
+        private AppReview _selektovanaRecenzija;
 
-        public Recenzije SelektovanaRecenzija
+        public AppReview SelektovanaRecenzija
         {
             get { return _selektovanaRecenzija; }
             set { _selektovanaRecenzija = value; OnPropertyChanged("SelektovanaRecenzija"); }

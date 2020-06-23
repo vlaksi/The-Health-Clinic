@@ -1,5 +1,8 @@
-﻿using HelathClinicPatienteRole.Model;
+﻿using HealthClinic.Controller.AppReviewContr;
+using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
+using Model.Survey;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,19 +17,22 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class RecenzijaAppPatientViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Recenzije> _RecenzijeList;
+        private List<AppReview> _RecenzijeList;
         private string noviKomentar;
-
+        private AppReviewController appReviewController = new AppReviewController();
         public RecenzijaAppPatientViewModel()
         {
            OstaviRecenzijuCommand = new RelayCommand(OstaviRecenziju);
 
-            _RecenzijeList = new ObservableCollection<Recenzije>
-            {
-                new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
-                new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
-                new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
-            };
+
+            _RecenzijeList = appReviewController.GetAllAppReviews();
+
+            /* new ObservableCollection<AppReview>
+        {
+            new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
+            new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
+            new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
+        };*/
         }
 
         #region Ostavi recenziju
@@ -47,14 +53,16 @@ namespace HelathClinicPatienteRole.ViewModel
                 return;
             }
 
-            Recenzije novaRecenzija = new Recenzije();
-            novaRecenzija.Korisnik = "Marko Marković";
-            novaRecenzija.Recenzija = NoviKomentar;
+            AppReview novaRecenzija = new AppReview();
+            PatientModel patient = new PatientModel { Id = 1, Name = "Marko", Surname = "Markovic", PhoneNumber = "0602545687", Adress = "Narodnog Fronta, Novi Sad", Birthday = new DateTime(1980, 1, 1, 0, 0, 0), Biography = "IT radnik vec 20 godina, veoma fizicki aktivan" };
+            novaRecenzija.Patient = patient;
+            novaRecenzija.ReviewText = NoviKomentar;
 
-            
+
+            appReviewController.AddAppReview(novaRecenzija);
             Recenzije.Add(novaRecenzija);
-
-            recenzijaOstavljena = true;
+            //Otkomentarisi polje ako hoces da onemogucis ostavljanje vise recenzija
+            // recenzijaOstavljena = true;
             MessageBox.Show("Uspesno ste ostavili recenziju ");
 
         }
@@ -107,7 +115,7 @@ namespace HelathClinicPatienteRole.ViewModel
             set { noviKomentar = value; }
         }
 
-        public ObservableCollection<Recenzije> Recenzije
+        public List<AppReview> Recenzije
         {
             get
             {
@@ -127,9 +135,9 @@ namespace HelathClinicPatienteRole.ViewModel
 
         #region Selektovana recenzija
 
-        private Recenzije _selektovanaRecenzija;
+        private AppReview _selektovanaRecenzija;
 
-        public Recenzije SelektovanaRecenzija
+        public AppReview SelektovanaRecenzija
         {
             get { return _selektovanaRecenzija; }
             set { _selektovanaRecenzija = value; OnPropertyChanged("SelektovanaRecenzija"); }
