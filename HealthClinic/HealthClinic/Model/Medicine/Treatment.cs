@@ -5,6 +5,7 @@
 
 using HealthClinic.Utilities;
 using System;
+using System.Collections.ObjectModel;
 
 namespace Model.Medicine
 {
@@ -49,8 +50,20 @@ namespace Model.Medicine
             this.instructions = value; OnPropertyChanged("Instructions");
             }
       }
-      
-      public Medicine[] medicine;
-   
-   }
+
+        private ObservableCollection<Medicine> medicines;
+        public ObservableCollection<Medicine> Medicines
+        {
+            get
+            {
+                return medicines;
+            }
+            set
+            {
+                medicines = value;
+                OnPropertyChanged("Medicines");
+            }
+        }
+
+    }
 }
