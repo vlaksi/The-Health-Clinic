@@ -4,14 +4,18 @@
 // Purpose: Definition of Class OperationFileRepository
 
 using Model.Calendar;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.TermRepo
 {
     
     public class OperationFileRepository : OperationRepository
     {
+        private string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) + @"\HealthClinic\FileStorage\operations.json";
+
         private string OpenFile()
         {
             throw new NotImplementedException();
@@ -24,12 +28,23 @@ namespace Repository.TermRepo
 
         public int Count()
         {
-            throw new NotImplementedException();
+            List<Term> allOps = (List<Term>)FindAll();
+            return allOps.Count;
         }
 
         public void Delete(Term entity)
         {
-            throw new NotImplementedException();
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            foreach(Operation op in allOperations)
+            {
+                if(op.Id == entity.Id)
+                {
+                    allOperations.Remove((Operation)entity);
+                    break;
+                }
+            }
+
+            SaveAll(allOperations);
         }
 
         public void DeleteAll()
@@ -49,7 +64,9 @@ namespace Repository.TermRepo
 
         public IEnumerable<Term> FindAll()
         {
-            throw new NotImplementedException();
+            List<Operation> allOps = new List<Operation>();
+            allOps = JsonConvert.DeserializeObject<List<Operation>>(File.ReadAllText(filePath));
+            return allOps;
         }
 
         public Term FindById(int id)
@@ -57,15 +74,41 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
+        public void Update(Operation op)
+        {
+            List<Operation> allOperations = (List<Operation>)FindAll();
+            // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
+            //foreach (Operation tempOp in allOperations)
+            //{
+            //    if (tempOp.Id.Equals(op.Id))
+            //    {
+            //        tempOp.EndTime = op.EndTime;
+            //        tempOp.Location = op.Location;
+            //        tempOp.MedicalRecord = op.MedicalRecord;
+            //        tempOp.OperatingRoom = op.OperatingRoom;
+            //        tempOp.Specialist = op.Specialist;
+            //        tempOp.SpecialtyType = op.SpecialtyType;
+            //        break;
+            //    }
+            //}
+            SaveAll(allOperations);
+        }
+
         // TODO: Proveriti, ali zbog polimorfizma, ovde se moglu klase naslednice od term-a proslediti i da sve radi bez problema
         public void Save(Term entity)
         {
-            throw new NotImplementedException();
+            List<Operation> allOps = (List<Operation>)FindAll();
+            allOps.Add((Operation)entity);
+            SaveAll(allOps);
         }
 
         public void SaveAll(IEnumerable<Term> entities)
         {
-            throw new NotImplementedException();
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, (IEnumerable<Operation>)entities);
+            }
         }
 
         public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
@@ -73,7 +116,7 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        private string filePath;
+        
 
     }
 }

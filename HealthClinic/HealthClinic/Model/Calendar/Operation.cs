@@ -7,11 +7,25 @@ using System;
 
 namespace Model.Calendar
 {
-   /// Operacija je dogadjaj koji se desava i evidentira u Kalendaru.
-   public class Operation : Term
-   {
-      public Model.Rooms.OperatingRoom operatingRoom;
-      public Model.Users.Specialist specialist;
-   
-   }
+    /// Operacija je dogadjaj koji se desava i evidentira u Kalendaru.
+    public class Operation : Term
+    {
+        private Model.Rooms.OperatingRoom operatingRoom;
+
+        public Model.Rooms.OperatingRoom OperatingRoom
+        {
+            get { return operatingRoom; }
+            set { operatingRoom = value; }
+        }
+
+        private Model.Users.Specialist specialist;
+
+        public Model.Users.Specialist Specialist
+        {
+            get { return specialist; }
+            set { specialist = value; }
+        }
+
+
+    }
 }

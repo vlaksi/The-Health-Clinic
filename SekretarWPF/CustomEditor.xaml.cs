@@ -101,7 +101,7 @@ namespace SekretarWPF
             {
                 appointment.Doctor = ((ComboBoxItemAdv)cbDoctor.SelectedItem).Content.ToString();
                 appointment.Ordination = ((ComboBoxItemAdv)cbOrdination.SelectedItem).Content.ToString();
-                DummyData.checkUps.Add(appointment);
+                DummyData.saveCheckup(appointment);
                 this.checkBoxCheckUp.IsChecked = true;
             }
             else
@@ -128,10 +128,10 @@ namespace SekretarWPF
                 this.Appointments.Remove(this.Appointment);
                 if(this.Appointment.AppointmentType == AppointmentTypes.CheckUp)
                 {
-                    DummyData.checkUps.Remove(this.Appointment);
+                    DummyData.removeCheckup(this.Appointment);
                 } else
                 {
-                    DummyData.operations.Remove(this.Appointment);
+                    DummyData.removeOpeation(this.Appointment);
                 }
             }
         }
@@ -233,138 +233,6 @@ namespace SekretarWPF
         {
             this.CheckUp_Panel.Visibility = Visibility.Collapsed;
             this.Operation_Panel.Visibility = Visibility.Visible;
-        }
-
-        public void demoMode()
-        {
-            var timer1a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
-            timer1a.Start();
-            timer1a.Tick += (sender, args) =>
-            {
-                timer1a.Stop();
-                editstartmonth.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer2a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1500) };
-            timer2a.Start();
-            timer2a.Tick += (sender, args) =>
-            {
-                timer2a.Stop();
-                editstartmonth.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer3a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(2000) };
-            timer3a.Start();
-            timer3a.Tick += (sender, args) =>
-            {
-                timer3a.Stop();
-                editstarttime.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer4a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(2500) };
-            timer4a.Start();
-            timer4a.Tick += (sender, args) =>
-            {
-                timer4a.Stop();
-                editstarttime.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer5a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(3000) };
-            timer5a.Start();
-            timer5a.Tick += (sender, args) =>
-            {
-                timer5a.Stop();
-                editendmonth.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer6a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(3500) };
-            timer6a.Start();
-            timer6a.Tick += (sender, args) =>
-            {
-                timer6a.Stop();
-                editendmonth.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer7a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(4000) };
-            timer7a.Start();
-            timer7a.Tick += (sender, args) =>
-            {
-                timer7a.Stop();
-                editendtime.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer8a = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(4500) };
-            timer8a.Start();
-            timer8a.Tick += (sender, args) =>
-            {
-                timer8a.Stop();
-                editendtime.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer1 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
-            timer1.Start();
-            timer1.Tick += (sender, args) =>
-            {
-                timer1.Stop();
-                cbPatient.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer2 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5500) };
-            timer2.Start();
-            timer2.Tick += (sender, args) =>
-            {
-                timer2.Stop();
-                cbPatient.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer3 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(6000) };
-            timer3.Start();
-            timer3.Tick += (sender, args) =>
-            {
-                timer3.Stop();
-                cbDoctor.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer4 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(6500) };
-            timer4.Start();
-            timer4.Tick += (sender, args) =>
-            {
-                timer4.Stop();
-                cbDoctor.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer5 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(7000) };
-            timer5.Start();
-            timer5.Tick += (sender, args) =>
-            {
-                timer5.Stop();
-                cbOrdination.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer6 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(7500) };
-            timer6.Start();
-            timer6.Tick += (sender, args) =>
-            {
-                timer6.Stop();
-                cbOrdination.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-            };
-
-            var timer7 = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(8000) };
-            timer7.Start();
-            timer7.Tick += (sender, args) =>
-            {
-                timer7.Stop();
-                save.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47));
-            };
-
-            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(8500) };
-            timer.Start();
-            timer.Tick += (sender, args) =>
-            {
-                timer.Stop();
-                this.Close();
-            };
-            
         }
         
     }

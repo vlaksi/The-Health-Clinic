@@ -16,8 +16,9 @@ namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
-
+        // Igor - ne radi mi ovako :/
         private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
+        //private string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) + @"\HealthClinic\FileStorage\medicalRecords.json";
 
         private void OpenFile()
         {

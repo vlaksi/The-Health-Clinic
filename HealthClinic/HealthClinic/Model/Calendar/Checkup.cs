@@ -8,35 +8,41 @@ using System;
 
 namespace Model.Calendar
 {
-   public class Checkup : Term
-   {
-      private string checkupName;
-      private string checkupStatus;
-      public Model.Rooms.Ordination ordination;
-      public Model.Users.Doctor doctor;
+    public class Checkup : Term
+    {
+        private string checkupName;
+        private string checkupStatus;
+        public Model.Rooms.Ordination ordination;
+        public Model.Users.Doctor doctor;
 
-      public string CheckupName
-      {
-         get { return checkupName; }
-         set { checkupName = value;
-              OnPropertyChanged("CheckupName");
-            }
-      }
-
-      public string CheckupStatus
+        public string CheckupName
         {
-         get { return checkupStatus; }
-         set { checkupStatus = value;
-               OnPropertyChanged("CheckupStatus");
+            get { return checkupName; }
+            set
+            {
+                checkupName = value;
+                OnPropertyChanged("CheckupName");
+            }
+        }
+
+        public string CheckupStatus
+        {
+            get { return checkupStatus; }
+            set
+            {
+                checkupStatus = value;
+                OnPropertyChanged("CheckupStatus");
             }
         }
 
         public Doctor Doctor
         {
-         get { return doctor; }
-         set { doctor = value;
+            get { return doctor; }
+            set
+            {
+                doctor = value;
                 OnPropertyChanged("Doctor");
             }
-      }
+        }
     }
 }

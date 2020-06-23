@@ -9,34 +9,46 @@ using System;
 
 namespace Model.Users
 {
-   public class PatientModel : RegisteredUser
-   {
-      private bool isAccommodated;
-      
-      public System.Collections.Generic.List<SurveyResponse> surveyResponses;
-      
-      /// <summary>
-      /// Property for collection of SurveyResponse
-      /// </summary>
-      /// <pdGenerated>Default opposite class collection property</pdGenerated>
-      public System.Collections.Generic.List<SurveyResponse> SurveyResponses
-      {
-         get
-         {
-            if (surveyResponses == null)
-               surveyResponses = new System.Collections.Generic.List<SurveyResponse>();
-            return surveyResponses;
-         }
-         set
-         {
-            RemoveAllSurveyResponses();
-            if (value != null)
+    public class PatientModel : RegisteredUser
+    {
+        private bool isAccommodated;
+
+        public bool IsAccommodated
+        {
+            get { return isAccommodated; }
+            set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }
+        }
+
+        private string accommodation;
+
+        public string Accommodation
+        {
+            get { return accommodation; }
+            set { accommodation = value; OnPropertyChanged("Accommodation"); }
+        }
+
+
+        public System.Collections.Generic.List<SurveyResponse> surveyResponses;
+        public System.Collections.Generic.List<SurveyResponse> SurveyResponses
+        {
+            get
             {
-               foreach (SurveyResponse oSurveyResponse in value)
-                  AddSurveyResponses(oSurveyResponse);
+                if (surveyResponses == null)
+                    surveyResponses = new System.Collections.Generic.List<SurveyResponse>();
+                return surveyResponses;
             }
-         }
-      }
+
+            set
+            {
+                RemoveAllSurveyResponses();
+                if (value != null)
+                {
+                    foreach (SurveyResponse oSurveyResponse in value)
+                        AddSurveyResponses(oSurveyResponse);
+                }
+            }
+        }
+  
       
       /// <summary>
       /// Add a new SurveyResponse in the collection
@@ -51,7 +63,7 @@ namespace Model.Users
          if (!this.surveyResponses.Contains(newSurveyResponse))
          {
             this.surveyResponses.Add(newSurveyResponse);
-            newSurveyResponse.Patient = this;
+           
          }
       }
       
@@ -67,7 +79,7 @@ namespace Model.Users
             if (this.surveyResponses.Contains(oldSurveyResponse))
             {
                this.surveyResponses.Remove(oldSurveyResponse);
-               oldSurveyResponse.Patient = null;
+           
             }
       }
       
@@ -83,12 +95,11 @@ namespace Model.Users
             foreach (SurveyResponse oldSurveyResponse in surveyResponses)
                tmpSurveyResponses.Add(oldSurveyResponse);
             surveyResponses.Clear();
-            foreach (SurveyResponse oldSurveyResponse in tmpSurveyResponses)
-               oldSurveyResponse.Patient = null;
             tmpSurveyResponses.Clear();
          }
       }
       public RoomsHistory[] roomsHistory;
    
    }
+
 }

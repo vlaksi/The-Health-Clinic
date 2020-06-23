@@ -17,7 +17,6 @@
                         Height="50"
                         Source="pack://application:,,,/SekretarWPF;Component/Assets/logo.png"/>
             <TextBlock Foreground="DimGray" HorizontalAlignment="Center"   VerticalAlignment="Center"  FontSize="22" FontWeight="Bold">Calendar</TextBlock>
-            <Button x:Name="buttonDemo" Margin="1300,10,10,10" Background="#1976d2" Click="Button_Click">DemoMode</Button>
         </StackPanel>
 
         <StackPanel Width="280" DockPanel.Dock="Left" Background="White">
@@ -32,7 +31,6 @@
             </Viewbox>
 
             <Button x:Name="buttonDodaj" Margin="15,20,15,5" Click="buttonDodaj_Click" Background="#1976d2" >Add new appointment</Button>
-            <Button x:Name="buttonPDF" Margin="15,5,15,30" Background="#1976d2" Click="buttonPDF_Click" >Generate weekly report</Button>
 
             <TextBlock Margin="10,30,0,0" FontSize="18" FontWeight="Normal">Show:</TextBlock>
             <CheckBox x:Name="checkBoxCheckUp" Margin="30,5,0,0" FontSize="16" FontWeight="Normal" FontFamily="Segoe UI Light" Background="#d32f2f" Checked="CheckBox_Checked_CheckUp" Unchecked="CheckBox_Unchecked_CheckUp">Check Ups</CheckBox>

@@ -4,13 +4,19 @@
 // Purpose: Definition of Class CheckupFileRepository
 
 using Model.Calendar;
+using Newtonsoft.Json;
+using Repository.GenericCRUD;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.TermRepo
 {
     public class CheckupFileRepository : CheckupRepository
     {
+
+        private string filePath = @"./../../../HealthClinic/FileStorage/checkup.json";
+
         private void OpenFile()
         {
             throw new NotImplementedException();
@@ -46,9 +52,14 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Term> FindAll()
+        public IEnumerable<Checkup> FindAll()
         {
-            throw new NotImplementedException();
+
+            List<Checkup> allCheckups = JsonConvert.DeserializeObject<List<Checkup>>(File.ReadAllText(filePath));
+
+            if (allCheckups == null) allCheckups = new List<Checkup>();
+
+            return allCheckups;
         }
 
         public Term FindById(int id)
@@ -56,7 +67,33 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public void Save(Term entity)
+        public int Save(Checkup entity)
+        {
+            entity.Id = GenerateId();
+
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            allCheckups.Add(entity);
+            SaveAll(allCheckups);
+
+            return entity.Id;
+        }
+
+        public void SaveAll(IEnumerable<Checkup> entities)
+        {
+
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
+        }
+
+        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Term> GenericInterfaceCRUDDao<Term, int>.FindAll()
         {
             throw new NotImplementedException();
         }
@@ -66,14 +103,22 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            if (allCheckups.Count == 0) return 1;
+            foreach (Checkup checkup in allCheckups)
+            {
+                if (checkup.Id > maxId) maxId = checkup.Id;
+            }
+
+            return maxId + 1;
+        }
+
+        public void Save(Term entity)
         {
             throw new NotImplementedException();
         }
-
-        private string filePath;
-
-
-
     }
 }

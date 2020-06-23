@@ -81,6 +81,7 @@ namespace SekretarWPF
         }
 
         public AppointmentTypes AppointmentType { get; set; }
+        public int Id { get; set; }
 
         #endregion
 

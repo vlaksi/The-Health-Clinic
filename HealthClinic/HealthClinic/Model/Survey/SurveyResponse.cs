@@ -14,6 +14,14 @@ namespace Model.Survey
     {
 
         private int id;
+        private Rate quality;
+        private Rate security;
+        private Rate kindness;
+        private Rate professionalism;
+        private int mark; 
+        private string comment;
+        private Doctor doctor;
+        private int patientId;
 
         public int Id
         {
@@ -21,12 +29,18 @@ namespace Model.Survey
             set { id = value; }
         }
 
-
-        private Rate quality;
-        private Rate security;
-        private Rate kindness;
-        private Rate professionalism;
-        private string comment;
+        public int Mark
+        {
+            get
+            {
+                return mark;
+            }
+            set
+            {
+                this.mark = value;
+                OnPropertyChanged("Mark");
+            }
+        }
 
         public Rate Quality
         {
@@ -88,113 +102,40 @@ namespace Model.Survey
                 OnPropertyChanged("Comment");
             }
         }
-
-        private ObservableCollection<Doctor> doctors;
-
-        /// <summary>
-        /// Property for collection of Model.Users.Doctor
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public ObservableCollection<Doctor> Doctors
+        public int PatientId
         {
             get
             {
-                if (doctors == null)
-                    doctors = new ObservableCollection<Doctor>();
-                return doctors;
+                return patientId;
             }
             set
             {
-                RemoveAllDoctors();
-                if (value != null)
-                {
-                    foreach (Doctor oDoctor in value)
-                        AddDoctors(oDoctor);
-                }
-                OnPropertyChanged("Doctors");
+                this.patientId = value;
+                OnPropertyChanged("PatientId");
             }
         }
 
-        /// <summary>
-        /// Add a new Model.Users.Doctor in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddDoctors(Doctor newDoctor)
-        {
-            if (newDoctor == null)
-                return;
-            if (this.doctors == null)
-                this.doctors = new ObservableCollection<Doctor>();
-            if (!this.doctors.Contains(newDoctor))
-            {
-                this.doctors.Add(newDoctor);
-                newDoctor.AddSurveyResponses(this);
-            }
+        //TODO: Obrsati ovo polje ako nikome ne treba
+        private ObservableCollection<int> doctors;
+        public ObservableCollection<int> Doctors { get { return doctors; } set { doctors = value; OnPropertyChanged("Doctors"); } }
+
+        public Doctor Doctor 
+        { 
+            get 
+            { 
+                return doctor; 
+            } 
+            set 
+            { 
+                doctor = value; 
+                OnPropertyChanged("Doctors"); 
+            } 
         }
 
-        /// <summary>
-        /// Remove an existing Model.Users.Doctor from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveDoctors(Doctor oldDoctor)
-        {
-            if (oldDoctor == null)
-                return;
-            if (this.doctors != null)
-                if (this.doctors.Contains(oldDoctor))
-                {
-                    this.doctors.Remove(oldDoctor);
-                    oldDoctor.RemoveSurveyResponses(this);
-                }
-        }
+    
 
-        /// <summary>
-        /// Remove all instances of Model.Users.Doctor from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllDoctors()
-        {
-            if (doctors != null)
-            {
-                System.Collections.ArrayList tmpDoctors = new System.Collections.ArrayList();
-                foreach (Model.Users.Doctor oldDoctor in doctors)
-                    tmpDoctors.Add(oldDoctor);
-                doctors.Clear();
-                foreach (Model.Users.Doctor oldDoctor in tmpDoctors)
-                    oldDoctor.RemoveSurveyResponses(this);
-                tmpDoctors.Clear();
-            }
-        }
-        private PatientModel patient;
-
-        /// <summary>
-        /// Property for Model.Users.Patient
-        /// </summary>
-        /// <pdGenerated>Default opposite class property</pdGenerated>
-        public PatientModel Patient
-        {
-            get
-            {
-                return patient;
-            }
-            set
-            {
-                if (this.patient == null || !this.patient.Equals(value))
-                {
-                    if (this.patient != null)
-                    {
-                        Model.Users.PatientModel oldPatient = this.patient;
-                        this.patient = null;
-                        oldPatient.RemoveSurveyResponses(this);
-                    }
-                    if (value != null)
-                    {
-                        this.patient = value;
-                        this.patient.AddSurveyResponses(this);
-                    }
-                }
-            }
-        }
+       
+       
 
     }
 }
