@@ -29,7 +29,7 @@ namespace Service.MedicalRecordServ
         {
             List<MedicalRecord> allRecords = GetAllMedicalRecords();
             List<MedicalRecord> result = new List<MedicalRecord>();
-            foreach(MedicalRecord mr in allRecords)
+            foreach (MedicalRecord mr in allRecords)
             {
                 if (mr.Name.ToLower().Contains(Name.ToLower()) || mr.Surname.ToLower().Contains(Name.ToLower()))
                 {
@@ -38,13 +38,12 @@ namespace Service.MedicalRecordServ
             }
             return result;
         }
-
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;
-            foreach (MedicalRecord mr in medicalRecordRepository.FindAll())
+            foreach(MedicalRecord mr in medicalRecordRepository.FindAll())
             {
-                if (mr.PatientId == Id)
+                if(mr.PatientId == Id)
                 {
                     return mr;
                 }

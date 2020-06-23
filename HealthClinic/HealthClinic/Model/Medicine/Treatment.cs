@@ -9,47 +9,47 @@ using System.Collections.ObjectModel;
 
 namespace Model.Medicine
 {
-    public class Treatment : ObservableObject
-    {
-        private System.DateTime dateTimeStart;
-        private System.DateTime dateTimeEnd;
-        private String instructions;
-
-        public System.DateTime DateTimeStart
-        {
-            get
-            {
-                return dateTimeStart;
+   public class Treatment : ObservableObject
+   {
+      private System.DateTime dateTimeStart;
+      private System.DateTime dateTimeEnd;
+      private String instructions;
+      
+      public System.DateTime DateTimeStart
+      {
+         get
+         {
+            return dateTimeStart;
+         }
+         set
+         {
+            this.dateTimeStart = value; OnPropertyChanged("DateTimeStart");
+         }
+      }
+      
+      public System.DateTime DateTimeEnd
+      {
+         get
+         {
+            return dateTimeEnd;
+         }
+         set
+         {
+            this.dateTimeEnd = value; OnPropertyChanged("DateTimeEnd");
             }
-            set
-            {
-                this.dateTimeStart = value; OnPropertyChanged("DateTimeStart");
+      }
+      
+      public String Instructions
+      {
+         get
+         {
+            return instructions;
+         }
+         set
+         {
+            this.instructions = value; OnPropertyChanged("Instructions");
             }
-        }
-
-        public System.DateTime DateTimeEnd
-        {
-            get
-            {
-                return dateTimeEnd;
-            }
-            set
-            {
-                this.dateTimeEnd = value; OnPropertyChanged("DateTimeEnd");
-            }
-        }
-
-        public String Instructions
-        {
-            get
-            {
-                return instructions;
-            }
-            set
-            {
-                this.instructions = value; OnPropertyChanged("Instructions");
-            }
-        }
+      }
 
         private ObservableCollection<Medicine> medicines;
         public ObservableCollection<Medicine> Medicines

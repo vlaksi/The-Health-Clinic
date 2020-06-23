@@ -28,6 +28,7 @@ namespace Controller.MedicalRecordContr
             return medicalRecordService.GetMedicalRecordByPatientId(Id);
         }
 
+        //either surname or first name
         public List<MedicalRecord> GetMedicalRecordByPatientName(string Name)
         {
             return medicalRecordService.GetMedicalRecordByPatientName(Name);
