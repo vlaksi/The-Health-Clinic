@@ -47,6 +47,36 @@ namespace Repository.MedicineRepo
             SaveAll(allMedicines);
         }
 
+        public void ValidateMedicine(Medicine medicine)
+        {
+            List<Medicine> allMedicines = (List<Medicine>)FindAll();
+
+            foreach (Medicine tempMed in allMedicines)
+            {
+                if (tempMed.Id.Equals(medicine.Id))
+                {
+                    tempMed.MedicineStatus = MedicineStatus.validated;
+                    break;
+                }
+
+            }
+            SaveAll(allMedicines);
+        }
+
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<Medicine> allMedicines = (List<Medicine>)FindAll();
+            if (allMedicines == null || allMedicines.Count == 0) return 1;
+            foreach (Medicine med in allMedicines)
+            {
+                if (med.Id > maxId) maxId = med.Id;
+            }
+
+            return maxId + 1;
+        }
+
         public void DeleteAll()
         {
             throw new NotImplementedException();
@@ -72,6 +102,8 @@ namespace Repository.MedicineRepo
             // read file into a string and deserialize JSON to a type
             allMedicine = JsonConvert.DeserializeObject<List<Medicine>>(File.ReadAllText(currentPath));
 
+            if (allMedicine == null) allMedicine = new List<Medicine>();
+
             return allMedicine;
         }
 
@@ -83,6 +115,7 @@ namespace Repository.MedicineRepo
         public void Save(Medicine entity)
         {
             List<Medicine> allMedicines = (List<Medicine>)FindAll();
+            entity.Id = GenerateId();
             allMedicines.Add(entity);
 
             // I want immediately to save changes

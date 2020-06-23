@@ -14,4 +14,25 @@ namespace Model.Medicine
       waiting,
       missing
    }
+
+    // Helper funkcija za .ToString() enumeracije, koristi se u formatu MedicineStatusExtensions.ToFriendlyString(medStatus)
+    public static class MedicineStatusExtensions
+    {
+        public static string ToFriendlyString(this MedicineStatus me)
+        {
+            switch (me)
+            {
+                case MedicineStatus.validated:
+                    return "Validated";
+                case MedicineStatus.rejected:
+                    return "Rejected";
+                case MedicineStatus.waiting:
+                    return "Waiting";
+                case MedicineStatus.missing:
+                    return "Missing";
+                default:
+                    return "MedicineStatus default";
+            }
+        }
+    }
 }

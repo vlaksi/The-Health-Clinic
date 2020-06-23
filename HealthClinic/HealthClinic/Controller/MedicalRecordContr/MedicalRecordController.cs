@@ -33,7 +33,6 @@ namespace Controller.MedicalRecordContr
         {
             return medicalRecordService.GetMedicalRecordByPatientName(Name);
         }
-
         public void CreateMedicalRecord(MedicalRecord mr)
         {
             medicalRecordService.CreateMedicalRecord(mr);

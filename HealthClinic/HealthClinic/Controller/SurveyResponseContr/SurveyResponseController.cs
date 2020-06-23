@@ -20,7 +20,12 @@ namespace Controller.SurveyResponseContr
             return surveyResponseService.GetAllSurveyResponses();
         }
 
-        public void AddSurveyResponses(List<SurveyResponse>surveysToSave)
+        public void saveAllSurveyResponses(List<SurveyResponse> surveyResponsesForSave)
+        {
+            surveyResponseService.saveAllSurveyResponses(surveyResponsesForSave);
+        }
+
+        public void AddSurveyResponses(List<SurveyResponse> surveysToSave)
         {
             surveyResponseService.AddSurveyResponses(surveysToSave);
         }

@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace Doctors_UI_Console.Functionalities
 {
-    public class PatientsView
+    public class PatientFunctionalities
     {
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
-        public PatientsView()
+        public PatientFunctionalities()
         {
 
         }
@@ -150,7 +150,7 @@ namespace Doctors_UI_Console.Functionalities
                         break;
                     }
                 }
-                else if (Console.ReadLine().ToLower().Equals("x"))
+                else if (patientId.ToLower().Equals("x"))
                 {
                     break;
                 }

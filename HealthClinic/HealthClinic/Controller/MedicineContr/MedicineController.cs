@@ -25,9 +25,14 @@ namespace Controller.MedicineContr
             medicineService.saveAllMedicine(medicinesForSave);
         }
 
-        public Medicine ValidateMedicine(Medicine medicine)
+        public void ValidateMedicine(Medicine medicine)
         {
-            throw new NotImplementedException();
+            medicineService.ValidateMedicine(medicine);
+        }
+
+        public List<Medicine> GetMedicinesAwaitingApproval()
+        {
+            return medicineService.GetMedicinesAwaitingApproval();
         }
 
         public Medicine GetMedicine(Medicine medicine)
