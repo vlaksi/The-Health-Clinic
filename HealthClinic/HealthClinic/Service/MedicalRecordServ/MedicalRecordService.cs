@@ -38,6 +38,7 @@ namespace Service.MedicalRecordServ
             }
             return result;
         }
+
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;

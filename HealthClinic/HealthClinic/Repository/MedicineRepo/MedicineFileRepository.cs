@@ -115,7 +115,9 @@ namespace Repository.MedicineRepo
         public void Save(Medicine entity)
         {
             List<Medicine> allMedicines = (List<Medicine>)FindAll();
+
             entity.Id = GenerateId();
+
             allMedicines.Add(entity);
 
             // I want immediately to save changes

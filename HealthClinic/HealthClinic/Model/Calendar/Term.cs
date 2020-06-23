@@ -9,10 +9,10 @@ using System.ComponentModel;
 
 namespace Model.Calendar
 {
-
     //public class Term : ScheduleAppointment, INotifyPropertyChanged
     public class Term : ObservableObject
     {
+
         private int id;
         public int Id
         {

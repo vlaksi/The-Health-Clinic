@@ -35,6 +35,7 @@ namespace Service.TermServ
             //    }
             //}
 
+
             return result;
         }
 
@@ -42,6 +43,7 @@ namespace Service.TermServ
         public List<Operation> GetAllPastOperations(int userId)
         {
             List<Operation> result = new List<Operation>();
+
             // TODO: Resiti ovo, ne radi zbog ugradjenog kalendara
             //foreach (Operation op in operationFileRepository.FindAll())
             //{
@@ -51,6 +53,7 @@ namespace Service.TermServ
             //        result.Add(op);
             //    }
             //}
+
 
             return result;
         }
