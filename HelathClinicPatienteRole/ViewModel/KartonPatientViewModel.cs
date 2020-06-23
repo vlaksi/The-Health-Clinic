@@ -1,5 +1,7 @@
-﻿using Controller.PatientContr;
+﻿using Controller.MedicalRecordContr;
+using Controller.PatientContr;
 using HelathClinicPatienteRole.Model;
+using Model.MedicalRecord;
 using System;
 
 using System.Collections.Generic;
@@ -12,15 +14,15 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class KartonPatientViewModel
     {
-        private MedicinskiKarton _MedicinskiKarton;
-
+        private MedicalRecord _MedicinskiKarton;
+        private MedicalRecordController medicalRecordController = new MedicalRecordController();
         public KartonPatientViewModel()
         {
-            _MedicinskiKarton = new MedicinskiKarton { UserId = 1, FirstAndLastName = "Marko Marković", ParentName = "Stefan", DateOfBirth = "01.01.1980", Jmbg = "0208998500079", Address = "Narodnog Fronta, Novi Sad", PhoneNumber = "0622554652", HealthInsuranceNumber = "251365", HealthInsuranceCarrier = "Stefan Marković" };
+            _MedicinskiKarton = medicalRecordController.GetMedicalRecordByPatientId(1);
             PatientController pc = new PatientController();
         }
 
-        public MedicinskiKarton MedicinskiKarton
+        public MedicalRecord MedicinskiKarton
         {
             get { return _MedicinskiKarton; }
             set { _MedicinskiKarton = value; }

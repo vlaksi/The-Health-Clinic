@@ -17,10 +17,10 @@
                     </Border.Effect>
                 </Border>
                 <TextBlock FontWeight="Bold" Foreground="#FF148DF0" FontSize="40"  HorizontalAlignment="Right" Text="Lekarski karton " Grid.Column="8" Grid.Row="1"  Grid.ColumnSpan="8" Grid.RowSpan="2" Margin="0,0,0.143,0" Width="316" />
-                <TextBlock Foreground="#FF148DF0" FontSize="40"  Text="{Binding FirstAndLastName}"  Grid.Column="15" Grid.Row="1"  Grid.ColumnSpan="9" Grid.RowSpan="2" Margin="29,0,12,0" />
+                <TextBlock Foreground="#FF148DF0" FontSize="40"  Text="{Binding Name}"  Grid.Column="15" Grid.Row="1"  Grid.ColumnSpan="9" Grid.RowSpan="2" Margin="29,0,12,0" />
 
                 <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Ime jednog roditelja: " Grid.Column="1" Grid.Row="7"  Grid.ColumnSpan="7" Grid.RowSpan="3" />
-                <TextBlock Foreground="White" FontSize="28"  Text="{Binding ParentName}"  Grid.Column="7" Grid.Row="7"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="39.429,0,0,0" RenderTransformOrigin="0.567,0.493"  />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding ParentsName}"  Grid.Column="7" Grid.Row="7"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="39.429,0,0,0" RenderTransformOrigin="0.567,0.493"  />
 
 
                 <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Datum rođenja: " Grid.Column="1" Grid.Row="9"  Grid.ColumnSpan="6" Grid.RowSpan="3" Width="218" />
@@ -34,7 +34,7 @@
                 <TextBlock Foreground="White" FontSize="28"  Text="{Binding Address}"  Grid.Column="3" Grid.Row="13"  Grid.ColumnSpan="16" Grid.RowSpan="3" Margin="25.143,0,14,0"  />
 
                 <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Broj telefona: " Grid.Column="1" Grid.Row="15"  Grid.ColumnSpan="5" Grid.RowSpan="3" />
-                <TextBlock Foreground="White" FontSize="28"  Text="{Binding PhoneNumber}"  Grid.Column="5" Grid.Row="15"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="24.286,0,23,0"  />
+                <TextBlock Foreground="White" FontSize="28"  Text="{Binding Phone}"  Grid.Column="5" Grid.Row="15"  Grid.ColumnSpan="8" Grid.RowSpan="3" Margin="24.286,0,23,0"  />
 
                 <TextBlock FontWeight="Bold" Foreground="White" FontSize="28"  HorizontalAlignment="Left" Text="Broj zdravstvenog: " Grid.Column="1" Grid.Row="17"  Grid.ColumnSpan="7" Grid.RowSpan="3"  />
                 <TextBlock Foreground="White" FontSize="28"  Text="{Binding HealthInsuranceNumber}"  Grid.Column="7" Grid.Row="17"  Grid.ColumnSpan="7" Grid.RowSpan="3" Margin="9.571,0,9.857,0"  />

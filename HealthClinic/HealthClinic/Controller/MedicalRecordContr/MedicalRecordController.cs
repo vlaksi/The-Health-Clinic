@@ -6,33 +6,42 @@
 using Model.MedicalRecord;
 using Service.MedicalRecordServ;
 using System;
+using System.Collections.Generic;
 
 namespace Controller.MedicalRecordContr
 {
-   public class MedicalRecordController
-   {
-      public MedicalRecordService medicalRecordService;
+    public class MedicalRecordController
+    {
+        public MedicalRecordService medicalRecordService = new MedicalRecordService();
 
-      public MedicalRecord GetMedicalRecord(String patientId)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public MedicalRecord CreateMedicalRecord(MedicalRecord mr)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public MedicalRecord UpdateMedicalRecord(MedicalRecord mr)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DeleteMedicalRecord(MedicalRecord mr)
-      {
-         throw new NotImplementedException();
-      }
-      
-   
-   }
+        public List<MedicalRecord> GetAllMedicalRecords()
+        {
+            return medicalRecordService.GetAllMedicalRecords();
+        }
+
+        public MedicalRecord GetMedicalRecord(int Id)
+        {
+            return medicalRecordService.GetMedicalRecord(Id);
+        }
+        public MedicalRecord GetMedicalRecordByPatientId(int Id)
+        {
+            return medicalRecordService.GetMedicalRecordByPatientId(Id);
+        }
+        public void CreateMedicalRecord(MedicalRecord mr)
+        {
+            medicalRecordService.CreateMedicalRecord(mr);
+        }
+
+        public void UpdateMedicalRecord(MedicalRecord mr)
+        {
+            medicalRecordService.UpdateMedicalRecord(mr);
+        }
+
+        public void DeleteMedicalRecord(MedicalRecord mr)
+        {
+            medicalRecordService.DeleteMedicalRecord(mr);
+        }
+
+
+    }
 }

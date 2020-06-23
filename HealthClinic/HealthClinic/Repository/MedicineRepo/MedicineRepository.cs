@@ -11,6 +11,6 @@ namespace Repository.MedicineRepo
 {
    public interface MedicineRepository :GenericInterfaceCRUDDao<Medicine,int>
    {
-
+        void makeUpdateFor(Medicine medicine);
    }
 }
