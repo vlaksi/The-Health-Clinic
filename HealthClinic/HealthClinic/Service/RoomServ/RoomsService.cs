@@ -34,6 +34,21 @@ namespace Service.RoomServ
             RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
             roomsFileRepository.Delete(room);
         }
+
+        public void removeRoomById(int id)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            roomsFileRepository.DeleteById(id);
+        }
+
+        public Room findById(int id)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.FindById(id);
+        }
+
         public void saveAllRooms(List<Room> roomsForSave)
         {
             RoomsFileRepository repoForRooms = new RoomsFileRepository();

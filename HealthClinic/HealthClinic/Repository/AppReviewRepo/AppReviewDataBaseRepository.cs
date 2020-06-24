@@ -1,8 +1,3 @@
-// File:    SurveyResponseDataBaseRepository.cs
-// Author:  Vaxi
-// Created: Saturday, May 2, 2020 5:16:42 PM
-// Purpose: Definition of Class SurveyResponseDataBaseRepository
-
 using Model.Survey;
 using System;
 using System.Collections.Generic;
