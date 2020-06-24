@@ -108,7 +108,7 @@ namespace SekretarWPF
             {
                 appointment.Specialist = ((ComboBoxItemAdv)cbSpecialist.SelectedItem).Content.ToString();
                 appointment.OperatingRoom = ((ComboBoxItemAdv)cbOperatingRoom.SelectedItem).Content.ToString();
-                DummyData.operations.Add(appointment);
+                DummyData.saveOperation(appointment);
                 this.checkBoxOperations.IsChecked = true;
             }
 

@@ -28,5 +28,10 @@ namespace Controller.TermContr
         {
             checkupService.ScheduleCheckup((Checkup)newTerm);
         }
+
+        public List<Checkup> GetAllCheckups()
+        {
+           return checkupService.getAllCheckups();
+        }
     }
 }
