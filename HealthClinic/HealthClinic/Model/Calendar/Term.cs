@@ -27,7 +27,6 @@ namespace Model.Calendar
         }
 
         private DateTime startTime;
-
         public DateTime StartTime
         {
             get
