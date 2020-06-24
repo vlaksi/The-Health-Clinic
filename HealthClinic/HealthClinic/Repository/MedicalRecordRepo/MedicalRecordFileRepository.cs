@@ -11,14 +11,17 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
 using System.CodeDom;
+using System.Collections.ObjectModel;
+using Model.Medicine;
+
 
 namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
         // Igor - ne radi mi ovako :/
-        //private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
-        private string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) + @"\HealthClinic\FileStorage\medicalRecords.json";
+        private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
+        //private string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) + @"\HealthClinic\FileStorage\medicalRecords.json";
 
         private void OpenFile()
         {
@@ -26,16 +29,6 @@ namespace Repository.MedicalRecordRepo
         }
 
         private void CloseFile()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveReport(Report report)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveReferral(ReferralToSpecialist referral)
         {
             throw new NotImplementedException();
         }
@@ -94,6 +87,18 @@ namespace Repository.MedicalRecordRepo
             return allRecords;
         }
 
+        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<int> ids)
+        {
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
+
+            foreach (MedicalRecord record in allRecords)
+                if (ids.Contains(record.Id))
+                    matchingRecords.Add(record);
+
+            return matchingRecords;
+        }
+
         public MedicalRecord FindById(int id)
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
@@ -108,9 +113,14 @@ namespace Repository.MedicalRecordRepo
         public void Save(MedicalRecord entity)
         {
             if (ExistsById(entity.Id))
+            {
                 Delete(entity);
+            }
             else
+            {
                 entity.Id = GenerateId();
+                entity.Treatments = new ObservableCollection<Treatment>();
+            }
 
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
             allRecords.Add(entity);
@@ -126,18 +136,6 @@ namespace Repository.MedicalRecordRepo
                 serializer.Serialize(file, entities);
             }
 
-        }
-
-        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<int> ids)
-        {
-            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
-            List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
-
-            foreach (MedicalRecord record in allRecords)
-                if (ids.Contains(record.Id))
-                    matchingRecords.Add(record);
-
-            return matchingRecords;
         }
 
         public int GenerateId()

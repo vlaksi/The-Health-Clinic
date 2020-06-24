@@ -31,6 +31,11 @@ namespace Repository.BlogPostRepo
             throw new NotImplementedException();
         }
 
+        public void DeleteComment(BlogPostModel blogPost, Comment comment)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ExistsById(int id)
         {
             throw new NotImplementedException();
@@ -62,6 +67,11 @@ namespace Repository.BlogPostRepo
         }
 
         public void SaveAll(IEnumerable<BlogPostModel> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveComment(BlogPostModel blogPost, Comment comment)
         {
             throw new NotImplementedException();
         }

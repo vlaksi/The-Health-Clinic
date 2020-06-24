@@ -3,6 +3,7 @@
 // Created: Sunday, May 3, 2020 11:34:56 AM
 // Purpose: Definition of Class MedicalRecordService
 
+using Model.Calendar;
 using Model.MedicalRecord;
 using Repository.MedicalRecordRepo;
 using System;
@@ -38,19 +39,28 @@ namespace Service.MedicalRecordServ
             }
             return result;
         }
+
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;
             foreach(MedicalRecord mr in medicalRecordRepository.FindAll())
             {
-                if(mr.PatientId == Id)
+                if(mr.Id == Id)
                 {
-                    return mr;
+                    result = mr;
+                    break;
                 }
             }
 
             return result;
         }
+
+        public void SaveReport(MedicalRecord mr, Report report)
+        {
+            mr.Reports.Add(report);
+            medicalRecordRepository.Save(mr);
+        }
+
         public List<MedicalRecord> GetAllMedicalRecords()
         {
             return (List<MedicalRecord>)medicalRecordRepository.FindAll();

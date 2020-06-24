@@ -67,9 +67,9 @@ namespace Repository.SurveyResponseRepo
         {
             List<SurveyResponse> allSurveys;
 
-            //string relativePath = @"./../../HealthClinic/FileStorage/survey-responses.json";
+            //string relativePath = @"./../../../HealthClinic/FileStorage/survey-responses.json";
             string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            
+
             currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
             allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
 

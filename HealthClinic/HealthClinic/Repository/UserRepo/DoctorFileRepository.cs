@@ -1,12 +1,14 @@
-// File:    DoctorFileRepository.cs
+﻿// File:    DoctorFileRepository.cs
 // Author:  Vaxi
 // Created: Wednesday, May 20, 2020 12:19:32 AM
 // Purpose: Definition of Class DoctorFileRepository
 
 using Model.BusinessHours;
 using Model.Users;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.UserRepo
 {
@@ -37,6 +39,18 @@ namespace Repository.UserRepo
         public void SetDoctorsBusinessHours(List<Doctor> doctors, BusinessHoursModel businessHours)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Doctor> GetAllDoctors()
+        {
+            List<Doctor> allDoctors;
+
+            string relativePath = @"./../../../HealthClinic/FileStorage/doctors.json";
+            allDoctors = JsonConvert.DeserializeObject<List<Doctor>>(File.ReadAllText(relativePath));
+
+            if (allDoctors == null) allDoctors = new List<Doctor>();
+
+            return allDoctors;
         }
 
         public int Count()
