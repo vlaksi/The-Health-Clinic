@@ -4,6 +4,7 @@
 // Purpose: Definition of Class MedicalRecord
 
 using HealthClinic.Utilities;
+using Model.Calendar;
 using Model.Medicine;
 using Model.Users;
 using System;
@@ -31,6 +32,19 @@ namespace Model.MedicalRecord
         private List<int> terms;
         public List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
+        private List<Report> reports;
+
+
+        public List<Report> Reports
+        {
+            get
+            {
+                if (reports == null) reports = new List<Report>();
+                return reports;
+            }
+            set { reports = value; }
+        }
+
 
         public int Id
         {
