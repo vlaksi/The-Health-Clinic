@@ -4,6 +4,7 @@
 // Purpose: Definition of Class Medicine
 
 using HealthClinic.Utilities;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 
@@ -19,17 +20,17 @@ namespace Model.Medicine
         private DateTime _expirationDate;
         private int _price;
         private int _quantity;
-        public SpecialtyType _specialtyType;
-        public MedicineStatus _medicineStatus;
-        public List<Alergen> _alergen;
-        public List<Ingredient> _ingredient;
+
+        private SpecialtyType _specialtyType;
+        private MedicineStatus _medicineStatus;
+        private List<Alergen> _alergen;
+        private List<Ingredient> _ingredient;
         private string _medicineType;
         private string _sideEffects;
 
         #endregion
 
         #region Properties
-
         public int Id
         {
             get
@@ -41,7 +42,6 @@ namespace Model.Medicine
                 this._id = value;
             }
         }
-
         public string Name
         {
             get
@@ -53,7 +53,6 @@ namespace Model.Medicine
                 this._medicineName = value;
             }
         }
-
         public string Manufacturer
         {
             get
@@ -65,7 +64,6 @@ namespace Model.Medicine
                 this._manufacturer = value;
             }
         }
-
         public DateTime ExpirationDate
         {
             get
@@ -77,7 +75,6 @@ namespace Model.Medicine
                 this._expirationDate = value;
             }
         }
-
         public int Quantity
         {
             get
@@ -93,8 +90,6 @@ namespace Model.Medicine
                 }
             }
         }
-
-
         public int Price
         {
             get { return _price; }
@@ -107,13 +102,17 @@ namespace Model.Medicine
                 }
             }
         }
+        public SpecialtyType SpecialtyType
+        {
+            get { return _specialtyType; }
+            set { _specialtyType = value; }
+        }
+        public MedicineStatus MedicineStatus
+        {
+            get { return _medicineStatus; }
+            set { _medicineStatus = value; OnPropertyChanged("MedicineStatus"); }
+        }
 
-
-
-        /// <summary>
-        /// Property for collection of Alergen
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
         public List<Alergen> Alergen
         {
             get
@@ -132,11 +131,6 @@ namespace Model.Medicine
                 }
             }
         }
-
-        /// <summary>
-        /// Property for collection of Ingredient
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
         public List<Ingredient> Ingredient
         {
             get

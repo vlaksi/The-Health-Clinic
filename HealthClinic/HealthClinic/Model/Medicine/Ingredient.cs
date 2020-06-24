@@ -35,8 +35,6 @@ namespace Model.Medicine
             this.name = value;
          }
       }
-      
-      public Medicine[] medicine;
    
    }
 }

@@ -12,7 +12,7 @@ namespace Controller.TermContr
 {
     public class OperationStrategyController : ITermStrategy
     {
-        public OperationService operationService;
+        public OperationService operationService = new OperationService();
 
         public void CancelTerm(Term term)
         {

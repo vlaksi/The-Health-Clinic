@@ -5,7 +5,6 @@
 
 using HealthClinic.Utilities;
 using System;
-//using Syncfusion.UI.Xaml.Schedule;
 using System.ComponentModel;
 
 namespace Model.Calendar
@@ -28,7 +27,7 @@ namespace Model.Calendar
         }
 
         private DateTime startTime;
-        public DateTime StarTime
+        public DateTime StartTime
         {
             get
             {
