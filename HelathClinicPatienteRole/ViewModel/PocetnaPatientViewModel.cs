@@ -22,7 +22,7 @@ namespace HelathClinicPatienteRole.ViewModel
     class PocetnaPatientViewModel : INotifyPropertyChanged
     {
         private List<Checkup> _PregledList;
-        private ObservableCollection<Doctor> _LekariList;
+        private List<Doctor> _LekariList;
         private List<SurveyResponse> _SurveyResponseList;
 
         private CheckupStrategyControler checkupStrategyControler;
@@ -344,7 +344,7 @@ namespace HelathClinicPatienteRole.ViewModel
         }
         #endregion
 
-        public ObservableCollection<Doctor> Lekari
+        public List<Doctor> Lekari
         {
             get
             {

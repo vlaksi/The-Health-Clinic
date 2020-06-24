@@ -15,7 +15,12 @@ namespace Controller.DoctorContr
 {
    public class DoctorController
    {
-      public DoctorService doctorService;
+      public DoctorService doctorService = new DoctorService();
+
+      public List<Doctor> GetAllDoctors()
+      {
+         return doctorService.GetAllDoctors();
+      }
 
       public void SaveUpdatedDoctor(Doctor doctor)
       {

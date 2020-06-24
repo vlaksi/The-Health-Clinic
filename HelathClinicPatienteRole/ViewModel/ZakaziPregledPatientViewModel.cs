@@ -6,6 +6,7 @@ using HelathClinicPatienteRole.ViewModel.Commands;
 using Model.Calendar;
 using Model.Users;
 using System;
+using Controller.DoctorContr;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,12 +20,14 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class ZakaziPregledPatientViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Doctor> _DoctorList;
+        private List<Doctor> _DoctorList;
         private CheckupStrategyControler checkupStrategyControler;
+        private DoctorController doctorController;
 
         public ZakaziPregledPatientViewModel()
         {
             checkupStrategyControler = new CheckupStrategyControler();
+            doctorController = new DoctorController();
 
             PirkaziPreporukaTerminaDialogCommand = new RelayCommand(PirkaziPreporukaTerminaDialog);
             ZakaziPregledCommand = new RelayCommand(ZakaziPregled);
@@ -32,17 +35,7 @@ namespace HelathClinicPatienteRole.ViewModel
             ZakaziPregledPreporukaTerminaCommand = new RelayCommand(ZakaziPregledPreporuka);
 
 
-            _DoctorList = new ObservableCollection<Doctor>
-            {
-                new Doctor{Id=1, Name = "Pera" ,Surname= "Perić"},
-                 new Doctor{Id=2, Name = "Mika" ,Surname= "Mikić"},
-                  new Doctor{Id=3, Name = "Miodrag" ,Surname= "Milić"},
-                   new Doctor{Id=4, Name = "Miodrag" ,Surname= "Mitrović"},
-                    new Doctor{Id=5, Name = "Jovan" ,Surname= "Jovanović"},
-                     new Doctor{Id=6, Name = "Milomir" ,Surname= "Mirković"},
-                      new Doctor{Id=7, Name = "Mirko" ,Surname= "Mikić"},
-
-            };
+            _DoctorList = doctorController.GetAllDoctors();
         }
 
         #region ICommand
@@ -255,9 +248,7 @@ namespace HelathClinicPatienteRole.ViewModel
         }
         #endregion
 
-        
-
-        public ObservableCollection<Doctor> Lekari
+        public List<Doctor> Lekari
         {
             get
             {
