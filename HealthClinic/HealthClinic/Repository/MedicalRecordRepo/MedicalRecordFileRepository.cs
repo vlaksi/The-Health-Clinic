@@ -33,16 +33,6 @@ namespace Repository.MedicalRecordRepo
             throw new NotImplementedException();
         }
 
-        public void SaveReport(Report report)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveReferral(ReferralToSpecialist referral)
-        {
-            throw new NotImplementedException();
-        }
-
         public int Count()
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
