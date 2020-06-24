@@ -9,95 +9,122 @@ using Repository.GenericCRUD;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Repository.TermRepo
 {
     public class CheckupFileRepository : CheckupRepository
     {
-        private void OpenFile()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void CloseFile()
-        {
-            throw new NotImplementedException();
-        }
+        private string filePath = @"./../../../HealthClinic/FileStorage/checkup.json";
 
         public int Count()
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            return allCheckups.Count;
         }
 
-        public void Delete(Term entity)
+        public void Delete(Checkup entity)
         {
-            throw new NotImplementedException();
+            DeleteById(entity.Id);
         }
 
         public void DeleteAll()
         {
-            throw new NotImplementedException();
+            List<Checkup> emptyList = new List<Checkup>();
+            SaveAll(emptyList);
         }
 
         public void DeleteById(int identificator)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            Checkup toRemove = null;
+
+            foreach (Checkup checkup in allCheckups)
+                if (checkup.Id == identificator)
+                    toRemove = checkup;
+
+            if (toRemove != null)
+            {
+                allCheckups.Remove(toRemove);
+                SaveAll(allCheckups);
+            }
         }
 
         public bool ExistsById(int id)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+
+            foreach (Checkup checkup in allCheckups)
+                if (checkup.Id == id)
+                    return true;
+
+            return false;
         }
 
         public IEnumerable<Checkup> FindAll()
         {
-            List<Checkup> allCheckups = new List<Checkup>();
+            List<Checkup> allCheckups = JsonConvert.DeserializeObject<List<Checkup>>(File.ReadAllText(filePath));
 
-            string relativePath = @"./../../../HealthClinic/FileStorage/checkup.json";
-            allCheckups = JsonConvert.DeserializeObject<List<Checkup>>(File.ReadAllText(relativePath));
+            if (allCheckups == null) allCheckups = new List<Checkup>();
 
             return allCheckups;
         }
 
-        public Term FindById(int id)
+        public IEnumerable<Checkup> FindAllById(IEnumerable<int> ids)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            List<Checkup> matchingCheckups = new List<Checkup>();
+
+            foreach (Checkup checkup in allCheckups)
+                if (ids.Contains(checkup.Id))
+                    matchingCheckups.Add(checkup);
+
+            return matchingCheckups;
         }
 
-        public void Save(Term entity)
+        public Checkup FindById(int id)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+
+            foreach (Checkup checkup in allCheckups)
+                if (checkup.Id == id)
+                    return checkup;
+
+            return null;
+        }
+
+        public void Save(Checkup entity)
+        {
+            if (ExistsById(entity.Id))
+                Delete(entity);
+            else
+                entity.Id = GenerateId();
+
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            allCheckups.Add(entity);
+            SaveAll(allCheckups);
         }
 
         public void SaveAll(IEnumerable<Checkup> entities)
         {
-            string relativePath = @"./../../../HealthClinic/FileStorage/checkup.json";
-
-            using (StreamWriter file = File.CreateText(relativePath))
+            using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, entities);
             }
         }
 
-        public IEnumerable<Term> FindAllById(IEnumerable<int> ids)
+        public int GenerateId()
         {
-            throw new NotImplementedException();
+            int maxId = -1;
+            List<Checkup> allCheckups = (List<Checkup>)FindAll();
+            if (allCheckups.Count == 0) return 1;
+            foreach (Checkup checkup in allCheckups)
+            {
+                if (checkup.Id > maxId) maxId = checkup.Id;
+            }
+
+            return maxId + 1;
         }
-
-        IEnumerable<Term> GenericInterfaceCRUDDao<Term, int>.FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveAll(IEnumerable<Term> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        private string filePath;
-
-
-
     }
 }

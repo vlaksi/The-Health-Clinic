@@ -7,11 +7,16 @@ using System;
 
 namespace Repository.TermRepo
 {
-    public class CheckupFileRepositoryFactory : ITermRepositoryFactory
+    public class CheckupFileRepositoryFactory : CheckupRepositoryFactory
     {
-        public OperationRepository CreateoperationRepository()
+        private CheckupFileRepository checkupFileRepository;
+
+        public CheckupRepository CreateCheckupRepository()
         {
-            throw new NotImplementedException();
+            if (checkupFileRepository == null)
+                checkupFileRepository = new CheckupFileRepository();
+
+            return checkupFileRepository;
         }
     }
 }

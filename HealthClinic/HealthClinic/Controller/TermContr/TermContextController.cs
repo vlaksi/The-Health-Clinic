@@ -4,31 +4,63 @@
 // Purpose: Definition of Class TermContextController
 
 using Model.Calendar;
+using Service.TermServ;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Controller.TermContr
 {
-    /// Ako budemo hteli da prebacimo na one dot rule, samo bi mogli ubaciti metode koje pozivaju iTermStrategy.odredjenaMetoda() i time resiti taj problem.
     public class TermContextController
     {
-        public ITermStrategy iTermStrategy;
 
-        public TermContextController(Term term)
+        private CheckupService checkupService = new CheckupService();
+        private OperationService operationService = new OperationService();
+
+        private ITermStrategy getControllerStrategy(Term term)
         {
             var testOperation = new Operation();
             var testCheckup = new Checkup();
-            // posto parametar isinstanceoftype ocekuje objekat ne mozemo direktno klasu proslediti
-            // pa cisto pravimo objekat da bi mogli zadovoljiti parametar metode
-            if ((term.GetType()).IsInstanceOfType(testOperation))
+
+            ITermStrategy controllerStrategy = null;
+
+            if ((term.GetType()).IsInstanceOfType(testCheckup))
             {
-                iTermStrategy = new OperationStrategyController();
+                controllerStrategy = new CheckupStrategyControler();
             }
-            else if ((term.GetType()).IsInstanceOfType(testCheckup)){
-                iTermStrategy = new CheckupStrategyControler();
+            else if ((term.GetType()).IsInstanceOfType(testOperation))
+            {
+                controllerStrategy = new OperationStrategyController();
             }
 
+            return controllerStrategy;
         }
 
+        public void CancelTerm(Term term)
+        {
+            getControllerStrategy(term).CancelTerm(term);
+        }
 
+        public void ScheduleTerm(Term Term)
+        {
+            getControllerStrategy(Term).ScheduleTerm(Term);
+        }
+
+        public void EditTerm(Term newTerm)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Checkup> getAllCheckups()
+        {
+            return checkupService.getAllCheckups();
+        }
+
+        public List<Operation> getAllOperations()
+        {
+            return operationService.getAllOperations();
+        }
+
+        
     }
 }
