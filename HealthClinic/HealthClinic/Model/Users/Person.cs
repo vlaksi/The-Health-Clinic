@@ -14,6 +14,7 @@ namespace Model.Users
 
         private string name;
         private string surname;
+        private string jmbg;
         private int id;
         private DateTime _birthday;
         private string _biography;
@@ -21,6 +22,19 @@ namespace Model.Users
         private string _phoneNumber;
 
         #endregion
+
+        public string Jmbg
+        {
+            get { return jmbg; }
+            set
+            {
+                if (value != jmbg)
+                {
+                    jmbg = value;
+                    OnPropertyChanged("Jmbg");
+                }
+            }
+        }
 
         public string PhoneNumber
         {
