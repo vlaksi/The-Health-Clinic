@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlogFunctionalities.cs" />
     <Compile Include="Functionalities\MedicalRecordFunctionalities.cs" />
     <Compile Include="Functionalities\MedicinesFunctionalities.cs" />
     <Compile Include="Functionalities\PatientFunctionalities.cs" />

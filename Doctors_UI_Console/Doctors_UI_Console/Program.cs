@@ -50,6 +50,7 @@ namespace Doctors_UI_Console
                 case "4":
                     return true;
                 case "5":
+                    BlogFunctionalities.VisitBlog();
                     return true;
                 case "x":
                     return false;
