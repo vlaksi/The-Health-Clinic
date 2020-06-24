@@ -221,7 +221,6 @@ namespace Model.MedicalRecord
             }
         }
 
-        //Referrals
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get

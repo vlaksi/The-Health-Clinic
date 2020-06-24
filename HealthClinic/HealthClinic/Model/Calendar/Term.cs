@@ -5,7 +5,6 @@
 
 using HealthClinic.Utilities;
 using System;
-//using Syncfusion.UI.Xaml.Schedule;
 using System.ComponentModel;
 
 namespace Model.Calendar

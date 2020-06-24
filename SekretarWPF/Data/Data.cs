@@ -28,25 +28,25 @@ namespace SekretarWPF.Data
         private static List<Checkup> loadCheckups()
         {
             List<Checkup> checkups = new List<Checkup>();
-            foreach(Checkup checkup in checkupControler.readAllCheckups())
-            {
-                checkups.Add(checkup);
-
-                Appointment checkUp1 = new Appointment()
-                {
-                    AppointmentImageURI = new BitmapImage(new Uri("pack://application:,,,/SekretarWPF;Component/Assets/CheckUp.png")),
-                    AppointmentType = AppointmentTypes.CheckUp,
-                    StartTime = checkup.StarTime,
-                    AppointmentTime = checkup.StarTime.ToString("hh:mm tt"),
-                    EndTime = checkup.EndTime,
-                    AppointmentBackground = new SolidColorBrush(Color.FromRgb(211, 47, 47))
-                };
-                checkUp1.Id = checkup.Id;
-                //checkUp1.Doctor = checkup.Doctor.Name + " " + checkup.Doctor.Surname;
-                //checkUp1.Patient = checkup.MedicalRecord.Name + " " + checkup.MedicalRecord.Surname;
-                //checkUp1.Ordination = "Ordination " + checkup.ordination.NumberOfRoom;
-                checkUps.Add(checkUp1);
-            }
+            //foreach(Checkup checkup in checkupControler.readAllCheckups())
+            //{
+            //    checkups.Add(checkup);
+            //
+            //    Appointment checkUp1 = new Appointment()
+            //    {
+            //        AppointmentImageURI = new BitmapImage(new Uri("pack://application:,,,/SekretarWPF;Component/Assets/CheckUp.png")),
+            //        AppointmentType = AppointmentTypes.CheckUp,
+            //        StartTime = checkup.StarTime,
+            //        AppointmentTime = checkup.StarTime.ToString("hh:mm tt"),
+            //        EndTime = checkup.EndTime,
+            //        AppointmentBackground = new SolidColorBrush(Color.FromRgb(211, 47, 47))
+            //    };
+            //    checkUp1.Id = checkup.Id;
+            //    //checkUp1.Doctor = checkup.Doctor.Name + " " + checkup.Doctor.Surname;
+            //    //checkUp1.Patient = checkup.MedicalRecord.Name + " " + checkup.MedicalRecord.Surname;
+            //    //checkUp1.Ordination = "Ordination " + checkup.ordination.NumberOfRoom;
+            //    checkUps.Add(checkUp1);
+            //}
 
             return checkups;
         }
@@ -96,10 +96,10 @@ namespace SekretarWPF.Data
             checkup.StarTime = appointment.StartTime;
             checkup.EndTime = appointment.EndTime;
 
-            int id = checkupControler.ScheduleTerm(checkup);
+            //int id = checkupControler.ScheduleTerm(checkup);
 
-            checkup.Id = id;
-            appointment.Id = id;
+            //checkup.Id = id;
+            //appointment.Id = id;
 
             checkUps.Add(appointment);
             checkupsModel.Add(checkup);

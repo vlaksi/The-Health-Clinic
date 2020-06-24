@@ -41,6 +41,5 @@ namespace Service.TermServ
         {
             return (List<Operation>) operationRepository.FindAll();
         }
-
     }
 }

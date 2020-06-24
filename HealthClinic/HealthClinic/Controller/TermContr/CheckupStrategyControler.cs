@@ -28,6 +28,5 @@ namespace Controller.TermContr
         {
             checkupService.ScheduleCheckup((Checkup)newTerm);
         }
-
     }
 }
