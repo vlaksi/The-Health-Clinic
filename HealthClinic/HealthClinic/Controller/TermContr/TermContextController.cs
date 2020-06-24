@@ -24,11 +24,11 @@ namespace Controller.TermContr
 
             ITermStrategy controllerStrategy = null;
 
-            if ((term.GetType()).IsInstanceOfType(testOperation))
+            if ((term.GetType()).IsInstanceOfType(testCheckup))
             {
                 controllerStrategy = new CheckupStrategyControler();
             }
-            else if ((term.GetType()).IsInstanceOfType(testCheckup))
+            else if ((term.GetType()).IsInstanceOfType(testOperation))
             {
                 controllerStrategy = new OperationStrategyController();
             }

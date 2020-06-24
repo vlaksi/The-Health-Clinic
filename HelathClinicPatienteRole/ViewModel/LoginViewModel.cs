@@ -1,4 +1,5 @@
 ﻿using C_Validation_ByCustom;
+using Controller.PatientContr;
 using HelathClinicPatienteRole.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,13 @@ namespace HelathClinicPatienteRole.ViewModel
     {
         private string _username;
         private string _password;
-
+        private PatientController patientController;
 
         public LoginViewModel()
         {
+            patientController = new PatientController();
             LoginCommand = new RelayCommand(Login);
         }
-
-
 
 
         #region Login Command
@@ -41,13 +41,21 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Niste uneli šifru!");
                 return;
             }
-            PatientMainWindow patientMainWindow = new PatientMainWindow();
-            this.Visibility = Visibility.Hidden;
-            patientMainWindow.Show();
 
-            var win = new WizardWindow();
-            win.ShowDialog();
+            if(patientController.PatientLogin(Username, Password))
+            {
+                PatientMainWindow patientMainWindow = new PatientMainWindow();
+                this.Visibility = Visibility.Hidden;
+                patientMainWindow.Show();
 
+                var win = new WizardWindow();
+                win.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Uneli ste pogrešan JMBG ili šifru!");
+            }
+         
 
         }
 
