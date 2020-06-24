@@ -4,72 +4,52 @@
 // Purpose: Definition of Class Report
 
 using System;
+using System.Collections.Generic;
 
 namespace Model.Calendar
 {
-   public class Report
-   {
-      public String PatientsReport
-      {
-         get
-         {
-            throw new NotImplementedException();
-         }
-         set
-         {
-            throw new NotImplementedException();
-         }
-      }
-      
-      public String doctorsRemark
-      {
-         get
-         {
-            throw new NotImplementedException();
-         }
-         set
-         {
-            throw new NotImplementedException();
-         }
-      }
-      
-      public String purpose
-      {
-         get
-         {
-            throw new NotImplementedException();
-         }
-         set
-         {
-            throw new NotImplementedException();
-         }
-      }
-      
-      public String commonMedicalConditions
-      {
-         get
-         {
-            throw new NotImplementedException();
-         }
-         set
-         {
-            throw new NotImplementedException();
-         }
-      }
-      
-      public String observations
-      {
-         get
-         {
-            throw new NotImplementedException();
-         }
-         set
-         {
-            throw new NotImplementedException();
-         }
-      }
-      
-      public Term term;
-   
-   }
+    public class Report
+    {
+        private string patientsReport;
+
+        public string PatientsReport
+        {
+            get { return patientsReport; }
+            set { patientsReport = value; }
+        }
+
+        private string doctorsRemark;
+
+        public string DoctorsRemark
+        {
+            get { return doctorsRemark; }
+            set { doctorsRemark = value; }
+        }
+
+        private List<string> commonMedicalConditions;
+
+        public List<string> CommonMedicalConditions
+        {
+            get { return commonMedicalConditions; }
+            set { commonMedicalConditions = value; }
+        }
+
+        private List<string> observations;
+
+        public List<string> Observations
+        {
+            get { return observations; }
+            set { observations = value; }
+        }
+
+        private int termId;
+
+        public int TermId
+        {
+            get { return termId; }
+            set { termId = value; }
+        }
+
+
+    }
 }

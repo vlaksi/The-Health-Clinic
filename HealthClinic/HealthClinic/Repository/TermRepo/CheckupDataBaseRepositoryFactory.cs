@@ -7,9 +7,9 @@ using System;
 
 namespace Repository.TermRepo
 {
-    public class CheckupDataBaseRepositoryFactory : ITermRepositoryFactory
+    public class CheckupDataBaseRepositoryFactory : CheckupRepositoryFactory
     {
-        public OperationRepository CreateoperationRepository()
+        public CheckupRepository CreateCheckupRepository()
         {
             throw new NotImplementedException();
         }

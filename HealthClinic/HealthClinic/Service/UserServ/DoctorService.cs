@@ -13,9 +13,15 @@ using System.Collections.Generic;
 
 namespace Service.UserServ
 {
-   public class DoctorService
-   {
-      public IUserRepositoryFacotory iUserRepositoryFacotory;
+    public class DoctorService
+    {
+      public IUserRepositoryFacotory iUserRepositoryFacotory; 
+
+      public List<Doctor> GetAllDoctors()
+      {
+         DoctorFileRepository doctorRepo = new DoctorFileRepository();
+         return doctorRepo.GetAllDoctors();
+      }
 
       public void SaveUpdatedDoctor(Doctor doctor)
       {

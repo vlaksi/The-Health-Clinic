@@ -1,22 +1,17 @@
-// File:    OperationDataBaseRepository.cs
-// Author:  Vaxi
-// Created: Saturday, May 2, 2020 5:16:42 PM
-// Purpose: Definition of Class OperationDataBaseRepository
-
-using Model.Calendar;
+using Model.Survey;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.TermRepo
+namespace Repository.AppReviewRepo
 {
-    public class OperationDataBaseRepository : OperationRepository
+    public class AppReviewDataBaseRepository : AppReviewRepository
     {
         public int Count()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Operation entity)
+        public void Delete(AppReview entity)
         {
             throw new NotImplementedException();
         }
@@ -36,27 +31,27 @@ namespace Repository.TermRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Operation> FindAll()
+        public IEnumerable<AppReview> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Operation> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<AppReview> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public Operation FindById(int id)
+        public AppReview FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(Operation entity)
+        public void Save(AppReview entity)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<Operation> entities)
+        public void SaveAll(IEnumerable<AppReview> entities)
         {
             throw new NotImplementedException();
         }

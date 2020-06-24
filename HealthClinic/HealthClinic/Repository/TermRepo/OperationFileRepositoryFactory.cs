@@ -3,15 +3,21 @@
 // Created: Friday, May 29, 2020 5:39:34 PM
 // Purpose: Definition of Class OperationFileRepositoryFactory
 
+using HealthClinic.Repository.TermRepo;
 using System;
 
 namespace Repository.TermRepo
 {
-    public class OperationFileRepositoryFactory : ITermRepositoryFactory
+    public class OperationFileRepositoryFactory : OperationRepositoryFactory
     {
-        public OperationRepository CreateoperationRepository()
+        private OperationFileRepository operationFileRepository;
+
+        public OperationRepository CreateOperationRepository()
         {
-            throw new NotImplementedException();
+            if (operationFileRepository == null)
+                operationFileRepository = new OperationFileRepository();
+
+            return operationFileRepository;
         }
     }
 }
