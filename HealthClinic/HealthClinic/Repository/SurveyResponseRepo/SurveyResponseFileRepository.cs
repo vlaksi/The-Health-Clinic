@@ -67,11 +67,11 @@ namespace Repository.SurveyResponseRepo
         {
             List<SurveyResponse> allSurveys;
 
-            string relativePath = @"./../../../HealthClinic/FileStorage/survey-responses.json";
-            //string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            //string relativePath = @"./../../../HealthClinic/FileStorage/survey-responses.json";
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
 
-           // relativePath += @"\HealthClinic\FileStorage\survey-responses.json";
-            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(relativePath));
+            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
+            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
 
             if (allSurveys == null) allSurveys = new List<SurveyResponse>();
 
