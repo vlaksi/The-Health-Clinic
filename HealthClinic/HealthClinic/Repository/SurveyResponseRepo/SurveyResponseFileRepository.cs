@@ -66,12 +66,11 @@ namespace Repository.SurveyResponseRepo
         public IEnumerable<SurveyResponse> FindAll()
         {
             List<SurveyResponse> allSurveys;
+            string relativePath = @"./../../../HealthClinic/FileStorage/survey-responses.json";
+            //string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
 
-            //string relativePath = @"./../../HealthClinic/FileStorage/survey-responses.json";
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            
-            currentPath += @"\HealthClinic\FileStorage\survey-responses.json";
-            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(currentPath));
+           // relativePath += @"\HealthClinic\FileStorage\survey-responses.json";
+            allSurveys = JsonConvert.DeserializeObject<List<SurveyResponse>>(File.ReadAllText(relativePath));
 
             if (allSurveys == null) allSurveys = new List<SurveyResponse>();
 
