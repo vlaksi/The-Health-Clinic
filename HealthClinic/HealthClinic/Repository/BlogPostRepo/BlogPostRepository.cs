@@ -12,7 +12,7 @@ namespace Repository.BlogPostRepo
 {
    public interface BlogPostRepository : GenericInterfaceCRUDDao<BlogPostModel,int>
    {
-      List<Comment> GetComments(int blogPostId);
-   
+        void SaveComment(BlogPostModel blogPost, Comment comment);
+        void DeleteComment(BlogPostModel blogPost, Comment comment);
    }
 }
