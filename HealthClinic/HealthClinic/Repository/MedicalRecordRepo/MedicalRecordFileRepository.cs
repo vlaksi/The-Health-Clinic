@@ -97,6 +97,18 @@ namespace Repository.MedicalRecordRepo
             return allRecords;
         }
 
+        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<int> ids)
+        {
+            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
+            List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
+
+            foreach (MedicalRecord record in allRecords)
+                if (ids.Contains(record.Id))
+                    matchingRecords.Add(record);
+
+            return matchingRecords;
+        }
+
         public MedicalRecord FindById(int id)
         {
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
@@ -134,18 +146,6 @@ namespace Repository.MedicalRecordRepo
                 serializer.Serialize(file, entities);
             }
 
-        }
-
-        public IEnumerable<MedicalRecord> FindAllById(IEnumerable<int> ids)
-        {
-            List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
-            List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
-
-            foreach (MedicalRecord record in allRecords)
-                if (ids.Contains(record.Id))
-                    matchingRecords.Add(record);
-
-            return matchingRecords;
         }
 
         public int GenerateId()

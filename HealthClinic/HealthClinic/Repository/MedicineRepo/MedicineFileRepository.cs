@@ -120,6 +120,8 @@ namespace Repository.MedicineRepo
 
             allMedicines.Add(entity);
 
+            allMedicines.Add(entity);
+
             // I want immediately to save changes
             SaveAll(allMedicines);
 

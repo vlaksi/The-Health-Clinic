@@ -159,13 +159,11 @@ namespace HelathClinicPatienteRole.ViewModel
             }
 
            
-
-            string termin = SelektovaniDatum.Day + "." + SelektovaniDatum.Month+ "." + SelektovaniDatum.Year + "   " + SelektovaniDatum.Hour + ":" + SelektovaniDatum.Minute ;
             MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
             Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
-            checkupStrategyControler.saveAllCheckups(PocetnaPatientViewModel.Instance.Pregledi);
+            checkupStrategyControler.ScheduleTerm(pregled);
 
         }
 
@@ -195,7 +193,7 @@ namespace HelathClinicPatienteRole.ViewModel
             Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
-            checkupStrategyControler.saveAllCheckups(PocetnaPatientViewModel.Instance.Pregledi);
+            checkupStrategyControler.ScheduleTerm(pregled);
         }
 
         #endregion

@@ -42,7 +42,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
             _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
             _SurveyResponseList = surveyResponseController.GetAllSurveyResponses();
-            _PregledList = checkupStrategyControler.readAllCheckups();
+            _PregledList = checkupStrategyControler.GetAllCheckups();
             
         }
 
@@ -127,7 +127,7 @@ namespace HelathClinicPatienteRole.ViewModel
                         pregled.StartTime = SelektovaniDatum;
                     }
                     MessageBox.Show("Uspešno ste izmenili pregled!");
-                    checkupStrategyControler.saveAllCheckups(Pregledi);
+                    checkupStrategyControler.ScheduleTerm(pregled);
                 }
             }
 
@@ -198,8 +198,9 @@ namespace HelathClinicPatienteRole.ViewModel
                 {
                     pregled.CheckupStatus = "Otkazan";
                     MessageBox.Show("Uspesno ste otkazali " + pregled.CheckupName);
-                    //Pregledi.Remove(pregled); Ovo je komanda za brisanje 
-                    checkupStrategyControler.saveAllCheckups(Pregledi);
+                    // Pregledi.Remove(pregled); //Ovo je komanda za brisanje 
+                    //checkupStrategyControler.CancelTerm(pregled);
+                    checkupStrategyControler.ScheduleTerm(pregled);
                     break;
                 }
             }
@@ -309,7 +310,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 return _PregledList;
             }
             set { _PregledList = value;
-                checkupStrategyControler.saveAllCheckups(value);
+               // checkupStrategyControler.saveAllCheckups(value);
             }
         }
 

@@ -201,13 +201,13 @@
     <Compile Include="Repository\TermRepo\CheckupFileRepository.cs" />
     <Compile Include="Repository\TermRepo\CheckupFileRepositoryFactory.cs" />
     <Compile Include="Repository\TermRepo\CheckupRepository.cs" />
-    <Compile Include="Repository\TermRepo\ITermRepository.cs" />
-    <Compile Include="Repository\TermRepo\ITermRepositoryFactory.cs" />
+    <Compile Include="Repository\TermRepo\CheckupRepositoryFactory.cs" />
     <Compile Include="Repository\TermRepo\OperationDataBaseRepository.cs" />
     <Compile Include="Repository\TermRepo\OperationDataBaseRepositoryFactory.cs" />
     <Compile Include="Repository\TermRepo\OperationFileRepository.cs" />
     <Compile Include="Repository\TermRepo\OperationFileRepositoryFactory.cs" />
     <Compile Include="Repository\TermRepo\OperationRepository.cs" />
+    <Compile Include="Repository\TermRepo\OperationRepositoryFactory.cs" />
     <Compile Include="Repository\UserRepo\DoctorDataBaseRepository.cs" />
     <Compile Include="Repository\UserRepo\DoctorDataBaseRepositoryFactory.cs" />
     <Compile Include="Repository\UserRepo\DoctorFileRepository.cs" />
@@ -242,6 +242,7 @@
     <Compile Include="Service\SurveyResponseServ\SurveyResponseService.cs" />
     <Compile Include="Service\TermServ\CheckupService.cs" />
     <Compile Include="Service\TermServ\OperationService.cs" />
+    <Compile Include="Service\TermServ\TermService.cs" />
     <Compile Include="Service\UserServ\DoctorService.cs" />
     <Compile Include="Service\UserServ\ManagerService.cs" />
     <Compile Include="Service\UserServ\PatientService.cs" />

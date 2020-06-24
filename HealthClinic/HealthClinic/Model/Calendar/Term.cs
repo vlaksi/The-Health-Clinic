@@ -4,15 +4,15 @@
 // Purpose: Definition of Class Term
 
 using HealthClinic.Utilities;
-//using Syncfusion.UI.Xaml.Schedule;
+using System;
 using System.ComponentModel;
 
 namespace Model.Calendar
 {
+
     //public class Term : ScheduleAppointment, INotifyPropertyChanged
     public class Term : ObservableObject
     {
-
         private int id;
         public int Id
         {
@@ -23,6 +23,32 @@ namespace Model.Calendar
             set
             {
                 this.id = value;
+            }
+        }
+
+        private DateTime startTime;
+        public DateTime StartTime
+        {
+            get
+            {
+                return startTime;
+            }
+            set
+            {
+                startTime = value;
+            }
+        }
+
+        private DateTime endTime;
+        public DateTime EndTime
+        {
+            get
+            {
+                return endTime;
+            }
+            set
+            {
+                endTime = value;
             }
         }
 
