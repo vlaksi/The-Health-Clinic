@@ -22,7 +22,7 @@ namespace Doctors_UI_Console
             }
 
             Console.WriteLine("\tExiting....");
-            System.Threading.Thread.Sleep(1500);
+            System.Threading.Thread.Sleep(1200);
         }
 
         private static bool ShowMainMenu()

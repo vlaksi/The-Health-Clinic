@@ -4,6 +4,7 @@
 // Purpose: Definition of Class MedicalRecord
 
 using HealthClinic.Utilities;
+using Model.Calendar;
 using Model.Medicine;
 using Model.Users;
 using System;
@@ -29,8 +30,21 @@ namespace Model.MedicalRecord
         private ObservableCollection<Treatment> treatments;
         private Doctor doctor;
         private List<int> terms;
-        private List<ReferralToSpecialist> referralToSpecialist;
+        public List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
+        private List<Report> reports;
+
+
+        public List<Report> Reports
+        {
+            get
+            {
+                if (reports == null) reports = new List<Report>();
+                return reports;
+            }
+            set { reports = value; }
+        }
+
 
         public int Id
         {
@@ -221,9 +235,6 @@ namespace Model.MedicalRecord
             }
         }
 
-        //Referrals
-        #region Referrals
-        
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get
@@ -264,6 +275,5 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
-        #endregion
     }
 }

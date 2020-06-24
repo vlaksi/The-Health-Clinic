@@ -19,7 +19,7 @@ namespace Doctors_UI_Console.Functionalities
 
         }
 
-
+        #region Search
         public static void SearchPatients()
         {
             bool searchPatients = true;
@@ -161,6 +161,8 @@ namespace Doctors_UI_Console.Functionalities
             }
         }
 
+        #endregion
+
         //Obični prikaz rezultata pretrage, bez funkcionalnosti nad kartonima.
         private static void PrintSearchResults(List<MedicalRecord> records)
         {
@@ -210,43 +212,51 @@ namespace Doctors_UI_Console.Functionalities
         // Kada se konačno odabere jedan pacijent, ulazi se u njegov karton i moguće je raditi funkcionalnosti poput propisivanje tretmana itd.
         private static void EnterPatientsMedicalRecord(MedicalRecord mr)
         {
-            // ~~~ Priprema ~~~
-            //Dobavljanje termina:
-
-            //Dobavljanje tretmana:
-            ObservableCollection<Treatment> treatments = mr.Treatments;
-
-            // ~~~ Print ~~~
-            Console.WriteLine("\t~~~ Medical record of " + mr.Name + " " + mr.Surname + " ~~~~");
-            Console.WriteLine("\t\tParents Name: " + mr.ParentsName);
-            Console.WriteLine("\t\tGender: " + mr.Gender);
-            Console.WriteLine("\t\tBirth: " + mr.DateOfBirth.ToShortDateString());
-            Console.WriteLine("\t\tAddress: " + mr.Address);
-            Console.WriteLine("\t\tPhone: " + mr.Phone);
-            if (treatments == null || treatments.Count == 0)
-            {
-                Console.WriteLine("\t\tTreatments: None");
-            }
-            else
-            {
-                Console.WriteLine("\t\tTreatments: ");
-                PrintTreatments(treatments);
-            }
-            Console.WriteLine("\t\tID: " + mr.Id);
-
-
             bool breakOut = false;
             while (!breakOut)
             {
+                // ~~~ Priprema ~~~
+                //Dobavljanje termina:
+
+                //Dobavljanje tretmana:
+                ObservableCollection<Treatment> treatments = mr.Treatments;
+
+                // ~~~ Print ~~~
+                Console.WriteLine("\t~~~ Medical record of " + mr.Name + " " + mr.Surname + " ~~~~");
+                Console.WriteLine("\t\tParents Name: " + mr.ParentsName);
+                Console.WriteLine("\t\tGender: " + mr.Gender);
+                Console.WriteLine("\t\tBirth: " + mr.DateOfBirth.ToShortDateString());
+                Console.WriteLine("\t\tAddress: " + mr.Address);
+                Console.WriteLine("\t\tPhone: " + mr.Phone);
+                if (treatments == null || treatments.Count == 0)
+                {
+                    Console.WriteLine("\t\tTreatments: None");
+                }
+                else
+                {
+                    Console.WriteLine("\t\tTreatments: ");
+                    PrintTreatments(treatments);
+                }
+                Console.WriteLine("\t\tID: " + mr.Id);
+
+
+
                 Console.WriteLine("\n\t1) Write a Prescription");
                 Console.WriteLine("\t2) Make a Referral to Specialist");
                 Console.WriteLine("\t3) Write a Report");
+                Console.WriteLine("\t4) Preview Reports");
                 Console.WriteLine("\tX) Exit " + mr.Name + "'s Medical Record");
                 Console.Write("\t\tWhich action do you want to perform? ");
                 switch (Console.ReadLine().ToLower())
                 {
                     case "1":
                         MedicalRecordFunctionalities.WritePrescription(mr);
+                        break;
+                    case "3":
+                        MedicalRecordFunctionalities.WriteReport(mr);
+                        break;
+                    case "4":
+                        MedicalRecordFunctionalities.PreviewReports(mr);
                         break;
                     case "x":
                         breakOut = true;
