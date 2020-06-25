@@ -41,7 +41,7 @@ namespace Repository.MedicalRecordRepo
 
         public void Delete(MedicalRecord entity)
         {
-            DeleteById(entity.Id);
+            DeleteById(entity.MedicalRecordId);
         }
 
         public void DeleteAll()
@@ -56,7 +56,7 @@ namespace Repository.MedicalRecordRepo
             MedicalRecord toRemove = null;
 
             foreach (MedicalRecord record in allRecords)
-                if (record.Id == identificator)
+                if (record.MedicalRecordId == identificator)
                     toRemove = record;
 
             if (toRemove != null)
@@ -72,7 +72,7 @@ namespace Repository.MedicalRecordRepo
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
 
             foreach (MedicalRecord record in allRecords)
-                if (record.Id == id)
+                if (record.MedicalRecordId == id)
                     return true;
 
             return false;
@@ -93,7 +93,7 @@ namespace Repository.MedicalRecordRepo
             List<MedicalRecord> matchingRecords = new List<MedicalRecord>();
 
             foreach (MedicalRecord record in allRecords)
-                if (ids.Contains(record.Id))
+                if (ids.Contains(record.MedicalRecordId))
                     matchingRecords.Add(record);
 
             return matchingRecords;
@@ -104,7 +104,7 @@ namespace Repository.MedicalRecordRepo
             List<MedicalRecord> allRecords = (List<MedicalRecord>)FindAll();
 
             foreach (MedicalRecord record in allRecords)
-                if (record.Id == id)
+                if (record.MedicalRecordId == id)
                     return record;
 
             return null;
@@ -112,13 +112,13 @@ namespace Repository.MedicalRecordRepo
 
         public void Save(MedicalRecord entity)
         {
-            if (ExistsById(entity.Id))
+            if (ExistsById(entity.MedicalRecordId))
             {
                 Delete(entity);
             }
             else
             {
-                entity.Id = GenerateId();
+                entity.MedicalRecordId = GenerateId();
                 entity.Treatments = new ObservableCollection<Treatment>();
             }
 
@@ -145,7 +145,7 @@ namespace Repository.MedicalRecordRepo
             if (allRecords.Count == 0) return 1;
             foreach (MedicalRecord record in allRecords)
             {
-                if (record.Id > maxId) maxId = record.Id;
+                if (record.MedicalRecordId > maxId) maxId = record.MedicalRecordId;
             }
 
             return maxId + 1;

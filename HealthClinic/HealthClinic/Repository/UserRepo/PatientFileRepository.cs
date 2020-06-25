@@ -13,6 +13,8 @@ namespace Repository.UserRepo
 {
     public class PatientFileRepository : PatientRepository
     {
+        private string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
+
         private void OpenFile()
         {
             throw new NotImplementedException();
@@ -72,24 +74,24 @@ namespace Repository.UserRepo
         {
             throw new NotImplementedException();
         }
-        //TODO SREDITI OVO
-        public void SavePatient(PatientModel patientForSave)
+        public PatientModel FindPatientById(int id)
         {
             List<PatientModel> allPatients = GetAllPatients();
-            PatientModel patientForRemove = null ;
-            string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
 
             foreach (PatientModel patient in allPatients)
             {
-                if(patient.Id == patientForSave.Id)
+                if (patient.Id == id)
                 {
-                    patientForRemove = patient;
-                    
-                    allPatients.Add(patientForSave);
-                    break;
+                    return patient;
                 }
             }
-            allPatients.Remove(patientForRemove);
+            return null;
+        }
+
+        public void SavePatient(PatientModel patientForSave)
+        {
+            List<PatientModel> allPatients = GetAllPatients();
+            allPatients.Add(patientForSave);
 
             using (StreamWriter file = File.CreateText(filePath))
             {
@@ -97,17 +99,44 @@ namespace Repository.UserRepo
                 serializer.Serialize(file, allPatients);
             }
         }
+
+        public void SavePatients(List<PatientModel> patientsForSave)
+        {
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, patientsForSave);
+            }
+        }
+
+        public void EditPatient(PatientModel patientForEdit)
+        {
+            List<PatientModel> allPatients = GetAllPatients();
+            PatientModel patientForRemove = null;
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if (patient.Id == patientForEdit.Id)
+                {
+                    patientForRemove = patient;
+                    allPatients.Add(patientForEdit);
+                    break;
+                }
+            }
+            allPatients.Remove(patientForRemove);
+            SavePatients(allPatients);
+        }
+
         public List<PatientModel> GetAllPatients()
         {
-            string relativePath = @"./../../../HealthClinic/FileStorage/patients.json";
-            List<PatientModel>  allPatients = JsonConvert.DeserializeObject<List<PatientModel>>(File.ReadAllText(relativePath));
+            List<PatientModel>  allPatients = JsonConvert.DeserializeObject<List<PatientModel>>(File.ReadAllText(filePath));
 
             if (allPatients == null) allPatients = new List<PatientModel>();
 
             return allPatients;
         }
 
-        private string filePath;
+    
 
     }
 }
