@@ -1,0 +1,135 @@
+﻿<Window x:Class="HelathClinicPatienteRole.RegisterPacijent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HelathClinicPatienteRole"
+        xmlns:ViewModel="clr-namespace:HelathClinicPatienteRole.ViewModel"
+        mc:Ignorable="d"
+        Title="Login" Height="700" Width="490">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding RegisterCommand}" Key="ENTER"/>
+    </Window.InputBindings>
+    <Grid Margin="0,0,2,-21">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="214*"/>
+            <ColumnDefinition Width="217*"/>
+            <ColumnDefinition Width="49*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Height="41" HorizontalAlignment="Left" Margin="155,26,0,0" x:Name="LoginHeading" VerticalAlignment="Top" FontSize="25" FontStretch="ExtraCondensed" Text="Kreiraj nalog:" Width="172" Grid.ColumnSpan="2"/>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,294,0,0" Name="textBlock1" Text="JMBG" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,362,0,0" Name="textBlock2" Text="Šifra:" VerticalAlignment="Top" Width="76"  FontSize="15"/>
+
+
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,318,49,332">
+            <TextBox.Text>
+                <Binding Path="Username" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:MinimumCharacterRule MinimumCharacters="13"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">JMBG</TextBlock>
+                        <TextBlock>Jedinstveni matični broj sadrži tačno 13 cifara</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
+
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,384,49,262">
+            <TextBox.Text>
+                <Binding Path="Password" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:PasswordCheckRule MinimumCharacters="8"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Šifra</TextBlock>
+                        <TextBlock>Šifra sadrži minimalno 8 karaktera</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
+
+
+
+
+
+        <Button Content="Kreiraj nalog" Height="37" HorizontalAlignment="Left" Margin="178,532,0,0" Name="button1" VerticalAlignment="Top" Width="113" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding LoginCommand}">
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Kreiraj nalog</TextBlock>
+                        <TextBlock>Pristupiti svim pogodnostima aplikacije</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+        <TextBlock Height="23" HorizontalAlignment="Left" x:Name ="errormessage" VerticalAlignment="Top" Width="247" Margin="118,253,0,0"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2"  />
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,86,0,0" x:Name="textBlock1_Copy" Text="Ime" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,110,49,540">
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold"><Run Text="IME"/></TextBlock>
+                        <TextBlock><Run Text="Ime mora da sadrži samo slova"/></TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </TextBox.ToolTip>
+            <Binding Path="Name" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <local:OnlyLettersRule MinimumCharacters="13"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,155,0,0" x:Name="textBlock1_Copy1" Text="Prezime" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,179,49,471">
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold"><Run Text="Prezime"/></TextBlock>
+                        <TextBlock><Run Text="Prezime mora da sadrži samo slova"/></TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </TextBox.ToolTip>
+            <Binding Path="Surname" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <local:OnlyLettersRule MinimumCharacters="13"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,225,0,0" x:Name="textBlock1_Copy2" Text="Broj telefona" VerticalAlignment="Top" Width="94" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,249,49,401">
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold"><Run Text="Prezime"/></TextBlock>
+                        <TextBlock><Run Text="Prezime mora da sadrži samo slova"/></TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </TextBox.ToolTip>
+            <Binding Path="PhoneNumber" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <local:OnlyNumbers MinimumCharacters="13"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,443,0,0" x:Name="textBlock2_Copy" Text="Email:" VerticalAlignment="Top" Width="76"  FontSize="15"/>
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke"  Grid.ColumnSpan="2" Margin="80,465,49,181">
+            <Binding Path="Mail" UpdateSourceTrigger="PropertyChanged">
+               
+            </Binding>
+        </TextBox>
+    </Grid>
+
+    <Window.DataContext>
+        <ViewModel:LoginViewModel/>
+    </Window.DataContext>
+</Window>
+

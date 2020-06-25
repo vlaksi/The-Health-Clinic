@@ -17,11 +17,11 @@
             <ColumnDefinition Width="49*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Height="41" HorizontalAlignment="Left" Margin="171,23,0,0" x:Name="LoginHeading" VerticalAlignment="Top" FontSize="25" FontStretch="ExtraCondensed" Text="Ulogujete se:" Width="172" Grid.ColumnSpan="2"/>
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="79,84,0,0" Name="textBlock1" Text="JMBG" VerticalAlignment="Top" Width="67" FontSize="15" />
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="79,153,0,0" Name="textBlock2" Text="Šifra:" VerticalAlignment="Top" Width="77"  FontSize="15"/>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="87,70,0,0" Name="textBlock1" Text="JMBG" VerticalAlignment="Top" Width="67" FontSize="15" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="87,139,0,0" Name="textBlock2" Text="Šifra:" VerticalAlignment="Top" Width="77"  FontSize="15"/>
 
 
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="79,108,49.834,190">
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="87,94,41,204">
             <TextBox.Text>
                 <Binding Path="Username" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -39,7 +39,7 @@
             </TextBox.ToolTip>
         </TextBox>
 
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="79,175,49.834,123">
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="87,161,41,137">
             <TextBox.Text>
                 <Binding Path="Password" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -61,7 +61,7 @@
 
 
 
-        <Button Content="Ulogujte se" Height="28" HorizontalAlignment="Left" Margin="180,234,0,0" Name="button1" VerticalAlignment="Top" Width="104" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding LoginCommand}">
+        <Button Content="Ulogujte se" Height="37" HorizontalAlignment="Left" Margin="188,229,0,0" Name="button1" VerticalAlignment="Top" Width="113" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding LoginCommand}">
             <Button.ToolTip>
                 <ToolTip>
                     <StackPanel>
@@ -72,6 +72,17 @@
             </Button.ToolTip>
         </Button>
         <TextBlock Height="23" HorizontalAlignment="Left" x:Name ="errormessage" VerticalAlignment="Top" Width="247" Margin="118,253,0,0"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2"  />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="36,276,0,0" x:Name="textBlock2_Copy" Text="Nemate nalog? Kreirajte ga uz par klikova!" VerticalAlignment="Top" Width="286"  FontSize="15" Grid.ColumnSpan="2"/>
+        <Button Content="Kreiraj nalog" Height="28" Click="button1_Click" HorizontalAlignment="Left" Margin="108,276,0,0" x:Name="button1_Copy" VerticalAlignment="Top" Width="133"  Command="{Binding RegisterDialogCommand}" Grid.Column="1" Grid.ColumnSpan="2">
+            <Button.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold"><Run Text="Ulogujte se"/></TextBlock>
+                        <TextBlock><Run Text="Pristupiti svim pogodnostima aplikacije"/></TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
     </Grid>
 
     <Window.DataContext>

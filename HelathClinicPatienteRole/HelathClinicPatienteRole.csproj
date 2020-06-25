@@ -124,6 +124,9 @@
     <Compile Include="Dialogs\ProcitajVise.xaml.cs">
       <DependentUpon>ProcitajVise.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RegisterPacijent.xaml.cs">
+      <DependentUpon>RegisterPacijent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginPacijent.xaml.cs">
       <DependentUpon>LoginPacijent.xaml</DependentUpon>
     </Compile>
@@ -221,6 +224,10 @@
     <Page Include="Dialogs\ProcitajVise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterPacijent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginPacijent.xaml">
       <SubType>Designer</SubType>
