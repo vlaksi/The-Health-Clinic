@@ -15,7 +15,7 @@ namespace HealthClinic.Repository.UserRepo.SecretaryRepo
 {
     public class SecretaryFileRepository : SecretaryRepository
     {
-        private string filePath = @"./../../../../HealthClinic/FileStorage/secretarys.json";
+        private string filePath = @".\FileStorage\secretary.json";
 
         public int Count()
         {

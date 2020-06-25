@@ -3,10 +3,11 @@
 // Created: Sunday, May 3, 2020 8:58:30 PM
 // Purpose: Definition of Class EmployeeService
 
+using HealthClinic.Repository.UserRepo.DoctorRepo;
+using HealthClinic.Repository.UserRepo.SecretaryRepo;
 using Model.BusinessHours;
 using Model.Users;
 using Repository.EmployeeRepo;
-using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,8 +59,8 @@ namespace Service.EmployeeServ
         {
             DoctorFileRepository doctorRepo = new DoctorFileRepository();
             SecretaryFileRepository secretaryRepo = new SecretaryFileRepository();
-            List<Doctor> doctors = doctorRepo.GetAllDoctors();
-            List<Secretary> secretary = secretaryRepo.getAllSecretaries();
+            List<Doctor> doctors = (List<Doctor>)doctorRepo.FindAll();
+            List<Secretary> secretary = (List<Secretary>)secretaryRepo.FindAll();
 
             List<Employee> employees = new List<Employee>();
             employees.AddRange(doctors.Cast<Employee>().ToList());

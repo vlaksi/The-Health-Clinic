@@ -36,6 +36,11 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
             throw new NotImplementedException();
         }
 
+        public bool ExistsByJmbg(string jmbg)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PatientModel> FindAll()
         {
             throw new NotImplementedException();

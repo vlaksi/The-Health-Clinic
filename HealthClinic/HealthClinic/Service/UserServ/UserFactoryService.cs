@@ -4,7 +4,6 @@
 // Purpose: Definition of Class UserFactoryService
 
 using Model.Users;
-using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace Service.UserServ
 {
     public class UserFactoryService
     {
-        public IUserRepositoryFacotory iUserRepositoryFacotory;
+        //public IUserRepositoryFacotory iUserRepositoryFacotory;
 
         public void ChooseTypeOfUser(RegisteredUser user)
         {
@@ -22,7 +21,7 @@ namespace Service.UserServ
             var doctorTest = new Doctor();
             // ovako samo mogu da prosledim IsInstanceOf objekat za proveru
 
-            if ((user.GetType()).IsInstanceOfType(managerTest))
+            /*if ((user.GetType()).IsInstanceOfType(managerTest))
             {
                 iUserRepositoryFacotory = new ManagerFileRepositoryFactory();//TODO: I ovde moramo promeniti ako hocemo bazu podataka
             }else if ((user.GetType()).IsInstanceOfType(patientTest))
@@ -35,7 +34,7 @@ namespace Service.UserServ
             }else if ((user.GetType()).IsInstanceOfType(doctorTest))
             {
                 iUserRepositoryFacotory = new DoctorFileRepositoryFactory();
-            }
+            }*/
 
         }
 

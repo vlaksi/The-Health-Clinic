@@ -14,7 +14,7 @@ namespace HealthClinic.Repository.UserRepo.ManagerRepo
 {
     public class ManagerFileRepository : ManagerRepository
     {
-        private string filePath;
+        private string filePath = @".\FileStorage\manager.json";
 
         public int Count()
         {
