@@ -1,4 +1,5 @@
 ﻿using Controller.BlogPostContr;
+using Controller.EmployeeContr;
 using Controller.MedicalRecordContr;
 using Controller.SurveyResponseContr;
 using Model.BlogPost;
@@ -6,6 +7,9 @@ using Model.MedicalRecord;
 using Model.Medicine;
 using Model.Survey;
 using Model.Users;
+using Repository.EmployeeRepo;
+using Repository.UserRepo;
+using Service.EmployeeServ;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +20,6 @@ namespace HealthClinic
     {
         static void Main(string[] args)
         {
-
             PatientModel pacijent = new PatientModel();
             pacijent.Name = "Vladislav";
             Console.WriteLine(pacijent.Name);

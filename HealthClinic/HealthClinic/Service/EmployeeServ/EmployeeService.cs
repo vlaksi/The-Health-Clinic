@@ -6,6 +6,7 @@
 using Model.BusinessHours;
 using Model.Users;
 using Repository.EmployeeRepo;
+using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,8 @@ namespace Service.EmployeeServ
         }
         public List<Employee> getAllFreeEmployees(BusinessHoursModel businessHours)
         {
-            // TODO: Proveriti za Factory kako ide
-            EmployeeFileRepository employeeFileRepository = new EmployeeFileRepository();
-
-            return employeeFileRepository.getAllFreeEmployees(businessHours);
+            // Odraditi prebacivanje preko servisa lekara i servisa sekretara
+            return null;
         }
 
         public void makeUpdateFor(Employee employee)
@@ -57,13 +56,16 @@ namespace Service.EmployeeServ
 
         public List<Employee> readAllEmployees()
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            EmployeeFileRepository repoForEmployees = new EmployeeFileRepository();
+            DoctorFileRepository doctorRepo = new DoctorFileRepository();
+            SecretaryFileRepository secretaryRepo = new SecretaryFileRepository();
+            List<Doctor> doctors = doctorRepo.GetAllDoctors();
+            List<Secretary> secretary = secretaryRepo.getAllSecretaries();
 
-            List<Employee> retEmployees = new List<Employee>();
-            retEmployees = (List<Employee>)repoForEmployees.FindAll();
+            List<Employee> employees = new List<Employee>();
+            employees.AddRange(doctors.Cast<Employee>().ToList());
+            employees.AddRange(secretary.Cast<Employee>().ToList());
 
-            return retEmployees;
+            return employees;
         }
 
         public void saveAllEmployees(List<Employee> employeesForSave)

@@ -4,8 +4,10 @@
 // Purpose: Definition of Class SecretaryFileRepository
 
 using Model.Users;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.UserRepo
 {
@@ -51,6 +53,17 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
+        public List<Secretary> getAllSecretaries()
+        {
+            List<Secretary> allSecretary;
+
+            allSecretary = JsonConvert.DeserializeObject<List<Secretary>>(File.ReadAllText(filePath));
+
+            if (allSecretary == null) allSecretary = new List<Secretary>();
+
+            return allSecretary;
+        }
+
         public RegisteredUser FindById(int id)
         {
             throw new NotImplementedException();
@@ -66,12 +79,23 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
+        public void SaveAllSecretaries(IEnumerable<Secretary> entities)
+        {
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
+        }
+
         public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        private string filePath;
+        private string filePath = @"./../../../../HealthClinic/FileStorage/secretary.json";
+
+
 
     }
 }

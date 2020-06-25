@@ -11,8 +11,6 @@ namespace Model.Users
     {
         private String username;
         private String password;
-        private String photo;
-        public Residence residence; //TODO: Proveriti da li da pravimo properti za ovo ?, posto se to ne moze izgenerisati u PD, a treba nam properti ?
 
 
         public String Username
@@ -40,22 +38,6 @@ namespace Model.Users
                 OnPropertyChanged("Password");
             }
         }
-
-        public String Photo
-        {
-            get
-            {
-                return photo;
-            }
-            set
-            {
-                this.photo = value;
-                OnPropertyChanged("Photo");
-            }
-        }
-
-        
-
 
     }
 }

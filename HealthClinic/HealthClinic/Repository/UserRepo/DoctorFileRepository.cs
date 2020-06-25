@@ -24,7 +24,8 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        private string filePath;
+        private string filePath = @"./../../../../HealthClinic/FileStorage/doctors.json";
+
 
         public List<Specialist> GetAllSpecialistsBySpecialty(String specialty)
         {
@@ -45,8 +46,7 @@ namespace Repository.UserRepo
         {
             List<Doctor> allDoctors;
 
-            string relativePath = @"./../../../HealthClinic/FileStorage/doctors.json";
-            allDoctors = JsonConvert.DeserializeObject<List<Doctor>>(File.ReadAllText(relativePath));
+            allDoctors = JsonConvert.DeserializeObject<List<Doctor>>(File.ReadAllText(filePath));
 
             if (allDoctors == null) allDoctors = new List<Doctor>();
 
@@ -97,6 +97,15 @@ namespace Repository.UserRepo
         public void SaveAll(IEnumerable<RegisteredUser> entities)
         {
             throw new NotImplementedException();
+        }
+
+        public void SaveAllDoctors(List<Doctor> doctors)
+        {
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, doctors);
+            }
         }
 
         public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)

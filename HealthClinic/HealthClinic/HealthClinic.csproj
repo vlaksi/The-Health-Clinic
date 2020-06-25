@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\SekretarWPF\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Licensing, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\WPF\18.1.0.42\Assemblies\4.6\Syncfusion.Licensing.dll</HintPath>
@@ -121,14 +121,12 @@
     <Compile Include="Model\Survey\AppReview.cs" />
     <Compile Include="Model\Survey\Rate.cs" />
     <Compile Include="Model\Survey\SurveyResponse.cs" />
-    <Compile Include="Model\Users\Country.cs" />
     <Compile Include="Model\Users\Doctor.cs" />
     <Compile Include="Model\Users\Employee.cs" />
     <Compile Include="Model\Users\Manager.cs" />
     <Compile Include="Model\Users\PatientModel.cs" />
     <Compile Include="Model\Users\Person.cs" />
     <Compile Include="Model\Users\RegisteredUser.cs" />
-    <Compile Include="Model\Users\Residence.cs" />
     <Compile Include="Model\Users\Secretary.cs" />
     <Compile Include="Model\Users\Specialist.cs" />
     <Compile Include="Model\Users\SpecialtyType.cs" />
