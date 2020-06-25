@@ -42,7 +42,7 @@ namespace Controller.PatientContr
 
       public List<PatientModel> GetAllPatients()
       {
-         return patientService.GetAllPatients();
+         return patientService.FindAll();
       }
 
       public void SavePatient(PatientModel patient)

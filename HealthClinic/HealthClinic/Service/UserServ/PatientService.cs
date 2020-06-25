@@ -3,6 +3,7 @@
 // Created: Friday, April 17, 2020 12:11:31 AM
 // Purpose: Definition of Class PatientService
 
+using HealthClinic.Repository.UserRepo.PatientRepo;
 using Model.Survey;
 using Model.Users;
 using System;
@@ -25,7 +26,7 @@ namespace Service.UserServ
 
         public bool PatientLogin(string jmbg, string password)
         {
-            List<PatientModel> allPatients = GetAllPatients();
+            List<PatientModel> allPatients = FindAll();
 
             foreach (PatientModel patient in allPatients)
             {
@@ -38,14 +39,14 @@ namespace Service.UserServ
         }
         public bool PatientRegister(PatientModel patientForRegistration)
         {
-            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
 
             if (!patientFileRepo.ExistsByJmbg(patientForRegistration.Jmbg))
             {
                 patientForRegistration.Id = patientFileRepo.GenerateId();
                 SavePatient(patientForRegistration);
                 return true;
-            }*/
+            }
             return false;
         }
 
@@ -56,23 +57,23 @@ namespace Service.UserServ
         }
 
 
-        public List<PatientModel> GetAllPatients()
+        public List<PatientModel> FindAll()
         {
-            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
-            return patientFileRepo.GetAllPatients();*/
-            return null;
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            return (List <PatientModel>)patientFileRepo.FindAll();
+        
         }
 
         public void SavePatient(PatientModel patient)
         {
-            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
-            patientFileRepo.SavePatient(patient);*/
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.Save(patient);
         }
 
         public void EditPatient(PatientModel patientForEdit)
         {
-            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
-            patientFileRepo.EditPatient(patientForEdit);*/
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.EditPatient(patientForEdit);
         }
 
     }
