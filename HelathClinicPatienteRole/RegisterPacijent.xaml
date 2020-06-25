@@ -61,7 +61,7 @@
 
 
 
-        <Button Content="Kreiraj nalog" Height="37" HorizontalAlignment="Left" Margin="178,532,0,0" Name="button1" VerticalAlignment="Top" Width="113" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding LoginCommand}">
+        <Button Content="Kreiraj nalog" Height="37" HorizontalAlignment="Left" Margin="178,532,0,0" Name="button1" VerticalAlignment="Top" Width="113" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding RegisterCommand}">
             <Button.ToolTip>
                 <ToolTip>
                     <StackPanel>

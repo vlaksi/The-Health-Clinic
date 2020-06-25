@@ -30,7 +30,12 @@ namespace Controller.PatientContr
             return patientService.PatientLogin(jmbg, password);
       }
 
-      public PatientModel FindByJmbg(string jmbg)
+      public bool PatientRegister(PatientModel patientForRegistration)
+      {
+           return patientService.PatientRegister(patientForRegistration);
+      }
+
+        public PatientModel FindByJmbg(string jmbg)
       {
             return patientService.FindByJmbg(jmbg); 
       }

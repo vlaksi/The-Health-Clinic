@@ -36,10 +36,14 @@ namespace HelathClinicPatienteRole.ViewModel
 
         public void Register(object obj)
         {
-            //Trebaa napraviti u kontroloeru pacijenta metodu za registraciju i ovde je pozvati
-            MessageBox.Show("JMBG " + Username + "Password " + Password +
-                "Name " + Name + "Surname " + Surname + "PhoneNumber " + PhoneNumber +
-                "Mail " + Mail);
+           if( patientController.PatientRegister(new PatientModel {Name = Name, Jmbg = Username, Password = Password, Surname = Surname, PhoneNumber = PhoneNumber,  Email = Mail })){
+                MessageBox.Show("Uspešno ste se registrovali!");
+            }
+            else
+            {
+                MessageBox.Show("Registracija nije uspela!");
+            }
+
 
         }
 

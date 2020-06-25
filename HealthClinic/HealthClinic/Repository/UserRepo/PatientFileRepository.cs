@@ -50,6 +50,21 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
+        public bool ExistsByJmbg(string jmbg)
+        {
+            List<PatientModel> allPatients = GetAllPatients();
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if (patient.Jmbg.Equals(jmbg))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public IEnumerable<RegisteredUser> FindAll()
         {
             throw new NotImplementedException();
@@ -86,6 +101,19 @@ namespace Repository.UserRepo
                 }
             }
             return null;
+        }
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<PatientModel> allPatients = GetAllPatients();
+            if (allPatients.Count == 0) return 1;
+            foreach (PatientModel p in allPatients)
+            {
+                if (p.Id > maxId) maxId = p.Id;
+            }
+
+            return maxId + 1;
         }
 
         public void SavePatient(PatientModel patientForSave)
