@@ -67,6 +67,11 @@ namespace Service.UserServ
             patientFileRepo.SavePatient(patient);
         }
 
+        public void EditPatient(PatientModel patientForEdit)
+        {
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.EditPatient(patientForEdit);
+        }
 
-   }
+    }
 }

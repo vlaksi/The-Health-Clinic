@@ -42,8 +42,12 @@ namespace Controller.PatientContr
 
       public void SavePatient(PatientModel patient)
       {
-
          patientService.SavePatient(patient);
+      }
+
+      public void EditPatient(PatientModel patientForEdit)
+      {
+         patientService.EditPatient(patientForEdit);
       }
 
 

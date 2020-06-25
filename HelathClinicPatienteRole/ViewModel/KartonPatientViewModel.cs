@@ -17,20 +17,26 @@ namespace HelathClinicPatienteRole.ViewModel
     {
         private MedicalRecord _MedicinskiKarton;
         private MedicalRecordController medicalRecordController = new MedicalRecordController();
-        
+        private PatientModel ulogovaniPacijent;
         public KartonPatientViewModel()
         {
-            //Console.WriteLine("ALOOO " + LoginViewModel.Instance.UlogovaniPacijent.Jmbg);
-          _MedicinskiKarton = medicalRecordController.GetMedicalRecordByPatientId(LoginViewModel.Instance.UlogovaniPacijent.Id);
+            ulogovaniPacijent =  LoginViewModel.Instance.UlogovaniPacijent;
+            _MedicinskiKarton = medicalRecordController.GetMedicalRecordByPatientId(LoginViewModel.Instance.UlogovaniPacijent.Id);
             PatientController pc = new PatientController();
         }
 
-
+        #region Properties
+        public PatientModel UlogovaniPacijent
+        {
+            get { return ulogovaniPacijent; }
+            set { ulogovaniPacijent = value; }
+        }
         public MedicalRecord MedicinskiKarton
         {
             get { return _MedicinskiKarton; }
             set { _MedicinskiKarton = value; }
         }
+        #endregion
 
         #region Icomand
         private ICommand mUpdater;

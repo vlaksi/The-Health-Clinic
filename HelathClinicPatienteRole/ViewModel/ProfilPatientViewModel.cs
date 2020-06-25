@@ -28,12 +28,9 @@ namespace HelathClinicPatienteRole.ViewModel
             UkljuciToolTipsCommand = new RelayCommand(UkljuciToolTips);
             _prijavljeniKorisnik = LoginViewModel.Instance.UlogovaniPacijent;
             SacuvajIzmeneCommand = new RelayCommand(SacuvajIzmene);
-            /*new ObservableCollection<User>
-        {
-            new User{UserId = 1,FirstName="Marko",LastName="Markovic", Jmbg="0208998500079", PhoneNumber="0602545687",Email="marko@gmail.com"}
-        };*/
         }
 
+        #region Properties
         public PatientModel PrijavljeniKorisnik
         {
             get { return _prijavljeniKorisnik; }
@@ -41,8 +38,9 @@ namespace HelathClinicPatienteRole.ViewModel
                
             }
         }
+        #endregion
 
-        # region ICommand
+        #region ICommand
         private ICommand mUpdater;
         public ICommand UpdateCommand
         {
@@ -104,10 +102,12 @@ namespace HelathClinicPatienteRole.ViewModel
         public RelayCommand SacuvajIzmeneCommand { get; private set; }
         public void SacuvajIzmene(object obj)
         {
-            patientController.SavePatient(PrijavljeniKorisnik);
+            patientController.EditPatient(PrijavljeniKorisnik);
+            MessageBox.Show("Uspesno ste izmenili vaše podatke!");
         }
 
         #endregion
+
         #region  Iskljuci ToolTipove
 
         public RelayCommand IskljuciToolTipsCommand { get; private set; }

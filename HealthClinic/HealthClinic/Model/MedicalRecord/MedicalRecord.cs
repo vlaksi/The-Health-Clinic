@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace Model.MedicalRecord
 {
-    public class MedicalRecord : PatientModel
+    public class MedicalRecord : ObservableObject
     {
         private int medicalRecordId;
         private string gender;
@@ -205,15 +205,6 @@ namespace Model.MedicalRecord
                 referralToSpecialist.Clear();
         }
 
-        #region PropertyChangedEventHandler
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-        #endregion
+
     }
 }
