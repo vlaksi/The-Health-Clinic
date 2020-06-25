@@ -155,6 +155,21 @@ namespace Repository.UserRepo
             SavePatients(allPatients);
         }
 
+        public PatientModel FindByJmbg(string jmbg)
+        {
+            List<PatientModel> allPatients = GetAllPatients();
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if (patient.Jmbg.Equals(jmbg))
+                {
+                    return patient;
+                }
+            }
+
+            return null;
+        }
+
         public List<PatientModel> GetAllPatients()
         {
             List<PatientModel>  allPatients = JsonConvert.DeserializeObject<List<PatientModel>>(File.ReadAllText(filePath));

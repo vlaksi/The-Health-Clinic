@@ -53,17 +53,8 @@ namespace Service.UserServ
 
         public PatientModel FindByJmbg(string jmbg)
         {
-            List<PatientModel> allPatients = GetAllPatients();
-
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Jmbg.Equals(jmbg))
-                {
-                    return patient;
-                }
-            }
-
-            return null;
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            return patientFileRepo.FindByJmbg(jmbg);
         }
 
 
