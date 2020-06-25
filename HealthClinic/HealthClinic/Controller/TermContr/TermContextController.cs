@@ -61,6 +61,5 @@ namespace Controller.TermContr
             return operationService.getAllOperations();
         }
 
-        
     }
 }
