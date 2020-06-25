@@ -7,7 +7,6 @@ using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Medicine;
 using Model.Users;
-using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 
@@ -15,12 +14,10 @@ namespace Service.UserServ
 {
     public class DoctorService
     {
-      public IUserRepositoryFacotory iUserRepositoryFacotory; 
 
       public List<Doctor> GetAllDoctors()
       {
-         DoctorFileRepository doctorRepo = new DoctorFileRepository();
-         return doctorRepo.GetAllDoctors();
+            throw new NotImplementedException();
       }
 
       public void SaveUpdatedDoctor(Doctor doctor)

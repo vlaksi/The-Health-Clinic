@@ -5,7 +5,6 @@
 
 using Model.Survey;
 using Model.Users;
-using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,6 @@ namespace Service.UserServ
 {
     public class PatientService
     {
-        public IUserRepositoryFacotory iUserRepositoryFacotory;
 
         public int RateClinic()
         {
@@ -40,14 +38,14 @@ namespace Service.UserServ
         }
         public bool PatientRegister(PatientModel patientForRegistration)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
 
             if (!patientFileRepo.ExistsByJmbg(patientForRegistration.Jmbg))
             {
                 patientForRegistration.Id = patientFileRepo.GenerateId();
                 SavePatient(patientForRegistration);
                 return true;
-            }
+            }*/
             return false;
         }
 
@@ -60,20 +58,21 @@ namespace Service.UserServ
 
         public List<PatientModel> GetAllPatients()
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            return patientFileRepo.GetAllPatients();
+            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
+            return patientFileRepo.GetAllPatients();*/
+            return null;
         }
 
         public void SavePatient(PatientModel patient)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            patientFileRepo.SavePatient(patient);
+            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.SavePatient(patient);*/
         }
 
         public void EditPatient(PatientModel patientForEdit)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            patientFileRepo.EditPatient(patientForEdit);
+            /*PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.EditPatient(patientForEdit);*/
         }
 
     }

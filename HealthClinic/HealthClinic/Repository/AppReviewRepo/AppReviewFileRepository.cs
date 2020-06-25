@@ -10,7 +10,7 @@ namespace Repository.SurveyResponseRepo
     public class AppReviewFileRepository : AppReviewRepository
     {
 
-        private string filePath;
+        private string filePath = @".\FileStorage\appReview.json";
 
         private void OpenFile()
         {
@@ -51,8 +51,7 @@ namespace Repository.SurveyResponseRepo
         {
               List<AppReview> allAppReviews;
 
-              string relativePath = @"./../../../HealthClinic/FileStorage/appReview.json";
-              allAppReviews = JsonConvert.DeserializeObject<List<AppReview>>(File.ReadAllText(relativePath));
+              allAppReviews = JsonConvert.DeserializeObject<List<AppReview>>(File.ReadAllText(filePath));
 
               if (allAppReviews == null) allAppReviews = new List<AppReview>();
 
@@ -80,9 +79,8 @@ namespace Repository.SurveyResponseRepo
 
         public void SaveAll(IEnumerable<AppReview> entities)
         {
-              string relativePath = @"./../../../HealthClinic/FileStorage/appReview.json";
 
-              using (StreamWriter file = File.CreateText(relativePath))
+              using (StreamWriter file = File.CreateText(filePath))
               {
                   JsonSerializer serializer = new JsonSerializer();
                   serializer.Serialize(file, entities);

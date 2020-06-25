@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\SekretarWPF\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Licensing, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
       <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\WPF\18.1.0.42\Assemblies\4.6\Syncfusion.Licensing.dll</HintPath>
@@ -121,14 +121,12 @@
     <Compile Include="Model\Survey\AppReview.cs" />
     <Compile Include="Model\Survey\Rate.cs" />
     <Compile Include="Model\Survey\SurveyResponse.cs" />
-    <Compile Include="Model\Users\Country.cs" />
     <Compile Include="Model\Users\Doctor.cs" />
     <Compile Include="Model\Users\Employee.cs" />
     <Compile Include="Model\Users\Manager.cs" />
     <Compile Include="Model\Users\PatientModel.cs" />
     <Compile Include="Model\Users\Person.cs" />
     <Compile Include="Model\Users\RegisteredUser.cs" />
-    <Compile Include="Model\Users\Residence.cs" />
     <Compile Include="Model\Users\Secretary.cs" />
     <Compile Include="Model\Users\Specialist.cs" />
     <Compile Include="Model\Users\SpecialtyType.cs" />
@@ -208,28 +206,30 @@
     <Compile Include="Repository\TermRepo\OperationFileRepositoryFactory.cs" />
     <Compile Include="Repository\TermRepo\OperationRepository.cs" />
     <Compile Include="Repository\TermRepo\OperationRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\DoctorDataBaseRepository.cs" />
-    <Compile Include="Repository\UserRepo\DoctorDataBaseRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\DoctorFileRepository.cs" />
-    <Compile Include="Repository\UserRepo\DoctorFileRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\DoctorRepository.cs" />
-    <Compile Include="Repository\UserRepo\IUserRepository.cs" />
-    <Compile Include="Repository\UserRepo\IUserRepositoryFacotory.cs" />
-    <Compile Include="Repository\UserRepo\ManagerDataBaseRepository.cs" />
-    <Compile Include="Repository\UserRepo\ManagerDataBaseRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\ManagerFileRepository.cs" />
-    <Compile Include="Repository\UserRepo\ManagerFileRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\ManagerRepository.cs" />
-    <Compile Include="Repository\UserRepo\PatientDataBaseRepository.cs" />
-    <Compile Include="Repository\UserRepo\PatientDataBaseRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\PatientFileRepository.cs" />
-    <Compile Include="Repository\UserRepo\PatientFileRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\PatientRepository.cs" />
-    <Compile Include="Repository\UserRepo\SecretaryDataBaseRepository.cs" />
-    <Compile Include="Repository\UserRepo\SecretaryDataBaseRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\SecretaryFileRepository.cs" />
-    <Compile Include="Repository\UserRepo\SecretaryFileRepositoryFactory.cs" />
-    <Compile Include="Repository\UserRepo\SecretaryRepository.cs" />
+    <Compile Include="Repository\UserRepo\DoctorRepo\DoctorDataBaseRepository.cs" />
+    <Compile Include="Repository\UserRepo\DoctorRepo\DoctorDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\DoctorRepo\DoctorFileRepository.cs" />
+    <Compile Include="Repository\UserRepo\DoctorRepo\DoctorFileRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\DoctorRepo\DoctorRepository.cs" />
+    <Compile Include="Repository\UserRepo\DoctorRepo\DoctorRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\ManagerRepo\ManagerDataBaseRepository.cs" />
+    <Compile Include="Repository\UserRepo\ManagerRepo\ManagerDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\ManagerRepo\ManagerFileRepository.cs" />
+    <Compile Include="Repository\UserRepo\ManagerRepo\ManagerFileRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\ManagerRepo\ManagerRepository.cs" />
+    <Compile Include="Repository\UserRepo\ManagerRepo\ManagerRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\PatientRepo\PatientDataBaseRepository.cs" />
+    <Compile Include="Repository\UserRepo\PatientRepo\PatientDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\PatientRepo\PatientFileRepository.cs" />
+    <Compile Include="Repository\UserRepo\PatientRepo\PatientFileRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\PatientRepo\PatientRepository.cs" />
+    <Compile Include="Repository\UserRepo\PatientRepo\PatientRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\SecretaryRepo\SecretaryDataBaseRepository.cs" />
+    <Compile Include="Repository\UserRepo\SecretaryRepo\SecretaryDataBaseRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\SecretaryRepo\SecretaryFileRepository.cs" />
+    <Compile Include="Repository\UserRepo\SecretaryRepo\SecretaryFileRepositoryFactory.cs" />
+    <Compile Include="Repository\UserRepo\SecretaryRepo\SecretaryRepository.cs" />
+    <Compile Include="Repository\UserRepo\SecretaryRepo\SecretaryRepositoryFactory.cs" />
     <Compile Include="Service\AppReviewServ\AppReviewService.cs" />
     <Compile Include="Service\BlogPostServ\BlogPostService.cs" />
     <Compile Include="Service\BusinessHoursServ\BusinessHoursService.cs" />
