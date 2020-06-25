@@ -38,20 +38,23 @@ namespace Service.UserServ
             }
             return false;
         }
+        public bool PatientRegister(PatientModel patientForRegistration)
+        {
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+
+            if (!patientFileRepo.ExistsByJmbg(patientForRegistration.Jmbg))
+            {
+                patientForRegistration.Id = patientFileRepo.GenerateId();
+                SavePatient(patientForRegistration);
+                return true;
+            }
+            return false;
+        }
 
         public PatientModel FindByJmbg(string jmbg)
         {
-            List<PatientModel> allPatients = GetAllPatients();
-
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Jmbg.Equals(jmbg))
-                {
-                    return patient;
-                }
-            }
-
-            return null;
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            return patientFileRepo.FindByJmbg(jmbg);
         }
 
 
@@ -67,6 +70,11 @@ namespace Service.UserServ
             patientFileRepo.SavePatient(patient);
         }
 
+        public void EditPatient(PatientModel patientForEdit)
+        {
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.EditPatient(patientForEdit);
+        }
 
-   }
+    }
 }

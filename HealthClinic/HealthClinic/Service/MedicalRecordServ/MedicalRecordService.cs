@@ -5,7 +5,9 @@
 
 using Model.Calendar;
 using Model.MedicalRecord;
+using Model.Users;
 using Repository.MedicalRecordRepo;
+using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +17,7 @@ namespace Service.MedicalRecordServ
     {
         public MedicalRecordRepositoryFactory medicalRecordRepositoryFactory;
         public MedicalRecordRepository medicalRecordRepository;
-
+       
         public MedicalRecordService()
         {
             medicalRecordRepositoryFactory = new MedicalRecordFileRepositoryFactory();
@@ -30,9 +32,14 @@ namespace Service.MedicalRecordServ
         {
             List<MedicalRecord> allRecords = GetAllMedicalRecords();
             List<MedicalRecord> result = new List<MedicalRecord>();
+
+            PatientFileRepository patientFileRepository = new PatientFileRepository();
+            PatientModel patient;
+
             foreach (MedicalRecord mr in allRecords)
             {
-                if (mr.Name.ToLower().Contains(Name.ToLower()) || mr.Surname.ToLower().Contains(Name.ToLower()))
+                patient = patientFileRepository.FindPatientById(mr.PatientId);
+                if (patient.Name.ToLower().Contains(Name.ToLower()) || patient.Surname.ToLower().Contains(Name.ToLower()))
                 {
                     result.Add(mr);
                 }
