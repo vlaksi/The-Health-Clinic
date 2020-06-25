@@ -13,6 +13,7 @@ namespace Repository.MedicineRepo
 {
     public class MedicineFileRepository : MedicineRepository
     {
+        private string filePath = @".\FileStorage\medicine.json";
         private void OpenFile()
         {
             throw new NotImplementedException();
@@ -96,11 +97,9 @@ namespace Repository.MedicineRepo
         {
             List<Medicine> allMedicine = new List<Medicine>();
 
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\medicine.json";
 
             // read file into a string and deserialize JSON to a type
-            allMedicine = JsonConvert.DeserializeObject<List<Medicine>>(File.ReadAllText(currentPath));
+            allMedicine = JsonConvert.DeserializeObject<List<Medicine>>(File.ReadAllText(filePath));
 
             if (allMedicine == null) allMedicine = new List<Medicine>();
 
@@ -130,11 +129,8 @@ namespace Repository.MedicineRepo
         public void SaveAll(IEnumerable<Medicine> entities)
         {
 
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\medicine.json";
-
             // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
+            using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, entities);
@@ -174,8 +170,6 @@ namespace Repository.MedicineRepo
             // I want immediately to save changes
             SaveAll(allMedicines);
         }
-
-        private string filePath;
 
     }
 }

@@ -1,32 +1,22 @@
-// File:    ManagerFileRepository.cs
+// File:    ManagerDataBaseRepository.cs
 // Author:  Vaxi
 // Created: Wednesday, May 20, 2020 12:19:33 AM
-// Purpose: Definition of Class ManagerFileRepository
+// Purpose: Definition of Class ManagerDataBaseRepository
 
 using Model.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.UserRepo
+namespace HealthClinic.Repository.UserRepo.ManagerRepo
 {
-    public class ManagerFileRepository : ManagerRepository
+    public class ManagerDataBaseRepository : ManagerRepository
     {
-        private void OpenFile()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void CloseFile()
-        {
-            throw new NotImplementedException();
-        }
-
         public int Count()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(RegisteredUser entity)
+        public void Delete(Manager entity)
         {
             throw new NotImplementedException();
         }
@@ -46,32 +36,29 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAll()
+        public IEnumerable<Manager> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public RegisteredUser FindById(int id)
+        public IEnumerable<Manager> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(RegisteredUser entity)
+        public Manager FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<RegisteredUser> entities)
+        public void Save(Manager entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)
+        public void SaveAll(IEnumerable<Manager> entities)
         {
             throw new NotImplementedException();
         }
-
-        private string filePath;
-
     }
 }

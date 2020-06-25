@@ -3,11 +3,11 @@
 // Created: Sunday, May 3, 2020 11:34:56 AM
 // Purpose: Definition of Class MedicalRecordService
 
+using HealthClinic.Repository.UserRepo.PatientRepo;
 using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Users;
 using Repository.MedicalRecordRepo;
-using Repository.UserRepo;
 using System;
 using System.Collections.Generic;
 
@@ -38,7 +38,7 @@ namespace Service.MedicalRecordServ
 
             foreach (MedicalRecord mr in allRecords)
             {
-                patient = patientFileRepository.FindPatientById(mr.PatientId);
+                patient = patientFileRepository.FindById(mr.PatientId);
                 if (patient.Name.ToLower().Contains(Name.ToLower()) || patient.Surname.ToLower().Contains(Name.ToLower()))
                 {
                     result.Add(mr);

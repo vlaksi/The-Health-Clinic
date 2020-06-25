@@ -1,14 +1,7 @@
-﻿using Controller.BlogPostContr;
-using Controller.MedicalRecordContr;
-using Controller.SurveyResponseContr;
-using Model.BlogPost;
-using Model.MedicalRecord;
-using Model.Medicine;
-using Model.Survey;
+﻿
+using HealthClinic.Repository.UserRepo.DoctorRepo;
 using Model.Users;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace HealthClinic
 {
@@ -16,11 +9,10 @@ namespace HealthClinic
     {
         static void Main(string[] args)
         {
+            Doctor d = new Doctor();
 
-            PatientModel pacijent = new PatientModel();
-            pacijent.Name = "Vladislav";
-            Console.WriteLine(pacijent.Name);
-            Console.WriteLine("Hello World!");
+            DoctorFileRepository dRepo = new DoctorFileRepository();
+            dRepo.Save(d);
 
             //Ostaviti, trebace kasnije da se nadograde
             #region Creating blog posts

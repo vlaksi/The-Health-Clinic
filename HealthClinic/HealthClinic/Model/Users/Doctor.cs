@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Model.Users
 {
-    public class Doctor : RegisteredUser
+    public class Doctor : Employee
     {
         #region Attributes
 
@@ -23,7 +23,6 @@ namespace Model.Users
         public Ordination ordination;
         public ArrayList referralsFromMe;
         public BlogPostModel[] blogPost;
-        public ArrayList businessHours;
         public List<SurveyResponse> surveyResponses;
 
         #endregion
@@ -73,29 +72,6 @@ namespace Model.Users
                 {
                     foreach (ReferralToSpecialist oReferralToSpecialist in value)
                         AddReferralsFromMe(oReferralToSpecialist);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Property for collection of BusinessHours
-        /// </summary>
-        /// <pdGenerated>Default opposite class collection property</pdGenerated>
-        public ArrayList BusinessHours
-        {
-            get
-            {
-                if (businessHours == null)
-                    businessHours = new ArrayList();
-                return businessHours;
-            }
-            set
-            {
-                RemoveAllBusinessHours();
-                if (value != null)
-                {
-                    foreach (BusinessHoursModel oBusinessHours in value)
-                        AddBusinessHours(oBusinessHours);
                 }
             }
         }
@@ -175,61 +151,6 @@ namespace Model.Users
                 foreach (ReferralToSpecialist oldReferralToSpecialist in tmpReferralsFromMe)
                     oldReferralToSpecialist.Nonspecialist = null;
                 tmpReferralsFromMe.Clear();
-            }
-        }
-
-        #endregion
-
-        #region Manipulation with property: BusinessHours
-
-        /// <summary>
-        /// Add a new BusinessHours in the collection
-        /// </summary>
-        /// <pdGenerated>Default Add</pdGenerated>
-        public void AddBusinessHours(BusinessHoursModel newBusinessHours)
-        {
-            if (newBusinessHours == null)
-                return;
-            if (this.businessHours == null)
-                this.businessHours = new ArrayList();
-            if (!this.businessHours.Contains(newBusinessHours))
-            {
-                this.businessHours.Add(newBusinessHours);
-                newBusinessHours.AddDoctor(this);
-            }
-        }
-
-        /// <summary>
-        /// Remove an existing BusinessHours from the collection
-        /// </summary>
-        /// <pdGenerated>Default Remove</pdGenerated>
-        public void RemoveBusinessHours(BusinessHoursModel oldBusinessHours)
-        {
-            if (oldBusinessHours == null)
-                return;
-            if (this.businessHours != null)
-                if (this.businessHours.Contains(oldBusinessHours))
-                {
-                    this.businessHours.Remove(oldBusinessHours);
-                    oldBusinessHours.RemoveDoctor(this);
-                }
-        }
-
-        /// <summary>
-        /// Remove all instances of BusinessHours from the collection
-        /// </summary>
-        /// <pdGenerated>Default removeAll</pdGenerated>
-        public void RemoveAllBusinessHours()
-        {
-            if (businessHours != null)
-            {
-                ArrayList tmpBusinessHours = new ArrayList();
-                foreach (BusinessHoursModel oldBusinessHours in businessHours)
-                    tmpBusinessHours.Add(oldBusinessHours);
-                businessHours.Clear();
-                foreach (BusinessHoursModel oldBusinessHours in tmpBusinessHours)
-                    oldBusinessHours.RemoveDoctor(this);
-                tmpBusinessHours.Clear();
             }
         }
 
