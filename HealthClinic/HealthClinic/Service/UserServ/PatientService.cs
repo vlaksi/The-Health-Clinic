@@ -38,6 +38,18 @@ namespace Service.UserServ
             }
             return false;
         }
+        public bool PatientRegister(PatientModel patientForRegistration)
+        {
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+
+            if (!patientFileRepo.ExistsByJmbg(patientForRegistration.Jmbg))
+            {
+                patientForRegistration.Id = patientFileRepo.GenerateId();
+                SavePatient(patientForRegistration);
+                return true;
+            }
+            return false;
+        }
 
         public PatientModel FindByJmbg(string jmbg)
         {
