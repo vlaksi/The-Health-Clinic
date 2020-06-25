@@ -22,7 +22,7 @@ namespace HealthClinic
         {
             PatientModel pacijent = new PatientModel();
             pacijent.Name = "Vladislav";
-            Console.WriteLine(pacijent.Name);
+            Console.WriteLine(pacijent.Name); 
             Console.WriteLine("Hello World!");
 
             //Ostaviti, trebace kasnije da se nadograde

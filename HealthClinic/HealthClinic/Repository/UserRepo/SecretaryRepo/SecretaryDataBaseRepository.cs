@@ -1,22 +1,22 @@
-// File:    ManagerDataBaseRepository.cs
+// File:    SecretaryDataBaseRepository.cs
 // Author:  Vaxi
-// Created: Wednesday, May 20, 2020 12:19:33 AM
-// Purpose: Definition of Class ManagerDataBaseRepository
+// Created: Wednesday, May 20, 2020 12:19:34 AM
+// Purpose: Definition of Class SecretaryDataBaseRepository
 
 using Model.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.UserRepo
+namespace HealthClinic.Repository.UserRepo.SecretaryRepo
 {
-    public class ManagerDataBaseRepository : ManagerRepository
+    public class SecretaryDataBaseRepository : SecretaryRepository
     {
         public int Count()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(RegisteredUser entity)
+        public void Delete(Secretary entity)
         {
             throw new NotImplementedException();
         }
@@ -36,27 +36,27 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAll()
+        public IEnumerable<Secretary> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<Secretary> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public RegisteredUser FindById(int id)
+        public Secretary FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(RegisteredUser entity)
+        public void Save(Secretary entity)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<RegisteredUser> entities)
+        public void SaveAll(IEnumerable<Secretary> entities)
         {
             throw new NotImplementedException();
         }

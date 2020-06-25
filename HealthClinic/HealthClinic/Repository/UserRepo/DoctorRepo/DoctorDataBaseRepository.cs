@@ -8,7 +8,7 @@ using Model.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.UserRepo
+namespace HealthClinic.Repository.UserRepo.DoctorRepo
 {
     public class DoctorDataBaseRepository : DoctorRepository
     {
@@ -17,7 +17,7 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public void Delete(RegisteredUser entity)
+        public void Delete(Doctor entity)
         {
             throw new NotImplementedException();
         }
@@ -37,17 +37,17 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAll()
+        public IEnumerable<Doctor> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<Doctor> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public RegisteredUser FindById(int id)
+        public Doctor FindById(int id)
         {
             throw new NotImplementedException();
         }
@@ -62,12 +62,12 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public void Save(RegisteredUser entity)
+        public void Save(Doctor entity)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<RegisteredUser> entities)
+        public void SaveAll(IEnumerable<Doctor> entities)
         {
             throw new NotImplementedException();
         }

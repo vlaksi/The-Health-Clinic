@@ -1,22 +1,22 @@
-// File:    SecretaryDataBaseRepository.cs
+// File:    PatientDataBaseRepository.cs
 // Author:  Vaxi
-// Created: Wednesday, May 20, 2020 12:19:34 AM
-// Purpose: Definition of Class SecretaryDataBaseRepository
+// Created: Wednesday, May 20, 2020 12:19:33 AM
+// Purpose: Definition of Class PatientDataBaseRepository
 
 using Model.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.UserRepo
+namespace HealthClinic.Repository.UserRepo.PatientRepo
 {
-    public class SecretaryDataBaseRepository : SecretaryRepository
+    public class PatientDataBaseRepository : PatientRepository
     {
         public int Count()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(RegisteredUser entity)
+        public void Delete(PatientModel entity)
         {
             throw new NotImplementedException();
         }
@@ -36,27 +36,27 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAll()
+        public IEnumerable<PatientModel> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<PatientModel> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public RegisteredUser FindById(int id)
+        public PatientModel FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(RegisteredUser entity)
+        public void Save(PatientModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveAll(IEnumerable<RegisteredUser> entities)
+        public void SaveAll(IEnumerable<PatientModel> entities)
         {
             throw new NotImplementedException();
         }
