@@ -1,6 +1,7 @@
 ﻿using C_Validation_ByCustom;
 using Controller.PatientContr;
 using HelathClinicPatienteRole.ViewModel.Commands;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,16 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class LoginViewModel : ObservableObject
     {
-        private string _username;
+        private string _username; // PAZI username je ustvari JMBG !!!
         private string _password;
         private PatientController patientController;
-
+        private static PatientModel _ulogovaniPacijent;
+       
         public LoginViewModel()
         {
             patientController = new PatientController();
             LoginCommand = new RelayCommand(Login);
         }
-
 
         #region Login Command
 
@@ -50,16 +51,28 @@ namespace HelathClinicPatienteRole.ViewModel
 
                 var win = new WizardWindow();
                 win.ShowDialog();
+
+                _ulogovaniPacijent = patientController.FindByJmbg(Username);
+                Console.WriteLine(_ulogovaniPacijent.Jmbg);
             }
             else
             {
                 MessageBox.Show("Uneli ste pogrešan JMBG ili šifru!");
             }
-         
-
+        
         }
 
         #endregion
+
+        #region Propertis
+      
+
+        public PatientModel UlogovaniPacijent
+        {
+            get { return _ulogovaniPacijent; }
+            set { _ulogovaniPacijent = value;
+            }
+        }
 
         public string Username
         {
@@ -78,6 +91,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 OnPropertyChanged(ref _password, value);
             }
         }
+        #endregion
 
         #region ICommand
         private ICommand mUpdater;
@@ -116,5 +130,28 @@ namespace HelathClinicPatienteRole.ViewModel
             #endregion
         }
         #endregion
+
+        #region Singlton
+        private static LoginViewModel instance = null;
+        private static readonly object padlock = new object();
+
+
+        public static LoginViewModel Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        Console.WriteLine("kreira se isntanca");
+                        instance = new LoginViewModel();
+                    }
+                    return instance;
+                }
+            }
+        }
+        #endregion
+
     }
 }

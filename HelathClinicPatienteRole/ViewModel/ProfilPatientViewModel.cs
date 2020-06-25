@@ -1,6 +1,9 @@
-﻿using HelathClinicPatienteRole.Dialogs;
+﻿using Controller.PatientContr;
+using HealthClinic.Utilities;
+using HelathClinicPatienteRole.Dialogs;
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,25 +17,29 @@ using System.Windows.Input;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
-    class ProfilPatientViewModel : INotifyPropertyChanged
+    class ProfilPatientViewModel : ObservableObject
     {
-        private ObservableCollection<User> _UsersList;
-      
+        private PatientModel _prijavljeniKorisnik;
+        private PatientController patientController;
         public ProfilPatientViewModel()
         {
-          
+            patientController = new PatientController();
             IskljuciToolTipsCommand = new RelayCommand(IskljuciToolTips);
             UkljuciToolTipsCommand = new RelayCommand(UkljuciToolTips);
-            _UsersList = new ObservableCollection<User>
-            {
-                new User{UserId = 1,FirstName="Marko",LastName="Markovic", Jmbg="0208998500079", PhoneNumber="0602545687",Email="marko@gmail.com"}
-            };
+            _prijavljeniKorisnik = LoginViewModel.Instance.UlogovaniPacijent;
+            SacuvajIzmeneCommand = new RelayCommand(SacuvajIzmene);
+            /*new ObservableCollection<User>
+        {
+            new User{UserId = 1,FirstName="Marko",LastName="Markovic", Jmbg="0208998500079", PhoneNumber="0602545687",Email="marko@gmail.com"}
+        };*/
         }
 
-        public ObservableCollection<User> Users
+        public PatientModel PrijavljeniKorisnik
         {
-            get { return _UsersList; }
-            set { _UsersList = value; }
+            get { return _prijavljeniKorisnik; }
+            set { _prijavljeniKorisnik = value;
+               
+            }
         }
 
         # region ICommand
@@ -92,6 +99,15 @@ namespace HelathClinicPatienteRole.ViewModel
         }
         #endregion
 
+        #region  Sacuvaj izmene
+
+        public RelayCommand SacuvajIzmeneCommand { get; private set; }
+        public void SacuvajIzmene(object obj)
+        {
+            patientController.SavePatient(PrijavljeniKorisnik);
+        }
+
+        #endregion
         #region  Iskljuci ToolTipove
 
         public RelayCommand IskljuciToolTipsCommand { get; private set; }
@@ -157,13 +173,6 @@ namespace HelathClinicPatienteRole.ViewModel
         #endregion
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
+    
     }
 }

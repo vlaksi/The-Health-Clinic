@@ -11,24 +11,62 @@ using System.Collections.Generic;
 
 namespace Service.UserServ
 {
-   public class PatientService
-   {
-      public IUserRepositoryFacotory iUserRepositoryFacotory;
+    public class PatientService
+    {
+        public IUserRepositoryFacotory iUserRepositoryFacotory;
 
-      public int RateClinic()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public SurveyResponse FillFeedbackForm()
-      {
-         throw new NotImplementedException();
-      }
+        public int RateClinic()
+        {
+            throw new NotImplementedException();
+        }
 
-      public List<PatientModel> GetAllPatients()
-      {
-          PatientFileRepository patientFileRepo = new PatientFileRepository();
-          return patientFileRepo.GetAllPatients();    
-      }
+        public SurveyResponse FillFeedbackForm()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool PatientLogin(string jmbg, string password)
+        {
+            List<PatientModel> allPatients = GetAllPatients();
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if (patient.Jmbg.Equals(jmbg) && patient.Password.Equals(password))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public PatientModel FindByJmbg(string jmbg)
+        {
+            List<PatientModel> allPatients = GetAllPatients();
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if (patient.Jmbg.Equals(jmbg))
+                {
+                    return patient;
+                }
+            }
+
+            return null;
+        }
+
+
+        public List<PatientModel> GetAllPatients()
+        {
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            return patientFileRepo.GetAllPatients();
+        }
+
+        public void SavePatient(PatientModel patient)
+        {
+            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            patientFileRepo.SavePatient(patient);
+        }
+
+
    }
 }
