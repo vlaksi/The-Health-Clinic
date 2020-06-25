@@ -10,22 +10,16 @@ using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Model.MedicalRecord
 {
-    public class MedicalRecord : ObservableObject
+    public class MedicalRecord : PatientModel
     {
-        private int id;
-
-        private string name;
-        private string surname;
-        private string address;
+        private int medicalRecordId;
         private string gender;
-        private string jmbg;
-        private DateTime dateOfBirth;
         private String parentsName;
         private String healthInsuranceNumber;
-        private String phone;
         private String healthInsuranceCarrier;
         private ObservableCollection<Treatment> treatments;
         private Doctor doctor;
@@ -45,47 +39,13 @@ namespace Model.MedicalRecord
             set { reports = value; }
         }
 
-
-        public int Id
+        #region Properties
+        public int MedicalRecordId
         {
-            get { return id; }
-            set { id = value; OnPropertyChanged("Id"); }
+            get { return medicalRecordId; }
+            set { medicalRecordId = value; OnPropertyChanged("MedicalRecordId"); }
         }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                this.name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
-            set
-            {
-                this.surname = value; OnPropertyChanged("Surname");
-            }
-        }
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                this.address = value; OnPropertyChanged("Address");
-            }
-        }
+       
         public string Gender
         {
             get
@@ -97,28 +57,7 @@ namespace Model.MedicalRecord
                 this.gender = value; OnPropertyChanged("Gender");
             }
         }
-        public string Jmbg
-        {
-            get
-            {
-                return jmbg;
-            }
-            set
-            {
-                this.jmbg = value; OnPropertyChanged("Jmbg");
-            }
-        }
-        public DateTime DateOfBirth
-        {
-            get
-            {
-                return dateOfBirth;
-            }
-            set
-            {
-                this.dateOfBirth = value; OnPropertyChanged("DateOfBirth");
-            }
-        }
+       
         public String ParentsName
         {
             get
@@ -141,17 +80,7 @@ namespace Model.MedicalRecord
                 this.healthInsuranceNumber = value; OnPropertyChanged("HealthInsuranceNumber");
             }
         }
-        public String Phone
-        {
-            get
-            {
-                return phone;
-            }
-            set
-            {
-                this.phone = value; OnPropertyChanged("Phone");
-            }
-        }
+
         public String HealthInsuranceCarrier
         {
             get
@@ -178,7 +107,7 @@ namespace Model.MedicalRecord
             get { return treatments; }
             set { treatments = value; OnPropertyChanged("Treatments"); }
         }
-
+        #endregion
         // Terms
         public List<int> Terms
         {
@@ -275,5 +204,16 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
+
+        #region PropertyChangedEventHandler
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        #endregion
     }
 }

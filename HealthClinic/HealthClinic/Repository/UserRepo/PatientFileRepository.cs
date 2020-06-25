@@ -72,18 +72,33 @@ namespace Repository.UserRepo
         {
             throw new NotImplementedException();
         }
-
-        public List<PatientModel> GetAllPatients()
+        //TODO SREDITI OVO
+        public void SavePatient(PatientModel patientForSave)
         {
-            List<PatientModel> entites = new List<PatientModel>();
-            entites.Add(new PatientModel { Id = 1 , Name = "Marko", Surname = "Markovic", PhoneNumber= "0602545687" , Adress = "Narodnog Fronta, Novi Sad", Birthday= new DateTime(1980, 1, 1, 0, 0, 0), Biography="IT radnik vec 20 godina, veoma fizicki aktivan", Jmbg = "0105998800079", Password="12345678" });
+            List<PatientModel> allPatients = GetAllPatients();
+            PatientModel patientForRemove = null ;
             string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if(patient.Id == patientForSave.Id)
+                {
+                    patientForRemove = patient;
+                    
+                    allPatients.Add(patientForSave);
+                    break;
+                }
+            }
+            allPatients.Remove(patientForRemove);
+
             using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, entites);
+                serializer.Serialize(file, allPatients);
             }
-
+        }
+        public List<PatientModel> GetAllPatients()
+        {
             string relativePath = @"./../../../HealthClinic/FileStorage/patients.json";
             List<PatientModel>  allPatients = JsonConvert.DeserializeObject<List<PatientModel>>(File.ReadAllText(relativePath));
 

@@ -27,16 +27,12 @@ namespace Controller.PatientContr
 
       public bool PatientLogin(string jmbg, string password)
       {
-            List<PatientModel> allPatients = GetAllPatients();
+            return patientService.PatientLogin(jmbg, password);
+      }
 
-            foreach(PatientModel patient in allPatients)
-            {
-                if(patient.Jmbg.Equals(jmbg) && patient.Password.Equals(password))
-                {
-                    return true;
-                }
-            }
-            return false;
+      public PatientModel FindByJmbg(string jmbg)
+      {
+            return patientService.FindByJmbg(jmbg); 
       }
 
       public List<PatientModel> GetAllPatients()
@@ -44,7 +40,12 @@ namespace Controller.PatientContr
          return patientService.GetAllPatients();
       }
 
+      public void SavePatient(PatientModel patient)
+      {
+
+         patientService.SavePatient(patient);
+      }
 
 
-   }
+    }
 }

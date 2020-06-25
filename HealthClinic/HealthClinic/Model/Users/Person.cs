@@ -20,8 +20,21 @@ namespace Model.Users
         private string _biography;
         private string _adress;
         private string _phoneNumber;
-
+        private string _email;
         #endregion
+
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
 
         public string Jmbg
         {
