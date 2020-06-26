@@ -16,6 +16,7 @@ namespace Model.MedicalRecord
 {
     public class MedicalRecord : ObservableObject
     {
+        #region Attributes
         private int medicalRecordId;
         private ObservableCollection<Treatment> treatments;
         private int doctorId;
@@ -23,7 +24,42 @@ namespace Model.MedicalRecord
         private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
         private List<Report> reports;
+        private int roomId;
+        private DateTime accommodationStart;
+        private DateTime accommodationEnd;
+        private bool isAccommodated;
+        #endregion
+        #region Properties
+        public DateTime AccommodationStart
+        {
+            get { return accommodationStart; }
+            set { accommodationStart = value; }
+        }
 
+        public DateTime AccommodationEnd
+        {
+            get
+            {
+                return accommodationEnd;
+            }
+            set { accommodationEnd = value; }
+        }
+
+        public bool IsAccommodated
+        {
+            get
+            {
+                if (DateTime.Compare(AccommodationEnd, DateTime.Now) < 1) isAccommodated = false;
+                return isAccommodated;
+            }
+            set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }
+        }
+
+        public int RoomId
+        {
+            get { return roomId; }
+            set { roomId = value; OnPropertyChanged("RoomId"); }
+        }
 
         public List<Report> Reports
         {
@@ -129,6 +165,8 @@ namespace Model.MedicalRecord
                 }
             }
         }
+        #endregion
+
         #region referrals
         public void AddReferralToSpecialist(ReferralToSpecialist newReferralToSpecialist)
         {

@@ -51,7 +51,7 @@ namespace Service.TermServ
 
         public void ScheduleCheckup(Checkup checkup)
         {   
-           if(doctorService.IsDoctorFree(checkup.Doctor, checkup.StartTime))
+           if(doctorService.IsDoctorFree(checkup.DoctorId, checkup.StartTime))
            {
                 checkupRepository.Save(checkup);
            }

@@ -11,22 +11,6 @@ namespace Model.Users
 {
     public class PatientModel : RegisteredUser
     {
-        private bool isAccommodated;
-
-        public bool IsAccommodated
-        {
-            get { return isAccommodated; }
-            set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }
-        }
-
-        private string accommodation;
-
-        public string Accommodation
-        {
-            get { return accommodation; }
-            set { accommodation = value; OnPropertyChanged("Accommodation"); }
-        }
-
         private int medicalRecordId;
 
         public int MedicalRecordId

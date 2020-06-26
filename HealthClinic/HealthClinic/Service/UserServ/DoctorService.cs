@@ -53,8 +53,9 @@ namespace Service.UserServ
          throw new NotImplementedException();
       }
 
-      public bool IsDoctorFree(Doctor doctor, DateTime date)
-      {        
+      public bool IsDoctorFree(int doctorId, DateTime date)
+      {
+            Doctor doctor = doctorRepository.FindById(doctorId);
             if (date.Date < doctor.BusinessHours.FromDate || date.Date > doctor.BusinessHours.ToDate)
             {
                 if(date.Hour < doctor.BusinessHours.FromHour.Hour || date.Hour > doctor.BusinessHours.ToHour.Hour)

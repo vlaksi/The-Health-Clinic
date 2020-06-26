@@ -1,8 +1,10 @@
 ﻿using Controller.MedicalRecordContr;
 using Controller.PatientContr;
+using Controller.RoomsContr;
 using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Medicine;
+using Model.Rooms;
 using Model.Users;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ namespace Doctors_UI_Console.Functionalities
     {
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
         private static PatientController patientController = new PatientController();
+        private static RoomsController roomsController = new RoomsController();
         public PatientFunctionalities()
         {
 
@@ -68,8 +71,6 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\n ~ Searching for Patients by ID ~");
                 Console.WriteLine("\tEnter X to exit the Search menu");
                 Console.Write("\n\tEnter patient's ID: ");
-
-                List<MedicalRecord> recordsList = new List<MedicalRecord>();
                 string input;
 
                 switch (input = Console.ReadLine().ToLower())
@@ -139,7 +140,7 @@ namespace Doctors_UI_Console.Functionalities
             {
                 if (Int32.TryParse(patientId, out int id))
                 {
-                    MedicalRecord matches = recordsList.Find(mr => mr.MedicalRecordId == id);
+                    MedicalRecord matches = recordsList.Find(mr => mr.PatientId == id);
                     if (matches != null)
                     {
                         EnterPatientsMedicalRecord(matches);
@@ -216,6 +217,7 @@ namespace Doctors_UI_Console.Functionalities
         private static void EnterPatientsMedicalRecord(MedicalRecord mr)
         {
             PatientModel patient = patientController.FindById(mr.PatientId);
+
             bool breakOut = false;
             while (!breakOut)
             {
@@ -232,6 +234,15 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\t\tBirth: " + patient.Birthday.ToShortDateString());
                 Console.WriteLine("\t\tAddress: " + patient.Adress);
                 Console.WriteLine("\t\tPhone: " + patient.PhoneNumber);
+                if (mr.IsAccommodated)
+                {
+                    Room accommodation = roomsController.findById(mr.RoomId);
+                    Console.WriteLine("\t\tAccommodation: " + accommodation.NumberOfRoom);
+                }
+                else
+                {
+                    Console.WriteLine("\t\tAccommodation: At home");
+                }
                 if (treatments == null || treatments.Count == 0)
                 {
                     Console.WriteLine("\t\tTreatments: None");
@@ -249,6 +260,7 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\t2) Make a Referral to Specialist");
                 Console.WriteLine("\t3) Write a Report");
                 Console.WriteLine("\t4) Preview Reports");
+                Console.WriteLine("\t5) Accommodate patient");
                 Console.WriteLine("\tX) Exit " + patient.Name + "'s Medical Record");
                 Console.Write("\t\tWhich action do you want to perform? ");
                 switch (Console.ReadLine().ToLower())
@@ -256,11 +268,15 @@ namespace Doctors_UI_Console.Functionalities
                     case "1":
                         MedicalRecordFunctionalities.WritePrescription(mr);
                         break;
+
                     case "3":
                         MedicalRecordFunctionalities.WriteReport(mr);
                         break;
                     case "4":
                         MedicalRecordFunctionalities.PreviewReports(mr);
+                        break;
+                    case "5":
+                        MedicalRecordFunctionalities.AccommodatePatient(mr);
                         break;
                     case "x":
                         breakOut = true;

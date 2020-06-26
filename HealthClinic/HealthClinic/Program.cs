@@ -12,11 +12,6 @@ namespace HealthClinic
     {
         static void Main(string[] args)
         {
-            Doctor d = new Doctor();
-
-            DoctorFileRepository dRepo = new DoctorFileRepository();
-            dRepo.Save(d);
-
             //Ostaviti, trebace kasnije da se nadograde
             #region Creating blog posts
             /*BlogPostController bc = new BlogPostController();
@@ -58,7 +53,8 @@ namespace HealthClinic
             #endregion
 
 
-            PatientController patientController = new PatientController();
+            #region Creating patients
+            /*PatientController patientController = new PatientController();
             patientController.PatientRegister(new PatientModel() {
                 Name = "Nikola",
                 Surname = "Kuzmanovic",
@@ -102,18 +98,17 @@ namespace HealthClinic
                 Email = "stefanj@gmail.com",
                 Password = "12345678",
                 MedicalRecordId = 3
-            });
-
+            });*/
+            #endregion
 
             //Ostaviti, trebace kasnije da se nadograde
             #region Creating medical records
             
-            MedicalRecordController medicalRecordController = new MedicalRecordController();
+            /*MedicalRecordController medicalRecordController = new MedicalRecordController();
             medicalRecordController.CreateMedicalRecord(new MedicalRecord()
             {
                 DoctorId = 1,
                 PatientId = 1,
-                
             });
 
             medicalRecordController.CreateMedicalRecord(new MedicalRecord()
@@ -126,7 +121,8 @@ namespace HealthClinic
             {
                 DoctorId = 2,
                 PatientId = 3
-            });
+            });*/
+            
             #endregion
 
             Console.ReadLine();

@@ -53,7 +53,7 @@ namespace Controller.DoctorContr
       }
       public bool IsDoctorFree(Doctor doctor, DateTime date)
       {
-            return doctorService.IsDoctorFree(doctor, date);
+            return doctorService.IsDoctorFree(doctor.Id, date);
       }
 
 

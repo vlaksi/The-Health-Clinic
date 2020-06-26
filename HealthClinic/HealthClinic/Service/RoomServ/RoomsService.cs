@@ -3,6 +3,7 @@
 // Created: Sunday, May 3, 2020 9:00:10 PM
 // Purpose: Definition of Class RoomsService
 
+using Model.MedicalRecord;
 using Model.Rooms;
 using Model.Users;
 using Repository.RoomsRepo;
@@ -55,7 +56,7 @@ namespace Service.RoomServ
             repoForRooms.SaveAll(roomsForSave);
         }
 
-        public bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room)
+        public bool AccommodatePatient(MedicalRecord medicalRecord, Room room)
         {
             throw new NotImplementedException();
         }
@@ -75,6 +76,12 @@ namespace Service.RoomServ
             return null;
         }
 
+        public List<Room> GetAvailablePatientsRooms()
+        {
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.GetAvailablePatientsRooms();
+        }
+
         public List<Room> GetAllRooms()
         {
             // TODO: Proveriti kako ovo ide preko factorija
@@ -91,7 +98,7 @@ namespace Service.RoomServ
             return false;
         }
 
-        public List<OperatingRoom> GetFreeOperationRooms(DateTime start, DateTime end)
+        public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
             throw new NotImplementedException();
         }

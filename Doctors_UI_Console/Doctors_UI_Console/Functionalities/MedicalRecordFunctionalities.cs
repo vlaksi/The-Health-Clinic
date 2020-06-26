@@ -1,9 +1,11 @@
 ﻿using Controller.MedicalRecordContr;
 using Controller.MedicineContr;
 using Controller.PatientContr;
+using Controller.RoomsContr;
 using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Medicine;
+using Model.Rooms;
 using Model.Users;
 using System;
 using System.Collections.Generic;
@@ -20,12 +22,13 @@ namespace Doctors_UI_Console.Functionalities
         private static MedicineController mc = new MedicineController();
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
         private static PatientController patientController = new PatientController();
+        private static RoomsController roomsController = new RoomsController();
 
         #region Write a Prescription
         public static void WritePrescription(MedicalRecord mr)
         {
             PatientModel patient = patientController.FindById(mr.PatientId);
-            
+
             Treatment newTreatment = new Treatment() { Medicines = new ObservableCollection<Medicine>() };
             List<Medicine> availableMedicines = new List<Medicine>(mc.GetAvailableMedicines());
 
@@ -160,7 +163,7 @@ namespace Doctors_UI_Console.Functionalities
 
             if (mr.Reports.Count == 0)
             {
-                Console.WriteLine("\t\tThere are no reports for " + patient.Name + " " + patient.Surname + ".");
+                Console.WriteLine("\t\tThere are no reports for " + patient.Name + " " + patient.Surname + ".\n\n");
                 return;
             }
 
@@ -169,8 +172,62 @@ namespace Doctors_UI_Console.Functionalities
                 PrintReport(report);
             }
 
-            Console.WriteLine("\tPress any key to exit preview");
+            Console.WriteLine("\tPress any key to exit preview.");
             Console.ReadLine();
+        }
+
+        public static void AccommodatePatient(MedicalRecord mr)
+        {
+            if (mr.IsAccommodated)
+            {
+                Console.Write("Patient is already accommodated! Do you wish to transfer him? (Y/N) ");
+                if(string.Compare(Console.ReadLine(), "N", StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    return;
+                }
+            }
+
+            List<Room> availableRooms = roomsController.GetAvailablePatientsRooms();
+            Console.WriteLine("\tSelect a room from the list of available rooms");
+            while (true)
+            {
+                foreach (Room room in availableRooms)
+                {
+                    Console.WriteLine("\t\t*** Room " + room.NumberOfRoom);
+                    Console.WriteLine("\t\t\tCapacity: " + room.Capacity);
+                    Console.WriteLine("\t\t\tPatients accommodated: " + room.PatientsAccommodated);
+                    Console.WriteLine("\t\t\tId " + room.RoomId);
+                }
+                Console.Write("\t\tPick a room: (ID) ");
+                string roomId = Console.ReadLine();
+
+                if (Int32.TryParse(roomId, out int id))
+                {
+                    if (!availableRooms.Any(room => room.RoomId == id))
+                    {
+                        Console.WriteLine("\tPlease select a choice from the list.");
+                        continue;
+                    }
+                    Room selectedRoom = availableRooms.Where(room => room.RoomId == id).FirstOrDefault();
+                    mr.IsAccommodated = true;
+                    mr.RoomId = id;
+                    Console.WriteLine("\tSuccessfully selected room " + selectedRoom.NumberOfRoom + " from the list!");
+                    break;
+                }
+            }
+            Console.Write("\tEnter accommodation start date: ");
+            mr.AccommodationStart = EnterDate();
+            Console.Write("\tEnter accommodation end date: ");
+            mr.AccommodationEnd = EnterDate();
+            mr.IsAccommodated = true;
+
+            medicalRecordController.UpdateMedicalRecord(mr);
+            Console.WriteLine("\tSuccessfully accommodated patient in room!");
+
+            //Update room
+            Room updateRoom = roomsController.findById(mr.RoomId);
+            updateRoom.PatientsAccommodated++;
+            roomsController.makeUpdateFor(updateRoom);
         }
 
 
@@ -367,7 +424,6 @@ namespace Doctors_UI_Console.Functionalities
 
             while (true)
             {
-                int i = 0;
                 Console.Write("\t" + label + ": ");
                 string input = Console.ReadLine();
 
