@@ -21,7 +21,7 @@ namespace Controller.TermContr
 
         public void EditTerm(Term newTerm)
         {
-            throw new NotImplementedException();
+            checkupService.EditCheckup((Checkup)newTerm);
         }
 
         public void ScheduleTerm(Term newTerm)

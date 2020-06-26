@@ -51,7 +51,11 @@ namespace Controller.DoctorContr
       {
          throw new NotImplementedException();
       }
-      
-   
+      public bool IsDoctorFree(Doctor doctor, DateTime date)
+      {
+            return doctorService.IsDoctorFree(doctor, date);
+      }
+
+
    }
 }

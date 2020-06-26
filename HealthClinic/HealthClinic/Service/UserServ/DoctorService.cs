@@ -1,8 +1,9 @@
-// File:    DoctorService.cs
+﻿// File:    DoctorService.cs
 // Author:  Vaxi
 // Created: Sunday, May 3, 2020 11:47:00 AM
 // Purpose: Definition of Class DoctorService
 
+using HealthClinic.Repository.UserRepo.DoctorRepo;
 using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Medicine;
@@ -14,10 +15,17 @@ namespace Service.UserServ
 {
     public class DoctorService
     {
+      private DoctorRepositoryFactory doctorRepositoryFactory;
+      private DoctorRepository doctorRepository;
 
+      public DoctorService()
+      {
+            doctorRepositoryFactory = new DoctorFileRepositoryFactory();
+            doctorRepository = doctorRepositoryFactory.CreateDoctorRepository();
+      }
       public List<Doctor> GetAllDoctors()
       {
-            throw new NotImplementedException();
+            return (List<Doctor>)doctorRepository.FindAll();
       }
 
       public void SaveUpdatedDoctor(Doctor doctor)
@@ -43,6 +51,18 @@ namespace Service.UserServ
       public Report WriteReport(Report report)
       {
          throw new NotImplementedException();
+      }
+
+      public bool IsDoctorFree(Doctor doctor, DateTime date)
+      {        
+            if (date.Date < doctor.BusinessHours.FromDate || date.Date > doctor.BusinessHours.ToDate)
+            {
+                if(date.Hour < doctor.BusinessHours.FromHour.Hour || date.Hour > doctor.BusinessHours.ToHour.Hour)
+                {
+                    return true;
+                }
+            }  
+            return false;
       }
       
    

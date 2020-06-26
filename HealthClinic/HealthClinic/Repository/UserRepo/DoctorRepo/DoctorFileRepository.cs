@@ -15,7 +15,7 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 {
     public class DoctorFileRepository : DoctorRepository
     {
-        private string filePath = @".\FileStorage\doctors.json";
+        private string filePath = @"./../../../HealthClinic/FileStorage/doctors.json";
 
         public int Count()
         {
@@ -117,6 +117,7 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 
         public void SaveAll(IEnumerable<Doctor> entities)
         {
+          
             using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
