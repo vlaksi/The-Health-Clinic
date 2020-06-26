@@ -17,14 +17,16 @@ namespace Model.Users
     public class Doctor : Employee
     {
         #region Attributes
-
         private bool ableToValidateMedicines = false;
         private bool ableToPrescribeTreatments = false;
+<<<<<<< HEAD
         public Ordination ordination;
         public ArrayList referralsFromMe;
         public BlogPostModel[] blogPost;
         public List<SurveyResponse> surveyResponses;
 
+=======
+>>>>>>> igor-backend
         #endregion
 
         #region Properties
@@ -52,6 +54,7 @@ namespace Model.Users
                 this.ableToPrescribeTreatments = value;
             }
         }
+<<<<<<< HEAD
        
         /// <summary>
         /// Property for collection of ReferralToSpecialist
@@ -210,5 +213,9 @@ namespace Model.Users
         }
 
         #endregion
+=======
+        #endregion
+
+>>>>>>> igor-backend
     }
 }

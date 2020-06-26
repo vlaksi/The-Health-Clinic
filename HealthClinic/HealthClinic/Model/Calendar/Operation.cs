@@ -3,6 +3,7 @@
 // Created: Saturday, April 4, 2020 11:54:28 PM
 // Purpose: Definition of Class Operation
 
+using Model.Users;
 using System;
 
 namespace Model.Calendar
@@ -10,20 +11,20 @@ namespace Model.Calendar
     /// Operacija je dogadjaj koji se desava i evidentira u Kalendaru.
     public class Operation : Term
     {
-        private Model.Rooms.OperatingRoom operatingRoom;
+        private int operatingRoomId;
 
-        public Model.Rooms.OperatingRoom OperatingRoom
+        public int OperatingRoomId
         {
-            get { return operatingRoom; }
-            set { operatingRoom = value; }
+            get { return operatingRoomId; }
+            set { operatingRoomId = value; }
         }
 
-        private Model.Users.Specialist specialist;
+        private int specialistId;
 
-        public Model.Users.Specialist Specialist
+        public int SpecialistId
         {
-            get { return specialist; }
-            set { specialist = value; }
+            get { return specialistId; }
+            set { specialistId = value; }
         }
 
 

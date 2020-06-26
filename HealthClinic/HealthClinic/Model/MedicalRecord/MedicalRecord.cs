@@ -16,17 +16,23 @@ namespace Model.MedicalRecord
 {
     public class MedicalRecord : ObservableObject
     {
+<<<<<<< HEAD
         private int medicalRecordId;
         private string gender;
         private String parentsName;
         private String healthInsuranceNumber;
         private String healthInsuranceCarrier;
+=======
+        #region Attributes
+        private int medicalRecordId;
+>>>>>>> igor-backend
         private ObservableCollection<Treatment> treatments;
-        private Doctor doctor;
+        private int doctorId;
         private List<int> terms;
-        public List<ReferralToSpecialist> referralToSpecialist;
+        private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
         private List<Report> reports;
+<<<<<<< HEAD
 
 
         public List<Report> Reports
@@ -59,16 +65,45 @@ namespace Model.MedicalRecord
         }
        
         public String ParentsName
+=======
+        private int roomId;
+        private DateTime accommodationStart;
+        private DateTime accommodationEnd;
+        private bool isAccommodated;
+        #endregion
+        #region Properties
+        public DateTime AccommodationStart
+        {
+            get { return accommodationStart; }
+            set { accommodationStart = value; }
+        }
+
+        public DateTime AccommodationEnd
         {
             get
             {
-                return parentsName;
+                return accommodationEnd;
             }
-            set
-            {
-                this.parentsName = value; OnPropertyChanged("ParentsName");
-            }
+            set { accommodationEnd = value; }
         }
+
+        public bool IsAccommodated
+        {
+            get
+            {
+                if (DateTime.Compare(AccommodationEnd, DateTime.Now) < 1) isAccommodated = false;
+                return isAccommodated;
+            }
+            set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }
+        }
+
+        public int RoomId
+>>>>>>> igor-backend
+        {
+            get { return roomId; }
+            set { roomId = value; OnPropertyChanged("RoomId"); }
+        }
+<<<<<<< HEAD
         public String HealthInsuranceNumber
         {
             get
@@ -82,20 +117,29 @@ namespace Model.MedicalRecord
         }
 
         public String HealthInsuranceCarrier
+=======
+
+        public List<Report> Reports
         {
             get
             {
-                return healthInsuranceCarrier;
+                if (reports == null) reports = new List<Report>();
+                return reports;
             }
-            set
-            {
-                this.healthInsuranceCarrier = value; OnPropertyChanged("HealthInsuranceCarrier");
-            }
+            set { reports = value; }
         }
-        public Doctor Doctor
+
+        #region Properties
+        public int MedicalRecordId
+>>>>>>> igor-backend
         {
-            get { return doctor; }
-            set { doctor = value; OnPropertyChanged("Doctor"); }
+            get { return medicalRecordId; }
+            set { medicalRecordId = value; OnPropertyChanged("MedicalRecordId"); }
+        }
+        public int DoctorId
+        {
+            get { return doctorId; }
+            set { doctorId = value; OnPropertyChanged("DoctorId"); }
         }
         public int PatientId
         {
@@ -104,7 +148,7 @@ namespace Model.MedicalRecord
         }
         public ObservableCollection<Treatment> Treatments
         {
-            get { return treatments; }
+            get { if (treatments == null) treatments = new ObservableCollection<Treatment>(); return treatments; }
             set { treatments = value; OnPropertyChanged("Treatments"); }
         }
         #endregion
@@ -114,7 +158,7 @@ namespace Model.MedicalRecord
             get
             {
                 if (terms == null)
-                    terms = new System.Collections.Generic.List<int>();
+                    terms = new List<int>();
                 return terms;
             }
             set
@@ -127,16 +171,16 @@ namespace Model.MedicalRecord
                 }
             }
         }
+        #region terms
         public void AddTerm(int newTerm)
         {
             if (newTerm == 0)
                 return;
             if (this.terms == null)
-                this.terms = new System.Collections.Generic.List<int>();
+                this.terms = new List<int>();
             if (!this.terms.Contains(newTerm))
             {
                 this.terms.Add(newTerm);
-                //newTerm.MedicalRecord = this;      // ~~~ srediti ovo ~~~
             }
         }
         public void RemoveTerm(int oldTerm)
@@ -147,7 +191,6 @@ namespace Model.MedicalRecord
                 if (this.terms.Contains(oldTerm))
                 {
                     this.terms.Remove(oldTerm);
-                    //oldTerm.MedicalRecord = null;  // ~~~ srediti ovo ~~~
                 }
         }
         public void RemoveAllTerm()
@@ -158,18 +201,17 @@ namespace Model.MedicalRecord
                 foreach (int oldTerm in terms)
                     tmpTerm.Add(oldTerm);
                 terms.Clear();
-                /*foreach (Term oldTerm in tmpTerm)          // ~~~ srediti ovo ~~~
-                    oldTerm.MedicalRecord = null;*/
                 tmpTerm.Clear();
             }
         }
+        #endregion
 
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get
             {
                 if (referralToSpecialist == null)
-                    referralToSpecialist = new System.Collections.Generic.List<ReferralToSpecialist>();
+                    referralToSpecialist = new List<ReferralToSpecialist>();
                 return referralToSpecialist;
             }
             set
@@ -182,6 +224,9 @@ namespace Model.MedicalRecord
                 }
             }
         }
+        #endregion
+
+        #region referrals
         public void AddReferralToSpecialist(ReferralToSpecialist newReferralToSpecialist)
         {
             if (newReferralToSpecialist == null)
@@ -204,7 +249,11 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
+<<<<<<< HEAD
 
+=======
+        #endregion
+>>>>>>> igor-backend
 
     }
 }

@@ -12,7 +12,7 @@ namespace Repository.RoomsRepo
 {
     public class RoomsDataBaseRepository : RoomsRepository
     {
-        public List<OperatingRoom> GetAllOperatingRooms()
+        public List<Room> GetAllOperatingRooms()
         {
             throw new NotImplementedException();
         }

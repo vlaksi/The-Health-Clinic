@@ -13,7 +13,11 @@ namespace Repository.MedicineRepo
 {
     public class MedicineFileRepository : MedicineRepository
     {
+<<<<<<< HEAD
         private string filePath = @".\FileStorage\medicine.json";
+=======
+        string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) +  @"\HealthClinic\FileStorage\medicine.json";
+>>>>>>> igor-backend
         private void OpenFile()
         {
             throw new NotImplementedException();

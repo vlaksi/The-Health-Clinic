@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
-using System.CodeDom;
 using System.Collections.ObjectModel;
 using Model.Medicine;
 
@@ -19,7 +18,11 @@ namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
+<<<<<<< HEAD
         private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
+=======
+        private string filePath = @"./../../../../HealthClinic/FileStorage/medicalRecords.json";
+>>>>>>> igor-backend
         private void OpenFile()
         {
             throw new NotImplementedException();

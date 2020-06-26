@@ -83,7 +83,6 @@
     <Compile Include="Controller\MedicineContr\MedicineController.cs" />
     <Compile Include="Controller\PatientContr\PatientController.cs" />
     <Compile Include="Controller\RoomsContr\RoomsController.cs" />
-    <Compile Include="Controller\RoomsHistoryContr\RoomsHistoryController.cs" />
     <Compile Include="Controller\SurveyResponseContr\SurveyResponseController.cs" />
     <Compile Include="Controller\TermContr\CheckupStrategyControler.cs" />
     <Compile Include="Controller\TermContr\ITermStrategy.cs" />
@@ -106,15 +105,11 @@
     <Compile Include="Model\Medicine\MedicineStatus.cs" />
     <Compile Include="Model\Medicine\Treatment.cs" />
     <Compile Include="Model\Patient\Review.cs" />
-    <Compile Include="Model\Patient\RoomsHistory.cs" />
     <Compile Include="Model\Rooms\DinamicInvertoryType.cs" />
     <Compile Include="Model\Rooms\DynamicInvertory.cs" />
     <Compile Include="Model\Rooms\InventoryAmount.cs" />
     <Compile Include="Model\Rooms\Invertory.cs" />
     <Compile Include="Model\Rooms\InventoryType.cs" />
-    <Compile Include="Model\Rooms\OperatingRoom.cs" />
-    <Compile Include="Model\Rooms\Ordination.cs" />
-    <Compile Include="Model\Rooms\PatientRoom.cs" />
     <Compile Include="Model\Rooms\PhysicalWork.cs" />
     <Compile Include="Model\Rooms\Room.cs" />
     <Compile Include="Model\Rooms\StaticInvertory.cs" />
@@ -176,12 +171,6 @@
     <Compile Include="Repository\MedicineRepo\MedicineFileRepositoryFactory.cs" />
     <Compile Include="Repository\MedicineRepo\MedicineRepository.cs" />
     <Compile Include="Repository\MedicineRepo\MedicineRepositoryFactory.cs" />
-    <Compile Include="Repository\RoomHistoryRepo\RoomHistoryDataBaseRepository.cs" />
-    <Compile Include="Repository\RoomHistoryRepo\RoomHistoryDataBaseRepositoryFactory.cs" />
-    <Compile Include="Repository\RoomHistoryRepo\RoomHistoryFileRepository.cs" />
-    <Compile Include="Repository\RoomHistoryRepo\RoomHistoryFileRepositoryFactory.cs" />
-    <Compile Include="Repository\RoomHistoryRepo\RoomHistoryRepository.cs" />
-    <Compile Include="Repository\RoomHistoryRepo\RoomHistoryRepositoryFactory.cs" />
     <Compile Include="Repository\RoomsRepo\RoomsDataBaseRepository.cs" />
     <Compile Include="Repository\RoomsRepo\RoomsDataBaseRepositoryFactory.cs" />
     <Compile Include="Repository\RoomsRepo\RoomsFileRepository.cs" />
@@ -237,7 +226,6 @@
     <Compile Include="Service\InventoryServ\InvertoryService.cs" />
     <Compile Include="Service\MedicalRecordServ\MedicalRecordService.cs" />
     <Compile Include="Service\MedicineServ\MedicineService.cs" />
-    <Compile Include="Service\RoomHistoryServ\RoomsHistoryService.cs" />
     <Compile Include="Service\RoomServ\RoomsService.cs" />
     <Compile Include="Service\SurveyResponseServ\SurveyResponseService.cs" />
     <Compile Include="Service\TermServ\CheckupService.cs" />
