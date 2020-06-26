@@ -49,7 +49,12 @@ namespace Model.MedicalRecord
         {
             get
             {
-                if (DateTime.Compare(AccommodationEnd, DateTime.Now) < 1) isAccommodated = false;
+                if (DateTime.Compare(AccommodationEnd, DateTime.Now) < 1)
+                {
+                    isAccommodated = false;
+                    AccommodationEnd = default;
+                    AccommodationStart = default;
+                }
                 return isAccommodated;
             }
             set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }

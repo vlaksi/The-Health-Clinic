@@ -13,49 +13,39 @@ using System.Collections.Generic;
 
 namespace Controller.DoctorContr
 {
-   public class DoctorController
-   {
-      public DoctorService doctorService = new DoctorService();
+    public class DoctorController
+    {
+        public DoctorService doctorService = new DoctorService();
 
-      public List<Doctor> GetAllDoctors()
-      {
-         return doctorService.GetAllDoctors();
-      }
+        public List<Doctor> GetAllDoctors()
+        {
+            return doctorService.GetAllDoctors();
+        }
 
-      public void SaveUpdatedDoctor(Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Doctor GetSelectedDoctor()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Treatment PrescribeTreatment(MedicalRecord mr, Treatment treatment)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public ReferralToSpecialist ReferToSpecialist(MedicalRecord mr, Specialist specialist)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Report WriteReport(Report report)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public List<Specialist> GetAllSpecialistsBySpecialty(String specialty)
-      {
-         throw new NotImplementedException();
-      }
-      public bool IsDoctorFree(Doctor doctor, DateTime date)
-      {
-            return doctorService.IsDoctorFree(doctor.Id, date);
-      }
+        public void SaveUpdatedDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddDoctor(Doctor doctor)
+        {
+            doctorService.AddDoctor(doctor);
+        }
+
+        public Doctor FindById(int id)
+        {
+            return doctorService.FindById(id);
+        }
+
+        public List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType)
+        {
+            return doctorService.GetAllSpecialistsBySpecialty(specialtyType);
+        }
+        public bool IsDoctorFree(Doctor doctor, DateTime dateStart, DateTime dateEnd)
+        {
+            return doctorService.IsDoctorFree(doctor.Id, dateStart, dateEnd);
+        }
 
 
-   }
+    }
 }
