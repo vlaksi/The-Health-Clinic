@@ -208,7 +208,7 @@ namespace Doctors_UI_Console.Functionalities
             Console.WriteLine("\n");
         }
 
-        private static void EditOperation(MedicalRecord mr)
+        public static void EditOperation(MedicalRecord mr)
         {
             Console.WriteLine("\n\t\tWhich operation would you like to edit? (ID) ");
             int operationId = SelectFromTheList(mr.Operations);
@@ -224,7 +224,7 @@ namespace Doctors_UI_Console.Functionalities
             Thread.Sleep(1500);
         }
 
-        private static void CancelOperation(MedicalRecord mr)
+        public static void CancelOperation(MedicalRecord mr)
         {
             Console.WriteLine("\n\t\tWhich operation would you like to cancel? (ID) ");
             int operationId = SelectFromTheList(mr.Operations);
@@ -246,7 +246,7 @@ namespace Doctors_UI_Console.Functionalities
         }
 
         #region Helpers
-        private static void PrintOperation(Operation operation)
+        public static void PrintOperation(Operation operation)
         {
             MedicalRecord mr = medicalRecordController.GetMedicalRecord(operation.MedicalRecordId);
             PatientModel patient = patientController.FindById(mr.PatientId);
@@ -261,7 +261,7 @@ namespace Doctors_UI_Console.Functionalities
             Console.WriteLine("\t\tType of operation: " + operation.SpecialtyType.ToFriendlyString() + "\n");
         }
 
-        private static int SelectFromTheList(List<int> choices)
+        public static int SelectFromTheList(List<int> choices)
         {
             int result = -1;
 

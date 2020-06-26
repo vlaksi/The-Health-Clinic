@@ -72,7 +72,7 @@ namespace Doctors_UI_Console
             Console.WriteLine("\t1) Search Patients");
             Console.WriteLine("\t2) Preview Terms");
             Console.WriteLine("\t3) Preview Medicines awaiting Approval");
-            Console.WriteLine("\t4) Schedule an Appointment");
+            Console.WriteLine("\t4) Preview My Appointments");
             Console.WriteLine("\t5) Visit Blog");
             Console.WriteLine("\tEnter X to exit the application.");
             Console.Write("\n\t>> ");
@@ -88,6 +88,7 @@ namespace Doctors_UI_Console
                     MedicinesFunctionalities.PreviewMedicinesWaitingApproval();
                     return true;
                 case "4":
+                    UserFunctionalities.PreviewMyAppointments();
                     return true;
                 case "5":
                     BlogFunctionalities.VisitBlog();

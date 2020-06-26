@@ -207,7 +207,7 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\t\tReferrals:");
                 PrintReferrals(mr.ReferralToSpecialist);
             }
-            Console.WriteLine("\t\tID: " + mr.MedicalRecordId);
+            Console.WriteLine("\t\tMedical Record ID: " + mr.MedicalRecordId);
         }
 
         //Obični prikaz rezultata pretrage, bez funkcionalnosti nad kartonima.

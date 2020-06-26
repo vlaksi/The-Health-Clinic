@@ -80,6 +80,14 @@ namespace Controller.TermContr
         {
             return operationService.getAllOperationsForPatient(medicalRecordId);
         }
+        public List<Operation> getAllCheckupsForDoctor(int doctorId)
+        {
+            return checkupService.getAllCheckupsForDoctor(doctorId);
+        }
 
+        public List<Operation> getAllOperationsForDoctor(int doctorId)
+        {
+            return operationService.getAllOperationsForDoctor(doctorId);
+        }
     }
 }

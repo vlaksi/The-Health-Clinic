@@ -48,6 +48,7 @@
     <Compile Include="Functionalities\MedicalRecordFunctionalities.cs" />
     <Compile Include="Functionalities\MedicinesFunctionalities.cs" />
     <Compile Include="Functionalities\PatientFunctionalities.cs" />
+    <Compile Include="Functionalities\UserFunctionalities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

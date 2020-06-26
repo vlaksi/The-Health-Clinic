@@ -71,5 +71,10 @@ namespace Service.TermServ
         {
             throw new NotImplementedException();
         }
+
+        internal List<Operation> getAllCheckupsForDoctor(int doctorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

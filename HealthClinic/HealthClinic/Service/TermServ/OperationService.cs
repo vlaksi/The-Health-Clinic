@@ -56,6 +56,20 @@ namespace Service.TermServ
             return result;
         }
 
+        public List<Operation> getAllOperationsForDoctor(int doctorId)
+        {
+            List<Operation> allOperations = (List<Operation>)operationRepository.FindAll();
+            List<Operation> result = new List<Operation>();
+            foreach (Operation operation in allOperations)
+            {
+                if (operation.SpecialistId == doctorId)
+                {
+                    result.Add(operation);
+                }
+            }
+            return result;
+        }
+
         public Operation FindById(int id)
         {
             return operationRepository.FindById(id);
