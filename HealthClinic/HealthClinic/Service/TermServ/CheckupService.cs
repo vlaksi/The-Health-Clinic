@@ -62,19 +62,37 @@ namespace Service.TermServ
             return (List<Checkup>)checkupRepository.FindAll();
         }
 
-        internal List<Operation> getAllCheckupsForPatient(int medicalRecordId)
+        public List<Checkup> getAllCheckupsForPatient(int medicalRecordId)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)checkupRepository.FindAll();
+            List<Checkup> result = new List<Checkup>();
+            foreach (Checkup checkup in allCheckups)
+            {
+                if (checkup.MedicalRecordId == medicalRecordId)
+                {
+                    result.Add(checkup);
+                }
+            }
+            return result;
         }
 
-        internal Checkup FindById(int id)
+        public Checkup FindById(int id)
         {
-            throw new NotImplementedException();
+            return checkupRepository.FindById(id);
         }
 
-        internal List<Operation> getAllCheckupsForDoctor(int doctorId)
+        public List<Checkup> getAllCheckupsForDoctor(int doctorId)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)checkupRepository.FindAll();
+            List<Checkup> result = new List<Checkup>();
+            foreach (Checkup checkup in allCheckups)
+            {
+                if (checkup.DoctorId == doctorId)
+                {
+                    result.Add(checkup);
+                }
+            }
+            return result;
         }
     }
 }

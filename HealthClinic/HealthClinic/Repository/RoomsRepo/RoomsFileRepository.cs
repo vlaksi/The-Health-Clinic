@@ -55,6 +55,22 @@ namespace Repository.RoomsRepo
 
         }
 
+        public List<Room> GetAllOrdinations()
+        {
+            List<Room> allRooms = (List<Room>)FindAll();
+            List<Room> result = new List<Room>();
+
+            foreach (Room room in allRooms)
+            {
+                if (room.RoomType == RoomType.Ordination)
+                {
+                    result.Add(room);
+                }
+            }
+
+            return result;
+        }
+
         private void OpenFIle()
         {
             throw new NotImplementedException();
@@ -64,6 +80,7 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
+
         public List<Room> GetAllOperatingRooms()
         {
             List<Room> allRooms = (List<Room>)FindAll();
@@ -80,11 +97,6 @@ namespace Repository.RoomsRepo
             return result;
         }
 
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Room> GetAvailablePatientsRooms()
         {
             List<Room> allRooms = (List<Room>)FindAll();
@@ -99,17 +111,8 @@ namespace Repository.RoomsRepo
             return available;
         }
 
-        public bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Room> GetAllRooms()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool TransferPatient(Room newRoom)
         {
             throw new NotImplementedException();
         }

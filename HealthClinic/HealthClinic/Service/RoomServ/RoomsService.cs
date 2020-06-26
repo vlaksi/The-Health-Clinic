@@ -49,6 +49,14 @@ namespace Service.RoomServ
             return roomsFileRepository.GetAllOperatingRooms();
         }
 
+
+
+        public List<Room> GetAllOrdinations()
+        {
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.GetAllOrdinations();
+        }
+
         public Room findById(int id)
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija
@@ -97,11 +105,6 @@ namespace Service.RoomServ
             retRooms = (List<Room>)repoForRooms.FindAll();
 
             return retRooms;
-        }
-
-        public bool TransferPatient(Room newRoom)
-        {
-            return false;
         }
 
         public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)

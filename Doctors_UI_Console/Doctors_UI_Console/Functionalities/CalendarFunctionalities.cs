@@ -156,46 +156,98 @@ namespace Doctors_UI_Console.Functionalities
 
         public static void ScheduleCheckup(MedicalRecord mr)
         {
-            throw new NotImplementedException();
-        }
+            Console.Clear();
+            PatientModel patient = patientController.FindById(mr.PatientId);
+            List<Room> ordinations = roomsController.GetAllOrdinations();
+            Checkup checkup = new Checkup();
 
-        public static void PreviewTerms(MedicalRecord mr)
-        {
+            Console.WriteLine("\n ~~~ Scheduling a checkup for " + patient.Name + " " + patient.Surname + " ~~~");
+
+            Console.Write("\tSelect start time for this checkup: (YYYY/MM/DD hh:mm:ss) ");
+            checkup.StartTime = MedicalRecordFunctionalities.EnterDate();
+            Console.Write("\tSelect end time for this checkup: (YYYY/MM/DD hh:mm:ss) ");
+            checkup.EndTime = MedicalRecordFunctionalities.EnterDate();
+            Console.WriteLine("\n");
+
+            //Odabir tipa operacije
+            Console.WriteLine("\tWhat is this checkup's specialty type? ");
             while (true)
             {
-                List<Operation> operations = termController.getAllOperationsForPatient(mr.MedicalRecordId);
-                //List<Checkup> checkups = termController.getAllCheckupsForPatient(mr.MedicalRecordId);
-                Console.WriteLine("\n\t~~~ Operations ~~~");
-                if (operations.Count == 0)
+                Console.WriteLine("\tSpecialties we have: ");
+                Console.WriteLine("\t\t1) General");
+                Console.WriteLine("\t\t2) Cardiovascular");
+                Console.WriteLine("\t\t3) Dermatological");
+                Console.WriteLine("\t\t4) Oncological");
+                Console.Write("\tWhat kind of specialist do you need? ");
+                string input = Console.ReadLine();
+                if (input == "2")
                 {
-                    Console.WriteLine("\t\t\tNone.");
-                    Console.Write("\t\tPress any key to exit preview.");
-                    Console.ReadLine();
-                    return;
+                    checkup.SpecialtyType = SpecialtyType.cardiovascular;
+                    break;
+                }
+                else if (input == "1")
+                {
+                    checkup.SpecialtyType = SpecialtyType.general;
+                    break;
+                }
+                else if (input == "3")
+                {
+                    checkup.SpecialtyType = SpecialtyType.dermatological;
+                    break;
+                }
+                else if (input == "4")
+                {
+                    checkup.SpecialtyType = SpecialtyType.oncological;
+                    break;
                 }
                 else
                 {
-                    foreach (Operation operation in operations)
+                    continue;
+                }
+            }
+
+            List<Doctor> doctorsFound = doctorController.GetAllSpecialistsBySpecialty(checkup.SpecialtyType);
+
+            if (doctorsFound.Count == 0)
+            {
+                Console.WriteLine("\t\tThere are no doctors for this specialty...");
+                return;
+            }
+
+            //Odabir doktora
+            while (true)
+            {
+                if (LoggedIn.doctorLoggedIn.SpecialtyType == checkup.SpecialtyType)
+                {
+                    Console.Write("\t\tAre you going to be the doctor for this checkup? (Y/N) ");
+                    string input = Console.ReadLine();
+                    if (string.Compare(input, "Y", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        PrintOperation(operation);
+                        checkup.DoctorId = LoggedIn.doctorLoggedIn.Id;
+                        break;
+                    }
+                }
+                while (true)
+                {
+                    Console.WriteLine("\t\tSelect doctor for this checkup: ");
+                    foreach (Doctor doc in doctorsFound)
+                    {
+                        Console.WriteLine("\t\tName: " + doc.Name + " " + doc.Surname);
+                        Console.WriteLine("\t\tId: " + doc.Id);
                     }
 
-                    Console.WriteLine("\t\tDo you want to edit or cancel any operation? ");
-                    Console.WriteLine("\t\t\t1) Edit");
-                    Console.WriteLine("\t\t\t2) Cancel");
-                    Console.WriteLine("\t\t\tX) Neither");
-                    Console.Write("\t\t>> ");
-                    string input = Console.ReadLine();
-                    if (input == "1")
+                    Console.Write("\tSelect a doctor: (ID) ");
+                    string docId = Console.ReadLine();
+                    if (Int32.TryParse(docId, out int id))
                     {
-                        EditOperation(mr);
-                    }
-                    else if (input == "2")
-                    {
-                        CancelOperation(mr);
-                    }
-                    else if (input == "X" || input == "x")
-                    {
+                        if (!doctorsFound.Any(spec => spec.Id == id))
+                        {
+                            Console.WriteLine("\tPlease select a doctor from the list.");
+                            continue;
+                        }
+                        Doctor doctor = doctorsFound.Where(spec => spec.Id == id).FirstOrDefault();
+                        checkup.DoctorId = doctor.Id;
+                        Console.WriteLine("\tSuccessfully selected doctor " + doctor.Name + " " + doctor.Surname + " from the list!");
                         break;
                     }
                     else
@@ -203,11 +255,135 @@ namespace Doctors_UI_Console.Functionalities
                         continue;
                     }
                 }
+                break;
+            }
 
+            // Odabir sobe
+            while (true)
+            {
+
+                foreach (Room room in ordinations)
+                {
+                    Console.WriteLine("\t\t\t- Ordination " + room.NumberOfRoom + ", ID: " + room.RoomId);
+                }
+                Console.Write("\t\tPick a room: (ID) ");
+                string roomId = Console.ReadLine();
+
+                if (Int32.TryParse(roomId, out int id))
+                {
+                    if (!ordinations.Any(room => room.RoomId == id))
+                    {
+                        Console.WriteLine("\tPlease select a choice from the list.");
+                        continue;
+                    }
+                    Room selectedRoom = ordinations.Where(room => room.RoomId == id).FirstOrDefault();
+                    checkup.OrdinationId = selectedRoom.RoomId;
+                    Console.WriteLine("\tSuccessfully selected room " + selectedRoom.NumberOfRoom + " from the list!");
+                    break;
+                }
+            }
+
+            checkup.MedicalRecordId = mr.MedicalRecordId;
+            termController.ScheduleTerm(checkup);
+            mr.AddCheckup(checkup.Id);
+            medicalRecordController.UpdateMedicalRecord(mr);
+            Console.WriteLine("\t\tSuccessfully scheduled checkup for " + patient.Name + " " + patient.Surname + "!\n");
+            Thread.Sleep(3000);
+        }
+
+        public static void PreviewTerms(MedicalRecord mr)
+        {
+            while (true)
+            {
+                while (true)
+                {
+                    List<Operation> operations = termController.getAllOperationsForPatient(mr.MedicalRecordId);
+                    Console.WriteLine("\n\t~~~ Operations ~~~");
+                    if (operations.Count == 0)
+                    {
+                        Console.WriteLine("\t\t\tNone.");
+                        Console.Write("\t\tPress any key to continue to checkups.\n");
+                        Console.ReadLine();
+                        break;
+                    }
+                    else
+                    {
+                        foreach (Operation operation in operations)
+                        {
+                            PrintOperation(operation);
+                        }
+
+                        Console.WriteLine("\t\tDo you want to edit or cancel any operation? ");
+                        Console.WriteLine("\t\t\t1) Edit");
+                        Console.WriteLine("\t\t\t2) Cancel");
+                        Console.WriteLine("\t\t\tX) Neither");
+                        Console.Write("\t\t>> ");
+                        string input = Console.ReadLine();
+                        if (input == "1")
+                        {
+                            EditOperation(mr);
+                        }
+                        else if (input == "2")
+                        {
+                            CancelOperation(mr);
+                        }
+                        else if (input == "X" || input == "x")
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+                while (true)
+                {
+                    List<Checkup> checkups = termController.getAllCheckupsForPatient(mr.MedicalRecordId);
+                    Console.WriteLine("\n\t~~~ Checkups ~~~");
+                    if (checkups.Count == 0)
+                    {
+                        Console.WriteLine("\t\t\tNone.");
+                        Console.Write("\t\tPress any key to exit preview.");
+                        Console.ReadLine();
+                        return;
+                    }
+                    else
+                    {
+                        foreach (Checkup checkup in checkups)
+                        {
+                            PrintCheckup(checkup);
+                        }
+
+                        Console.WriteLine("\t\tDo you want to edit or cancel any checkup? ");
+                        Console.WriteLine("\t\t\t1) Edit");
+                        Console.WriteLine("\t\t\t2) Cancel");
+                        Console.WriteLine("\t\t\tX) Neither");
+                        Console.Write("\t\t>> ");
+                        string input = Console.ReadLine();
+                        if (input == "1")
+                        {
+                            EditCheckup(mr);
+                        }
+                        else if (input == "2")
+                        {
+                            CancelCheckup(mr);
+                        }
+                        else if (input == "X" || input == "x")
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+                break;
             }
             Console.WriteLine("\n");
         }
-
         public static void EditOperation(MedicalRecord mr)
         {
             Console.WriteLine("\n\t\tWhich operation would you like to edit? (ID) ");
@@ -224,6 +400,45 @@ namespace Doctors_UI_Console.Functionalities
             Thread.Sleep(1500);
         }
 
+        public static void EditCheckup(MedicalRecord mr)
+        {
+            Console.WriteLine("\n\t\tWhich checkup would you like to edit? (ID) ");
+            int checkupId = SelectFromTheList(mr.Checkups);
+            Checkup checkup = termController.FindCheckupById(checkupId);
+            PrintCheckup(checkup);
+            Console.WriteLine("\t\tAs of now, we only support editing times.");
+            Console.Write("\t\tEnter new start time: (YYYY/MM/DD hh:mm:ss) ");
+            checkup.StartTime = MedicalRecordFunctionalities.EnterDate();
+            Console.Write("\t\tEnter new end time: (YYYY/MM/DD hh:mm:ss) ");
+            checkup.EndTime = MedicalRecordFunctionalities.EnterDate();
+            termController.EditTerm(checkup);
+            Console.WriteLine("\t\t\tSuccessfully edited checkup!");
+            Thread.Sleep(1500);
+        }
+
+        public static void CancelCheckup(MedicalRecord mr)
+        {
+            Console.WriteLine("\n\t\tWhich checkup would you like to cancel? (ID) ");
+            int checkupId = SelectFromTheList(mr.Checkups);
+            Checkup checkup = termController.FindCheckupById(checkupId);
+            PrintCheckup(checkup);
+            Console.Write("\t\tAre you sure? (Y/N) ");
+            string input = Console.ReadLine();
+            if (string.Compare(input, "Y", StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                termController.CancelTerm(checkup);
+                mr.Checkups.Remove(checkup.Id);
+                medicalRecordController.UpdateMedicalRecord(mr);
+                Console.WriteLine("\t\t\tSuccessfully canceled checkup!");
+            }
+            else
+            {
+                Console.WriteLine("\t\t\tGoing back...");
+            }
+
+            Thread.Sleep(1500);
+        }
+
         public static void CancelOperation(MedicalRecord mr)
         {
             Console.WriteLine("\n\t\tWhich operation would you like to cancel? (ID) ");
@@ -235,6 +450,8 @@ namespace Doctors_UI_Console.Functionalities
             if (string.Compare(input, "Y", StringComparison.OrdinalIgnoreCase) == 0)
             {
                 termController.CancelTerm(operation);
+                mr.Operations.Remove(operation.Id);
+                medicalRecordController.UpdateMedicalRecord(mr);
                 Console.WriteLine("\t\t\tSuccessfully canceled operation!");
             }
             else
@@ -259,6 +476,21 @@ namespace Doctors_UI_Console.Functionalities
             Console.WriteLine("\t\tEnd time: " + operation.EndTime);
             Console.WriteLine("\t\tOperating room: " + room.NumberOfRoom);
             Console.WriteLine("\t\tType of operation: " + operation.SpecialtyType.ToFriendlyString() + "\n");
+        }
+
+        public static void PrintCheckup(Checkup checkup)
+        {
+            MedicalRecord mr = medicalRecordController.GetMedicalRecord(checkup.MedicalRecordId);
+            PatientModel patient = patientController.FindById(mr.PatientId);
+            Doctor doctor = doctorController.FindById(checkup.DoctorId);
+            Room room = roomsController.findById(checkup.OrdinationId);
+            Console.WriteLine("\t~~~ Checkup with ID " + checkup.Id + " ~~~");
+            Console.WriteLine("\t\tPatient: " + patient.Name + " " + patient.Surname);
+            Console.WriteLine("\t\tDoctor: " + doctor.Name + " " + doctor.Surname);
+            Console.WriteLine("\t\tStart time: " + checkup.StartTime);
+            Console.WriteLine("\t\tEnd time: " + checkup.EndTime);
+            Console.WriteLine("\t\tOrdination: " + room.NumberOfRoom);
+            Console.WriteLine("\t\tType of checkup: " + checkup.SpecialtyType.ToFriendlyString() + "\n");
         }
 
         public static int SelectFromTheList(List<int> choices)

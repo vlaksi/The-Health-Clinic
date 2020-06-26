@@ -256,6 +256,7 @@ namespace Doctors_UI_Console.Functionalities
             bool breakOut = false;
             while (!breakOut)
             {
+                Console.Clear();
                 PrintMedicalRecord(mr);
 
                 Console.WriteLine("\n\t1) Write a Prescription");

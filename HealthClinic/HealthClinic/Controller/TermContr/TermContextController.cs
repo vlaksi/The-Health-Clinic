@@ -71,7 +71,7 @@ namespace Controller.TermContr
             return checkupService.FindById(id);
         }
 
-        public List<Operation> getAllCheckupsForPatient(int medicalRecordId)
+        public List<Checkup> getAllCheckupsForPatient(int medicalRecordId)
         {
             return checkupService.getAllCheckupsForPatient(medicalRecordId);
         }
@@ -80,7 +80,7 @@ namespace Controller.TermContr
         {
             return operationService.getAllOperationsForPatient(medicalRecordId);
         }
-        public List<Operation> getAllCheckupsForDoctor(int doctorId)
+        public List<Checkup> getAllCheckupsForDoctor(int doctorId)
         {
             return checkupService.getAllCheckupsForDoctor(doctorId);
         }
