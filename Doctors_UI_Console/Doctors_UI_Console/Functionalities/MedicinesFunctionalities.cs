@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Doctors_UI_Console.Functionalities
@@ -15,6 +16,14 @@ namespace Doctors_UI_Console.Functionalities
 
         public static void PreviewMedicinesWaitingApproval()
         {
+            if (!LoggedIn.doctorLoggedIn.AbleToValidateMedicines)
+            {
+                Console.WriteLine("\tSorry " + LoggedIn.doctorLoggedIn.Name + ", you are not allowed to validate medicines.");
+                Thread.Sleep(3000);
+                return;
+            }
+
+
             Console.WriteLine("\n\t~~~ Medicines awaiting Approval ~~~");
             List<Medicine> medicinesAwaitingApproval = medicineController.GetMedicinesAwaitingApproval();
 

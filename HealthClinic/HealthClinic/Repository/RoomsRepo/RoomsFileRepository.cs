@@ -64,7 +64,6 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
-
         public List<Room> GetAllOperatingRooms()
         {
             throw new NotImplementedException();

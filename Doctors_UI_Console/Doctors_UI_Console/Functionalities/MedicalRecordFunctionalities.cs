@@ -1,4 +1,5 @@
-﻿using Controller.MedicalRecordContr;
+﻿using Controller.DoctorContr;
+using Controller.MedicalRecordContr;
 using Controller.MedicineContr;
 using Controller.PatientContr;
 using Controller.RoomsContr;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Doctors_UI_Console.Functionalities
@@ -23,10 +25,18 @@ namespace Doctors_UI_Console.Functionalities
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
         private static PatientController patientController = new PatientController();
         private static RoomsController roomsController = new RoomsController();
+        private static DoctorController doctorController = new DoctorController();
 
         #region Write a Prescription
         public static void WritePrescription(MedicalRecord mr)
         {
+            if (!LoggedIn.doctorLoggedIn.AbleToPrescribeTreatments) {
+                Console.WriteLine("\tSorry " + LoggedIn.doctorLoggedIn.Name + ", you are not allowed to prescribe treatments.");
+                Thread.Sleep(3000);
+                return;
+            }
+
+
             PatientModel patient = patientController.FindById(mr.PatientId);
 
             Treatment newTreatment = new Treatment() { Medicines = new ObservableCollection<Medicine>() };
@@ -85,8 +95,7 @@ namespace Doctors_UI_Console.Functionalities
             medicalRecordController.UpdateMedicalRecord(mr);
             Console.WriteLine("\n\t ~~~ You've successfully written a prescription for " + patient.Name + " " + patient.Surname + "! ~~~");
         }
-        #endregion 
-
+        #endregion
 
         public static void WriteReport(MedicalRecord mr)
         {
@@ -181,7 +190,7 @@ namespace Doctors_UI_Console.Functionalities
             if (mr.IsAccommodated)
             {
                 Console.Write("Patient is already accommodated! Do you wish to transfer him? (Y/N) ");
-                if(string.Compare(Console.ReadLine(), "N", StringComparison.OrdinalIgnoreCase) == 0)
+                if (string.Compare(Console.ReadLine(), "N", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     return;
                 }
@@ -230,6 +239,83 @@ namespace Doctors_UI_Console.Functionalities
             roomsController.makeUpdateFor(updateRoom);
         }
 
+        public static void ReferToSpecialist(MedicalRecord mr)
+        {
+            SpecialtyType specialtyNeeded = SpecialtyType.general;
+            while (true)
+            {
+                Console.WriteLine("\tSpecialties we have: ");
+                Console.WriteLine("\t\t1) Cardiovascular");
+                Console.WriteLine("\t\t2) Dermatological");
+                Console.WriteLine("\t\t3) Oncological");
+                Console.Write("\tWhat kind of specialist do you need? ");
+                string input = Console.ReadLine();
+                if (input == "1")
+                {
+                    specialtyNeeded = SpecialtyType.cardiovascular;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            List<Doctor> specialistsFound = doctorController.GetAllSpecialistsBySpecialty(specialtyNeeded);
+            if (specialistsFound.Count == 0)
+            {
+                Console.WriteLine("\tThere are no specialists for this specialty...");
+                return;
+            }
+
+            int selectedSpecialist = -1;
+            while (true)
+            {
+                foreach (Doctor doc in specialistsFound)
+                {
+                    Console.WriteLine("\t\tName: " + doc.Name + " " + doc.Surname);
+                    Console.WriteLine("\t\tId: " + doc.Id);
+                }
+
+                Console.Write("\tSelect a doctor: (ID) ");
+                string docId = Console.ReadLine();
+                if (Int32.TryParse(docId, out int id))
+                {
+                    if (!specialistsFound.Any(spec => spec.Id == id))
+                    {
+                        Console.WriteLine("\tPlease select a specialist from the list.");
+                        continue;
+                    }
+                    Doctor doctor = specialistsFound.Where(spec => spec.Id == id).FirstOrDefault();
+                    selectedSpecialist = doctor.Id;
+                    Console.WriteLine("\tSuccessfully selected room " + doctor.Name + " " + doctor.Surname + " from the list!");
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            Console.WriteLine("\tWhich dates do you need?");
+            Console.Write("\t\tStart date: (YYYY-MM-DD) ");
+            DateTime fromTime = EnterDate();
+            Console.Write("\t\tEnd date: (YYYY-MM-DD) ");
+            DateTime toTime = EnterDate();
+
+            ReferralToSpecialist referral = new ReferralToSpecialist()
+            {
+                NonspecialistId = LoggedIn.doctorLoggedIn.Id,
+                SpecialistId = selectedSpecialist,
+                ValidFromDate = fromTime,
+                ValidToDate = toTime
+            };
+
+            mr.AddReferralToSpecialist(referral);
+            medicalRecordController.UpdateMedicalRecord(mr);
+
+            Console.WriteLine("\tSuccessfully created a referral!");
+        }
 
         #region Helpers
 

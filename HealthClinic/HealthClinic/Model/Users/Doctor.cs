@@ -19,9 +19,16 @@ namespace Model.Users
         #region Attributes
         private bool ableToValidateMedicines = false;
         private bool ableToPrescribeTreatments = false;
+        private SpecialtyType specialtyType;
         #endregion
 
         #region Properties
+
+        public SpecialtyType SpecialtyType
+        {
+            get { return specialtyType; }
+            set { specialtyType = value; }
+        }
 
         public bool AbleToValidateMedicines
         {
@@ -46,7 +53,7 @@ namespace Model.Users
                 this.ableToPrescribeTreatments = value;
             }
         }
+        
         #endregion
-
     }
 }

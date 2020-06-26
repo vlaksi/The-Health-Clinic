@@ -1,4 +1,6 @@
-﻿using Doctors_UI_Console.Functionalities;
+﻿using Controller.DoctorContr;
+using Doctors_UI_Console.Functionalities;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,10 +12,18 @@ using System.Threading.Tasks;
 
 namespace Doctors_UI_Console
 {
+    static class LoggedIn
+    {
+        public static Doctor doctorLoggedIn;
+    }
+    
     class Program
     {
+        
         static void Main(string[] args)
         {
+            DoctorController doctorController = new DoctorController();
+            LoggedIn.doctorLoggedIn = doctorController.FindById(2);
             bool showMenu = true;
 
             while (showMenu)
@@ -28,7 +38,7 @@ namespace Doctors_UI_Console
         private static bool ShowMainMenu()
         {
             Console.Clear();
-            Console.WriteLine("\n  ~~~~ Welcome, doctor! ~~~~");
+            Console.WriteLine("\n  ~~~~ Welcome, " + LoggedIn.doctorLoggedIn.Name + "! ~~~~");
             Console.WriteLine("\t1) Search Patients");
             Console.WriteLine("\t2) Preview Terms");
             Console.WriteLine("\t3) Preview Medicines awaiting Approval");

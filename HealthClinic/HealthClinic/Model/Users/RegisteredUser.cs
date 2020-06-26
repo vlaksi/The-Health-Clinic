@@ -39,7 +39,6 @@ namespace Model.Users
                 OnPropertyChanged("Password");
             }
         }
-
         private string parentsName;
 
         public string ParentsName
@@ -54,6 +53,5 @@ namespace Model.Users
             get { return gender; }
             set { gender = value; }
         }
-
     }
 }

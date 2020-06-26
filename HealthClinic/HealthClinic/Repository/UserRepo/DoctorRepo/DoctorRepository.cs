@@ -13,7 +13,7 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 {
    public interface DoctorRepository : GenericInterfaceCRUDDao<Doctor, int>
     {
-      List<Specialist> GetAllSpecialistsBySpecialty(String specialty);
+      List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType);
       
       List<Doctor> FindMatchedDoctors(BusinessHoursModel bussinesHours);
       

@@ -1,7 +1,9 @@
-﻿
+﻿using Controller.DoctorContr;
+using Controller.EmployeeContr;
 using Controller.MedicalRecordContr;
 using Controller.PatientContr;
 using HealthClinic.Repository.UserRepo.DoctorRepo;
+using Model.BusinessHours;
 using Model.MedicalRecord;
 using Model.Users;
 using System;
@@ -101,9 +103,103 @@ namespace HealthClinic
             });*/
             #endregion
 
+
+            #region Creating doctors
+            /*DoctorController doctorController = new DoctorController();
+            doctorController.AddDoctor(new Doctor()
+            {
+                AbleToPrescribeTreatments = true,
+                AbleToValidateMedicines = true,
+                BusinessHours = new BusinessHoursModel()
+                {
+                    FromDate = new DateTime(2020, 6, 6),
+                    ToDate = new DateTime(2020, 9, 6),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7,0,0), 
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15,0,0), 
+                },
+                Name = "Ivan",
+                Surname = "Ivanovic",
+                Birthday = new DateTime(1990, 1, 3),
+                EmployeeType = EmployeeType.Doctor,
+                Email = "ivanivanovic@gmail.com",
+                Jmbg = "1112221112221",
+                Password = "ivanivanovic",
+                JobPosition = "Doctor",
+                SpecialtyType = SpecialtyType.cardiovascular,
+            });
+
+            doctorController.AddDoctor(new Doctor()
+            {
+                AbleToPrescribeTreatments = false,
+                AbleToValidateMedicines = false,
+                BusinessHours = new BusinessHoursModel()
+                {
+                    FromDate = new DateTime(2020, 6, 6),
+                    ToDate = new DateTime(2020, 9, 6),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 0, 0),
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0),
+                },
+                Name = "Petar",
+                Surname = "Petrovic",
+                Birthday = new DateTime(1980, 1, 3),
+                EmployeeType = EmployeeType.Doctor,
+                Email = "petarpetrovic@gmail.com",
+                Jmbg = "2221112221112",
+                Password = "petarpetrovic",
+                JobPosition = "Doctor",
+                SpecialtyType = SpecialtyType.general,
+            });
+
+            doctorController.AddDoctor(new Doctor()
+            {
+                AbleToPrescribeTreatments = true,
+                AbleToValidateMedicines = true,
+                BusinessHours = new BusinessHoursModel()
+                {
+                    FromDate = new DateTime(2020, 6, 6),
+                    ToDate = new DateTime(2020, 9, 6),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 0, 0), //od 7 ujutru
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0), //od 7 ujutru
+                },
+                Name = "Stefan",
+                Surname = "Stefanovic",
+                Birthday = new DateTime(1981, 1, 3),
+                EmployeeType = EmployeeType.Doctor,
+                Email = "stefanstefanovic@gmail.com",
+                Jmbg = "3334443334443",
+                Password = "stefanstefanovic",
+                JobPosition = "Doctor",
+                SpecialtyType = SpecialtyType.cardiovascular,
+            });
+
+            doctorController.AddDoctor(new Doctor()
+            {
+                AbleToPrescribeTreatments = true,
+                AbleToValidateMedicines = true,
+                BusinessHours = new BusinessHoursModel()
+                {
+                    FromDate = new DateTime(2020, 6, 6),
+                    ToDate = new DateTime(2020, 9, 6),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 0, 0), //od 7 ujutru
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0), //od 7 ujutru
+                },
+                Name = "Jovan",
+                Surname = "Jovic",
+                Birthday = new DateTime(1981, 1, 3),
+                EmployeeType = EmployeeType.Doctor,
+                Email = "jovanjovic@gmail.com",
+                Jmbg = "4443334443334",
+                Password = "jovanjovic",
+                JobPosition = "Doctor",
+                SpecialtyType = SpecialtyType.cardiovascular,
+            });*/
+
+            #endregion
+
+
             //Ostaviti, trebace kasnije da se nadograde
             #region Creating medical records
-            
+
             /*MedicalRecordController medicalRecordController = new MedicalRecordController();
             medicalRecordController.CreateMedicalRecord(new MedicalRecord()
             {
@@ -122,7 +218,7 @@ namespace HealthClinic
                 DoctorId = 2,
                 PatientId = 3
             });*/
-            
+
             #endregion
 
             Console.ReadLine();

@@ -23,13 +23,11 @@ namespace Service.UserServ
         {
             throw new NotImplementedException();
         }
-
         public PatientModel FindById(int id)
         {
             PatientFileRepository patientFileRepo = new PatientFileRepository();
             return patientFileRepo.FindById(id);
         }
-
 
         public bool PatientLogin(string jmbg, string password)
         {

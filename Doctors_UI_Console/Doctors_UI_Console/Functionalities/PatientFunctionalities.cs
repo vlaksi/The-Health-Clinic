@@ -1,4 +1,5 @@
-﻿using Controller.MedicalRecordContr;
+﻿using Controller.DoctorContr;
+using Controller.MedicalRecordContr;
 using Controller.PatientContr;
 using Controller.RoomsContr;
 using Model.Calendar;
@@ -19,11 +20,8 @@ namespace Doctors_UI_Console.Functionalities
     {
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
         private static PatientController patientController = new PatientController();
+        private static DoctorController doctorController = new DoctorController();
         private static RoomsController roomsController = new RoomsController();
-        public PatientFunctionalities()
-        {
-
-        }
 
         #region Search
         public static void SearchPatients()
@@ -163,40 +161,63 @@ namespace Doctors_UI_Console.Functionalities
                 }
             }
         }
-
         #endregion
+        #region Prints
+        private static void PrintMedicalRecord(MedicalRecord mr)
+        {
+            PatientModel patient = patientController.FindById(mr.PatientId);
+            // ~~~ Priprema ~~~
+            //Dobavljanje termina:
+
+            //Dobavljanje tretmana:
+            ObservableCollection<Treatment> treatments = mr.Treatments;
+
+            // ~~~ Print ~~~
+            Console.WriteLine("\t~~~ Medical record of " + patient.Name + " " + patient.Surname + " ~~~~");
+            Console.WriteLine("\t\tParents Name: " + patient.ParentsName);
+            Console.WriteLine("\t\tGender: " + patient.Gender);
+            Console.WriteLine("\t\tBirth: " + patient.Birthday.ToShortDateString());
+            Console.WriteLine("\t\tAddress: " + patient.Adress);
+            Console.WriteLine("\t\tPhone: " + patient.PhoneNumber);
+            if (mr.IsAccommodated)
+            {
+                Room accommodation = roomsController.findById(mr.RoomId);
+                Console.WriteLine("\t\tAccommodation: " + accommodation.NumberOfRoom);
+            }
+            else
+            {
+                Console.WriteLine("\t\tAccommodation: At home");
+            }
+            if (treatments == null || treatments.Count == 0)
+            {
+                Console.WriteLine("\t\tTreatments: None");
+            }
+            else
+            {
+                Console.WriteLine("\t\tTreatments: ");
+                PrintTreatments(treatments);
+            }
+            if (mr.ReferralToSpecialist.Count == 0)
+            {
+                Console.WriteLine("\t\tReferrals: None.");
+            }
+            else
+            {
+                Console.WriteLine("\t\tReferrals:");
+                PrintReferrals(mr.ReferralToSpecialist);
+            }
+            Console.WriteLine("\t\tID: " + mr.MedicalRecordId);
+        }
 
         //Obični prikaz rezultata pretrage, bez funkcionalnosti nad kartonima.
         private static void PrintSearchResults(List<MedicalRecord> records)
         {
             foreach (MedicalRecord mr in records)
             {
-                PatientModel patient = patientController.FindById(mr.PatientId);
-                // ~~~ Priprema ~~~
-                //Dobavljanje termina:
-
-                //Dobavljanje tretmana:
-                ObservableCollection<Treatment> treatments = mr.Treatments;
-
-                // ~~~ Print ~~~
-                Console.WriteLine("\t~~~ Medical record of " + patient.Name + " " + patient.Surname + " ~~~~");
-                Console.WriteLine("\t\tParents Name: " + patient.ParentsName);
-                Console.WriteLine("\t\tGender: " + patient.Gender);
-                Console.WriteLine("\t\tBirth: " + patient.Birthday.ToShortDateString());
-                Console.WriteLine("\t\tAddress: " + patient.Adress);
-                Console.WriteLine("\t\tPhone: " + patient.PhoneNumber);
-                if (treatments == null || treatments.Count == 0)
-                {
-                    Console.WriteLine("\t\tTreatments: None");
-                }
-                else
-                {
-                    Console.WriteLine("\t\tTreatments: ");
-                    PrintTreatments(treatments);
-                }
-                Console.WriteLine("\t\tID: " + mr.MedicalRecordId);
+                PrintMedicalRecord(mr);
             }
         }
+        
 
         private static void PrintTreatments(ObservableCollection<Treatment> treatments)
         {
@@ -212,6 +233,19 @@ namespace Doctors_UI_Console.Functionalities
             }
         }
 
+        private static void PrintReferrals(List<ReferralToSpecialist> referrals)
+        {
+
+            foreach (ReferralToSpecialist referral in referrals)
+            {
+                Doctor nonSpecialist = doctorController.FindById(referral.NonspecialistId);
+                Doctor specialist = doctorController.FindById(referral.SpecialistId);
+                Console.WriteLine("\t\t\tReferral from " + nonSpecialist.Name + " " + nonSpecialist.Surname + ", ");
+                Console.WriteLine("\t\t\tto " + specialist.Name + " " + specialist.Surname + ", valid from ");
+                Console.WriteLine("\t\t\t" + referral.ValidFromDate.ToShortDateString() + " to " + referral.ValidToDate.ToShortDateString() + ".\n");
+            }
+        }
+        #endregion
 
         // Kada se konačno odabere jedan pacijent, ulazi se u njegov karton i moguće je raditi funkcionalnosti poput propisivanje tretmana itd.
         private static void EnterPatientsMedicalRecord(MedicalRecord mr)
@@ -221,40 +255,7 @@ namespace Doctors_UI_Console.Functionalities
             bool breakOut = false;
             while (!breakOut)
             {
-                // ~~~ Priprema ~~~
-                //Dobavljanje termina:
-
-                //Dobavljanje tretmana:
-                ObservableCollection<Treatment> treatments = mr.Treatments;
-
-                // ~~~ Print ~~~
-                Console.WriteLine("\t~~~ Medical record of " + patient.Name + " " + patient.Surname + " ~~~~");
-                Console.WriteLine("\t\tParents Name: " + patient.ParentsName);
-                Console.WriteLine("\t\tGender: " + patient.Gender);
-                Console.WriteLine("\t\tBirth: " + patient.Birthday.ToShortDateString());
-                Console.WriteLine("\t\tAddress: " + patient.Adress);
-                Console.WriteLine("\t\tPhone: " + patient.PhoneNumber);
-                if (mr.IsAccommodated)
-                {
-                    Room accommodation = roomsController.findById(mr.RoomId);
-                    Console.WriteLine("\t\tAccommodation: " + accommodation.NumberOfRoom);
-                }
-                else
-                {
-                    Console.WriteLine("\t\tAccommodation: At home");
-                }
-                if (treatments == null || treatments.Count == 0)
-                {
-                    Console.WriteLine("\t\tTreatments: None");
-                }
-                else
-                {
-                    Console.WriteLine("\t\tTreatments: ");
-                    PrintTreatments(treatments);
-                }
-                Console.WriteLine("\t\tID: " + mr.MedicalRecordId);
-
-
+                PrintMedicalRecord(mr);                
 
                 Console.WriteLine("\n\t1) Write a Prescription");
                 Console.WriteLine("\t2) Make a Referral to Specialist");
@@ -268,7 +269,9 @@ namespace Doctors_UI_Console.Functionalities
                     case "1":
                         MedicalRecordFunctionalities.WritePrescription(mr);
                         break;
-
+                    case "2":
+                        MedicalRecordFunctionalities.ReferToSpecialist(mr);
+                        break;
                     case "3":
                         MedicalRecordFunctionalities.WriteReport(mr);
                         break;
