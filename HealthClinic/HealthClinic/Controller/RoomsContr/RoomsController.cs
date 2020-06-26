@@ -51,9 +51,14 @@ namespace Controller.RoomsContr
             return roomsService.GetAvailablePatientsRooms();
         }
 
-        public bool AccommodatePatient(MedicalRecord medicalRecord, Room room)
+        public List<Room> GetAllOperatingRooms()
         {
-            throw new NotImplementedException();
+            return roomsService.GetAllOperatingRooms();
+        }
+
+        public List<Room> GetAllOrdinations()
+        {
+            return roomsService.GetAllOrdinations();
         }
 
         public Room CreateRoom(Room room)
@@ -84,6 +89,11 @@ namespace Controller.RoomsContr
         public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
             throw new NotImplementedException();
+        }
+
+        public bool isRoomFree(int roomId, DateTime start, DateTime end)
+        {
+            return roomsService.IsRoomFree(roomId, start, end);
         }
 
 
