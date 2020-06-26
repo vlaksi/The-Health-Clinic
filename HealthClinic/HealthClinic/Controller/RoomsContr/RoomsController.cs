@@ -91,6 +91,11 @@ namespace Controller.RoomsContr
             throw new NotImplementedException();
         }
 
+        public bool isRoomFree(int roomId, DateTime start, DateTime end)
+        {
+            return roomsService.IsRoomFree(roomId, start, end);
+        }
+
 
     }
 }
