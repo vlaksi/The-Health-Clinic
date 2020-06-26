@@ -51,6 +51,11 @@ namespace Controller.RoomsContr
             return roomsService.GetAvailablePatientsRooms();
         }
 
+        public List<Room> GetAllOperatingRooms()
+        {
+            return roomsService.GetAllOperatingRooms();
+        }
+
         public bool AccommodatePatient(MedicalRecord medicalRecord, Room room)
         {
             throw new NotImplementedException();

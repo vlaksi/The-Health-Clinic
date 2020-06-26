@@ -43,6 +43,12 @@ namespace Service.RoomServ
             roomsFileRepository.DeleteById(id);
         }
 
+        public List<Room> GetAllOperatingRooms()
+        {
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.GetAllOperatingRooms();
+        }
+
         public Room findById(int id)
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija

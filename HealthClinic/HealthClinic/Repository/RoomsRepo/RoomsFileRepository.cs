@@ -66,7 +66,18 @@ namespace Repository.RoomsRepo
         }
         public List<Room> GetAllOperatingRooms()
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+            List<Room> result = new List<Room>();
+
+            foreach(Room room in allRooms)
+            {
+                if(room.RoomType == RoomType.OperatingRoom)
+                {
+                    result.Add(room);
+                }
+            }
+
+            return result;
         }
 
         public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)

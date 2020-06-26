@@ -20,7 +20,8 @@ namespace Model.MedicalRecord
         private int medicalRecordId;
         private ObservableCollection<Treatment> treatments;
         private int doctorId;
-        private List<int> terms;
+        private List<int> checkups;
+        private List<int> operations;
         private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
         private List<Report> reports;
@@ -99,54 +100,107 @@ namespace Model.MedicalRecord
         }
         #endregion
         // Terms
-        public List<int> Terms
+        public List<int> Checkups
         {
             get
             {
-                if (terms == null)
-                    terms = new List<int>();
-                return terms;
+                if (checkups == null)
+                    checkups = new List<int>();
+                return checkups;
             }
             set
             {
-                RemoveAllTerm();
+                RemoveAllCheckups();
                 if (value != null)
                 {
                     foreach (int oTerm in value)
-                        AddTerm(oTerm);
+                        AddCheckup(oTerm);
                 }
             }
         }
-        #region terms
-        public void AddTerm(int newTerm)
+        public List<int> Operations
         {
-            if (newTerm == 0)
-                return;
-            if (this.terms == null)
-                this.terms = new List<int>();
-            if (!this.terms.Contains(newTerm))
+            get
             {
-                this.terms.Add(newTerm);
+                if (operations == null)
+                    operations = new List<int>();
+                return operations;
+            }
+            set
+            {
+                RemoveAllOperations();
+                if (value != null)
+                {
+                    foreach (int oTerm in value)
+                        AddOperation(oTerm);
+                }
             }
         }
-        public void RemoveTerm(int oldTerm)
+        #region checkups
+        public void AddCheckup(int newCheckup)
         {
-            if (oldTerm == 0)
+            if (newCheckup == 0)
                 return;
-            if (this.terms != null)
-                if (this.terms.Contains(oldTerm))
+            if (this.checkups == null)
+                this.checkups = new List<int>();
+            if (!this.checkups.Contains(newCheckup))
+            {
+                this.checkups.Add(newCheckup);
+            }
+        }
+        public void RemoveCheckup(int oldCheckup)
+        {
+            if (oldCheckup == 0)
+                return;
+            if (this.checkups != null)
+                if (this.checkups.Contains(oldCheckup))
                 {
-                    this.terms.Remove(oldTerm);
+                    this.checkups.Remove(oldCheckup);
                 }
         }
-        public void RemoveAllTerm()
+        public void RemoveAllCheckups()
         {
-            if (terms != null)
+            if (checkups != null)
             {
                 System.Collections.ArrayList tmpTerm = new System.Collections.ArrayList();
-                foreach (int oldTerm in terms)
+                foreach (int oldTerm in checkups)
                     tmpTerm.Add(oldTerm);
-                terms.Clear();
+                checkups.Clear();
+                tmpTerm.Clear();
+            }
+        }
+        #endregion
+
+        #region operations
+        public void AddOperation(int newOperation)
+        {
+            if (newOperation == 0)
+                return;
+            if (this.operations == null)
+                this.operations = new List<int>();
+            if (!this.operations.Contains(newOperation))
+            {
+                this.operations.Add(newOperation);
+            }
+        }
+        public void RemoveOperation(int oldOperation)
+        {
+            if (oldOperation == 0)
+                return;
+            if (this.operations != null)
+                if (this.operations.Contains(oldOperation))
+                {
+                    this.operations.Remove(oldOperation);
+                }
+        }
+        public void RemoveAllOperations()
+        {
+            if (operations != null)
+            {
+                System.Collections.ArrayList tmpTerm = new System.Collections.ArrayList();
+                foreach (int oldTerm in operations)
+                    tmpTerm.Add(oldTerm);
+                operations.Clear();
                 tmpTerm.Clear();
             }
         }

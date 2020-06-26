@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Doctors_UI_Console.Functionalities
@@ -217,7 +218,7 @@ namespace Doctors_UI_Console.Functionalities
                 PrintMedicalRecord(mr);
             }
         }
-        
+
 
         private static void PrintTreatments(ObservableCollection<Treatment> treatments)
         {
@@ -255,13 +256,19 @@ namespace Doctors_UI_Console.Functionalities
             bool breakOut = false;
             while (!breakOut)
             {
-                PrintMedicalRecord(mr);                
+                PrintMedicalRecord(mr);
 
                 Console.WriteLine("\n\t1) Write a Prescription");
                 Console.WriteLine("\t2) Make a Referral to Specialist");
                 Console.WriteLine("\t3) Write a Report");
                 Console.WriteLine("\t4) Preview Reports");
                 Console.WriteLine("\t5) Accommodate patient");
+                Console.WriteLine("\t6) Schedule checkup");
+                if (LoggedIn.doctorLoggedIn.SpecialtyType != SpecialtyType.general)
+                {
+                    Console.WriteLine("\t7) Schedule operation");
+                }
+                Console.WriteLine("\t8) Preview All Terms");
                 Console.WriteLine("\tX) Exit " + patient.Name + "'s Medical Record");
                 Console.Write("\t\tWhich action do you want to perform? ");
                 switch (Console.ReadLine().ToLower())
@@ -280,6 +287,21 @@ namespace Doctors_UI_Console.Functionalities
                         break;
                     case "5":
                         MedicalRecordFunctionalities.AccommodatePatient(mr);
+                        break;
+                    case "6":
+                        CalendarFunctionalities.ScheduleCheckup(mr);
+                        break;
+                    case "7":
+                        if (LoggedIn.doctorLoggedIn.SpecialtyType == SpecialtyType.general)
+                        {
+                            Console.WriteLine("\t\tAs general practicioner, you cannot schedule operations.");
+                            Thread.Sleep(1500);
+                            break;
+                        }   
+                        CalendarFunctionalities.ScheduleOperation(mr);
+                        break;
+                    case "8":
+                        CalendarFunctionalities.PreviewTerms(mr);
                         break;
                     case "x":
                         breakOut = true;

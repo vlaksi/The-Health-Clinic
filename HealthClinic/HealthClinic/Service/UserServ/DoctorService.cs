@@ -43,6 +43,20 @@ namespace Service.UserServ
             throw new NotImplementedException();
         }
 
+        public Doctor DoctorLogin(string email, string password)
+        {
+            List<Doctor> allDoctors = (List<Doctor>)doctorRepository.FindAll();
+
+            foreach (Doctor doctor in allDoctors)
+            {
+                if (doctor.Email.Equals(email) && doctor.Password.Equals(password))
+                {
+                    return doctor;
+                }
+            }
+            return null;
+        }
+
         public List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType)
         {
             return doctorRepository.GetAllSpecialistsBySpecialty(specialtyType);

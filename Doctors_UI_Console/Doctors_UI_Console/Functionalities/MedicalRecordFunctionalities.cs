@@ -336,17 +336,23 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\t\t\t- " + obs);
             }
         }
-        private static DateTime EnterDate()
+        public static DateTime EnterDate()
         {
             while (true)
             {
                 if (DateTime.TryParse(Console.ReadLine(), out DateTime enteredDateTime))
                 {
+                    if(enteredDateTime < DateTime.Now)
+                    {
+                        Console.WriteLine("\t\tDate cannot be before today!");
+                        continue;
+                    }
                     return enteredDateTime;
                 }
                 else
                 {
                     Console.WriteLine("\tYou have entered an incorrect value. Please try again.");
+                    Console.WriteLine("\t\tTry again: ");
                 }
             }
         }

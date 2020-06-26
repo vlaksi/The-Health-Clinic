@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Functionalities\BlogFunctionalities.cs" />
+    <Compile Include="Functionalities\CalendarFunctionalities.cs" />
     <Compile Include="Functionalities\MedicalRecordFunctionalities.cs" />
     <Compile Include="Functionalities\MedicinesFunctionalities.cs" />
     <Compile Include="Functionalities\PatientFunctionalities.cs" />

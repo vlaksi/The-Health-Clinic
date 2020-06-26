@@ -11,22 +11,22 @@ namespace Model.Calendar
     /// Operacija je dogadjaj koji se desava i evidentira u Kalendaru.
     public class Operation : Term
     {
+        #region Attributes
         private int operatingRoomId;
-
+        private int specialistId;
+        #endregion
+        
+        #region Properties
         public int OperatingRoomId
         {
             get { return operatingRoomId; }
             set { operatingRoomId = value; }
         }
-
-        private int specialistId;
-
         public int SpecialistId
         {
             get { return specialistId; }
             set { specialistId = value; }
         }
-
-
+        #endregion
     }
 }

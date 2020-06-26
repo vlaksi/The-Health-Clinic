@@ -62,5 +62,14 @@ namespace Service.TermServ
             return (List<Checkup>)checkupRepository.FindAll();
         }
 
+        internal List<Operation> getAllCheckupsForPatient(int medicalRecordId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Checkup FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
