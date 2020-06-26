@@ -15,11 +15,7 @@ namespace Repository.RoomsRepo
 {
     public class RoomsFileRepository : RoomsRepository
     {
-<<<<<<< HEAD
-        private string filePath = @".\FileStorage\rooms.json";
-=======
         private string filePath = @"./../../../../HealthClinic/FileStorage/rooms.json";
->>>>>>> igor-backend
 
         public void makeUpdateFor(Room room)
         {
@@ -68,12 +64,7 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
-
-<<<<<<< HEAD
-        public List<OperatingRoom> GetAllOperatingRooms()
-=======
         public List<Room> GetAllOperatingRooms()
->>>>>>> igor-backend
         {
             throw new NotImplementedException();
         }

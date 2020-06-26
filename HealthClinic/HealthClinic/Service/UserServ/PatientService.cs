@@ -23,17 +23,12 @@ namespace Service.UserServ
         {
             throw new NotImplementedException();
         }
-
-<<<<<<< HEAD
-=======
         public PatientModel FindById(int id)
         {
             PatientFileRepository patientFileRepo = new PatientFileRepository();
             return patientFileRepo.FindById(id);
         }
 
-
->>>>>>> igor-backend
         public bool PatientLogin(string jmbg, string password)
         {
             List<PatientModel> allPatients = FindAll();

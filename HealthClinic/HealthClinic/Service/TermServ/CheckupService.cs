@@ -51,11 +51,7 @@ namespace Service.TermServ
 
         public void ScheduleCheckup(Checkup checkup)
         {   
-<<<<<<< HEAD
-           if(doctorService.IsDoctorFree(checkup.Doctor, checkup.StartTime))
-=======
            if(doctorService.IsDoctorFree(checkup.DoctorId, checkup.StartTime))
->>>>>>> igor-backend
            {
                 checkupRepository.Save(checkup);
            }

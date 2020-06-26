@@ -16,56 +16,14 @@ namespace Model.MedicalRecord
 {
     public class MedicalRecord : ObservableObject
     {
-<<<<<<< HEAD
-        private int medicalRecordId;
-        private string gender;
-        private String parentsName;
-        private String healthInsuranceNumber;
-        private String healthInsuranceCarrier;
-=======
         #region Attributes
         private int medicalRecordId;
->>>>>>> igor-backend
         private ObservableCollection<Treatment> treatments;
         private int doctorId;
         private List<int> terms;
         private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
         private List<Report> reports;
-<<<<<<< HEAD
-
-
-        public List<Report> Reports
-        {
-            get
-            {
-                if (reports == null) reports = new List<Report>();
-                return reports;
-            }
-            set { reports = value; }
-        }
-
-        #region Properties
-        public int MedicalRecordId
-        {
-            get { return medicalRecordId; }
-            set { medicalRecordId = value; OnPropertyChanged("MedicalRecordId"); }
-        }
-       
-        public string Gender
-        {
-            get
-            {
-                return gender;
-            }
-            set
-            {
-                this.gender = value; OnPropertyChanged("Gender");
-            }
-        }
-       
-        public String ParentsName
-=======
         private int roomId;
         private DateTime accommodationStart;
         private DateTime accommodationEnd;
@@ -98,26 +56,10 @@ namespace Model.MedicalRecord
         }
 
         public int RoomId
->>>>>>> igor-backend
         {
             get { return roomId; }
             set { roomId = value; OnPropertyChanged("RoomId"); }
         }
-<<<<<<< HEAD
-        public String HealthInsuranceNumber
-        {
-            get
-            {
-                return healthInsuranceNumber;
-            }
-            set
-            {
-                this.healthInsuranceNumber = value; OnPropertyChanged("HealthInsuranceNumber");
-            }
-        }
-
-        public String HealthInsuranceCarrier
-=======
 
         public List<Report> Reports
         {
@@ -131,7 +73,6 @@ namespace Model.MedicalRecord
 
         #region Properties
         public int MedicalRecordId
->>>>>>> igor-backend
         {
             get { return medicalRecordId; }
             set { medicalRecordId = value; OnPropertyChanged("MedicalRecordId"); }
@@ -249,11 +190,7 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
-<<<<<<< HEAD
-
-=======
         #endregion
->>>>>>> igor-backend
 
     }
 }

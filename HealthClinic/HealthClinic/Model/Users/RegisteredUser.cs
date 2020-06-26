@@ -9,14 +9,9 @@ namespace Model.Users
 {
     public class RegisteredUser : Person
     {
-<<<<<<< HEAD
-        private String username;
-        private String password;
-=======
         private string username;
         private string password;
         private string gender;
->>>>>>> igor-backend
 
 
         public string Username
@@ -44,9 +39,6 @@ namespace Model.Users
                 OnPropertyChanged("Password");
             }
         }
-
-<<<<<<< HEAD
-=======
         private string parentsName;
 
         public string ParentsName
@@ -61,7 +53,5 @@ namespace Model.Users
             get { return gender; }
             set { gender = value; }
         }
-
->>>>>>> igor-backend
     }
 }

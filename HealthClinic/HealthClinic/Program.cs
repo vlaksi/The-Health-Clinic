@@ -1,12 +1,7 @@
-﻿
-<<<<<<< HEAD
-using HealthClinic.Repository.UserRepo.DoctorRepo;
-=======
-using Controller.MedicalRecordContr;
+﻿using Controller.MedicalRecordContr;
 using Controller.PatientContr;
 using HealthClinic.Repository.UserRepo.DoctorRepo;
 using Model.MedicalRecord;
->>>>>>> igor-backend
 using Model.Users;
 using System;
 
@@ -16,14 +11,6 @@ namespace HealthClinic
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-            Doctor d = new Doctor();
-
-            DoctorFileRepository dRepo = new DoctorFileRepository();
-            dRepo.Save(d);
-
-=======
->>>>>>> igor-backend
             //Ostaviti, trebace kasnije da se nadograde
             #region Creating blog posts
             /*BlogPostController bc = new BlogPostController();

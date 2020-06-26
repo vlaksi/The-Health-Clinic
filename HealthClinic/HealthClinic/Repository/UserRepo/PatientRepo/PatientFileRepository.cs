@@ -15,11 +15,7 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
 {
     public class PatientFileRepository : PatientRepository
     {
-<<<<<<< HEAD
-        private string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
-=======
         private string filePath = @"./../../../../HealthClinic/FileStorage/patients.json";
->>>>>>> igor-backend
 
         public int Count()
         {
