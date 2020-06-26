@@ -16,7 +16,7 @@ namespace Repository.RoomsRepo
 
         void makeUpdateFor(Room room);
 
-        List<OperatingRoom> GetAllOperatingRooms();
+        List<Room> GetAllOperatingRooms();
 
         List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate);
 

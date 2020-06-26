@@ -10,30 +10,56 @@ using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Model.MedicalRecord
 {
     public class MedicalRecord : ObservableObject
     {
-        private int id;
-
-        private string name;
-        private string surname;
-        private string address;
-        private string gender;
-        private string jmbg;
-        private DateTime dateOfBirth;
-        private String parentsName;
-        private String healthInsuranceNumber;
-        private String phone;
-        private String healthInsuranceCarrier;
+        #region Attributes
+        private int medicalRecordId;
         private ObservableCollection<Treatment> treatments;
-        private Doctor doctor;
+        private int doctorId;
         private List<int> terms;
-        public List<ReferralToSpecialist> referralToSpecialist;
+        private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
         private List<Report> reports;
+        private int roomId;
+        private DateTime accommodationStart;
+        private DateTime accommodationEnd;
+        private bool isAccommodated;
+        #endregion
+        #region Properties
+        public DateTime AccommodationStart
+        {
+            get { return accommodationStart; }
+            set { accommodationStart = value; }
+        }
 
+        public DateTime AccommodationEnd
+        {
+            get
+            {
+                return accommodationEnd;
+            }
+            set { accommodationEnd = value; }
+        }
+
+        public bool IsAccommodated
+        {
+            get
+            {
+                if (DateTime.Compare(AccommodationEnd, DateTime.Now) < 1) isAccommodated = false;
+                return isAccommodated;
+            }
+            set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }
+        }
+
+        public int RoomId
+        {
+            get { return roomId; }
+            set { roomId = value; OnPropertyChanged("RoomId"); }
+        }
 
         public List<Report> Reports
         {
@@ -45,128 +71,16 @@ namespace Model.MedicalRecord
             set { reports = value; }
         }
 
-
-        public int Id
+        #region Properties
+        public int MedicalRecordId
         {
-            get { return id; }
-            set { id = value; OnPropertyChanged("Id"); }
+            get { return medicalRecordId; }
+            set { medicalRecordId = value; OnPropertyChanged("MedicalRecordId"); }
         }
-
-        public string Name
+        public int DoctorId
         {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                this.name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
-            set
-            {
-                this.surname = value; OnPropertyChanged("Surname");
-            }
-        }
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                this.address = value; OnPropertyChanged("Address");
-            }
-        }
-        public string Gender
-        {
-            get
-            {
-                return gender;
-            }
-            set
-            {
-                this.gender = value; OnPropertyChanged("Gender");
-            }
-        }
-        public string Jmbg
-        {
-            get
-            {
-                return jmbg;
-            }
-            set
-            {
-                this.jmbg = value; OnPropertyChanged("Jmbg");
-            }
-        }
-        public DateTime DateOfBirth
-        {
-            get
-            {
-                return dateOfBirth;
-            }
-            set
-            {
-                this.dateOfBirth = value; OnPropertyChanged("DateOfBirth");
-            }
-        }
-        public String ParentsName
-        {
-            get
-            {
-                return parentsName;
-            }
-            set
-            {
-                this.parentsName = value; OnPropertyChanged("ParentsName");
-            }
-        }
-        public String HealthInsuranceNumber
-        {
-            get
-            {
-                return healthInsuranceNumber;
-            }
-            set
-            {
-                this.healthInsuranceNumber = value; OnPropertyChanged("HealthInsuranceNumber");
-            }
-        }
-        public String Phone
-        {
-            get
-            {
-                return phone;
-            }
-            set
-            {
-                this.phone = value; OnPropertyChanged("Phone");
-            }
-        }
-        public String HealthInsuranceCarrier
-        {
-            get
-            {
-                return healthInsuranceCarrier;
-            }
-            set
-            {
-                this.healthInsuranceCarrier = value; OnPropertyChanged("HealthInsuranceCarrier");
-            }
-        }
-        public Doctor Doctor
-        {
-            get { return doctor; }
-            set { doctor = value; OnPropertyChanged("Doctor"); }
+            get { return doctorId; }
+            set { doctorId = value; OnPropertyChanged("DoctorId"); }
         }
         public int PatientId
         {
@@ -175,17 +89,17 @@ namespace Model.MedicalRecord
         }
         public ObservableCollection<Treatment> Treatments
         {
-            get { return treatments; }
+            get { if (treatments == null) treatments = new ObservableCollection<Treatment>(); return treatments; }
             set { treatments = value; OnPropertyChanged("Treatments"); }
         }
-
+        #endregion
         // Terms
         public List<int> Terms
         {
             get
             {
                 if (terms == null)
-                    terms = new System.Collections.Generic.List<int>();
+                    terms = new List<int>();
                 return terms;
             }
             set
@@ -198,16 +112,16 @@ namespace Model.MedicalRecord
                 }
             }
         }
+        #region terms
         public void AddTerm(int newTerm)
         {
             if (newTerm == 0)
                 return;
             if (this.terms == null)
-                this.terms = new System.Collections.Generic.List<int>();
+                this.terms = new List<int>();
             if (!this.terms.Contains(newTerm))
             {
                 this.terms.Add(newTerm);
-                //newTerm.MedicalRecord = this;      // ~~~ srediti ovo ~~~
             }
         }
         public void RemoveTerm(int oldTerm)
@@ -218,7 +132,6 @@ namespace Model.MedicalRecord
                 if (this.terms.Contains(oldTerm))
                 {
                     this.terms.Remove(oldTerm);
-                    //oldTerm.MedicalRecord = null;  // ~~~ srediti ovo ~~~
                 }
         }
         public void RemoveAllTerm()
@@ -229,18 +142,17 @@ namespace Model.MedicalRecord
                 foreach (int oldTerm in terms)
                     tmpTerm.Add(oldTerm);
                 terms.Clear();
-                /*foreach (Term oldTerm in tmpTerm)          // ~~~ srediti ovo ~~~
-                    oldTerm.MedicalRecord = null;*/
                 tmpTerm.Clear();
             }
         }
+        #endregion
 
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get
             {
                 if (referralToSpecialist == null)
-                    referralToSpecialist = new System.Collections.Generic.List<ReferralToSpecialist>();
+                    referralToSpecialist = new List<ReferralToSpecialist>();
                 return referralToSpecialist;
             }
             set
@@ -253,6 +165,9 @@ namespace Model.MedicalRecord
                 }
             }
         }
+        #endregion
+
+        #region referrals
         public void AddReferralToSpecialist(ReferralToSpecialist newReferralToSpecialist)
         {
             if (newReferralToSpecialist == null)
@@ -275,5 +190,7 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
+        #endregion
+
     }
 }

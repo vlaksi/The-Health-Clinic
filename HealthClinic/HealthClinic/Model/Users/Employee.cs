@@ -5,7 +5,16 @@ namespace Model.Users
     public class Employee : RegisteredUser
     {
 		private string _jobPosition;
-		private BusinessHoursModel _businessHours;
+        private EmployeeType employeeType;
+
+        public EmployeeType EmployeeType
+        {
+            get { return employeeType; }
+            set { employeeType = value; }
+        }
+
+
+        private BusinessHoursModel _businessHours;
 
 		public BusinessHoursModel BusinessHours
 		{
@@ -21,4 +30,10 @@ namespace Model.Users
 		}
 
 	}
+
+	public enum EmployeeType
+    {
+		Doctor,
+		Secretary
+    }
 }

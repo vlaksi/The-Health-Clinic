@@ -6,6 +6,7 @@
 using Model.Calendar;
 using Model.Users;
 using Repository.TermRepo;
+using Service.UserServ;
 using System;
 using System.Collections.Generic;
 
@@ -15,11 +16,12 @@ namespace Service.TermServ
     {
         private CheckupRepositoryFactory checkupRepositoryFactory;
         private CheckupRepository checkupRepository;
-
+        private DoctorService doctorService;
         public CheckupService()
         {
             checkupRepositoryFactory = new CheckupFileRepositoryFactory();
             checkupRepository = checkupRepositoryFactory.CreateCheckupRepository();
+            doctorService = new DoctorService();
         }
 
         public void CancelCheckup(Checkup checkup)
@@ -29,12 +31,30 @@ namespace Service.TermServ
 
         public void EditCheckup(Checkup checkup)
         {
-            throw new NotImplementedException();
+            List<Checkup> allCheckups = (List<Checkup>)checkupRepository.FindAll();
+            Checkup checkupForEdit = new Checkup();
+            
+            foreach(Checkup c in allCheckups)
+            {
+                if(c.Id == checkup.Id)
+                {
+                    checkupForEdit = c;
+                    break;
+                }
+            }
+
+            CancelCheckup(checkupForEdit);
+            ScheduleCheckup(checkup);
+
+
         }
 
         public void ScheduleCheckup(Checkup checkup)
-        {
-            checkupRepository.Save(checkup);
+        {   
+           if(doctorService.IsDoctorFree(checkup.DoctorId, checkup.StartTime))
+           {
+                checkupRepository.Save(checkup);
+           }
         }
 
         public List<Checkup> getAllCheckups()

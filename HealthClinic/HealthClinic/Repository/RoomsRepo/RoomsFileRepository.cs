@@ -15,6 +15,7 @@ namespace Repository.RoomsRepo
 {
     public class RoomsFileRepository : RoomsRepository
     {
+        private string filePath = @"./../../../../HealthClinic/FileStorage/rooms.json";
 
         public void makeUpdateFor(Room room)
         {
@@ -64,9 +65,7 @@ namespace Repository.RoomsRepo
             throw new NotImplementedException();
         }
 
-        private string filePath;
-
-        public List<OperatingRoom> GetAllOperatingRooms()
+        public List<Room> GetAllOperatingRooms()
         {
             throw new NotImplementedException();
         }
@@ -74,6 +73,20 @@ namespace Repository.RoomsRepo
         public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Room> GetAvailablePatientsRooms()
+        {
+            List<Room> allRooms = (List<Room>)FindAll();
+            List<Room> available = new List<Room>();
+            foreach(Room room in allRooms)
+            {
+                if(room.RoomType == RoomType.PatientRoom && !room.Full)
+                {
+                    available.Add(room);
+                }
+            }
+            return available;
         }
 
         public bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room)
@@ -103,7 +116,7 @@ namespace Repository.RoomsRepo
             foreach (Room tempRoom in allRooms)
             {
                 // Room is uniq by number of room for now
-                if (tempRoom.NumberOfRoom.Equals(entity.NumberOfRoom))
+                if (tempRoom.RoomId.Equals(entity.RoomId))
                 {
                     allRooms.Remove(tempRoom);
                     break;
@@ -127,7 +140,7 @@ namespace Repository.RoomsRepo
             foreach (Room tempRoom in allRooms)
             {
                 // Room is uniq by number of room for now
-                if (tempRoom.NumberOfRoom.Equals(identificator))
+                if (tempRoom.RoomId.Equals(identificator))
                 {
                     allRooms.Remove(tempRoom);
                     break;
@@ -141,18 +154,21 @@ namespace Repository.RoomsRepo
 
         public bool ExistsById(int id)
         {
-            throw new NotImplementedException();
+            List<Room> allRooms = (List<Room>)FindAll();
+
+            foreach (Room room in allRooms)
+                if (room.RoomId == id)
+                    return true;
+
+            return false;
         }
 
         public IEnumerable<Room> FindAll()
         {
             List<Room> allRooms = new List<Room>();
 
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\rooms.json";
-
             // read file into a string and deserialize JSON to a type
-            allRooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(currentPath));
+            allRooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(filePath));
 
             return allRooms;
         }
@@ -160,12 +176,12 @@ namespace Repository.RoomsRepo
         public Room FindById(int id)
         {
             List<Room> allRooms = (List<Room>)FindAll();
-            Room retRoom = new Room();
+            Room retRoom = null;
 
             foreach (Room tempRoom in allRooms)
             {
                 // Room is uniq by number of room for now
-                if (tempRoom.NumberOfRoom.Equals(id))
+                if (tempRoom.RoomId.Equals(id))
                 {
                     retRoom = tempRoom;
                     break;
@@ -178,20 +194,38 @@ namespace Repository.RoomsRepo
 
         public void Save(Room entity)
         {
+            if (ExistsById(entity.RoomId))
+            {
+                Delete(entity);
+            }
+            else
+            {
+                entity.RoomId = GenerateId();
+            }
+
             List<Room> allRooms = (List<Room>)FindAll();
             allRooms.Add(entity);
-
-            // I want immediately to save changes
             SaveAll(allRooms);
+        }
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<Room> allRooms = (List<Room>)FindAll();
+            if (allRooms.Count == 0) return 1;
+            foreach (Room room in allRooms)
+            {
+                if (room.RoomId > maxId) maxId = room.RoomId;
+            }
+
+            return maxId + 1;
         }
 
         public void SaveAll(IEnumerable<Room> entities)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\rooms.json";
 
             // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
+            using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, entities);

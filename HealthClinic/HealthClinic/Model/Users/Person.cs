@@ -14,13 +14,40 @@ namespace Model.Users
 
         private string name;
         private string surname;
+        private string jmbg;
         private int id;
         private DateTime _birthday;
         private string _biography;
         private string _adress;
         private string _phoneNumber;
-
+        private string _email;
         #endregion
+
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public string Jmbg
+        {
+            get { return jmbg; }
+            set
+            {
+                if (value != jmbg)
+                {
+                    jmbg = value;
+                    OnPropertyChanged("Jmbg");
+                }
+            }
+        }
 
         public string PhoneNumber
         {
