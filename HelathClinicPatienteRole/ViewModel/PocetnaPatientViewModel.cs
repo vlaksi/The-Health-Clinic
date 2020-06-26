@@ -16,6 +16,7 @@ using System.Windows.Input;
 using Controller.TermContr;
 using Model.Survey;
 using Controller.SurveyResponseContr;
+using Controller.DoctorContr;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
@@ -24,11 +25,13 @@ namespace HelathClinicPatienteRole.ViewModel
         private List<Checkup> _PregledList;
         private List<Doctor> _LekariList;
         private List<SurveyResponse> _SurveyResponseList;
+        private DoctorController doctorController;
 
         private CheckupStrategyControler checkupStrategyControler;
         private SurveyResponseController surveyResponseController;
         public PocetnaPatientViewModel()
         {
+            doctorController = new DoctorController();
             checkupStrategyControler = new CheckupStrategyControler();
             surveyResponseController = new SurveyResponseController();
 
@@ -112,23 +115,17 @@ namespace HelathClinicPatienteRole.ViewModel
                 return;
             }
 
-         
+            DateTime termin = new DateTime(2020, SelektovaniDatum.Month, SelektovaniDatum.Day, SelektovanoVreme.Hour, 0, 0);
 
-            foreach (Checkup pregled in Pregledi)
+            if (doctorController.IsDoctorFree(SelektovaniLekar, termin))
             {
-                if (pregled.Id == SelektovaniPregled.Id)
-                {
-                    if (!(SelektovaniLekar is null))
-                    {
-                        pregled.Doctor = SelektovaniLekar ;
-                    }
-                    if (!(SelektovaniDatum.Day == DateTime.Now.Day))
-                    {
-                        pregled.StartTime = SelektovaniDatum;
-                    }
-                    MessageBox.Show("Uspešno ste izmenili pregled!");
-                    checkupStrategyControler.ScheduleTerm(pregled);
-                }
+                Checkup pregled = new Checkup { Id = SelektovaniPregled.Id, CheckupName = SelektovaniPregled.CheckupName, StartTime = termin, CheckupStatus = SelektovaniPregled.CheckupStatus, Doctor = SelektovaniLekar };
+                checkupStrategyControler.EditTerm(pregled);
+                MessageBox.Show("Usepsno ste izmenili pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
+            }
+            else
+            {
+                MessageBox.Show("Izabrani lekar " + SelektovaniLekar.Name + " nije slobodan u tom terminu!");
             }
 
         }
@@ -200,7 +197,7 @@ namespace HelathClinicPatienteRole.ViewModel
                     MessageBox.Show("Uspesno ste otkazali " + pregled.CheckupName);
                     // Pregledi.Remove(pregled); //Ovo je komanda za brisanje 
                     //checkupStrategyControler.CancelTerm(pregled);
-                    checkupStrategyControler.ScheduleTerm(pregled);
+                    checkupStrategyControler.EditTerm(pregled);
                     break;
                 }
             }
@@ -262,6 +259,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Selektovani pregled mora da ima status 'Zakazan'!");
                 return;
             }
+
             var s = new IzmenaPregledaDialog();
              s.DataContext = this;             
              s.ShowDialog();
@@ -322,7 +320,16 @@ namespace HelathClinicPatienteRole.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+        #region Selektovano vreme za termin
 
+        private DateTime _selektovanoVreme = DateTime.Now;
+
+        public DateTime SelektovanoVreme
+        {
+            get { return _selektovanoVreme; }
+            set { _selektovanoVreme = value; OnPropertyChanged("SelektovanoVreme"); }
+        }
+        #endregion
         #region Singlton
         private static PocetnaPatientViewModel instance = null;
         private static readonly object padlock = new object();

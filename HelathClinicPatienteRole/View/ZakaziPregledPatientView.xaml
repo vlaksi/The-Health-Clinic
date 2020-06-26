@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HelathClinicPatienteRole.View"
+               xmlns:local1="clr-namespace:HelathClinicPatienteRole.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1300">
 
@@ -14,7 +15,13 @@
 
                 <Label FontWeight="Bold" HorizontalAlignment="Center"  Content="Izaberite datum pregleda" Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="25" Grid.Row="2" Grid.Column="16" Grid.ColumnSpan="11" Grid.RowSpan="2" Margin="10,0,23,0" Width="330"/>
 
-                <DatePicker Background="WhiteSmoke" SelectedDate="{Binding Path=SelektovaniDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="21"  Foreground="#FF148DF0" Grid.Row ="3" Grid.Column="16" Grid.ColumnSpan="10" Grid.RowSpan="4" materialDesign:HintAssist.Hint="Izaberite datum" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="10,21,10,18"  />
+                <DatePicker Background="WhiteSmoke" SelectedDate="{Binding Path=SelektovaniDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="21"  Foreground="#FF148DF0" Grid.Row ="4" Grid.Column="15" Grid.ColumnSpan="6" Grid.RowSpan="3" materialDesign:HintAssist.Hint="Izaberite datum" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="24,1,0,18" Height="46"  />
+                <materialDesign:TimePicker Background="WhiteSmoke"
+                     materialDesign:HintAssist.Hint="Izaberi vreme"
+                     FontSize="21"  Foreground="#FF148DF0"
+                    Is24Hours="True"
+                    x:Name="PresetTimePicker"
+                    SelectedTime="{Binding Path=SelektovanoVreme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="6" Height="46" Margin="25,1,23,18" Grid.RowSpan="3" Grid.Column="21" Grid.Row="4" />
 
                 <Label HorizontalAlignment="Center"  Content="Lista slobodnih lekara opste prakse " Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="20" Grid.Row="9" Grid.Column="16" Grid.ColumnSpan="10" Grid.RowSpan="3" Margin="2,13,0,0" Width="325"/>
 

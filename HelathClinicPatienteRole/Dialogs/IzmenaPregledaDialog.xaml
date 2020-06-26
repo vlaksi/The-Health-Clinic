@@ -14,8 +14,13 @@
 
                 <Label FontWeight="Bold" HorizontalAlignment="Center"  Content="Izmenite datum pregleda" Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="25" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="14" Grid.RowSpan="3" Margin="7,16,14,0" Width="290"/>
 
-                <DatePicker Background="WhiteSmoke" SelectedDate="{Binding Path=SelektovaniDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="21"  Foreground="#FF148DF0" Grid.Row ="4" Grid.Column="5" Grid.ColumnSpan="11" Grid.RowSpan="3" materialDesign:HintAssist.Hint="Izaberite datum" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="22,3,10,10" Height="55"  />
-
+                <DatePicker Background="WhiteSmoke" SelectedDate="{Binding Path=SelektovaniDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="21"  Foreground="#FF148DF0" Grid.Row ="4" Grid.Column="3" Grid.ColumnSpan="8" Grid.RowSpan="3" materialDesign:HintAssist.Hint="Izaberite datum" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="10,5,0,10" Height="54"  />
+                <materialDesign:TimePicker Background="WhiteSmoke"
+                     materialDesign:HintAssist.Hint="Izaberi vreme"
+                     FontSize="21"  Foreground="#FF148DF0"
+                    Is24Hours="True"
+                    x:Name="PresetTimePicker"
+                    SelectedTime="{Binding Path=SelektovanoVreme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="54" Margin="17,5,10,10" Grid.RowSpan="3" Grid.Column="11" Grid.Row="4" Grid.ColumnSpan="8" />
                 <Button Content="Potvrdi" Grid.Row="23" Grid.Column="8" Grid.ColumnSpan="6" Grid.RowSpan="2" Margin="0,0,20,11" Command="{Binding IzmeniPregledCommand}"/>
 
                 <DataGrid  x:Name="dataGridLekari" ItemsSource="{Binding Lekari}"

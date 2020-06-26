@@ -15,6 +15,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Org.BouncyCastle.Asn1.Cms;
+using HealthClinic.Repository.UserRepo.DoctorRepo;
+using Model.BusinessHours;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
@@ -23,12 +26,12 @@ namespace HelathClinicPatienteRole.ViewModel
         private List<Doctor> _DoctorList;
         private CheckupStrategyControler checkupStrategyControler;
         private DoctorController doctorController;
-
+        private DoctorFileRepository doctorFr;
         public ZakaziPregledPatientViewModel()
         {
             checkupStrategyControler = new CheckupStrategyControler();
             doctorController = new DoctorController();
-
+            doctorFr = new DoctorFileRepository ();
             PirkaziPreporukaTerminaDialogCommand = new RelayCommand(PirkaziPreporukaTerminaDialog);
             ZakaziPregledCommand = new RelayCommand(ZakaziPregled);
             PreporukaTerminaCommand = new RelayCommand(PreporukaTermina);
@@ -72,9 +75,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
             #endregion
         }
-        #endregion
-
-      
+        #endregion   
 
         #region Preporuka termina 
 
@@ -130,10 +131,10 @@ namespace HelathClinicPatienteRole.ViewModel
 
         public RelayCommand ZakaziPregledCommand { get; private set; }
 
-        private static DateTime vremePrethodnoZakazanogPregleda; 
+        private static DateTime vremePrethodnoZakazanogPregleda;
         public void ZakaziPregled(object obj)
         {
-            if(vremePrethodnoZakazanogPregleda.Day == DateTime.Now.Day)
+            if (vremePrethodnoZakazanogPregleda.Day == DateTime.Now.Day)
             {
                 MessageBox.Show("Nije moguće opet zakazati pregled! Potrebno je da prođe 24h od prethodno zakazanog pregleda!");
                 return;
@@ -150,14 +151,29 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Izabrani datum mora da bude minimalno jedan dan veći od trenutnog datuma!");
                 return;
             }
+  
+            DateTime termin = new DateTime(2020, SelektovaniDatum.Month, SelektovaniDatum.Day, SelektovanoVreme.Hour, 0, 0);
+        
+            if(doctorController.IsDoctorFree(SelektovaniLekar, termin))
+            {
+                Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = termin, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
+                vremePrethodnoZakazanogPregleda = DateTime.Now;
+                PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
+                checkupStrategyControler.ScheduleTerm(pregled);
+                MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
+            }
+            else
+            {
+                MessageBox.Show("Izabrani lekar " + SelektovaniLekar.Name + " nije slobodan u tom terminu!");
+            }
+           // MessageBox.Show("Selektovano vreeme " + SelektovanoVreme.Hour);
 
-           
-            MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
-            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
-            vremePrethodnoZakazanogPregleda = DateTime.Now;
-            PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
-            checkupStrategyControler.ScheduleTerm(pregled);
+          /* 
+            BusinessHoursModel bh = new BusinessHoursModel() { FromDate = DateTime.Today, ToDate = DateTime.Today.AddDays(5), FromHour = DateTime.Today.AddDays(5).AddHours(5), ToHour = DateTime.Today.AddDays(5).AddHours(8) };
 
+            Doctor doctor = new Doctor { Id = 0, Name = "Pero", Surname = "Peric", BusinessHours = bh };
+            _DoctorList.Add(doctor);
+            doctorFr.SaveAll(_DoctorList);*/
         }
 
         #endregion
@@ -245,6 +261,17 @@ namespace HelathClinicPatienteRole.ViewModel
         {
             get { return _selektovaniDatum; }
             set { _selektovaniDatum = value; OnPropertyChanged("SelektovaniDatum"); }
+        }
+        #endregion
+
+        #region Selektovano vreme za termin
+
+        private DateTime _selektovanoVreme = DateTime.Now;
+
+        public DateTime SelektovanoVreme
+        {
+            get { return _selektovanoVreme; }
+            set { _selektovanoVreme = value; OnPropertyChanged("SelektovanoVreme"); }
         }
         #endregion
 

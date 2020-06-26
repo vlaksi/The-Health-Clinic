@@ -117,6 +117,7 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 
         public void SaveAll(IEnumerable<Doctor> entities)
         {
+          
             using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();

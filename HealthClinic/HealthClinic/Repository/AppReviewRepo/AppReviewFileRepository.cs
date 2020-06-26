@@ -10,7 +10,8 @@ namespace Repository.SurveyResponseRepo
     public class AppReviewFileRepository : AppReviewRepository
     {
 
-        private string filePath = @".\FileStorage\appReview.json";
+        private string filePath = @"./../../../HealthClinic/FileStorage/appReview.json";
+
 
         private void OpenFile()
         {

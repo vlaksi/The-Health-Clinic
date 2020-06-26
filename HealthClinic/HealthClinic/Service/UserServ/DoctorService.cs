@@ -1,4 +1,4 @@
-// File:    DoctorService.cs
+﻿// File:    DoctorService.cs
 // Author:  Vaxi
 // Created: Sunday, May 3, 2020 11:47:00 AM
 // Purpose: Definition of Class DoctorService
@@ -51,6 +51,18 @@ namespace Service.UserServ
       public Report WriteReport(Report report)
       {
          throw new NotImplementedException();
+      }
+
+      public bool IsDoctorFree(Doctor doctor, DateTime date)
+      {        
+            if (date.Date < doctor.BusinessHours.FromDate || date.Date > doctor.BusinessHours.ToDate)
+            {
+                if(date.Hour < doctor.BusinessHours.FromHour.Hour || date.Hour > doctor.BusinessHours.ToHour.Hour)
+                {
+                    return true;
+                }
+            }  
+            return false;
       }
       
    
