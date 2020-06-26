@@ -15,56 +15,52 @@ namespace Service.UserServ
 {
     public class DoctorService
     {
-      private DoctorRepositoryFactory doctorRepositoryFactory;
-      private DoctorRepository doctorRepository;
+        private DoctorRepositoryFactory doctorRepositoryFactory;
+        private DoctorRepository doctorRepository;
 
-      public DoctorService()
-      {
+        public DoctorService()
+        {
             doctorRepositoryFactory = new DoctorFileRepositoryFactory();
             doctorRepository = doctorRepositoryFactory.CreateDoctorRepository();
-      }
-      public List<Doctor> GetAllDoctors()
-      {
+        }
+        public List<Doctor> GetAllDoctors()
+        {
             return (List<Doctor>)doctorRepository.FindAll();
-      }
+        }
+        public void AddDoctor(Doctor doctor)
+        {
+            doctorRepository.Save(doctor);
+        }
 
-      public void SaveUpdatedDoctor(Doctor doctor)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public List<Specialist> GetAllSpecialistsBySpecialty(String specialty)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Treatment PrescribeTreatment(MedicalRecord mr, Treatment treatment)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public ReferralToSpecialist ReferToSpecialist(MedicalRecord mr, Specialist specialist)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Report WriteReport(Report report)
-      {
-         throw new NotImplementedException();
-      }
-      public bool IsDoctorFree(int doctorId, DateTime date)
-      {
+        public Doctor FindById(int id)
+        {
+            return doctorRepository.FindById(id);
+        }
+
+        public void SaveUpdatedDoctor(Doctor doctor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType)
+        {
+            return doctorRepository.GetAllSpecialistsBySpecialty(specialtyType);
+        }
+
+        //treba provjeriti i da li doktor ima zakazane termine u tom periodu
+        public bool IsDoctorFree(int doctorId, DateTime dateStart, DateTime dateEnd)
+        {
             Doctor doctor = doctorRepository.FindById(doctorId);
-            if (date.Date < doctor.BusinessHours.FromDate || date.Date > doctor.BusinessHours.ToDate)
+            if (dateStart.Date > doctor.BusinessHours.FromDate || dateEnd.Date < doctor.BusinessHours.ToDate)
             {
-                if(date.Hour < doctor.BusinessHours.FromHour.Hour || date.Hour > doctor.BusinessHours.ToHour.Hour)
+                if (dateStart.Hour > doctor.BusinessHours.FromHour.Hour || dateEnd.Hour < doctor.BusinessHours.ToHour.Hour)
                 {
                     return true;
                 }
-            }  
+            }
             return false;
-      }
-      
-   
-   }
+        }
+
+
+    }
 }

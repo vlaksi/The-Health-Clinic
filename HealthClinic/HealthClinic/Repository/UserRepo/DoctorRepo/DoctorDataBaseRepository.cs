@@ -57,7 +57,7 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
             throw new NotImplementedException();
         }
 
-        public List<Specialist> GetAllSpecialistsBySpecialty(string specialty)
+        public List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType)
         {
             throw new NotImplementedException();
         }
