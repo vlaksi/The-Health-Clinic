@@ -1,8 +1,10 @@
 ﻿using Controller.MedicalRecordContr;
 using Controller.MedicineContr;
+using Controller.PatientContr;
 using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Medicine;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,15 +19,17 @@ namespace Doctors_UI_Console.Functionalities
 
         private static MedicineController mc = new MedicineController();
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
+        private static PatientController patientController = new PatientController();
 
         #region Write a Prescription
         public static void WritePrescription(MedicalRecord mr)
         {
+            PatientModel patient = patientController.FindById(mr.PatientId);
+            
             Treatment newTreatment = new Treatment() { Medicines = new ObservableCollection<Medicine>() };
-
             List<Medicine> availableMedicines = new List<Medicine>(mc.GetAvailableMedicines());
 
-            Console.WriteLine("\n\t~~~ Write a Prescription for " + mr.Name + " " + mr.Surname + " ~~~");
+            Console.WriteLine("\n\t~~~ Write a Prescription for " + patient.Name + " " + patient.Surname + " ~~~");
             foreach (Medicine med in availableMedicines)
             {
                 MedicinesFunctionalities.PrintMedicine(med);
@@ -76,7 +80,7 @@ namespace Doctors_UI_Console.Functionalities
 
             mr.Treatments.Add(newTreatment);
             medicalRecordController.UpdateMedicalRecord(mr);
-            Console.WriteLine("\n\t ~~~ You've successfully written a prescription for " + mr.Name + " " + mr.Surname + "! ~~~");
+            Console.WriteLine("\n\t ~~~ You've successfully written a prescription for " + patient.Name + " " + patient.Surname + "! ~~~");
         }
         #endregion 
 
@@ -85,7 +89,7 @@ namespace Doctors_UI_Console.Functionalities
         {
             List<string> commonConditions = new List<string>();
             List<string> observations = new List<string>();
-
+            PatientModel patient = patientController.FindById(mr.PatientId);
             /*
              * Kada se dodaju termini
             foreach (int termId in mr.Terms)
@@ -145,17 +149,18 @@ namespace Doctors_UI_Console.Functionalities
                 Observations = observations
             };
             medicalRecordController.SaveReport(mr, newReport);
-            Console.WriteLine("\n\t\tSuccessfully saved new report for " + mr.Name + " " + mr.Surname + "!");
+            Console.WriteLine("\n\t\tSuccessfully saved new report for " + patient.Name + " " + patient.Surname + "!");
         }
 
         public static void PreviewReports(MedicalRecord mr)
         {
+            PatientModel patient = patientController.FindById(mr.PatientId);
             //odraditi populaciju termina
-            Console.WriteLine("\n\t~ Previewing reports for " + mr.Name + " " + mr.Surname + " ~");
+            Console.WriteLine("\n\t~ Previewing reports for " + patient.Name + " " + patient.Surname + " ~");
 
             if (mr.Reports.Count == 0)
             {
-                Console.WriteLine("\t\tThere are no reports for " + mr.Name + " " + mr.Surname + ".");
+                Console.WriteLine("\t\tThere are no reports for " + patient.Name + " " + patient.Surname + ".");
                 return;
             }
 

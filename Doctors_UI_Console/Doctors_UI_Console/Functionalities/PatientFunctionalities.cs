@@ -1,7 +1,9 @@
 ﻿using Controller.MedicalRecordContr;
+using Controller.PatientContr;
 using Model.Calendar;
 using Model.MedicalRecord;
 using Model.Medicine;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +16,7 @@ namespace Doctors_UI_Console.Functionalities
     public class PatientFunctionalities
     {
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
+        private static PatientController patientController = new PatientController();
         public PatientFunctionalities()
         {
 
@@ -115,7 +118,6 @@ namespace Doctors_UI_Console.Functionalities
                             Console.WriteLine("\t\t\t\t* " + recordsList.Count + " record(s) found.");
                             Console.Write("\n\tPlease enter ID of patient whose medical record you wish to preview: ");
                             string patientId = Console.ReadLine();
-                            Console.WriteLine(patientId);
                             SelectPatientFromListById(patientId, recordsList);
                             breakOut = true;
                         }
@@ -137,7 +139,7 @@ namespace Doctors_UI_Console.Functionalities
             {
                 if (Int32.TryParse(patientId, out int id))
                 {
-                    MedicalRecord matches = recordsList.Find(mr => mr.Id == id);
+                    MedicalRecord matches = recordsList.Find(mr => mr.MedicalRecordId == id);
                     if (matches != null)
                     {
                         EnterPatientsMedicalRecord(matches);
@@ -168,6 +170,7 @@ namespace Doctors_UI_Console.Functionalities
         {
             foreach (MedicalRecord mr in records)
             {
+                PatientModel patient = patientController.FindById(mr.PatientId);
                 // ~~~ Priprema ~~~
                 //Dobavljanje termina:
 
@@ -175,12 +178,12 @@ namespace Doctors_UI_Console.Functionalities
                 ObservableCollection<Treatment> treatments = mr.Treatments;
 
                 // ~~~ Print ~~~
-                Console.WriteLine("\t~~~ Medical record of " + mr.Name + " " + mr.Surname + " ~~~~");
-                Console.WriteLine("\t\tParents Name: " + mr.ParentsName);
-                Console.WriteLine("\t\tGender: " + mr.Gender);
-                Console.WriteLine("\t\tBirth: " + mr.DateOfBirth.ToShortDateString());
-                Console.WriteLine("\t\tAddress: " + mr.Address);
-                Console.WriteLine("\t\tPhone: " + mr.Phone);
+                Console.WriteLine("\t~~~ Medical record of " + patient.Name + " " + patient.Surname + " ~~~~");
+                Console.WriteLine("\t\tParents Name: " + patient.ParentsName);
+                Console.WriteLine("\t\tGender: " + patient.Gender);
+                Console.WriteLine("\t\tBirth: " + patient.Birthday.ToShortDateString());
+                Console.WriteLine("\t\tAddress: " + patient.Adress);
+                Console.WriteLine("\t\tPhone: " + patient.PhoneNumber);
                 if (treatments == null || treatments.Count == 0)
                 {
                     Console.WriteLine("\t\tTreatments: None");
@@ -190,7 +193,7 @@ namespace Doctors_UI_Console.Functionalities
                     Console.WriteLine("\t\tTreatments: ");
                     PrintTreatments(treatments);
                 }
-                Console.WriteLine("\t\tID: " + mr.Id);
+                Console.WriteLine("\t\tID: " + mr.MedicalRecordId);
             }
         }
 
@@ -212,6 +215,7 @@ namespace Doctors_UI_Console.Functionalities
         // Kada se konačno odabere jedan pacijent, ulazi se u njegov karton i moguće je raditi funkcionalnosti poput propisivanje tretmana itd.
         private static void EnterPatientsMedicalRecord(MedicalRecord mr)
         {
+            PatientModel patient = patientController.FindById(mr.PatientId);
             bool breakOut = false;
             while (!breakOut)
             {
@@ -222,12 +226,12 @@ namespace Doctors_UI_Console.Functionalities
                 ObservableCollection<Treatment> treatments = mr.Treatments;
 
                 // ~~~ Print ~~~
-                Console.WriteLine("\t~~~ Medical record of " + mr.Name + " " + mr.Surname + " ~~~~");
-                Console.WriteLine("\t\tParents Name: " + mr.ParentsName);
-                Console.WriteLine("\t\tGender: " + mr.Gender);
-                Console.WriteLine("\t\tBirth: " + mr.DateOfBirth.ToShortDateString());
-                Console.WriteLine("\t\tAddress: " + mr.Address);
-                Console.WriteLine("\t\tPhone: " + mr.Phone);
+                Console.WriteLine("\t~~~ Medical record of " + patient.Name + " " + patient.Surname + " ~~~~");
+                Console.WriteLine("\t\tParents Name: " + patient.ParentsName);
+                Console.WriteLine("\t\tGender: " + patient.Gender);
+                Console.WriteLine("\t\tBirth: " + patient.Birthday.ToShortDateString());
+                Console.WriteLine("\t\tAddress: " + patient.Adress);
+                Console.WriteLine("\t\tPhone: " + patient.PhoneNumber);
                 if (treatments == null || treatments.Count == 0)
                 {
                     Console.WriteLine("\t\tTreatments: None");
@@ -237,7 +241,7 @@ namespace Doctors_UI_Console.Functionalities
                     Console.WriteLine("\t\tTreatments: ");
                     PrintTreatments(treatments);
                 }
-                Console.WriteLine("\t\tID: " + mr.Id);
+                Console.WriteLine("\t\tID: " + mr.MedicalRecordId);
 
 
 
@@ -245,7 +249,7 @@ namespace Doctors_UI_Console.Functionalities
                 Console.WriteLine("\t2) Make a Referral to Specialist");
                 Console.WriteLine("\t3) Write a Report");
                 Console.WriteLine("\t4) Preview Reports");
-                Console.WriteLine("\tX) Exit " + mr.Name + "'s Medical Record");
+                Console.WriteLine("\tX) Exit " + patient.Name + "'s Medical Record");
                 Console.Write("\t\tWhich action do you want to perform? ");
                 switch (Console.ReadLine().ToLower())
                 {

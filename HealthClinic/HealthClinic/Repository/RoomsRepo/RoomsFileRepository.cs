@@ -15,6 +15,7 @@ namespace Repository.RoomsRepo
 {
     public class RoomsFileRepository : RoomsRepository
     {
+        private string filePath = @".\FileStorage\rooms.json";
 
         public void makeUpdateFor(Room room)
         {
@@ -63,8 +64,6 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
-
-        private string filePath;
 
         public List<OperatingRoom> GetAllOperatingRooms()
         {
@@ -148,11 +147,8 @@ namespace Repository.RoomsRepo
         {
             List<Room> allRooms = new List<Room>();
 
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\rooms.json";
-
             // read file into a string and deserialize JSON to a type
-            allRooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(currentPath));
+            allRooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(filePath));
 
             return allRooms;
         }
@@ -187,11 +183,9 @@ namespace Repository.RoomsRepo
 
         public void SaveAll(IEnumerable<Room> entities)
         {
-            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
-            currentPath += @"\HealthClinic\FileStorage\rooms.json";
 
             // serialize JSON directly to a file
-            using (StreamWriter file = File.CreateText(currentPath))
+            using (StreamWriter file = File.CreateText(filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, entities);

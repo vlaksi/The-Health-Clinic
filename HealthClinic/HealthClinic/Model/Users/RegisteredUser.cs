@@ -9,13 +9,12 @@ namespace Model.Users
 {
     public class RegisteredUser : Person
     {
-        private String username;
-        private String password;
-        private String photo;
-        public Residence residence; //TODO: Proveriti da li da pravimo properti za ovo ?, posto se to ne moze izgenerisati u PD, a treba nam properti ?
+        private string username;
+        private string password;
+        private string gender;
 
 
-        public String Username
+        public string Username
         {
             get
             {
@@ -28,7 +27,7 @@ namespace Model.Users
             }
         }
 
-        public String Password
+        public string Password
         {
             get
             {
@@ -41,21 +40,20 @@ namespace Model.Users
             }
         }
 
-        public String Photo
+        private string parentsName;
+
+        public string ParentsName
         {
-            get
-            {
-                return photo;
-            }
-            set
-            {
-                this.photo = value;
-                OnPropertyChanged("Photo");
-            }
+            get { return parentsName; }
+            set { parentsName = value; }
         }
 
-        
 
+        public string Gender
+        {
+            get { return gender; }
+            set { gender = value; }
+        }
 
     }
 }

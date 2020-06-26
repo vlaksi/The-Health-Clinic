@@ -6,14 +6,12 @@
 using Model.BusinessHours;
 using Model.Calendar;
 using Model.Users;
-using Repository.UserRepo;
 using System;
 
 namespace Service.UserServ
 {
    public class ManagerService
    {
-      public IUserRepositoryFacotory iUserRepositoryFacotory;
 
       public Doctor RegisterDoctor(Doctor doctor)
       {

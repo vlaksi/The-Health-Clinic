@@ -13,7 +13,7 @@ namespace Repository.BlogPostRepo
 {
     public class BlogPostFileRepository : BlogPostRepository
     {
-        private string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) + @"\HealthClinic\FileStorage\blogs.json";
+        private string filePath = @".\FileStorage\blogs.json";
 
         public void OpenFile()
         {

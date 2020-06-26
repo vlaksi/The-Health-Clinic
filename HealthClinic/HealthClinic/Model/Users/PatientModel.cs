@@ -27,8 +27,17 @@ namespace Model.Users
             set { accommodation = value; OnPropertyChanged("Accommodation"); }
         }
 
+        private int medicalRecordId;
 
-        public System.Collections.Generic.List<SurveyResponse> surveyResponses;
+        public int MedicalRecordId
+        {
+            get { return medicalRecordId; }
+            set { medicalRecordId = value; }
+        }
+
+
+
+        private System.Collections.Generic.List<SurveyResponse> surveyResponses;
         public System.Collections.Generic.List<SurveyResponse> SurveyResponses
         {
             get
@@ -48,58 +57,42 @@ namespace Model.Users
                 }
             }
         }
-  
-      
-      /// <summary>
-      /// Add a new SurveyResponse in the collection
-      /// </summary>
-      /// <pdGenerated>Default Add</pdGenerated>
-      public void AddSurveyResponses(SurveyResponse newSurveyResponse)
-      {
-         if (newSurveyResponse == null)
-            return;
-         if (this.surveyResponses == null)
-            this.surveyResponses = new System.Collections.Generic.List<SurveyResponse>();
-         if (!this.surveyResponses.Contains(newSurveyResponse))
-         {
-            this.surveyResponses.Add(newSurveyResponse);
-           
-         }
-      }
-      
-      /// <summary>
-      /// Remove an existing SurveyResponse from the collection
-      /// </summary>
-      /// <pdGenerated>Default Remove</pdGenerated>
-      public void RemoveSurveyResponses(SurveyResponse oldSurveyResponse)
-      {
-         if (oldSurveyResponse == null)
-            return;
-         if (this.surveyResponses != null)
-            if (this.surveyResponses.Contains(oldSurveyResponse))
+
+        public void AddSurveyResponses(SurveyResponse newSurveyResponse)
+        {
+            if (newSurveyResponse == null)
+                return;
+            if (this.surveyResponses == null)
+                this.surveyResponses = new System.Collections.Generic.List<SurveyResponse>();
+            if (!this.surveyResponses.Contains(newSurveyResponse))
             {
-               this.surveyResponses.Remove(oldSurveyResponse);
-           
+                this.surveyResponses.Add(newSurveyResponse);
+
             }
-      }
-      
-      /// <summary>
-      /// Remove all instances of SurveyResponse from the collection
-      /// </summary>
-      /// <pdGenerated>Default removeAll</pdGenerated>
-      public void RemoveAllSurveyResponses()
-      {
-         if (surveyResponses != null)
-         {
-            System.Collections.ArrayList tmpSurveyResponses = new System.Collections.ArrayList();
-            foreach (SurveyResponse oldSurveyResponse in surveyResponses)
-               tmpSurveyResponses.Add(oldSurveyResponse);
-            surveyResponses.Clear();
-            tmpSurveyResponses.Clear();
-         }
-      }
-      public RoomsHistory[] roomsHistory;
-   
-   }
+        }
+        public void RemoveSurveyResponses(SurveyResponse oldSurveyResponse)
+        {
+            if (oldSurveyResponse == null)
+                return;
+            if (this.surveyResponses != null)
+                if (this.surveyResponses.Contains(oldSurveyResponse))
+                {
+                    this.surveyResponses.Remove(oldSurveyResponse);
+
+                }
+        }
+        public void RemoveAllSurveyResponses()
+        {
+            if (surveyResponses != null)
+            {
+                System.Collections.ArrayList tmpSurveyResponses = new System.Collections.ArrayList();
+                foreach (SurveyResponse oldSurveyResponse in surveyResponses)
+                    tmpSurveyResponses.Add(oldSurveyResponse);
+                surveyResponses.Clear();
+                tmpSurveyResponses.Clear();
+            }
+        }
+
+    }
 
 }
