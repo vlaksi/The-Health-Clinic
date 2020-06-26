@@ -15,7 +15,7 @@ namespace Repository.TermRepo
 {
     public class CheckupFileRepository : CheckupRepository
     {
-        private string filePath = @"./../../../HealthClinic/FileStorage/checkup.json";
+        private string filePath = @"./../../../../HealthClinic/FileStorage/checkup.json";
         public int Count()
         {
             List<Checkup> allCheckups = (List<Checkup>)FindAll();
