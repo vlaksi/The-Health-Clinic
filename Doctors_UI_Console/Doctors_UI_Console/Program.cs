@@ -23,9 +23,9 @@ namespace Doctors_UI_Console
 
         static void Main(string[] args)
         {
-            DoctorController doctorController = new DoctorController();
-            LoggedIn.doctorLoggedIn = doctorController.FindById(3);
-            //Login();
+            //DoctorController doctorController = new DoctorController();
+            //LoggedIn.doctorLoggedIn = doctorController.FindById(3);
+            Login();
 
             bool showMenu = true;
             while (showMenu)
@@ -70,10 +70,10 @@ namespace Doctors_UI_Console
             Console.Clear();
             Console.WriteLine("\n  ~~~~ Welcome, " + LoggedIn.doctorLoggedIn.Name + "! ~~~~");
             Console.WriteLine("\t1) Search Patients");
-            Console.WriteLine("\t2) Preview Terms");
-            Console.WriteLine("\t3) Preview Medicines awaiting Approval");
-            Console.WriteLine("\t4) Preview My Appointments");
-            Console.WriteLine("\t5) Visit Blog");
+            Console.WriteLine("\t2) Preview Medicines awaiting Approval");
+            Console.WriteLine("\t3) Preview My Appointments");
+            Console.WriteLine("\t4) Visit Blog");
+            Console.WriteLine("\t5) Profile Settings");
             Console.WriteLine("\tEnter X to exit the application.");
             Console.Write("\n\t>> ");
 
@@ -83,15 +83,16 @@ namespace Doctors_UI_Console
                     PatientFunctionalities.SearchPatients();
                     return true;
                 case "2":
-                    return true;
-                case "3":
                     MedicinesFunctionalities.PreviewMedicinesWaitingApproval();
                     return true;
-                case "4":
+                case "3":
                     UserFunctionalities.PreviewMyAppointments();
                     return true;
-                case "5":
+                case "4":
                     BlogFunctionalities.VisitBlog();
+                    return true;
+                case "5":
+                    UserFunctionalities.VisitMyProfile();
                     return true;
                 case "x":
                     return false;

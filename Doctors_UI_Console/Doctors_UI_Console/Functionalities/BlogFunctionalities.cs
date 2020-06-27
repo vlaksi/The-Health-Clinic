@@ -2,6 +2,7 @@
 using Model.BlogPost;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Doctors_UI_Console
 {
@@ -32,6 +33,7 @@ namespace Doctors_UI_Console
                         WriteBlogPost();
                         break;
                     case "3":
+                        Console.Clear();
                         PreviewYourBlogPosts();
                         break;
                     case "x":
@@ -44,7 +46,22 @@ namespace Doctors_UI_Console
 
         private static void PreviewYourBlogPosts()
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> myBlogs = blogPostController.GetBlogPostsForDoctor(LoggedIn.doctorLoggedIn.Id);
+            if (myBlogs.Count == 0)
+            {
+                Console.WriteLine("\t\tYou haven't written any blogs.");
+                Thread.Sleep(2000);
+                return;
+            }
+            else
+            {
+                Console.WriteLine("\t\tYour blog posts");
+                //Dodati ispis ljekara
+                foreach (BlogPostModel blog in myBlogs)
+                {
+                    PrintBlog(blog);
+                }
+            }
         }
 
         private static void WriteBlogPost()

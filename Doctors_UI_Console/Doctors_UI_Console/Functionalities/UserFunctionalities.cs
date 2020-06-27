@@ -16,11 +16,9 @@ namespace Doctors_UI_Console.Functionalities
 {
     public class UserFunctionalities
     {
-        private static PatientController patientController = new PatientController();
-        private static DoctorController doctorController = new DoctorController();
-        private static RoomsController roomsController = new RoomsController();
         private static TermContextController termController = new TermContextController();
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
+        private static DoctorController doctorController = new DoctorController();
         public static void PreviewMyAppointments()
         {
             while (true)
@@ -121,6 +119,60 @@ namespace Doctors_UI_Console.Functionalities
                 break;
             }
             Console.WriteLine("\n");
+        }
+
+        public static void VisitMyProfile()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\t~~~ Profile of " + LoggedIn.doctorLoggedIn.Name + " " + LoggedIn.doctorLoggedIn.Surname + " ~~~");
+            Console.WriteLine("\t\t1) Email: " + LoggedIn.doctorLoggedIn.Email);
+            Console.WriteLine("\t\t2) Password: " + LoggedIn.doctorLoggedIn.Password);
+            while (true)
+            {
+                Console.Write("\t\t\tWhich one do you want to change? ");
+                string input = Console.ReadLine();
+                if (input == "1")
+                {
+                    ChangeEmail();
+                    break;
+                }
+                else if (input == "2")
+                {
+                    ChangePassword();
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        private static void ChangePassword()
+        {
+            Console.Write("\t\tNew password: ");
+            string input = Console.ReadLine();
+            LoggedIn.doctorLoggedIn.Password = input;
+            doctorController.AddDoctor(LoggedIn.doctorLoggedIn);
+            Console.WriteLine("\t\t\tPassword changed!");
+            Thread.Sleep(1500);
+        }
+
+        private static void ChangeEmail()
+        {
+            Console.Write("\t\tNew email: ");
+            string input = Console.ReadLine();
+            if (!doctorController.isEmailTaken(input))
+            {
+                LoggedIn.doctorLoggedIn.Email = input;
+                doctorController.AddDoctor(LoggedIn.doctorLoggedIn);
+                Console.WriteLine("\t\t\tEmail changed!");
+            }
+            else
+            {
+                Console.WriteLine("\t\t\tThis email is taken!");
+            }
+            Thread.Sleep(1500);
         }
 
         public static void EditOperation(List<int> operationsForSelection)

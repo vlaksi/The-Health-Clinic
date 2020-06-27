@@ -33,12 +33,6 @@ namespace Doctors_UI_Console.Functionalities
 
             Console.WriteLine("\n ~~~ Scheduling a operation for " + patient.Name + " " + patient.Surname + " ~~~");
 
-            Console.Write("\tSelect start time for this operation: (YYYY/MM/DD hh:mm:ss) ");
-            operation.StartTime = MedicalRecordFunctionalities.EnterDate();
-            Console.Write("\tSelect end time for this operation: (YYYY/MM/DD hh:mm:ss) ");
-            operation.EndTime = MedicalRecordFunctionalities.EnterDate();
-            Console.WriteLine("\n");
-
             //Odabir tipa operacije
             Console.WriteLine("\tWhat is this operation's specialty type? ");
             while (true)
@@ -121,6 +115,20 @@ namespace Doctors_UI_Console.Functionalities
                 break;
             }
 
+            Console.Write("\tSelect start time for this operation: (YYYY/MM/DD hh:mm:ss) ");
+            operation.StartTime = MedicalRecordFunctionalities.EnterDate();
+            Console.Write("\tSelect end time for this operation: (YYYY/MM/DD hh:mm:ss) ");
+            operation.EndTime = MedicalRecordFunctionalities.EnterDate();
+            Console.WriteLine("\n");
+
+            Doctor checkDoctor = doctorController.FindById(operation.SpecialistId);
+            if (!doctorController.IsDoctorFree(checkDoctor, operation.StartTime, operation.EndTime))
+            {
+                Console.WriteLine("\t\tSelected specialist is not free in this period!");
+                Thread.Sleep(2000);
+                return;
+            }
+
             // Odabir sobe
             while (true)
             {
@@ -162,12 +170,6 @@ namespace Doctors_UI_Console.Functionalities
             Checkup checkup = new Checkup();
 
             Console.WriteLine("\n ~~~ Scheduling a checkup for " + patient.Name + " " + patient.Surname + " ~~~");
-
-            Console.Write("\tSelect start time for this checkup: (YYYY/MM/DD hh:mm:ss) ");
-            checkup.StartTime = MedicalRecordFunctionalities.EnterDate();
-            Console.Write("\tSelect end time for this checkup: (YYYY/MM/DD hh:mm:ss) ");
-            checkup.EndTime = MedicalRecordFunctionalities.EnterDate();
-            Console.WriteLine("\n");
 
             //Odabir tipa operacije
             Console.WriteLine("\tWhat is this checkup's specialty type? ");
@@ -256,6 +258,20 @@ namespace Doctors_UI_Console.Functionalities
                     }
                 }
                 break;
+            }
+
+            Console.Write("\tSelect start time for this checkup: (YYYY/MM/DD hh:mm:ss) ");
+            checkup.StartTime = MedicalRecordFunctionalities.EnterDate();
+            Console.Write("\tSelect end time for this checkup: (YYYY/MM/DD hh:mm:ss) ");
+            checkup.EndTime = MedicalRecordFunctionalities.EnterDate();
+            Console.WriteLine("\n");
+
+            Doctor checkDoctor = doctorController.FindById(checkup.DoctorId);
+            if (!doctorController.IsDoctorFree(checkDoctor, checkup.StartTime, checkup.EndTime))
+            {
+                Console.WriteLine("\t\tSelected doctor is not free in this period!");
+                Thread.Sleep(2000);
+                return;
             }
 
             // Odabir sobe

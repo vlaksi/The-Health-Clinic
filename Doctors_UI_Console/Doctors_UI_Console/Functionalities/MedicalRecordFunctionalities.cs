@@ -30,7 +30,8 @@ namespace Doctors_UI_Console.Functionalities
         #region Write a Prescription
         public static void WritePrescription(MedicalRecord mr)
         {
-            if (!LoggedIn.doctorLoggedIn.AbleToPrescribeTreatments) {
+            if (!LoggedIn.doctorLoggedIn.AbleToPrescribeTreatments)
+            {
                 Console.WriteLine("\tSorry " + LoggedIn.doctorLoggedIn.Name + ", you are not allowed to prescribe treatments.");
                 Thread.Sleep(3000);
                 return;
@@ -99,16 +100,27 @@ namespace Doctors_UI_Console.Functionalities
 
         public static void WriteReport(MedicalRecord mr)
         {
+
+            if(mr.Checkups.Count == 0 || mr.Operations.Count == 0)
+            {
+                Console.WriteLine("\tPatient does not have any terms to write report for.");
+                Thread.Sleep(2000);
+                return;
+            }
+
             List<string> commonConditions = new List<string>();
             List<string> observations = new List<string>();
             PatientModel patient = patientController.FindById(mr.PatientId);
-            /*
-             * Kada se dodaju termini
-            foreach (int termId in mr.Terms)
+            foreach (int termId in mr.Checkups)
             {
-                Console.WriteLine("\tTerm with id: " + termId);
+                Console.WriteLine("\tCheckup with id: " + termId);
+            }
+            foreach (int termId in mr.Operations)
+            {
+                Console.WriteLine("\tOperation with id: " + termId);
             }
 
+            Report newReport = new Report();
             Console.Write("\n\tSelect term for the this report: (ID)");
             while (true)
             {
@@ -121,16 +133,26 @@ namespace Doctors_UI_Console.Functionalities
 
                 if (Int32.TryParse(input, out int id))
                 {
-                    int matches = mr.Terms.Find(term => term == id);
-                    if (matches != 0)
+                    int checkupMatch = mr.Checkups.Find(term => term == id);
+                    if (checkupMatch != 0)
                     {
-                        newReport.TermId = id;
-                        Console.WriteLine("\tSuccessfully selected term with ID " + matches + "!");
+                        newReport.TermId = checkupMatch;
+                        Console.WriteLine("\tSuccessfully selected checkup with ID " + checkupMatch + "!");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine("\tPlease select a term from the list.");
+                        int operationMatch = mr.Operations.Find(term => term == id);
+                        if (operationMatch != 0)
+                        {
+                            newReport.TermId = operationMatch;
+                            Console.WriteLine("\tSuccessfully selected checkup with ID " + operationMatch + "!");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\tPlease select a term from the list.");
+                        }
                     }
                 }
                 else
@@ -138,7 +160,7 @@ namespace Doctors_UI_Console.Functionalities
                     Console.WriteLine("\t\tPlease enter a valid id!");
                 }
             }
-            */
+            
 
             Console.Write("\tPlease enter patient's report during this term (e.g. how he felt): ");
             string patientsReport = Console.ReadLine();
@@ -152,14 +174,12 @@ namespace Doctors_UI_Console.Functionalities
             Console.WriteLine("\tPlease perform measurements of patient's vital functions: ");
             observations = PerformObservations();
 
-
-            Report newReport = new Report()
-            {
-                PatientsReport = patientsReport,
-                DoctorsRemark = doctorsRemark,
-                CommonMedicalConditions = commonConditions,
-                Observations = observations
-            };
+            newReport.PatientsReport = patientsReport;
+            newReport.DoctorsRemark = doctorsRemark;
+            newReport.CommonMedicalConditions = commonConditions;
+            newReport.PatientsReport = patientsReport;
+            newReport.Observations = observations;
+            
             medicalRecordController.SaveReport(mr, newReport);
             Console.WriteLine("\n\t\tSuccessfully saved new report for " + patient.Name + " " + patient.Surname + "!");
         }
@@ -173,6 +193,7 @@ namespace Doctors_UI_Console.Functionalities
             if (mr.Reports.Count == 0)
             {
                 Console.WriteLine("\t\tThere are no reports for " + patient.Name + " " + patient.Surname + ".\n\n");
+                Thread.Sleep(2000);
                 return;
             }
 
@@ -189,7 +210,7 @@ namespace Doctors_UI_Console.Functionalities
         {
             if (mr.IsAccommodated)
             {
-                Console.Write("Patient is already accommodated! Do you wish to transfer him? (Y/N) ");
+                Console.Write("\n\tPatient is already accommodated! Do you wish to transfer him? (Y/N) ");
                 if (string.Compare(Console.ReadLine(), "N", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     return;
@@ -342,7 +363,7 @@ namespace Doctors_UI_Console.Functionalities
             {
                 if (DateTime.TryParse(Console.ReadLine(), out DateTime enteredDateTime))
                 {
-                    if(enteredDateTime < DateTime.Now)
+                    if (enteredDateTime < DateTime.Now)
                     {
                         Console.WriteLine("\t\tDate cannot be before today!");
                         continue;
