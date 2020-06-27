@@ -20,9 +20,9 @@ namespace Controller.PatientContr
             throw new NotImplementedException();
         }
 
-        public SurveyResponse FillFeedbackForm()
+        public void FillFeedbackForm(SurveyResponse surveyResponse)
         {
-            throw new NotImplementedException();
+            patientService.FillFeedbackForm(surveyResponse);
         }
 
         public bool PatientLogin(string jmbg, string password)
