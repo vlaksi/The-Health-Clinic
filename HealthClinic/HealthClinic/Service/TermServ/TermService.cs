@@ -1,5 +1,7 @@
-﻿using Model.Calendar;
+﻿using HealthClinic.Model.Calendar;
+using Model.Calendar;
 using Model.Users;
+using Service.UserServ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,19 @@ namespace HealthClinic.Service.TermServ
 {
     class TermService
     {
-        public DateTime SuggestCheckup(PatientModel patient, List<Checkup>[] pastCheckups)
+        DoctorService doctorService = new DoctorService();
+
+        public DateTime SuggestCheckup(SuggestCheckupDTO suggestCheckupDTO)
         {
-            throw new NotImplementedException();
+            //Ako je lekar nema ni jedan termin u zadatom intervalu odmah preporucujemo slobodan termin pacijentu
+            if(doctorService.IsDoctorFree(suggestCheckupDTO.DoctorID, suggestCheckupDTO.StartInterval, suggestCheckupDTO.EndInterval))
+            {
+                return suggestCheckupDTO.StartInterval;
+            }else
+            {//Ako ima proveravamo da li ima bar jedan slobodan termin
+
+            }
+            return DateTime.Now;
         }
 
         public bool IsChosenDoctorFreeInChosenInterval(List<DateTime> dateInterval, Doctor doctor)

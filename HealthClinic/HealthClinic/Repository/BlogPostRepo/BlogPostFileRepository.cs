@@ -13,7 +13,7 @@ namespace Repository.BlogPostRepo
 {
     public class BlogPostFileRepository : BlogPostRepository
     {
-        private string filePath = @"./../../../../HealthClinic/FileStorage/blogs.json";
+        private string filePath = @"./../../../HealthClinic/FileStorage/blogs.json";
 
         public void OpenFile()
         {

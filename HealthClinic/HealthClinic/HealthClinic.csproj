@@ -96,6 +96,7 @@
     <Compile Include="Model\Calendar\Checkup.cs" />
     <Compile Include="Model\Calendar\Operation.cs" />
     <Compile Include="Model\Calendar\Report.cs" />
+    <Compile Include="Model\Calendar\SuggestCheckupDTO.cs" />
     <Compile Include="Model\Calendar\Term.cs" />
     <Compile Include="Model\MedicalRecord\MedicalRecord.cs" />
     <Compile Include="Model\MedicalRecord\ReferralToSpecialist.cs" />
