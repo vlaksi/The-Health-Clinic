@@ -52,7 +52,7 @@
                 </DataGrid>
 
                 <CheckBox Name="lekarCheckedCB"
-                   Checked="lekarChecked" Style="{StaticResource MaterialDesignFilterChipCheckBox}" Background="#FF148DF0"  Grid.ColumnSpan="8"  Grid.RowSpan="2" Width="85" Grid.Column="12" Grid.Row="18" Margin="10,0,0,20">
+                   Click="lekarChecked" Style="{StaticResource MaterialDesignFilterChipCheckBox}" Background="#FF148DF0"  Grid.ColumnSpan="8"  Grid.RowSpan="2" Width="85" Grid.Column="12" Grid.Row="18" Margin="10,0,0,20">
                     Lekar
                     <CheckBox.ToolTip>
                         <ToolTip>
@@ -64,7 +64,7 @@
                     </CheckBox.ToolTip>
                 </CheckBox>
                 <CheckBox Name="datumCheckedCB"
-                    Checked="datumChecked"  Style="{StaticResource MaterialDesignFilterChipCheckBox}" Background="#FF148DF0" Grid.ColumnSpan="8"  Grid.RowSpan="2" Width="85" Grid.Column="20" Grid.Row="18" Margin="11,0,0,20" >
+                    Click="datumChecked"  Style="{StaticResource MaterialDesignFilterChipCheckBox}" Background="#FF148DF0" Grid.ColumnSpan="8"  Grid.RowSpan="2" Width="85" Grid.Column="20" Grid.Row="18" Margin="11,0,0,20" >
                     Datum
                     <CheckBox.ToolTip>
                         <ToolTip>

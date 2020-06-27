@@ -19,12 +19,14 @@ namespace HelathClinicPatienteRole.Dialogs
     /// Interaction logic for PreporukaTerminaDialog.xaml
     /// </summary>
     public partial class PreporukaTerminaDialog : Window
-    {
-		private static bool izabranPrioritet;
+    { 
+        private static bool izabranPrioritetDatum;
+        public static bool IzabranPrioritetDatum { get => izabranPrioritetDatum; set => izabranPrioritetDatum = value; }
+       
+        private static bool izabranPrioritetLekar;
+        public static bool IzabranPrioritetLekar { get => izabranPrioritetLekar; set => izabranPrioritetLekar = value; }
 
-		public static bool IzabranPrioritet { get => izabranPrioritet; set => izabranPrioritet = value; }
-
-		public PreporukaTerminaDialog()
+        public PreporukaTerminaDialog()
         {
             InitializeComponent();
         }
@@ -33,12 +35,13 @@ namespace HelathClinicPatienteRole.Dialogs
 		{
 		
 			if (lekarCheckedCB.IsChecked == true)
-			{
-                izabranPrioritet = true;
+			{     
+                izabranPrioritetLekar = true;
+               
             }
-            if (lekarCheckedCB.IsChecked == false)
-            {
-                izabranPrioritet = false;
+            else
+            {    
+                izabranPrioritetLekar = false;
 
             }
         }
@@ -48,12 +51,12 @@ namespace HelathClinicPatienteRole.Dialogs
 
 			if (datumCheckedCB.IsChecked == true)
 			{
-                izabranPrioritet = true;
+                
+                izabranPrioritetDatum = true;
 
             }
-            if (datumCheckedCB.IsChecked == false)
-            {
-                izabranPrioritet = false;
+            else { 
+                izabranPrioritetDatum = false;
 
             }
         }

@@ -106,13 +106,14 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Potrebno je izabrati lekara!");
                 return;
             }
-            if(!PreporukaTerminaDialog.IzabranPrioritet)
+            if(!PreporukaTerminaDialog.IzabranPrioritetDatum && !PreporukaTerminaDialog.IzabranPrioritetLekar)
             {
                 MessageBox.Show("Potrebno je izabrati prioritet, ako vam prioritet nije bitan izaberite i Lekara i Datum!");
                 return;
             }
             PreporucenTermin = SelektovaniDatumOd.AddDays(i++);
-    
+            MessageBox.Show("Izabran prioritet datum " + PreporukaTerminaDialog.IzabranPrioritetDatum + " Izabran prioritet lekar " + PreporukaTerminaDialog.IzabranPrioritetLekar );
+
         }
 
         #endregion
