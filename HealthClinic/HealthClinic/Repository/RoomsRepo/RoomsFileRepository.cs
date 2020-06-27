@@ -24,7 +24,7 @@ namespace Repository.RoomsRepo
             foreach (Room tempRoom in allRooms)
             {
                 // For now, room is uniq by number of room, but we need to change that !
-                if (tempRoom.NumberOfRoom.Equals(room.NumberOfRoom))
+                if (tempRoom.RoomId.Equals(room.RoomId))
                 {
                     tempRoom.Department = room.Department;
                     tempRoom.Purpose = room.Purpose;
@@ -45,6 +45,9 @@ namespace Repository.RoomsRepo
                     tempRoom.RoomInventory = new List<InventoryType>();
                     if(!(room.RoomInventory is null))
                         tempRoom.RoomInventory.AddRange(room.RoomInventory);
+
+                    tempRoom.PatientsAccommodated = room.PatientsAccommodated;
+                    tempRoom.Capacity = room.Capacity;
 
                     break;
                 }

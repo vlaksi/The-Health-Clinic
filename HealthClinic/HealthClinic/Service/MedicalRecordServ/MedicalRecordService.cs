@@ -17,7 +17,7 @@ namespace Service.MedicalRecordServ
     {
         public MedicalRecordRepositoryFactory medicalRecordRepositoryFactory;
         public MedicalRecordRepository medicalRecordRepository;
-       
+
         public MedicalRecordService()
         {
             medicalRecordRepositoryFactory = new MedicalRecordFileRepositoryFactory();
@@ -38,10 +38,13 @@ namespace Service.MedicalRecordServ
 
             foreach (MedicalRecord mr in allRecords)
             {
-                patient = patientFileRepository.FindById(mr.PatientId);
-                if (patient.Name.ToLower().Contains(Name.ToLower()) || patient.Surname.ToLower().Contains(Name.ToLower()))
+                if (mr.PatientId != 0)
                 {
-                    result.Add(mr);
+                    patient = patientFileRepository.FindById(mr.PatientId);
+                    if (patient.Name.ToLower().Contains(Name.ToLower()) || patient.Surname.ToLower().Contains(Name.ToLower()))
+                    {
+                        result.Add(mr);
+                    }
                 }
             }
             return result;
@@ -50,9 +53,9 @@ namespace Service.MedicalRecordServ
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;
-            foreach(MedicalRecord mr in medicalRecordRepository.FindAll())
+            foreach (MedicalRecord mr in medicalRecordRepository.FindAll())
             {
-                if(mr.PatientId == Id)
+                if (mr.PatientId == Id)
                 {
                     result = mr;
                     break;
