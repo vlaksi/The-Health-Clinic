@@ -93,7 +93,8 @@ namespace HelathClinicPatienteRole.ViewModel
         public void PosaljIAnketu(object obj)
         {
             //PatientModel patient = new PatientModel { Id = 1 , Name = "Marko", Surname = "Markovic", PhoneNumber= "0602545687" , Adress = "Narodnog Fronta, Novi Sad", Birthday= new DateTime(1980, 1, 1, 0, 0, 0), Biography="IT radnik vec 20 godina, veoma fizicki aktivan" };
-            SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, Doctor = SelektovaniPregled.Doctor };
+            Doctor doctor = doctorController.FindById(SelektovaniPregled.DoctorId);
+                SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, Doctor = doctor };
             surveyResponseController.AddSurveyResponse(anketa);
             MessageBox.Show("Uspesno ste uradili anketu ! Vas Komentar je : " + Comment + " A ocena je : " + SelektovaniMark);
             return;
@@ -117,9 +118,9 @@ namespace HelathClinicPatienteRole.ViewModel
 
             DateTime termin = new DateTime(2020, SelektovaniDatum.Month, SelektovaniDatum.Day, SelektovanoVreme.Hour, 0, 0);
 
-            if (doctorController.IsDoctorFree(SelektovaniLekar, termin))
+            if (doctorController.IsDoctorFree(SelektovaniLekar, termin, termin))
             {
-                Checkup pregled = new Checkup { Id = SelektovaniPregled.Id, CheckupName = SelektovaniPregled.CheckupName, StartTime = termin, CheckupStatus = SelektovaniPregled.CheckupStatus, Doctor = SelektovaniLekar };
+                Checkup pregled = new Checkup { Id = SelektovaniPregled.Id, CheckupName = SelektovaniPregled.CheckupName, StartTime = termin, CheckupStatus = SelektovaniPregled.CheckupStatus, DoctorId = SelektovaniLekar.Id };
                 checkupStrategyControler.EditTerm(pregled);
                 MessageBox.Show("Usepsno ste izmenili pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
             }

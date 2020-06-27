@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Org.BouncyCastle.Asn1.Cms;
-using HealthClinic.Repository.UserRepo.DoctorRepo;
+using Repository.UserRepo.DoctorRepo;
 using Model.BusinessHours;
 
 namespace HelathClinicPatienteRole.ViewModel
@@ -154,9 +154,9 @@ namespace HelathClinicPatienteRole.ViewModel
   
             DateTime termin = new DateTime(2020, SelektovaniDatum.Month, SelektovaniDatum.Day, SelektovanoVreme.Hour, 0, 0);
         
-            if(doctorController.IsDoctorFree(SelektovaniLekar, termin))
+            if(doctorController.IsDoctorFree(SelektovaniLekar, termin, termin))
             {
-                Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = termin, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
+                Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = termin, CheckupStatus = "Zakazan", DoctorId = SelektovaniLekar.Id };
                 vremePrethodnoZakazanogPregleda = DateTime.Now;
                 PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
                 checkupStrategyControler.ScheduleTerm(pregled);
@@ -199,7 +199,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
            
             MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + " " + SelektovaniLekar.Surname + ".");
-            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", Doctor = SelektovaniLekar };
+            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", DoctorId = SelektovaniLekar.Id };
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
             checkupStrategyControler.ScheduleTerm(pregled);
