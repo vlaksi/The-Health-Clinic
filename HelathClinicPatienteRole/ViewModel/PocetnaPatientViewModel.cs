@@ -17,6 +17,7 @@ using Controller.TermContr;
 using Model.Survey;
 using Controller.SurveyResponseContr;
 using Controller.DoctorContr;
+using Controller.PatientContr;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
@@ -28,12 +29,13 @@ namespace HelathClinicPatienteRole.ViewModel
         private DoctorController doctorController;
         private PatientModel _prijavljeniKorisnik;
         private CheckupStrategyControler checkupStrategyControler;
-        private SurveyResponseController surveyResponseController;
+        private PatientController patientController;
+
         public PocetnaPatientViewModel()
         {
             doctorController = new DoctorController();
             checkupStrategyControler = new CheckupStrategyControler();
-            surveyResponseController = new SurveyResponseController();
+            patientController = new PatientController();
 
             PirkaziIzmeniPregledDialogCommand = new RelayCommand(PirkaziIzmeniPregledDialog);
             PirkaziOtkaziPregledDialogCommand = new RelayCommand(PirkaziOtkaziPregledDialog);
@@ -45,7 +47,6 @@ namespace HelathClinicPatienteRole.ViewModel
 
             _prijavljeniKorisnik = LoginViewModel.Instance.UlogovaniPacijent;
             _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
-            _SurveyResponseList = surveyResponseController.GetAllSurveyResponses();
             _PregledList = checkupStrategyControler.GetAllCheckups(_prijavljeniKorisnik.MedicalRecordId);
             
         }
@@ -95,8 +96,8 @@ namespace HelathClinicPatienteRole.ViewModel
         {
             //PatientModel patient = new PatientModel { Id = 1 , Name = "Marko", Surname = "Markovic", PhoneNumber= "0602545687" , Adress = "Narodnog Fronta, Novi Sad", Birthday= new DateTime(1980, 1, 1, 0, 0, 0), Biography="IT radnik vec 20 godina, veoma fizicki aktivan" };
             Doctor doctor = doctorController.FindById(SelektovaniPregled.DoctorId);
-                SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, Doctor = doctor };
-            surveyResponseController.AddSurveyResponse(anketa);
+                SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, Doctor = doctor , PatientId = _prijavljeniKorisnik.Id};
+            patientController.FillFeedbackForm(anketa);
             MessageBox.Show("Uspesno ste uradili anketu ! Vas Komentar je : " + Comment + " A ocena je : " + SelektovaniMark);
             return;
 
