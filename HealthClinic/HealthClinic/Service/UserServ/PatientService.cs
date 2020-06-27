@@ -8,6 +8,7 @@ using Model.MedicalRecord;
 using Model.Survey;
 using Model.Users;
 using Service.MedicalRecordServ;
+using Service.SurveyResponseServ;
 using System;
 using System.Collections.Generic;
 
@@ -18,9 +19,11 @@ namespace Service.UserServ
         private PatientRepositoryFactory patientRepositoryFactory;
         private PatientRepository patientRepository;
         private MedicalRecordService medicalRecordService;
+        private SurveyResponseService surveyResponseService;
 
         public PatientService()
         {
+            surveyResponseService = new SurveyResponseService();
             patientRepositoryFactory = new PatientFileRepositoryFactory();
             patientRepository = patientRepositoryFactory.CreatePatientRepository();
             medicalRecordService = new MedicalRecordService();
@@ -31,9 +34,9 @@ namespace Service.UserServ
             throw new NotImplementedException();
         }
 
-        public SurveyResponse FillFeedbackForm()
+        public void FillFeedbackForm(SurveyResponse surveyResponse)
         {
-            throw new NotImplementedException();
+            surveyResponseService.AddSurveyResponse(surveyResponse);
         }
 
         public PatientModel FindById(int id)
