@@ -18,6 +18,7 @@ using System.Windows.Input;
 using Org.BouncyCastle.Asn1.Cms;
 using Model.BusinessHours;
 using HealthClinic.Repository.UserRepo.DoctorRepo;
+using HealthClinic.Model.Calendar;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
@@ -84,7 +85,7 @@ namespace HelathClinicPatienteRole.ViewModel
         int i = 1;
         public void PreporukaTermina(object obj)
         {
-            if (SelektovaniDatumOd.Day < DateTime.Now.Day)
+            if (SelektovaniDatumOd < DateTime.Now)
             {
                 MessageBox.Show("Izabrani 'datum OD' je prošao!");
                 return;
@@ -111,7 +112,9 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Potrebno je izabrati prioritet, ako vam prioritet nije bitan izaberite i Lekara i Datum!");
                 return;
             }
-            PreporucenTermin = SelektovaniDatumOd.AddDays(i++);
+
+            SuggestCheckupDTO suggestCheckupDTO = new SuggestCheckupDTO() { DoctorID = SelektovaniLekar.Id , StartInterval = SelektovaniDatumOd , EndInterval = SelektovaniDatumDo , PriorityDate = PreporukaTerminaDialog.IzabranPrioritetDatum,PriorityDoctor = PreporukaTerminaDialog.IzabranPrioritetLekar };
+            PreporucenTermin = checkupStrategyControler.SuggestCheckup(suggestCheckupDTO);
             MessageBox.Show("Izabran prioritet datum " + PreporukaTerminaDialog.IzabranPrioritetDatum + " Izabran prioritet lekar " + PreporukaTerminaDialog.IzabranPrioritetLekar );
 
         }
