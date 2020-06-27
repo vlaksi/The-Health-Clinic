@@ -13,8 +13,6 @@ namespace Repository.UserRepo
 {
     public class PatientFileRepository : PatientRepository
     {
-        private string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
-
         private void OpenFile()
         {
             throw new NotImplementedException();
@@ -50,21 +48,6 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public bool ExistsByJmbg(string jmbg)
-        {
-            List<PatientModel> allPatients = GetAllPatients();
-
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Jmbg.Equals(jmbg))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public IEnumerable<RegisteredUser> FindAll()
         {
             throw new NotImplementedException();
@@ -89,95 +72,27 @@ namespace Repository.UserRepo
         {
             throw new NotImplementedException();
         }
-        public PatientModel FindPatientById(int id)
-        {
-            List<PatientModel> allPatients = GetAllPatients();
 
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Id == id)
-                {
-                    return patient;
-                }
-            }
-            return null;
-        }
-
-        public int GenerateId()
-        {
-            int maxId = -1;
-            List<PatientModel> allPatients = GetAllPatients();
-            if (allPatients.Count == 0) return 1;
-            foreach (PatientModel p in allPatients)
-            {
-                if (p.Id > maxId) maxId = p.Id;
-            }
-
-            return maxId + 1;
-        }
-
-        public void SavePatient(PatientModel patientForSave)
-        {
-            List<PatientModel> allPatients = GetAllPatients();
-            allPatients.Add(patientForSave);
-
-            using (StreamWriter file = File.CreateText(filePath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, allPatients);
-            }
-        }
-
-        public void SavePatients(List<PatientModel> patientsForSave)
-        {
-            using (StreamWriter file = File.CreateText(filePath))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, patientsForSave);
-            }
-        }
-
-        public void EditPatient(PatientModel patientForEdit)
-        {
-            List<PatientModel> allPatients = GetAllPatients();
-            PatientModel patientForRemove = null;
-
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Id == patientForEdit.Id)
-                {
-                    patientForRemove = patient;
-                    allPatients.Add(patientForEdit);
-                    break;
-                }
-            }
-            allPatients.Remove(patientForRemove);
-            SavePatients(allPatients);
-        }
-        public PatientModel FindByJmbg(string jmbg)
-        {
-            List<PatientModel> allPatients = GetAllPatients();
-
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Jmbg.Equals(jmbg))
-                {
-                    return patient;
-                }
-            }
-
-            return null;
-        }
         public List<PatientModel> GetAllPatients()
         {
-            List<PatientModel>  allPatients = JsonConvert.DeserializeObject<List<PatientModel>>(File.ReadAllText(filePath));
+            List<PatientModel> entites = new List<PatientModel>();
+            entites.Add(new PatientModel { Id = 1 , Name = "Marko", Surname = "Markovic", PhoneNumber= "0602545687" , Adress = "Narodnog Fronta, Novi Sad", Birthday= new DateTime(1980, 1, 1, 0, 0, 0), Biography="IT radnik vec 20 godina, veoma fizicki aktivan", Jmbg = "0105998800079", Password="12345678" });
+            string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entites);
+            }
+
+            string relativePath = @"./../../../HealthClinic/FileStorage/patients.json";
+            List<PatientModel>  allPatients = JsonConvert.DeserializeObject<List<PatientModel>>(File.ReadAllText(relativePath));
 
             if (allPatients == null) allPatients = new List<PatientModel>();
 
             return allPatients;
         }
 
-    
+        private string filePath;
 
     }
 }

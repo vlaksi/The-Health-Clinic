@@ -13,7 +13,15 @@ namespace Model.Calendar
     //public class Term : ScheduleAppointment, INotifyPropertyChanged
     public class Term : ObservableObject
     {
+        #region Attributes
+        private Model.Users.SpecialtyType specialtyType;
+        private int medicalRecordId;
+        private DateTime endTime;
+        private DateTime startTime;
         private int id;
+        #endregion
+
+        #region Properties
         public int Id
         {
             get
@@ -25,8 +33,6 @@ namespace Model.Calendar
                 this.id = value;
             }
         }
-
-        private DateTime startTime;
         public DateTime StartTime
         {
             get
@@ -38,8 +44,6 @@ namespace Model.Calendar
                 startTime = value;
             }
         }
-
-        private DateTime endTime;
         public DateTime EndTime
         {
             get
@@ -51,51 +55,23 @@ namespace Model.Calendar
                 endTime = value;
             }
         }
-
-        private Report report;
-
-        public Report Report
-        {
-            get { return report; }
-            set { report = value; }
-        }
-
-        private Model.Users.SpecialtyType specialtyType;
-
         public Model.Users.SpecialtyType SpecialtyType
         {
             get { return specialtyType; }
             set { specialtyType = value; }
         }
-
-
-        private Model.MedicalRecord.MedicalRecord medicalRecord;
-
-        public Model.MedicalRecord.MedicalRecord MedicalRecord
+        public int MedicalRecordId
         {
             get
             {
-                return medicalRecord;
+                return medicalRecordId;
             }
             set
 
             {
-                if (this.medicalRecord == null || !this.medicalRecord.Equals(value))
-                {
-                    if (this.medicalRecord != null)
-                    {
-                        Model.MedicalRecord.MedicalRecord oldMedicalRecord = this.medicalRecord;
-                        this.medicalRecord = null;
-                        oldMedicalRecord.RemoveTerm(this.Id);
-                    }
-                    if (value != null)
-                    {
-                        this.medicalRecord = value;
-                        this.medicalRecord.AddTerm(this.Id);
-                    }
-                }
+                medicalRecordId = value;
             }
         }
-
+        #endregion
     }
 }

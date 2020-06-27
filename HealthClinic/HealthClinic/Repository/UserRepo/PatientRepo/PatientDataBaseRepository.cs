@@ -1,23 +1,22 @@
-// File:    DoctorDataBaseRepository.cs
+// File:    PatientDataBaseRepository.cs
 // Author:  Vaxi
-// Created: Wednesday, May 20, 2020 12:19:32 AM
-// Purpose: Definition of Class DoctorDataBaseRepository
+// Created: Wednesday, May 20, 2020 12:19:33 AM
+// Purpose: Definition of Class PatientDataBaseRepository
 
-using Model.BusinessHours;
 using Model.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Repository.UserRepo
+namespace HealthClinic.Repository.UserRepo.PatientRepo
 {
-    public class DoctorDataBaseRepository : DoctorRepository
+    public class PatientDataBaseRepository : PatientRepository
     {
         public int Count()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(RegisteredUser entity)
+        public void Delete(PatientModel entity)
         {
             throw new NotImplementedException();
         }
@@ -37,42 +36,32 @@ namespace Repository.UserRepo
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAll()
+        public bool ExistsByJmbg(string jmbg)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<RegisteredUser> FindAllById(IEnumerable<int> ids)
+        public IEnumerable<PatientModel> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public RegisteredUser FindById(int id)
+        public IEnumerable<PatientModel> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }
 
-        public List<Doctor> FindMatchedDoctors(BusinessHoursModel bussinesHours)
+        public PatientModel FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Specialist> GetAllSpecialistsBySpecialty(string specialty)
+        public void Save(PatientModel entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(RegisteredUser entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveAll(IEnumerable<RegisteredUser> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetDoctorsBusinessHours(List<Doctor> doctors, BusinessHoursModel businessHours)
+        public void SaveAll(IEnumerable<PatientModel> entities)
         {
             throw new NotImplementedException();
         }
