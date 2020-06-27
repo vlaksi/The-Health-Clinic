@@ -26,7 +26,7 @@ namespace HelathClinicPatienteRole.ViewModel
         private List<Doctor> _LekariList;
         private List<SurveyResponse> _SurveyResponseList;
         private DoctorController doctorController;
-
+        private PatientModel _prijavljeniKorisnik;
         private CheckupStrategyControler checkupStrategyControler;
         private SurveyResponseController surveyResponseController;
         public PocetnaPatientViewModel()
@@ -43,9 +43,10 @@ namespace HelathClinicPatienteRole.ViewModel
             IzmeniPregledCommand = new RelayCommand(IzmeniPregled);
             PosaljiAnketuCommand = new RelayCommand(PosaljIAnketu);
 
+            _prijavljeniKorisnik = LoginViewModel.Instance.UlogovaniPacijent;
             _LekariList = ZakaziPregledPatientViewModel.Instance.Lekari;
             _SurveyResponseList = surveyResponseController.GetAllSurveyResponses();
-            _PregledList = checkupStrategyControler.GetAllCheckups();
+            _PregledList = checkupStrategyControler.GetAllCheckups(_prijavljeniKorisnik.MedicalRecordId);
             
         }
 
@@ -120,7 +121,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
             if (doctorController.IsDoctorFree(SelektovaniLekar, termin, termin))
             {
-                Checkup pregled = new Checkup { Id = SelektovaniPregled.Id, CheckupName = SelektovaniPregled.CheckupName, StartTime = termin, CheckupStatus = SelektovaniPregled.CheckupStatus, DoctorId = SelektovaniLekar.Id };
+                Checkup pregled = new Checkup { Id = SelektovaniPregled.Id, CheckupName = SelektovaniPregled.CheckupName, StartTime = termin, CheckupStatus = SelektovaniPregled.CheckupStatus, DoctorId = SelektovaniLekar.Id,MedicalRecordId= _prijavljeniKorisnik.MedicalRecordId };
                 checkupStrategyControler.EditTerm(pregled);
                 MessageBox.Show("Usepsno ste izmenili pregled kod " + SelektovaniLekar.Name + SelektovaniLekar.Surname + ".");
             }

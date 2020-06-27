@@ -119,17 +119,7 @@
                                 </Style>
                             </DataGridColumn.HeaderStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="   Lekar"
-                            Binding="{Binding Doctor.Name}">
-                            <DataGridColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="Background" Value="DarkGray"/>
-                                    <Setter Property="Width" Value="200"/>
-                                    <Setter Property="FontSize" Value="21"/>
-
-                                </Style>
-                            </DataGridColumn.HeaderStyle>
-                        </DataGridTextColumn>
+                 
                     </DataGrid.Columns>
 
                 </DataGrid>

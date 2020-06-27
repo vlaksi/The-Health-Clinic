@@ -51,7 +51,7 @@ namespace Service.TermServ
 
         public void ScheduleCheckup(Checkup checkup)
         {   
-           if(doctorService.IsDoctorFree(checkup.Doctor, checkup.StartTime))
+           if(doctorService.IsDoctorFree(checkup.DoctorId, checkup.StartTime, checkup.EndTime))
            {
                 checkupRepository.Save(checkup);
            }
@@ -62,5 +62,37 @@ namespace Service.TermServ
             return (List<Checkup>)checkupRepository.FindAll();
         }
 
+        public List<Checkup> getAllCheckupsForPatient(int medicalRecordId)
+        {
+            List<Checkup> allCheckups = (List<Checkup>)checkupRepository.FindAll();
+            List<Checkup> result = new List<Checkup>();
+            foreach (Checkup checkup in allCheckups)
+            {
+                if (checkup.MedicalRecordId == medicalRecordId)
+                {
+                    result.Add(checkup);
+                }
+            }
+            return result;
+        }
+
+        public Checkup FindById(int id)
+        {
+            return checkupRepository.FindById(id);
+        }
+
+        public List<Checkup> getAllCheckupsForDoctor(int doctorId)
+        {
+            List<Checkup> allCheckups = (List<Checkup>)checkupRepository.FindAll();
+            List<Checkup> result = new List<Checkup>();
+            foreach (Checkup checkup in allCheckups)
+            {
+                if (checkup.DoctorId == doctorId)
+                {
+                    result.Add(checkup);
+                }
+            }
+            return result;
+        }
     }
 }

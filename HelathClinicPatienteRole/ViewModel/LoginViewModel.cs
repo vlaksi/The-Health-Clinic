@@ -83,6 +83,8 @@ namespace HelathClinicPatienteRole.ViewModel
 
             if(patientController.PatientLogin(Username, Password))
             {
+                _ulogovaniPacijent = patientController.FindByJmbg(Username);
+
                 PatientMainWindow patientMainWindow = new PatientMainWindow();
                 this.Visibility = Visibility.Hidden;
                 patientMainWindow.Show();
@@ -90,7 +92,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 var win = new WizardWindow();
                 win.ShowDialog();
 
-                _ulogovaniPacijent = patientController.FindByJmbg(Username);
+                
                 Console.WriteLine(_ulogovaniPacijent.Jmbg);
             }
             else

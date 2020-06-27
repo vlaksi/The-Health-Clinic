@@ -16,18 +16,56 @@ namespace Model.MedicalRecord
 {
     public class MedicalRecord : ObservableObject
     {
+        #region Attributes
         private int medicalRecordId;
-        private string gender;
-        private String parentsName;
-        private String healthInsuranceNumber;
-        private String healthInsuranceCarrier;
         private ObservableCollection<Treatment> treatments;
-        private Doctor doctor;
-        private List<int> terms;
-        public List<ReferralToSpecialist> referralToSpecialist;
+        private int doctorId;
+        private List<int> checkups;
+        private List<int> operations;
+        private List<ReferralToSpecialist> referralToSpecialist;
         private int patientId;
         private List<Report> reports;
+        private int roomId;
+        private DateTime accommodationStart;
+        private DateTime accommodationEnd;
+        private bool isAccommodated;
+        #endregion
+        #region Properties
+        public DateTime AccommodationStart
+        {
+            get { return accommodationStart; }
+            set { accommodationStart = value; }
+        }
 
+        public DateTime AccommodationEnd
+        {
+            get
+            {
+                return accommodationEnd;
+            }
+            set { accommodationEnd = value; }
+        }
+
+        public bool IsAccommodated
+        {
+            get
+            {
+                if (DateTime.Compare(AccommodationEnd, DateTime.Now) < 1)
+                {
+                    isAccommodated = false;
+                    AccommodationEnd = default;
+                    AccommodationStart = default;
+                }
+                return isAccommodated;
+            }
+            set { isAccommodated = value; OnPropertyChanged("IsAccommodated"); }
+        }
+
+        public int RoomId
+        {
+            get { return roomId; }
+            set { roomId = value; OnPropertyChanged("RoomId"); }
+        }
 
         public List<Report> Reports
         {
@@ -45,57 +83,10 @@ namespace Model.MedicalRecord
             get { return medicalRecordId; }
             set { medicalRecordId = value; OnPropertyChanged("MedicalRecordId"); }
         }
-       
-        public string Gender
+        public int DoctorId
         {
-            get
-            {
-                return gender;
-            }
-            set
-            {
-                this.gender = value; OnPropertyChanged("Gender");
-            }
-        }
-       
-        public String ParentsName
-        {
-            get
-            {
-                return parentsName;
-            }
-            set
-            {
-                this.parentsName = value; OnPropertyChanged("ParentsName");
-            }
-        }
-        public String HealthInsuranceNumber
-        {
-            get
-            {
-                return healthInsuranceNumber;
-            }
-            set
-            {
-                this.healthInsuranceNumber = value; OnPropertyChanged("HealthInsuranceNumber");
-            }
-        }
-
-        public String HealthInsuranceCarrier
-        {
-            get
-            {
-                return healthInsuranceCarrier;
-            }
-            set
-            {
-                this.healthInsuranceCarrier = value; OnPropertyChanged("HealthInsuranceCarrier");
-            }
-        }
-        public Doctor Doctor
-        {
-            get { return doctor; }
-            set { doctor = value; OnPropertyChanged("Doctor"); }
+            get { return doctorId; }
+            set { doctorId = value; OnPropertyChanged("DoctorId"); }
         }
         public int PatientId
         {
@@ -104,72 +95,123 @@ namespace Model.MedicalRecord
         }
         public ObservableCollection<Treatment> Treatments
         {
-            get { return treatments; }
+            get { if (treatments == null) treatments = new ObservableCollection<Treatment>(); return treatments; }
             set { treatments = value; OnPropertyChanged("Treatments"); }
         }
         #endregion
         // Terms
-        public List<int> Terms
+        public List<int> Checkups
         {
             get
             {
-                if (terms == null)
-                    terms = new System.Collections.Generic.List<int>();
-                return terms;
+                if (checkups == null)
+                    checkups = new List<int>();
+                return checkups;
             }
             set
             {
-                RemoveAllTerm();
+                RemoveAllCheckups();
                 if (value != null)
                 {
                     foreach (int oTerm in value)
-                        AddTerm(oTerm);
+                        AddCheckup(oTerm);
                 }
             }
         }
-        public void AddTerm(int newTerm)
+        public List<int> Operations
         {
-            if (newTerm == 0)
-                return;
-            if (this.terms == null)
-                this.terms = new System.Collections.Generic.List<int>();
-            if (!this.terms.Contains(newTerm))
+            get
             {
-                this.terms.Add(newTerm);
-                //newTerm.MedicalRecord = this;      // ~~~ srediti ovo ~~~
+                if (operations == null)
+                    operations = new List<int>();
+                return operations;
+            }
+            set
+            {
+                RemoveAllOperations();
+                if (value != null)
+                {
+                    foreach (int oTerm in value)
+                        AddOperation(oTerm);
+                }
             }
         }
-        public void RemoveTerm(int oldTerm)
+        #region checkups
+        public void AddCheckup(int newCheckup)
         {
-            if (oldTerm == 0)
+            if (newCheckup == 0)
                 return;
-            if (this.terms != null)
-                if (this.terms.Contains(oldTerm))
+            if (this.checkups == null)
+                this.checkups = new List<int>();
+            if (!this.checkups.Contains(newCheckup))
+            {
+                this.checkups.Add(newCheckup);
+            }
+        }
+        public void RemoveCheckup(int oldCheckup)
+        {
+            if (oldCheckup == 0)
+                return;
+            if (this.checkups != null)
+                if (this.checkups.Contains(oldCheckup))
                 {
-                    this.terms.Remove(oldTerm);
-                    //oldTerm.MedicalRecord = null;  // ~~~ srediti ovo ~~~
+                    this.checkups.Remove(oldCheckup);
                 }
         }
-        public void RemoveAllTerm()
+        public void RemoveAllCheckups()
         {
-            if (terms != null)
+            if (checkups != null)
             {
                 System.Collections.ArrayList tmpTerm = new System.Collections.ArrayList();
-                foreach (int oldTerm in terms)
+                foreach (int oldTerm in checkups)
                     tmpTerm.Add(oldTerm);
-                terms.Clear();
-                /*foreach (Term oldTerm in tmpTerm)          // ~~~ srediti ovo ~~~
-                    oldTerm.MedicalRecord = null;*/
+                checkups.Clear();
                 tmpTerm.Clear();
             }
         }
+        #endregion
+
+        #region operations
+        public void AddOperation(int newOperation)
+        {
+            if (newOperation == 0)
+                return;
+            if (this.operations == null)
+                this.operations = new List<int>();
+            if (!this.operations.Contains(newOperation))
+            {
+                this.operations.Add(newOperation);
+            }
+        }
+        public void RemoveOperation(int oldOperation)
+        {
+            if (oldOperation == 0)
+                return;
+            if (this.operations != null)
+                if (this.operations.Contains(oldOperation))
+                {
+                    this.operations.Remove(oldOperation);
+                }
+        }
+        public void RemoveAllOperations()
+        {
+            if (operations != null)
+            {
+                System.Collections.ArrayList tmpTerm = new System.Collections.ArrayList();
+                foreach (int oldTerm in operations)
+                    tmpTerm.Add(oldTerm);
+                operations.Clear();
+                tmpTerm.Clear();
+            }
+        }
+        #endregion
 
         public List<ReferralToSpecialist> ReferralToSpecialist
         {
             get
             {
                 if (referralToSpecialist == null)
-                    referralToSpecialist = new System.Collections.Generic.List<ReferralToSpecialist>();
+                    referralToSpecialist = new List<ReferralToSpecialist>();
                 return referralToSpecialist;
             }
             set
@@ -182,6 +224,9 @@ namespace Model.MedicalRecord
                 }
             }
         }
+        #endregion
+
+        #region referrals
         public void AddReferralToSpecialist(ReferralToSpecialist newReferralToSpecialist)
         {
             if (newReferralToSpecialist == null)
@@ -204,7 +249,7 @@ namespace Model.MedicalRecord
             if (referralToSpecialist != null)
                 referralToSpecialist.Clear();
         }
-
+        #endregion
 
     }
 }

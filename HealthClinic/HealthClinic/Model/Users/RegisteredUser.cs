@@ -9,11 +9,12 @@ namespace Model.Users
 {
     public class RegisteredUser : Person
     {
-        private String username;
-        private String password;
+        private string username;
+        private string password;
+        private string gender;
 
 
-        public String Username
+        public string Username
         {
             get
             {
@@ -26,7 +27,7 @@ namespace Model.Users
             }
         }
 
-        public String Password
+        public string Password
         {
             get
             {
@@ -38,6 +39,19 @@ namespace Model.Users
                 OnPropertyChanged("Password");
             }
         }
+        private string parentsName;
 
+        public string ParentsName
+        {
+            get { return parentsName; }
+            set { parentsName = value; }
+        }
+
+
+        public string Gender
+        {
+            get { return gender; }
+            set { gender = value; }
+        }
     }
 }

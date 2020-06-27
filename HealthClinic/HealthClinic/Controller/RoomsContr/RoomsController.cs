@@ -3,6 +3,7 @@
 // Created: Sunday, May 3, 2020 9:00:10 PM
 // Purpose: Definition of Class RoomsController
 
+using Model.MedicalRecord;
 using Model.Rooms;
 using Model.Users;
 using Service.RoomServ;
@@ -45,9 +46,19 @@ namespace Controller.RoomsContr
             roomsService.saveAllRooms(roomsForSave);
         }
 
-        public bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room)
+        public List<Room> GetAvailablePatientsRooms()
         {
-            throw new NotImplementedException();
+            return roomsService.GetAvailablePatientsRooms();
+        }
+
+        public List<Room> GetAllOperatingRooms()
+        {
+            return roomsService.GetAllOperatingRooms();
+        }
+
+        public List<Room> GetAllOrdinations()
+        {
+            return roomsService.GetAllOrdinations();
         }
 
         public Room CreateRoom(Room room)
@@ -75,9 +86,14 @@ namespace Controller.RoomsContr
             return false;
         }
 
-        public List<OperatingRoom> GetFreeOperationRooms(DateTime start, DateTime end)
+        public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
             throw new NotImplementedException();
+        }
+
+        public bool isRoomFree(int roomId, DateTime start, DateTime end)
+        {
+            return roomsService.IsRoomFree(roomId, start, end);
         }
 
 

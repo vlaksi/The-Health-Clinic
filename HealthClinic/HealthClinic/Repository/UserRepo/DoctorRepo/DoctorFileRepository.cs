@@ -98,9 +98,19 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
             throw new NotImplementedException();
         }
 
-        public List<Specialist> GetAllSpecialistsBySpecialty(string specialty)
+        public List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType)
         {
-            throw new NotImplementedException();
+            List<Doctor> results = new List<Doctor>();
+            List<Doctor> allDoctors = (List<Doctor>)FindAll();
+            foreach(Doctor doctor in allDoctors)
+            {
+                if(doctor.SpecialtyType == specialtyType)
+                {
+                    results.Add(doctor);
+                }
+            }
+
+            return results;
         }
 
         public void Save(Doctor entity)

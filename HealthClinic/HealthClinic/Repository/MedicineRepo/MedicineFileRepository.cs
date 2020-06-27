@@ -13,7 +13,7 @@ namespace Repository.MedicineRepo
 {
     public class MedicineFileRepository : MedicineRepository
     {
-        private string filePath = @".\FileStorage\medicine.json";
+        string filePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())))) +  @"\HealthClinic\FileStorage\medicine.json";
         private void OpenFile()
         {
             throw new NotImplementedException();

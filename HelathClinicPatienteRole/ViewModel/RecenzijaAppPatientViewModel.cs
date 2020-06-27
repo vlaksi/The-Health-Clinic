@@ -1,4 +1,5 @@
-﻿using HealthClinic.Controller.AppReviewContr;
+﻿using Controller.PatientContr;
+using HealthClinic.Controller.AppReviewContr;
 using HelathClinicPatienteRole.Model;
 using HelathClinicPatienteRole.ViewModel.Commands;
 using Model.Survey;
@@ -15,24 +16,23 @@ using System.Windows.Input;
 
 namespace HelathClinicPatienteRole.ViewModel
 {
-    class RecenzijaAppPatientViewModel : INotifyPropertyChanged
+    public class RecenzijaAppPatientViewModel : INotifyPropertyChanged
     {
         private List<AppReview> _RecenzijeList;
         private string noviKomentar;
+        private PatientModel _prijavljeniKorisnik;
+        private PatientController patientController;
+
         private AppReviewController appReviewController = new AppReviewController();
         public RecenzijaAppPatientViewModel()
         {
-           OstaviRecenzijuCommand = new RelayCommand(OstaviRecenziju);
+            patientController = new PatientController();
+            _prijavljeniKorisnik = LoginViewModel.Instance.UlogovaniPacijent;
+
+            OstaviRecenzijuCommand = new RelayCommand(OstaviRecenziju);
 
 
             _RecenzijeList = appReviewController.GetAllAppReviews();
-
-            /* new ObservableCollection<AppReview>
-        {
-            new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
-            new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
-            new Recenzije{Korisnik = "Pero Mikić",Recenzija="Veoma dobra aplikacija, vrlo mi olakšava zakazivanje pregleda kao i pregled svih ostalih informacija koje me zanimaju. Blog vam je odličan!" },
-        };*/
         }
 
         #region Ostavi recenziju
@@ -54,15 +54,15 @@ namespace HelathClinicPatienteRole.ViewModel
             }
 
             AppReview novaRecenzija = new AppReview();
-            PatientModel patient = new PatientModel { Id = 1, Name = "Marko", Surname = "Markovic", PhoneNumber = "0602545687", Adress = "Narodnog Fronta, Novi Sad", Birthday = new DateTime(1980, 1, 1, 0, 0, 0), Biography = "IT radnik vec 20 godina, veoma fizicki aktivan" };
-            novaRecenzija.Patient = patient;
+          
+            novaRecenzija.Patient = _prijavljeniKorisnik;
             novaRecenzija.ReviewText = NoviKomentar;
 
 
             appReviewController.AddAppReview(novaRecenzija);
-            Recenzije.Add(novaRecenzija);
+           // Recenzije.Add(novaRecenzija);
             //Otkomentarisi polje ako hoces da onemogucis ostavljanje vise recenzija
-            // recenzijaOstavljena = true;
+            recenzijaOstavljena = true;
             MessageBox.Show("Uspesno ste ostavili recenziju ");
 
         }
@@ -104,7 +104,8 @@ namespace HelathClinicPatienteRole.ViewModel
             #endregion
         }
         #endregion
-   
+
+        #region Properties
 
         public string NoviKomentar
         {
@@ -131,16 +132,6 @@ namespace HelathClinicPatienteRole.ViewModel
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
-        }
-
-        #region Selektovana recenzija
-
-        private AppReview _selektovanaRecenzija;
-
-        public AppReview SelektovanaRecenzija
-        {
-            get { return _selektovanaRecenzija; }
-            set { _selektovanaRecenzija = value; OnPropertyChanged("SelektovanaRecenzija"); }
         }
 
         #endregion

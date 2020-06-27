@@ -29,9 +29,9 @@ namespace Controller.TermContr
             checkupService.ScheduleCheckup((Checkup)newTerm);
         }
 
-        public List<Checkup> GetAllCheckups()
+        public List<Checkup> GetAllCheckups(int medicineRecordId)
         {
-           return checkupService.getAllCheckups();
+           return checkupService.getAllCheckupsForPatient(medicineRecordId);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Model.BusinessHours
         private DateTime _toDate;
         private DateTime _fromHour;
         private DateTime _toHour;
-        public ArrayList _doctor;
 
         #endregion
 
