@@ -15,7 +15,7 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
 {
     public class PatientFileRepository : PatientRepository
     {
-        private string filePath = @"./../../../../HealthClinic/FileStorage/patients.json";
+        private string filePath = @"./../../../HealthClinic/FileStorage/patients.json";
 
         public int Count()
         {
@@ -138,7 +138,6 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
             {
                 if (patient.Id > maxId) maxId = patient.Id;
             }
-
             return maxId + 1;
         }
 
@@ -157,37 +156,8 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
             return false;
         }
 
-        public PatientModel FindByJmbg(string jmbg)
-        {
-            List<PatientModel> allPatientModels = (List<PatientModel>)FindAll();
 
-            foreach (PatientModel patient in allPatientModels)
-            {
-                if (patient.Jmbg.Equals(jmbg))
-                {
-                    return patient;
-                }
-            }
 
-            return null;
-        }
-
-        public void EditPatient(PatientModel patientForEdit)
-        {
-            List<PatientModel> allPatients = (List<PatientModel>) FindAll();
-            PatientModel patientForRemove = null;
-
-            foreach (PatientModel patient in allPatients)
-            {
-                if (patient.Id == patientForEdit.Id)
-                {
-                    patientForRemove = patient;
-                    allPatients.Add(patientForEdit);
-                    break;
-                }
-            }
-            allPatients.Remove(patientForRemove);
-            SaveAll(allPatients);
-        }
+       
     }
 }

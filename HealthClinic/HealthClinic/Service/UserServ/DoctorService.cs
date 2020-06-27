@@ -24,7 +24,7 @@ namespace Service.UserServ
         {
             doctorRepositoryFactory = new DoctorFileRepositoryFactory();
             doctorRepository = doctorRepositoryFactory.CreateDoctorRepository();
-            checkupService = new CheckupService();
+         
             operationService = new OperationService();
         }
         public List<Doctor> GetAllDoctors()
@@ -68,6 +68,7 @@ namespace Service.UserServ
         //treba provjeriti i da li doktor ima zakazane termine u tom periodu
         public bool IsDoctorFree(int doctorId, DateTime dateStart, DateTime dateEnd)
         {
+            checkupService = new CheckupService();
             Doctor doctor = doctorRepository.FindById(doctorId);
             //Da li se taj termin nalazi unutar radnog vremena
             if (dateStart.Date > doctor.BusinessHours.FromDate || dateEnd.Date < doctor.BusinessHours.ToDate

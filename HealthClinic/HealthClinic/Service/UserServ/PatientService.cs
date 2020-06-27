@@ -4,8 +4,10 @@
 // Purpose: Definition of Class PatientService
 
 using HealthClinic.Repository.UserRepo.PatientRepo;
+using Model.MedicalRecord;
 using Model.Survey;
 using Model.Users;
+using Service.MedicalRecordServ;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +15,16 @@ namespace Service.UserServ
 {
     public class PatientService
     {
+        private PatientRepositoryFactory patientRepositoryFactory;
+        private PatientRepository patientRepository;
+        private MedicalRecordService medicalRecordService;
+
+        public PatientService()
+        {
+            patientRepositoryFactory = new PatientFileRepositoryFactory();
+            patientRepository = patientRepositoryFactory.CreatePatientRepository();
+            medicalRecordService = new MedicalRecordService();
+        }
 
         public int RateClinic()
         {
@@ -23,10 +35,10 @@ namespace Service.UserServ
         {
             throw new NotImplementedException();
         }
+
         public PatientModel FindById(int id)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            return patientFileRepo.FindById(id);
+            return patientRepository.FindById(id);
         }
 
         public bool PatientLogin(string jmbg, string password)
@@ -44,41 +56,70 @@ namespace Service.UserServ
         }
         public bool PatientRegister(PatientModel patientForRegistration)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
+            MedicalRecord medicalRecord = new MedicalRecord();        
+            
+            medicalRecord.PatientId = GenerateId();
+            medicalRecordService.CreateMedicalRecord(medicalRecord);
+            patientForRegistration.MedicalRecordId = medicalRecord.MedicalRecordId;
 
-            if (!patientFileRepo.ExistsByJmbg(patientForRegistration.Jmbg))
+            if (!patientRepository.ExistsByJmbg(patientForRegistration.Jmbg))
             {
-                patientForRegistration.Id = patientFileRepo.GenerateId();
                 SavePatient(patientForRegistration);
                 return true;
             }
             return false;
         }
 
+        
         public PatientModel FindByJmbg(string jmbg)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            return patientFileRepo.FindByJmbg(jmbg);
-        }
+            List<PatientModel> allPatientModels = (List<PatientModel>)FindAll();
 
+            foreach (PatientModel patient in allPatientModels)
+            {
+                if (patient.Jmbg.Equals(jmbg))
+                {
+                    return patient;
+                }
+            }
+
+            return null;
+        }
 
         public List<PatientModel> FindAll()
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            return (List <PatientModel>)patientFileRepo.FindAll();
+            return (List <PatientModel>)patientRepository.FindAll();
         
         }
 
         public void SavePatient(PatientModel patient)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            patientFileRepo.Save(patient);
+            patientRepository.Save(patient);
         }
 
         public void EditPatient(PatientModel patientForEdit)
         {
-            PatientFileRepository patientFileRepo = new PatientFileRepository();
-            patientFileRepo.EditPatient(patientForEdit);
+            List<PatientModel> allPatients = (List<PatientModel>)FindAll();
+            PatientModel patientForRemove = null;
+
+            foreach (PatientModel patient in allPatients)
+            {
+                if (patient.Id == patientForEdit.Id)
+                {
+                    patientForRemove = patient;
+                    allPatients.Add(patientForEdit);
+                    break;
+                }
+            }
+
+            allPatients.Remove(patientForRemove);
+            patientRepository.SaveAll(allPatients);
+        }
+
+        public int GenerateId()
+        {
+            PatientFileRepository patientFileRepository = new PatientFileRepository();
+            return patientFileRepository.GenerateId();
         }
 
     }

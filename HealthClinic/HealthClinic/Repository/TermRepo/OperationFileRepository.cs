@@ -15,7 +15,7 @@ namespace Repository.TermRepo
 
     public class OperationFileRepository : OperationRepository
     {
-        private string filePath = @"./../../../../HealthClinic/FileStorage/operations.json";
+        private string filePath = @"./../../../HealthClinic/FileStorage/operations.json";
 
         public int Count()
         {
