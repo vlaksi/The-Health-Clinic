@@ -65,6 +65,21 @@ namespace Service.MedicalRecordServ
             return result;
         }
 
+        public MedicalRecord GetMedicalRecordById(int Id)
+        {
+            MedicalRecord result = null;
+            foreach (MedicalRecord mr in medicalRecordRepository.FindAll())
+            {
+                if (mr.MedicalRecordId == Id)
+                {
+                    result = mr;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
         public void SaveReport(MedicalRecord mr, Report report)
         {
             mr.Reports.Add(report);
