@@ -59,6 +59,7 @@ namespace Service.SurveyResponseServ
                 if (sr.DoctorId == doctor.Id)
                 {
                     resultSurveys.Add(sr);
+
                 }
             }
 

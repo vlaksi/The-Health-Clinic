@@ -34,7 +34,7 @@ namespace Service.UserServ
         public bool isEmailTaken(string email)
         {
             List<Doctor> allDoctors = GetAllDoctors();
-            foreach(Doctor doctor in allDoctors)
+            foreach (Doctor doctor in allDoctors)
             {
                 if (doctor.Email.Equals(email))
                 {
@@ -58,13 +58,13 @@ namespace Service.UserServ
             throw new NotImplementedException();
         }
 
-        public Doctor DoctorLogin(string email, string password)
+        public Doctor DoctorLogin(string username, string password)
         {
             List<Doctor> allDoctors = (List<Doctor>)doctorRepository.FindAll();
 
             foreach (Doctor doctor in allDoctors)
             {
-                if (doctor.Email.Equals(email) && doctor.Password.Equals(password))
+                if (doctor.Username.Equals(username) && doctor.Password.Equals(password))
                 {
                     return doctor;
                 }
@@ -90,7 +90,7 @@ namespace Service.UserServ
             {
                 //Da li doktor nema termina u tom periodu
                 List<Checkup> checkups = checkupService.getAllCheckupsForDoctor(doctorId);
-                foreach(Checkup checkup in checkups)
+                foreach (Checkup checkup in checkups)
                 {
                     if (checkup.StartTime == dateStart) return false;
                     if (checkup.EndTime == dateEnd) return false;
@@ -138,13 +138,10 @@ namespace Service.UserServ
                             return false; // Condition 4
                     }
                 }
-
                 // Ako je sve ovo zadovoljeno, slobodan je
-                return true;
             }
-            return false;
+            return true;
         }
-
 
     }
 }

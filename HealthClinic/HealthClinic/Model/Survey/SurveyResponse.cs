@@ -115,7 +115,8 @@ namespace Model.Survey
             }
         }
 
-        public int DoctorId 
+
+        public int DoctorId
         { 
             get 
             { 
