@@ -10,45 +10,48 @@ using Service.BlogPostServ;
 
 namespace Controller.BlogPostContr
 {
-   public class BlogPostController
-   {
-      public BlogPostService blogPostService;
+    public class BlogPostController
+    {
+        public BlogPostService blogPostService = new BlogPostService();
 
-      public BlogPostModel CreateBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public BlogPostModel UpdateBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public BlogPostModel GetBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DeleteBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Comment WriteComment(Comment comment, BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public List<Comment> GetAllComments(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DeleteComment(Comment comment)
-      {
-         throw new NotImplementedException();
-      }
-      
-   
-   }
+        public List<BlogPostModel> GetAllBlogPosts()
+        {
+            return blogPostService.GetAllBlogPosts();
+        }
+
+        public void CreateBlogPost(BlogPostModel blogPost)
+        {
+            blogPostService.CreateBlogPost(blogPost);
+        }
+
+        public void UpdateBlogPost(BlogPostModel blogPost)
+        {
+            blogPostService.UpdateBlogPost(blogPost);
+        }
+
+        public BlogPostModel GetBlogPostById(int id)
+        {
+            return blogPostService.GetBlogPostById(id);
+        }
+
+        public bool DeleteBlogPostById(int id)
+        {
+            return blogPostService.DeleteBlogPostById(id);
+        }
+
+        public void WriteComment(Comment comment, BlogPostModel blogPost)
+        {
+            blogPostService.WriteComment(comment, blogPost);
+        }
+
+        public bool DeleteComment(BlogPostModel blogPost, Comment comment)
+        {
+            return blogPostService.DeleteComment(blogPost, comment);
+        }
+
+        public List<BlogPostModel> GetBlogPostsForDoctor(int id)
+        {
+            return blogPostService.GetBlogPostsForDoctor(id);
+        }
+    }
 }

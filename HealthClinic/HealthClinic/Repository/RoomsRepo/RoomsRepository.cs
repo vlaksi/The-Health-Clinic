@@ -16,15 +16,10 @@ namespace Repository.RoomsRepo
 
         void makeUpdateFor(Room room);
 
-        List<OperatingRoom> GetAllOperatingRooms();
-
-        List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate);
-
-        bool AccommodatePatient(PatientModel patient, DateTime startDate, DateTime endDate, Room room);
+        List<Room> GetAllOperatingRooms();
 
         List<Room> GetAllRooms();
 
-        bool TransferPatient(Room newRoom);
 
     }
 }

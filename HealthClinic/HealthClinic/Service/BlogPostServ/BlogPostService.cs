@@ -10,45 +10,62 @@ using Repository.BlogPostRepo;
 
 namespace Service.BlogPostServ
 {
-   public class BlogPostService
-   {
-      public BlogPostRepositoryFactory blogPostRepositoryFacotory;
+    public class BlogPostService
+    {
+        public BlogPostRepositoryFactory blogPostRepositoryFactory;
+        public BlogPostFileRepository blogPostFileRepository = new BlogPostFileRepository();
 
-      public BlogPostModel CreateBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public BlogPostModel UpdateBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public BlogPostModel GetBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DeleteBlogPost(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public Comment WriteComment(Comment comment, BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public List<Comment> GetAllComents(BlogPostModel blogPost)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool DeleteComment(Comment comment)
-      {
-         throw new NotImplementedException();
-      }
-      
-   
-   }
+        public void CreateBlogPost(BlogPostModel blogPost)
+        {
+            blogPostFileRepository.Save(blogPost);
+        }
+
+        public List<BlogPostModel> GetAllBlogPosts()
+        {
+            return (List<BlogPostModel>)blogPostFileRepository.FindAll();
+        }
+
+        public void UpdateBlogPost(BlogPostModel blogPost)
+        {
+            blogPostFileRepository.Save(blogPost);
+        }
+
+        public BlogPostModel GetBlogPostById(int id)
+        {
+            return blogPostFileRepository.FindById(id);
+        }
+
+        public bool DeleteBlogPostById(int id)
+        {
+            blogPostFileRepository.DeleteById(id);
+            return true;
+        }
+
+
+        public void WriteComment(Comment comment, BlogPostModel blogPost)
+        {
+            blogPostFileRepository.SaveComment(blogPost, comment);
+        }
+
+
+        public bool DeleteComment(BlogPostModel blogPost, Comment comment)
+        {
+            blogPostFileRepository.DeleteComment(blogPost, comment);
+            return true;
+        }
+
+        public List<BlogPostModel> GetBlogPostsForDoctor(int id)
+        {
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)blogPostFileRepository.FindAll();
+            List<BlogPostModel> result = new List<BlogPostModel>();
+            foreach (BlogPostModel blog in allBlogs)
+            {
+                if(blog.Doctor == id)
+                {
+                    result.Add(blog);
+                }
+            }
+            return result;
+        }
+    }
 }

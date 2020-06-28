@@ -12,8 +12,8 @@ namespace Model.Calendar
     {
         private string checkupName;
         private string checkupStatus;
-        public Model.Rooms.Ordination ordination;
-        public Model.Users.Doctor doctor;
+        private int ordinationId;
+        private int doctorId;
 
         public string CheckupName
         {
@@ -35,12 +35,21 @@ namespace Model.Calendar
             }
         }
 
-        public Doctor Doctor
+        public int DoctorId
         {
-            get { return doctor; }
+            get { return doctorId; }
             set
             {
-                doctor = value;
+                doctorId = value;
+                OnPropertyChanged("Doctor");
+            }
+        }
+        public int OrdinationId
+        {
+            get { return ordinationId; }
+            set
+            {
+                ordinationId = value;
                 OnPropertyChanged("Doctor");
             }
         }

@@ -3,6 +3,7 @@
 // Created: Sunday, May 3, 2020 11:34:56 AM
 // Purpose: Definition of Class MedicalRecordController
 
+using Model.Calendar;
 using Model.MedicalRecord;
 using Service.MedicalRecordServ;
 using System;
@@ -27,7 +28,7 @@ namespace Controller.MedicalRecordContr
         {
             return medicalRecordService.GetMedicalRecordByPatientId(Id);
         }
-        //either surname or first name
+        //just first name
         public List<MedicalRecord> GetMedicalRecordByPatientName(string Name)
         {
             return medicalRecordService.GetMedicalRecordByPatientName(Name);
@@ -48,6 +49,9 @@ namespace Controller.MedicalRecordContr
             medicalRecordService.DeleteMedicalRecord(mr);
         }
 
-
+        public void SaveReport(MedicalRecord mr, Report report)
+        {
+            medicalRecordService.SaveReport(mr, report);
+        }
     }
 }

@@ -7,7 +7,7 @@ using System;
 
 namespace Model.Users
 {
-   public class Secretary : RegisteredUser
+   public class Secretary : Employee
    {
    }
 }

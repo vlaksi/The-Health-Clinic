@@ -56,12 +56,10 @@ namespace Service.SurveyResponseServ
 
             foreach (SurveyResponse sr in allSurveys)
             {
-                foreach (int docId in sr.Doctors)
+                if (sr.DoctorId == doctor.Id)
                 {
-                    if (docId == doctor.Id)
-                    {
-                        resultSurveys.Add(sr);
-                    }
+                    resultSurveys.Add(sr);
+
                 }
             }
 
@@ -75,7 +73,7 @@ namespace Service.SurveyResponseServ
             surveyRepo.Save(surveyToSave);
         }
 
-            public SurveyResponse GetStatisticsForDoctor(Doctor doctor)
+        public SurveyResponse GetStatisticsForDoctor(Doctor doctor)
         {
             List<SurveyResponse> allSurveys = this.GetSurveysForDoctor(doctor);
 

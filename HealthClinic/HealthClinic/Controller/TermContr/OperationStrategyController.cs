@@ -19,9 +19,9 @@ namespace Controller.TermContr
             operationService.CancelOperation((Operation)term);
         }
 
-        public void EditTerm(Term newTerm)
+        public void EditTerm(Term term)
         {
-            throw new NotImplementedException();
+            operationService.EditOperation((Operation)term);
         }
 
         public void ScheduleTerm(Term newTerm)

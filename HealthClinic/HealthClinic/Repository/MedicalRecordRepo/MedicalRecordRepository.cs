@@ -12,9 +12,6 @@ namespace Repository.MedicalRecordRepo
 {
    public interface MedicalRecordRepository : GenericInterfaceCRUDDao<MedicalRecord,int>
    {
-      void SaveReport(Report report);
-      
-      void SaveReferral(ReferralToSpecialist referral);
    
    }
 }
