@@ -2,9 +2,11 @@
 using Controller.MedicalRecordContr;
 using Controller.PatientContr;
 using Controller.RoomsContr;
+using Controller.SurveyResponseContr;
 using Controller.TermContr;
 using Model.Calendar;
 using Model.MedicalRecord;
+using Model.Survey;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,7 @@ namespace Doctors_UI_Console.Functionalities
         private static TermContextController termController = new TermContextController();
         private static MedicalRecordController medicalRecordController = new MedicalRecordController();
         private static DoctorController doctorController = new DoctorController();
+        private static SurveyResponseController surveyResponseController = new SurveyResponseController();
         public static void PreviewMyAppointments()
         {
             while (true)
@@ -125,7 +128,63 @@ namespace Doctors_UI_Console.Functionalities
         {
             Console.Clear();
             Console.WriteLine("\n\t~~~ Profile of " + LoggedIn.doctorLoggedIn.Name + " " + LoggedIn.doctorLoggedIn.Surname + " ~~~");
-            Console.WriteLine("\t\t1) Email: " + LoggedIn.doctorLoggedIn.Email);
+            Console.WriteLine("\t\t1) Change login info");
+            Console.WriteLine("\t\t2) Preview surveys about me");
+            while (true)
+            {
+                Console.Write("\t\t\tWhat do you want to do? ");
+                string input = Console.ReadLine();
+                if (input == "1")
+                {
+                    ChangeLoginInfo();
+                    break;
+                }
+                else if (input == "2")
+                {
+                    PreviewMySurveys();
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        private static void PreviewMySurveys()
+        {
+            List<SurveyResponse> mySurveys = surveyResponseController.GetSurveysForDoctor(LoggedIn.doctorLoggedIn);
+            if(mySurveys.Count == 0)
+            {
+                Console.WriteLine("\t\tThere are no surveys related to you.");
+                Thread.Sleep(2000);
+                return;
+            }
+            SurveyResponse average = surveyResponseController.GetStatisticsForDoctor(LoggedIn.doctorLoggedIn);
+            foreach(SurveyResponse survey in mySurveys)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("\t\tMark: " + survey.Mark);
+                Console.WriteLine("\t\tKindness: " + survey.Kindness);
+                Console.WriteLine("\t\tProfessionalism: " + survey.Professionalism);
+                Console.WriteLine("\t\tQuality: " + survey.Quality);
+                Console.WriteLine("\t\tSecurity: " + survey.Security);
+                Console.WriteLine("\t\tComment: " + survey.Comment);
+            }
+            Console.WriteLine("\n\n\tAverage response: ");
+            Console.WriteLine("\t\tMark: " + average.Mark);
+            Console.WriteLine("\t\tKindness: " + average.Kindness);
+            Console.WriteLine("\t\tProfessionalism: " + average.Professionalism);
+            Console.WriteLine("\t\tQuality: " + average.Quality);
+            Console.WriteLine("\t\tSecurity: " + average.Security);
+            Console.WriteLine("\t\tComment: " + average.Comment);
+            Console.WriteLine("\nPress any key to continue.");
+            Console.ReadLine();
+        }
+
+        private static void ChangeLoginInfo()
+        {
+            Console.WriteLine("\n\t\t1) Email: " + LoggedIn.doctorLoggedIn.Email);
             Console.WriteLine("\t\t2) Password: " + LoggedIn.doctorLoggedIn.Password);
             while (true)
             {

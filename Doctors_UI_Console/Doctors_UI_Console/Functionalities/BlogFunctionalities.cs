@@ -50,7 +50,7 @@ namespace Doctors_UI_Console
             if (myBlogs.Count == 0)
             {
                 Console.WriteLine("\t\tYou haven't written any blogs.");
-                Thread.Sleep(2000);
+                Thread.Sleep(3000);
                 return;
             }
             else

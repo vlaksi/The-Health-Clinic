@@ -20,7 +20,7 @@ namespace Model.Survey
         private Rate professionalism;
         private int mark; 
         private string comment;
-        private Doctor doctor;
+        private int doctorId;
         private int patientId;
 
         public int Id
@@ -115,20 +115,16 @@ namespace Model.Survey
             }
         }
 
-        //TODO: Obrsati ovo polje ako nikome ne treba
-        private ObservableCollection<int> doctors;
-        public ObservableCollection<int> Doctors { get { return doctors; } set { doctors = value; OnPropertyChanged("Doctors"); } }
-
-        public Doctor Doctor 
+        public int DoctorId 
         { 
             get 
             { 
-                return doctor; 
+                return doctorId; 
             } 
             set 
             { 
-                doctor = value; 
-                OnPropertyChanged("Doctors"); 
+                doctorId = value; 
+                OnPropertyChanged("DoctorId"); 
             } 
         }
 

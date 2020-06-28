@@ -73,7 +73,7 @@ namespace Doctors_UI_Console
             Console.WriteLine("\t2) Preview Medicines awaiting Approval");
             Console.WriteLine("\t3) Preview My Appointments");
             Console.WriteLine("\t4) Visit Blog");
-            Console.WriteLine("\t5) Profile Settings");
+            Console.WriteLine("\t5) Profile");
             Console.WriteLine("\tEnter X to exit the application.");
             Console.Write("\n\t>> ");
 

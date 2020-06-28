@@ -28,7 +28,7 @@ namespace Doctors_UI_Console.Functionalities
         {
             Console.Clear();
             PatientModel patient = patientController.FindById(mr.PatientId);
-            List<Room> operatingRooms = roomsController.GetAllOperatingRooms();
+            
             Operation operation = new Operation();
 
             Console.WriteLine("\n ~~~ Scheduling a operation for " + patient.Name + " " + patient.Surname + " ~~~");
@@ -129,6 +129,14 @@ namespace Doctors_UI_Console.Functionalities
                 return;
             }
 
+
+            List<Room> operatingRooms = roomsController.GetFreeOperationRooms(operation.StartTime, operation.EndTime);
+            if(operatingRooms.Count == 0)
+            {
+                Console.WriteLine("\t\tThere are no free operating rooms in this period...");
+                Thread.Sleep(3000);
+                return;
+            }
             // Odabir sobe
             while (true)
             {
@@ -166,7 +174,6 @@ namespace Doctors_UI_Console.Functionalities
         {
             Console.Clear();
             PatientModel patient = patientController.FindById(mr.PatientId);
-            List<Room> ordinations = roomsController.GetAllOrdinations();
             Checkup checkup = new Checkup();
 
             Console.WriteLine("\n ~~~ Scheduling a checkup for " + patient.Name + " " + patient.Surname + " ~~~");
@@ -271,6 +278,14 @@ namespace Doctors_UI_Console.Functionalities
             {
                 Console.WriteLine("\t\tSelected doctor is not free in this period!");
                 Thread.Sleep(2000);
+                return;
+            }
+
+            List<Room> ordinations = roomsController.GetFreeOrdinations(checkup.StartTime, checkup.EndTime);
+            if (ordinations.Count == 0)
+            {
+                Console.WriteLine("\t\tThere are no free ordinations in this period...");
+                Thread.Sleep(3000);
                 return;
             }
 
