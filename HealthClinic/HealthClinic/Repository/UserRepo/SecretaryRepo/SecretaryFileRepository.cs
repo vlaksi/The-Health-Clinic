@@ -15,7 +15,8 @@ namespace HealthClinic.Repository.UserRepo.SecretaryRepo
 {
     public class SecretaryFileRepository : SecretaryRepository
     {
-        private string filePath = @".\FileStorage\secretary.json";
+        //private string filePath = @".\FileStorage\secretary.json";
+        private string filePath = @"./../../../../HealthClinic/FileStorage/secretary.json";
 
         public int Count()
         {
@@ -93,6 +94,18 @@ namespace HealthClinic.Repository.UserRepo.SecretaryRepo
             return null;
         }
 
+        public Secretary FindByUsername(String username)
+        {
+            List<Secretary> allSecretaries = (List<Secretary>)FindAll();
+
+            foreach (Secretary secretary in allSecretaries)
+                if (secretary.Username == username)
+                    return secretary;
+
+            return null;
+        }
+
+
         public List<Secretary> FindMatchedSecretarys(BusinessHoursModel bussinesHours)
         {
             throw new NotImplementedException();
@@ -102,6 +115,19 @@ namespace HealthClinic.Repository.UserRepo.SecretaryRepo
         {
             throw new NotImplementedException();
         }
+
+        public void makeUpdateFor(Secretary entity)
+        {
+            Secretary entityForUpdate = FindByUsername(entity.Username);
+
+            entityForUpdate.Name = (entity.Name is null) ? "" : entity.Name;
+            entityForUpdate.JobPosition = (entity.JobPosition == "Doctor") ? "Doctor" : "Secretary";
+            entityForUpdate.Surname = (entity.Surname is null) ? "" : entity.Surname;
+            entityForUpdate.Password = (entity.Password is null) ? "" : entity.Password;
+
+            Save(entityForUpdate);
+        }
+
 
         public void Save(Secretary entity)
         {

@@ -1,5 +1,4 @@
 // File:    
-.cs
 // Author:  Vaxi
 // Created: Sunday, May 3, 2020 9:00:10 PM
 // Purpose: Definition of Class RoomsService
@@ -219,6 +218,8 @@ namespace Service.RoomServ
                 // Ako je sve ovo zadovoljeno, slobodna je
                 return true;
             }
+
+            return false;
         }
 
     }
