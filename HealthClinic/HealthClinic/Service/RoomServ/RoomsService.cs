@@ -75,6 +75,13 @@ namespace Service.RoomServ
             return roomsFileRepository.FindById(id);
         }
 
+        public Room findByNumberOfRoom(int numberOfRoom)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.findByNumberOfRoom(numberOfRoom);
+        }
+
         public void saveAllRooms(List<Room> roomsForSave)
         {
             RoomsFileRepository repoForRooms = new RoomsFileRepository();

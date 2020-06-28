@@ -41,6 +41,11 @@ namespace Controller.RoomsContr
             roomsService.removeRoomById(id);
         }
 
+        public Room findByNumberOfRoom(int id)
+        {
+            return roomsService.findByNumberOfRoom(id);
+        }
+
         public Room findById(int id)
         {
             return roomsService.findById(id);
