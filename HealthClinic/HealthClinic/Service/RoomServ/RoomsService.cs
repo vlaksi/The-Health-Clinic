@@ -1,4 +1,5 @@
-// File:    RoomsService.cs
+// File:    
+.cs
 // Author:  Vaxi
 // Created: Sunday, May 3, 2020 9:00:10 PM
 // Purpose: Definition of Class RoomsService
@@ -113,8 +114,34 @@ namespace Service.RoomServ
 
         public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            RoomsFileRepository repoForRooms = new RoomsFileRepository();
+            List<Room> allRooms = (List<Room>)repoForRooms.FindAll();
+            List<Room> result = new List<Room>();
+            foreach (Room room in allRooms)
+            {
+                if (room.RoomType == RoomType.OperatingRoom && IsRoomFree(room.RoomId, start, end))
+                {
+                    result.Add(room);
+                }
+            }
+            return result;
         }
+
+        public List<Room> GetFreeOrdinations(DateTime start, DateTime end)
+        {
+            RoomsFileRepository repoForRooms = new RoomsFileRepository();
+            List<Room> allRooms = (List<Room>)repoForRooms.FindAll();
+            List<Room> result = new List<Room>();
+            foreach (Room room in allRooms)
+            {
+                if (room.RoomType == RoomType.Ordination && IsRoomFree(room.RoomId, start, end))
+                {
+                    result.Add(room);
+                }
+            }
+            return result;
+        }
+
 
         public bool IsRoomFree(int roomId, DateTime dateStart, DateTime dateEnd)
         {
@@ -129,7 +156,7 @@ namespace Service.RoomServ
             {
                 if (c.OrdinationId == roomId)
                 {
-                    allCheckups.Add(c);
+                    checkupsInRoom.Add(c);
                 }
             }
 
@@ -139,30 +166,60 @@ namespace Service.RoomServ
             {
                 if (o.OperatingRoomId == roomId)
                 {
-                    allOperations.Add(o);
+                    operationsInRoom.Add(o);
                 }
             }
 
             foreach (Checkup checkup in checkupsInRoom)
             {
-                if (checkup.StartTime <= dateStart || checkup.EndTime >= dateEnd)
+                if (checkup.StartTime == dateStart) return false;
+                if (checkup.EndTime == dateEnd) return false;
+
+                if (checkup.StartTime < dateStart)
                 {
-                    return false;
+                    if (checkup.EndTime > dateStart && checkup.EndTime < dateEnd)
+                        return false; // Condition 1
+
+                    if (checkup.EndTime > dateEnd)
+                        return false; // Condition 3
+                }
+                else
+                {
+                    if (dateEnd > checkup.StartTime && dateEnd < checkup.EndTime)
+                        return false; // Condition 2
+
+                    if (dateEnd > checkup.EndTime)
+                        return false; // Condition 4
                 }
             }
 
             foreach (Operation operation in operationsInRoom)
             {
-                if (operation.StartTime <= dateStart || operation.EndTime >= dateEnd)
+                if (operation.StartTime == dateStart) return false;
+                if (operation.EndTime == dateEnd) return false;
+
+                if (operation.StartTime < dateStart)
                 {
-                    return false;
+                    if (operation.EndTime > dateStart && operation.EndTime < dateEnd)
+                        return false; // Condition 1
+
+                    if (operation.EndTime > dateEnd)
+                        return false; // Condition 3
                 }
+                else
+                {
+                    if (dateEnd > operation.StartTime && dateEnd < operation.EndTime)
+                        return false; // Condition 2
+
+                    if (dateEnd > operation.EndTime)
+                        return false; // Condition 4
+
+                }
+
+                // Ako je sve ovo zadovoljeno, slobodna je
+                return true;
             }
-
-            // Ako je sve ovo zadovoljeno, slobodna je
-            return true;
         }
-
 
     }
 }
