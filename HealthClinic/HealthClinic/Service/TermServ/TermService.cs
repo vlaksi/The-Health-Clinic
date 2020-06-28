@@ -14,58 +14,76 @@ namespace HealthClinic.Service.TermServ
     {
         DoctorService doctorService = new DoctorService();
 
-        public DateTime SuggestCheckup(SuggestCheckupDTO suggestCheckupDTO)
+        public SuggestCheckupDTO SuggestCheckup(SuggestCheckupDTO suggestCheckupDTO)
         {
-            //Ako je lekar nema ni jedan termin u zadatom intervalu odmah preporucujemo slobodan termin pacijentu
-            if(doctorService.IsDoctorFree(suggestCheckupDTO.DoctorID, suggestCheckupDTO.StartInterval, suggestCheckupDTO.EndInterval))
+            
+            if (suggestCheckupDTO.PriorityDoctor)
+            {   
+                suggestCheckupDTO.StartInterval = GetFirstFreeTermChosenDoctor(suggestCheckupDTO);
+                return suggestCheckupDTO;
+               
+            } else if (suggestCheckupDTO.PriorityDate)
             {
-                return suggestCheckupDTO.StartInterval;
-            }else
-            {//Ako ima proveravamo da li ima bar jedan slobodan termin
-
+                //Prvo proveravamo da li je izabrani doktor slobodan u nekom od termina
+                if (GetFirstFreeTermChosenDoctor(suggestCheckupDTO) != DateTime.MinValue)//Ako jeste predlazemo njega
+                {
+                    return suggestCheckupDTO;
+                }
+                else//Ako nije trazimo prvog slobodnog lekara u tom vremenskom intervalu i njega predlazemo
+                {
+                    return GetFirstFreeDoctorForChosenInterval(suggestCheckupDTO);
+                } 
             }
-            return DateTime.Now;
+            return suggestCheckupDTO;
         }
 
-        public bool IsChosenDoctorFreeInChosenInterval(List<DateTime> dateInterval, Doctor doctor)
+
+        public SuggestCheckupDTO GetFirstFreeDoctorForChosenInterval(SuggestCheckupDTO suggestCheckupDTO)
         {
-            throw new NotImplementedException();
+            List<Doctor> listOfAllDoctors = doctorService.GetAllDoctors();
+            foreach (Doctor doctor in listOfAllDoctors)
+            {
+                suggestCheckupDTO.DoctorID = doctor.Id;
+                while (suggestCheckupDTO.StartInterval < suggestCheckupDTO.EndInterval)
+                {
+                    suggestCheckupDTO.StartInterval = suggestCheckupDTO.StartInterval.AddHours(1);
+                   
+                    if (doctorService.IsDoctorFree(suggestCheckupDTO.DoctorID, suggestCheckupDTO.StartInterval, suggestCheckupDTO.StartInterval.AddHours(1)))
+                    {
+                        return suggestCheckupDTO;
+                    }
+                }
+            }
+            suggestCheckupDTO.DoctorID = -1;
+
+            return suggestCheckupDTO;
         }
 
-        public DateTime GetFirstFreeDateFromChosenInterval(List<DateTime> interval)
+        public DateTime GetFirstFreeTermChosenDoctor(SuggestCheckupDTO suggestCheckupDTO)
         {
-            throw new NotImplementedException();
+  
+            while (suggestCheckupDTO.StartInterval < suggestCheckupDTO.EndInterval)
+            {
+                suggestCheckupDTO.StartInterval = suggestCheckupDTO.StartInterval.AddHours(1);
+
+                if (doctorService.IsDoctorFree(suggestCheckupDTO.DoctorID, suggestCheckupDTO.StartInterval, suggestCheckupDTO.StartInterval.AddHours(1)))
+                {
+                    return suggestCheckupDTO.StartInterval;                 
+                }
+            }
+            //Ako je prioritet doktor, i taj doktor nije slobodan u izabranom temrinu, tada trazimo prvi slobodan termin izvan izabranog intervala
+            while(suggestCheckupDTO.StartInterval < DateTime.MaxValue)
+            {
+                suggestCheckupDTO.StartInterval = suggestCheckupDTO.StartInterval.AddHours(1);
+
+                if (doctorService.IsDoctorFree(suggestCheckupDTO.DoctorID, suggestCheckupDTO.StartInterval, suggestCheckupDTO.StartInterval.AddHours(1)))
+                {
+                    return suggestCheckupDTO.StartInterval;
+                }
+            }
+            return DateTime.MinValue;
         }
 
-        public bool IsChosenDoctorFree()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime GetFirstFreeDate(Doctor doctor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsAnyDoctorFreeForChosenDate(List<DateTime> interval)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int NumberOfFreeDoctors()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Doctor GetFreeDoctor(List<Doctor> doctors)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Doctor GetFirstFreeDoctor()
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }
