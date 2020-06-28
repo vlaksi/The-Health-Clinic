@@ -231,12 +231,30 @@ namespace Repository.RoomsRepo
         public Room FindById(int id)
         {
             List<Room> allRooms = (List<Room>)FindAll();
-            Room retRoom = null;
+            Room retRoom = new Room();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                if (tempRoom.RoomId.Equals(id))
+                {
+                    retRoom = tempRoom;
+                    break;
+                }
+
+            }
+
+            return retRoom;
+        }
+
+        public Room findByNumberOfRoom(int numberOfRoom)
+        {
+            List<Room> allRooms = (List<Room>)FindAll();
+            Room retRoom = new Room();
 
             foreach (Room tempRoom in allRooms)
             {
                 // Room is uniq by number of room for now
-                if (tempRoom.RoomId.Equals(id))
+                if (tempRoom.NumberOfRoom.Equals(numberOfRoom))
                 {
                     retRoom = tempRoom;
                     break;

@@ -366,14 +366,16 @@ namespace HealthClinic.ViewModels
                 Room p1 = new Room()
                 {
                     NumberOfRoom = int.Parse(BrojNoveSobe),
-                    Purpose = "soba za pacijente"
+                    Purpose = "soba za pacijente",
+                    Department="opste"
 
                 };
 
                 Room p2 = new Room()
                 {
                     NumberOfRoom = int.Parse(BrojDrugeNoveSobe),
-                    Purpose = "soba za pacijente"
+                    Purpose = "soba za pacijente",
+                    Department="opste"
 
                 };
 
@@ -394,14 +396,16 @@ namespace HealthClinic.ViewModels
 
                 int brojSobeSaKojomSpajamo = int.Parse(BrojSobeSaKojomVrsimoSpajanje);
 
-                podesiBrojOdredjenihProstorija(roomsController.findById(brojSobeSaKojomSpajamo), -1);
-                roomsController.removeRoomById(brojSobeSaKojomSpajamo);
+                Room secondRoomForRemove = roomsController.findByNumberOfRoom(brojSobeSaKojomSpajamo);
+                podesiBrojOdredjenihProstorija(secondRoomForRemove, -1);
+                roomsController.removeRoomById(secondRoomForRemove.RoomId);
 
                 // dodajem prostoriju
                 Room tempProstorija = new Room()
                 {
                     NumberOfRoom = int.Parse(BrojNoveSobe),
-                    Purpose = NamenaProstorije
+                    Purpose = NamenaProstorije,
+                    Department = "opste"
                 };
 
                 roomsController.addRoom(tempProstorija);
@@ -594,8 +598,20 @@ namespace HealthClinic.ViewModels
                 podesiBrojOdredjenihProstorija(prostorija, 1);
             }
 
+            proveraPraznihLabelaZaChart();
         }
 
+        private void proveraPraznihLabelaZaChart()
+        {
+            if (this.UkupnoOperacionihSala is null)
+                this.UkupnoOperacionihSala = new ChartValues<int> { 0 };
+
+            if (this.UkupnoSobaZaPacijente is null)
+                this.UkupnoSobaZaPacijente = new ChartValues<int> { 0 };
+
+            if (this.UkupnoSobaZaPreglede is null)
+                this.UkupnoSobaZaPreglede = new ChartValues<int> { 0 };
+        }
 
         #endregion
 
