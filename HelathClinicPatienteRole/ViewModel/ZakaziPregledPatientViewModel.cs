@@ -90,7 +90,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 MessageBox.Show("Izabrani 'datum OD' je prošao!");
                 return;
             }
-            if (SelektovaniDatumDo.Date < SelektovaniDatumOd.Date)
+            if (SelektovaniDatumDo < SelektovaniDatumOd)
             {
                 MessageBox.Show("Nesipravan vremenski interval! 'Datum OD' mora biti manji od 'datuma DO'");
                 return;
