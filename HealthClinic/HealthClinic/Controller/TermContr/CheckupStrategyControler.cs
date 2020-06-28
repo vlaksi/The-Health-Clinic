@@ -37,7 +37,7 @@ namespace Controller.TermContr
            return checkupService.getAllCheckupsForPatient(medicineRecordId);
         }
 
-        public DateTime SuggestCheckup(SuggestCheckupDTO suggestCheckupDTO)
+        public SuggestCheckupDTO SuggestCheckup(SuggestCheckupDTO suggestCheckupDTO)
         {
            return termService.SuggestCheckup(suggestCheckupDTO);
         }

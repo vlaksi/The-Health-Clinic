@@ -49,6 +49,9 @@ namespace Controller.BlogPostContr
             return blogPostService.DeleteComment(blogPost, comment);
         }
 
-
+        public List<BlogPostModel> GetBlogPostsForDoctor(int id)
+        {
+            return blogPostService.GetBlogPostsForDoctor(id);
+        }
     }
 }

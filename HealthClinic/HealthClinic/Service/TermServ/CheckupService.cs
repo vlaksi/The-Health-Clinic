@@ -4,8 +4,10 @@
 // Purpose: Definition of Class CheckupService
 
 using Model.Calendar;
+using Model.MedicalRecord;
 using Model.Users;
 using Repository.TermRepo;
+using Service.MedicalRecordServ;
 using Service.UserServ;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,13 @@ namespace Service.TermServ
         private CheckupRepositoryFactory checkupRepositoryFactory;
         private CheckupRepository checkupRepository;
         private DoctorService doctorService;
+        private MedicalRecordService medicalRecordService;
         public CheckupService()
         {
             checkupRepositoryFactory = new CheckupFileRepositoryFactory();
             checkupRepository = checkupRepositoryFactory.CreateCheckupRepository();
             doctorService = new DoctorService();
+            medicalRecordService = new MedicalRecordService();
         }
 
         public void CancelCheckup(Checkup checkup)
@@ -53,6 +57,11 @@ namespace Service.TermServ
         {   
            if(doctorService.IsDoctorFree(checkup.DoctorId, checkup.StartTime, checkup.EndTime))
            {
+                MedicalRecord medicalRecord = medicalRecordService.GetMedicalRecordById(checkup.MedicalRecordId);
+        
+                medicalRecord.Checkups.Add(checkup.Id);
+                medicalRecordService.UpdateMedicalRecord(medicalRecord);
+
                 checkupRepository.Save(checkup);
            }
         }

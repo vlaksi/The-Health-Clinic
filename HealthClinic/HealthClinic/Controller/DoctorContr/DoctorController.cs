@@ -27,9 +27,14 @@ namespace Controller.DoctorContr
             throw new NotImplementedException();
         }
 
-        public Doctor DoctorLogin(string email, string password)
+        public Doctor DoctorLogin(string username, string password)
         {
-            return doctorService.DoctorLogin(email, password);
+            return doctorService.DoctorLogin(username, password);
+        }
+
+        public bool isEmailTaken(string email)
+        {
+            return doctorService.isEmailTaken(email);
         }
 
         public void AddDoctor(Doctor doctor)

@@ -54,6 +54,18 @@ namespace Service.BlogPostServ
             return true;
         }
 
-
+        public List<BlogPostModel> GetBlogPostsForDoctor(int id)
+        {
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)blogPostFileRepository.FindAll();
+            List<BlogPostModel> result = new List<BlogPostModel>();
+            foreach (BlogPostModel blog in allBlogs)
+            {
+                if(blog.Doctor == id)
+                {
+                    result.Add(blog);
+                }
+            }
+            return result;
+        }
     }
 }
