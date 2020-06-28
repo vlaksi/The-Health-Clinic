@@ -35,9 +35,16 @@ namespace Service.EmployeeServ
 
         public void makeUpdateFor(Employee employee)
         {
-            // TODO: Proveriti za Factory kako ide
-            EmployeeFileRepository employeeFileRepository = new EmployeeFileRepository();
-            employeeFileRepository.makeUpdateFor(employee);
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
+            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
+
+            if (employee.JobPosition == "Doctor")
+                repoForDoctors.makeUpdateFor(getDoctorFromEmployee(employee));
+
+
+            if (employee.JobPosition == "Secretary")
+                repoForSecretary.makeUpdateFor(getSecretaryFromEmployee(employee));
         }
 
         public void addEmployee(Employee employee)
@@ -77,7 +84,7 @@ namespace Service.EmployeeServ
             retDoc.PhoneNumber = (employee.PhoneNumber is null) ? "" : employee.PhoneNumber;
             retDoc.Username = (employee.Username is null) ? "" : employee.Username;
             retDoc.Surname = (employee.Surname is null) ? "" : employee.Surname;
-            retDoc.Id = (employee.Id <= 0) ? 0 : employee.Id;
+            retDoc.Id = (employee.Id <= 0) ? 9999 : employee.Id;
             return retDoc;
         }
 
@@ -101,7 +108,7 @@ namespace Service.EmployeeServ
             retSecretary.PhoneNumber = (employee.PhoneNumber is null) ? "" : employee.PhoneNumber;
             retSecretary.Username = (employee.Username is null) ? "" : employee.Username;
             retSecretary.Surname = (employee.Surname is null) ? "" : employee.Surname;
-            retSecretary.Id = (employee.Id <= 0) ? 0 : employee.Id;
+            retSecretary.Id = (employee.Id <= 0) ? 9999 : employee.Id;
 
             return retSecretary;
         }

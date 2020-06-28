@@ -93,6 +93,17 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
             return null;
         }
 
+        public Doctor FindByUsername(String username)
+        {
+            List<Doctor> allDoctors = (List<Doctor>)FindAll();
+
+            foreach (Doctor doctor in allDoctors)
+                if (doctor.Username == username)
+                    return doctor;
+
+            return null;
+        }
+
         public List<Doctor> FindMatchedDoctors(BusinessHoursModel bussinesHours)
         {
             throw new NotImplementedException();
@@ -111,6 +122,11 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
             }
 
             return results;
+        }
+
+        public void makeUpdateFor(Doctor doctor)
+        {
+            Save(FindByUsername(doctor.Username));
         }
 
         public void Save(Doctor entity)

@@ -145,6 +145,7 @@
 
             <!-- Tip zaposlenog -->
             <ComboBox
+                IsEnabled="False"
                 Validation.ErrorTemplate="{StaticResource errorTemplate}"
                 ItemsSource="{Binding MoguciTipoviZaposlenih}"
                 SelectedItem="{Binding ZaposleniZaIzmenu.JobPosition}"

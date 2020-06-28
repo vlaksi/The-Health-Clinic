@@ -352,7 +352,8 @@ namespace HealthClinic.ViewModels
                 Surname = SelektovaniZaposleni.Surname,
                 Password = SelektovaniZaposleni.Password,
                 JobPosition = SelektovaniZaposleni.JobPosition,
-                Username = SelektovaniZaposleni.Username
+                Username = SelektovaniZaposleni.Username,
+                Id = SelektovaniZaposleni.Id
             };
 
 
@@ -551,7 +552,7 @@ namespace HealthClinic.ViewModels
         /// <param name="koeficijentPravca"> Prosledjuje se broj koji govori koliko povecavam/smanjujem broj odredjenih zaposlenih </param>
         private void podesiBrojOdredjenihZaposlenih(Employee zaposlen, int koeficijentPravca)
         {
-            if (zaposlen.EmployeeType == EmployeeType.Doctor)
+            if (zaposlen.JobPosition == "Doctor")
             {
 
                 if (this.UkupnoLekara is null)
@@ -561,7 +562,7 @@ namespace HealthClinic.ViewModels
                 this.UkupnoLekara = new ChartValues<int>() { BrojacLekara };
 
             }
-            else if (zaposlen.EmployeeType == EmployeeType.Secretary)
+            else if (zaposlen.JobPosition == "Secretary")
             {
                 if (this.UkupnoSekretara is null)
                     BrojacSekretara = 1;
