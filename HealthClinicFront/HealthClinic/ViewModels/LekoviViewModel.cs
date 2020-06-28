@@ -388,6 +388,22 @@ namespace HealthClinic.ViewModels
                 podesiBrojOdredjenihLekova(lek, 1);
             }
 
+            proveraPraznihLabelaZaChart();
+        }
+
+        private void proveraPraznihLabelaZaChart()
+        {
+            if (this.UkupnoAnalgetika is null)
+                this.UkupnoAnalgetika = new ChartValues<int> { 0 };
+
+            if (this.UkupnoAnestetika is null)
+                this.UkupnoAnestetika = new ChartValues<int> { 0 };
+
+            if (this.UkupnoAntibiotika is null)
+                this.UkupnoAntibiotika = new ChartValues<int> { 0 };
+
+            if (this.UkupnoKardioVaskularnih is null)
+                this.UkupnoKardioVaskularnih = new ChartValues<int> { 0 };
         }
 
         #endregion
