@@ -16,6 +16,11 @@ namespace Controller.RoomsContr
     {
         public RoomsService roomsService = new RoomsService();
 
+        public void changeRoomInventory(Room room, InventoryType inventory)
+        {
+            roomsService.changeRoomInventory(room, inventory);
+        }
+
         public void makeUpdateFor(Room room)
         {
             roomsService.makeUpdateFor(room);
@@ -34,6 +39,11 @@ namespace Controller.RoomsContr
         public void removeRoomById(int id)
         {
             roomsService.removeRoomById(id);
+        }
+
+        public Room findByNumberOfRoom(int id)
+        {
+            return roomsService.findByNumberOfRoom(id);
         }
 
         public Room findById(int id)
@@ -101,6 +111,7 @@ namespace Controller.RoomsContr
         {
             return roomsService.IsRoomFree(roomId, start, end);
         }
+
 
 
     }

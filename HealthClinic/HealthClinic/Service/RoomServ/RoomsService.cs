@@ -1,5 +1,4 @@
 // File:    
-.cs
 // Author:  Vaxi
 // Created: Sunday, May 3, 2020 9:00:10 PM
 // Purpose: Definition of Class RoomsService
@@ -20,6 +19,13 @@ namespace Service.RoomServ
         public RoomsRepositoryFactory roomsRepositoryFactory;
         private CheckupService checkupService = new CheckupService();
         private OperationService operationService = new OperationService();
+
+
+        public void changeRoomInventory(Room room, InventoryType inventory)
+        {
+            RoomsFileRepository fileRepository = new RoomsFileRepository();
+            fileRepository.changeRoomInventory(room, inventory);
+        }
 
         public void makeUpdateFor(Room room)
         {
@@ -67,6 +73,13 @@ namespace Service.RoomServ
             // TODO: Proveriti kako ovo ide preko ovog Factorija
             RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
             return roomsFileRepository.FindById(id);
+        }
+
+        public Room findByNumberOfRoom(int numberOfRoom)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.findByNumberOfRoom(numberOfRoom);
         }
 
         public void saveAllRooms(List<Room> roomsForSave)
@@ -217,8 +230,8 @@ namespace Service.RoomServ
                 }
 
                 // Ako je sve ovo zadovoljeno, slobodna je
-                return true;
             }
+            return true;
         }
 
     }

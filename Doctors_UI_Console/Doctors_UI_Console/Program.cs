@@ -44,12 +44,12 @@ namespace Doctors_UI_Console
             while (true)
             {
                 Console.WriteLine("\n\t\t ~~~~~~~~~~~ LOGIN ~~~~~~~~~~~");
-                Console.Write("\t\t  Email: ");
-                string email = Console.ReadLine();
+                Console.Write("\t\t  Username: ");
+                string username = Console.ReadLine();
                 Console.Write("\t\t  Password: ");
                 string password = Console.ReadLine();
                 
-                if((doctorLoggedIn = doctorController.DoctorLogin(email, password)) == null)
+                if((doctorLoggedIn = doctorController.DoctorLogin(username, password)) == null)
                 {
                     Console.WriteLine("\n\t\t\t\t *** Invalid credentials! ***");
                     Thread.Sleep(2000);

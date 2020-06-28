@@ -17,13 +17,53 @@ namespace Repository.RoomsRepo
     {
         private string filePath = @"./../../../../HealthClinic/FileStorage/rooms.json";
 
+        public void changeRoomInventory(Room entity, InventoryType inventory)
+        {
+            List<Room> allRooms = (List<Room>)FindAll();
+
+            // Find that room
+            foreach (Room tempRoom in allRooms)
+            {
+                if (tempRoom.RoomId.Equals(entity.RoomId))
+                {
+                    bool withoutInvetory = true;
+                    // change status of inventory for that room
+                    foreach (InventoryType roomInventory in tempRoom.RoomInventory)
+                    {
+                        if (roomInventory.InventoryName.Equals(inventory.InventoryName))
+                        {
+                            roomInventory.Quantity += inventory.Quantity;
+
+                            if (roomInventory.Quantity <= 0)
+                                tempRoom.RoomInventory.Remove(roomInventory);
+                            
+                            withoutInvetory = false;
+                            break;
+                        }
+                    }
+
+                    if (withoutInvetory)
+                    {
+                        if(tempRoom.RoomInventory is null)
+                            tempRoom.RoomInventory = new List<InventoryType>();
+                        tempRoom.RoomInventory.Add(inventory);
+                    }
+
+                    break;
+                }
+
+            }
+
+            // I want immediately to save changes
+            SaveAll(allRooms);
+        }
+
         public void makeUpdateFor(Room room)
         {
             List<Room> allRooms = (List<Room>)FindAll();
 
             foreach (Room tempRoom in allRooms)
             {
-                // For now, room is uniq by number of room, but we need to change that !
                 if (tempRoom.RoomId.Equals(room.RoomId))
                 {
                     tempRoom.Department = room.Department;
@@ -131,7 +171,6 @@ namespace Repository.RoomsRepo
 
             foreach (Room tempRoom in allRooms)
             {
-                // Room is uniq by number of room for now
                 if (tempRoom.RoomId.Equals(entity.RoomId))
                 {
                     allRooms.Remove(tempRoom);
@@ -192,12 +231,30 @@ namespace Repository.RoomsRepo
         public Room FindById(int id)
         {
             List<Room> allRooms = (List<Room>)FindAll();
-            Room retRoom = null;
+            Room retRoom = new Room();
+
+            foreach (Room tempRoom in allRooms)
+            {
+                if (tempRoom.RoomId.Equals(id))
+                {
+                    retRoom = tempRoom;
+                    break;
+                }
+
+            }
+
+            return retRoom;
+        }
+
+        public Room findByNumberOfRoom(int numberOfRoom)
+        {
+            List<Room> allRooms = (List<Room>)FindAll();
+            Room retRoom = new Room();
 
             foreach (Room tempRoom in allRooms)
             {
                 // Room is uniq by number of room for now
-                if (tempRoom.RoomId.Equals(id))
+                if (tempRoom.NumberOfRoom.Equals(numberOfRoom))
                 {
                     retRoom = tempRoom;
                     break;

@@ -18,7 +18,7 @@ namespace Repository.MedicalRecordRepo
 {
     public class MedicalRecordFileRepository : MedicalRecordRepository
     {
-        private string filePath = @"./../../../HealthClinic/FileStorage/medicalRecords.json";
+        private string filePath = @"./../../../../HealthClinic/FileStorage/medicalRecords.json";
         private void OpenFile()
         {
             throw new NotImplementedException();

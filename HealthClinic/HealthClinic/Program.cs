@@ -2,12 +2,15 @@
 ﻿using Controller.DoctorContr;
 using Controller.EmployeeContr;
 using Controller.MedicalRecordContr;
+using Controller.MedicineContr;
 using Controller.PatientContr;
 using HealthClinic.Repository.UserRepo.DoctorRepo;
 using Model.BusinessHours;
 using Model.MedicalRecord;
+using Model.Medicine;
 using Model.Users;
 using System;
+using System.Collections.Generic;
 
 namespace HealthClinic
 {
@@ -59,48 +62,143 @@ namespace HealthClinic
             #region Creating patients
             /*PatientController patientController = new PatientController();
             patientController.PatientRegister(new PatientModel() {
-                Name = "Nikola",
-                Surname = "Kuzmanovic",
-                Adress = "Vojvode Putnika 19, Novi Sad",
+                Name = "Milos",
+                Surname = "Krickovic",
+                Adress = "Valentina Vodnika 14, Novi Sad",
                 Gender = "Male",
-                Jmbg = "0612996800077",
+                Jmbg = "1112221112221",
                 Birthday = new DateTime(1996, 12, 6),
-                ParentsName = "Milija",
+                ParentsName = "Milan",
                 PhoneNumber = "069-145-987",
-                Accommodation = "At home",
-                Email = "nikolak@gmail.com",
+                Email = "mikikriki@gmail.com",
                 Password= "12345678",
                 MedicalRecordId = 1
             });
             patientController.PatientRegister(new PatientModel()
             {
-                Name = "Stefan",
-                Surname = "Jovanovic",
-                Adress = "Koce Kolarova 14, Novi Sad",
-                Gender = "Male",
-                Jmbg = "0711996803071",
+                Name = "Jovanka",
+                Surname = "Broz",
+                Adress = "Nepoznata ulica bb, Novi Sad",
+                Gender = "Female",
+                Jmbg = "2221112221112",
                 Birthday = new DateTime(1990, 11, 7),
-                ParentsName = "Jovica",
+                ParentsName = "NN",
                 PhoneNumber = "064-155-417",
-                Accommodation = "At home",
-                Email = "stefanj@gmail.com",
+                Email = "jovankabroz@gmail.com",
                 Password = "12345678",
                 MedicalRecordId = 2
             });
             patientController.PatientRegister(new PatientModel()
             {
                 Name = "Milica",
-                Surname = "Milovanovic",
-                Adress = "Veternicka rampa bb, Novi Sad",
-                Gender = "Male",
-                Jmbg = "0706963801057",
+                Surname = "Micic",
+                Adress = "Koste Racina bb, Novi Sad",
+                Gender = "Female",
+                Jmbg = "2223332223332",
                 Birthday = new DateTime(1963, 6, 7),
                 ParentsName = "Ilija",
                 PhoneNumber = "061-292-674",
-                Accommodation = "At home",
-                Email = "stefanj@gmail.com",
+                Email = "milicamicic@gmail.com",
                 Password = "12345678",
                 MedicalRecordId = 3
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Ivan",
+                Surname = "Ivanovic",
+                Adress = "Valentina Vodnika 14, Novi Sad",
+                Gender = "Male",
+                Jmbg = "333222333222",
+                Birthday = new DateTime(1996, 12, 6),
+                ParentsName = "Milan",
+                PhoneNumber = "069-145-987",
+                Email = "ivanivanovic@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 4
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Stevica",
+                Surname = "Cvarkov",
+                Adress = "Nepoznata ulica bb, Novi Sad",
+                Gender = "Male",
+                Jmbg = "3334443334443",
+                Birthday = new DateTime(1990, 11, 7),
+                ParentsName = "Jovan",
+                PhoneNumber = "064-155-417",
+                Email = "stevicacvarkov@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 5
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Jagoda",
+                Surname = "Markov",
+                Adress = "Koste Racina bb, Novi Sad",
+                Gender = "Female",
+                Jmbg = "4443334443334",
+                Birthday = new DateTime(1963, 6, 7),
+                ParentsName = "Ilija",
+                PhoneNumber = "061-292-674",
+                Email = "jagodamarkov@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 6
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Velinko",
+                Surname = "Popara",
+                Adress = "Valentina Vodnika 11, Novi Sad",
+                Gender = "Male",
+                Jmbg = "4445554445554",
+                Birthday = new DateTime(1996, 12, 6),
+                ParentsName = "Milan",
+                PhoneNumber = "069-145-987",
+                Email = "mikikriki@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 7
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Stevo",
+                Surname = "Visekruna",
+                Adress = "Nepoznata ulica bb, Novi Sad",
+                Gender = "Male",
+                Jmbg = "5554445554445",
+                Birthday = new DateTime(1990, 11, 7),
+                ParentsName = "NN",
+                PhoneNumber = "064-155-417",
+                Email = "visekruna@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 8
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Ninoslav",
+                Surname = "Loncar",
+                Adress = "Koste Racina bb, Novi Sad",
+                Gender = "Male",
+                Jmbg = "6665556665556",
+                Birthday = new DateTime(1963, 6, 7),
+                ParentsName = "Ilija",
+                PhoneNumber = "061-292-674",
+                Email = "loncar@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 9
+            });
+            patientController.PatientRegister(new PatientModel()
+            {
+                Name = "Milan",
+                Surname = "Stupar",
+                Adress = "Koste Racina bb, Novi Sad",
+                Gender = "Male",
+                Jmbg = "8889998889998",
+                Birthday = new DateTime(1963, 6, 7),
+                ParentsName = "Ilija",
+                PhoneNumber = "061-292-674",
+                Email = "stupar@gmail.com",
+                Password = "12345678",
+                MedicalRecordId = 10
             });*/
             #endregion
 
@@ -110,7 +208,7 @@ namespace HealthClinic
             doctorController.AddDoctor(new Doctor()
             {
                 AbleToPrescribeTreatments = true,
-                AbleToValidateMedicines = true,
+                AbleToValidateMedicines = false,
                 BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = new DateTime(2020, 6, 6),
@@ -118,15 +216,59 @@ namespace HealthClinic
                     FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7,0,0), 
                     ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15,0,0), 
                 },
-                Name = "Ivan",
-                Surname = "Ivanovic",
+                Name = "Nemanja",
+                Surname = "Vidic",
                 Birthday = new DateTime(1990, 1, 3),
                 EmployeeType = EmployeeType.Doctor,
-                Email = "ivanivanovic@gmail.com",
-                Jmbg = "1112221112221",
-                Password = "ivanivanovic",
+                Email = "nemanjavidic@gmail.com",
+                Jmbg = "1231231231231",
+                Password = "nemanjavidic",
                 JobPosition = "Doctor",
-                SpecialtyType = SpecialtyType.cardiovascular,
+                SpecialtyType = SpecialtyType.otolaryngological,
+            });
+
+            doctorController.AddDoctor(new Doctor()
+            {
+                AbleToPrescribeTreatments = true,
+                AbleToValidateMedicines = false,
+                BusinessHours = new BusinessHoursModel()
+                {
+                    FromDate = new DateTime(2020, 6, 6),
+                    ToDate = new DateTime(2020, 9, 6),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0),
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0),
+                },
+                Name = "Irina",
+                Surname = "Ivkovic",
+                Birthday = new DateTime(1980, 1, 3),
+                EmployeeType = EmployeeType.Doctor,
+                Email = "irinaivkovic@gmail.com",
+                Jmbg = "3213213213211",
+                Password = "irinaivkovic",
+                JobPosition = "Doctor",
+                SpecialtyType = SpecialtyType.oncological,
+            });
+
+            doctorController.AddDoctor(new Doctor()
+            {
+                AbleToPrescribeTreatments = true,
+                AbleToValidateMedicines = true,
+                BusinessHours = new BusinessHoursModel()
+                {
+                    FromDate = new DateTime(2020, 6, 6),
+                    ToDate = new DateTime(2020, 9, 6),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 0, 0), //od 7 ujutru
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 0, 0), //od 7 ujutru
+                },
+                Name = "Jelena",
+                Surname = "Djokovic",
+                Birthday = new DateTime(1981, 1, 3),
+                EmployeeType = EmployeeType.Doctor,
+                Email = "jelenadjokovic@gmail.com",
+                Jmbg = "9997779997779",
+                Password = "jelenadjokovic",
+                JobPosition = "Doctor",
+                SpecialtyType = SpecialtyType.neurological,
             });
 
             doctorController.AddDoctor(new Doctor()
@@ -137,16 +279,16 @@ namespace HealthClinic
                 {
                     FromDate = new DateTime(2020, 6, 6),
                     ToDate = new DateTime(2020, 9, 6),
-                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 0, 0),
-                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0),
+                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 0, 0), //od 7 ujutru
+                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0), //od 7 ujutru
                 },
-                Name = "Petar",
-                Surname = "Petrovic",
-                Birthday = new DateTime(1980, 1, 3),
+                Name = "Savo",
+                Surname = "Krstic",
+                Birthday = new DateTime(1981, 1, 3),
                 EmployeeType = EmployeeType.Doctor,
-                Email = "petarpetrovic@gmail.com",
-                Jmbg = "2221112221112",
-                Password = "petarpetrovic",
+                Email = "savokrstic@gmail.com",
+                Jmbg = "6665556665556",
+                Password = "savokrstic",
                 JobPosition = "Doctor",
                 SpecialtyType = SpecialtyType.general,
             });
@@ -154,7 +296,7 @@ namespace HealthClinic
             doctorController.AddDoctor(new Doctor()
             {
                 AbleToPrescribeTreatments = true,
-                AbleToValidateMedicines = true,
+                AbleToValidateMedicines = false,
                 BusinessHours = new BusinessHoursModel()
                 {
                     FromDate = new DateTime(2020, 6, 6),
@@ -162,64 +304,78 @@ namespace HealthClinic
                     FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 0, 0), //od 7 ujutru
                     ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0), //od 7 ujutru
                 },
-                Name = "Stefan",
-                Surname = "Stefanovic",
+                Name = "Vlado",
+                Surname = "Dincic",
                 Birthday = new DateTime(1981, 1, 3),
                 EmployeeType = EmployeeType.Doctor,
-                Email = "stefanstefanovic@gmail.com",
-                Jmbg = "3334443334443",
-                Password = "stefanstefanovic",
+                Email = "vladodincic@gmail.com",
+                Jmbg = "4343434343431",
+                Password = "vladodincic",
                 JobPosition = "Doctor",
-                SpecialtyType = SpecialtyType.cardiovascular,
+                SpecialtyType = SpecialtyType.general,
             });
-
-            doctorController.AddDoctor(new Doctor()
-            {
-                AbleToPrescribeTreatments = true,
-                AbleToValidateMedicines = true,
-                BusinessHours = new BusinessHoursModel()
-                {
-                    FromDate = new DateTime(2020, 6, 6),
-                    ToDate = new DateTime(2020, 9, 6),
-                    FromHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 7, 0, 0), //od 7 ujutru
-                    ToHour = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 0, 0), //od 7 ujutru
-                },
-                Name = "Jovan",
-                Surname = "Jovic",
-                Birthday = new DateTime(1981, 1, 3),
-                EmployeeType = EmployeeType.Doctor,
-                Email = "jovanjovic@gmail.com",
-                Jmbg = "4443334443334",
-                Password = "jovanjovic",
-                JobPosition = "Doctor",
-                SpecialtyType = SpecialtyType.cardiovascular,
-            });*/
-
+            */
             #endregion
-
 
             //Ostaviti, trebace kasnije da se nadograde
             #region Creating medical records
-
-            /*MedicalRecordController medicalRecordController = new MedicalRecordController();
+            /*
+            MedicalRecordController medicalRecordController = new MedicalRecordController();
             medicalRecordController.CreateMedicalRecord(new MedicalRecord()
             {
                 DoctorId = 1,
                 PatientId = 1,
             });
 
-            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
-            {
-                DoctorId = 1,
-                PatientId = 2
-            });
 
             medicalRecordController.CreateMedicalRecord(new MedicalRecord()
             {
                 DoctorId = 2,
-                PatientId = 3
-            });*/
+                PatientId = 2,
+            });
 
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 8,
+                PatientId = 3
+            });
+
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 9,
+                PatientId = 4
+            });
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 8,
+                PatientId = 5
+            });
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 2,
+                PatientId = 6
+            });
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 2,
+                PatientId = 7
+            });
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 2,
+                PatientId = 8
+            });
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 8,
+                PatientId = 9
+            });
+            medicalRecordController.CreateMedicalRecord(new MedicalRecord()
+            {
+                DoctorId = 9,
+                PatientId = 10
+            });
+            */
             #endregion
 
             Console.ReadLine();

@@ -100,7 +100,6 @@ namespace Doctors_UI_Console.Functionalities
 
         public static void WriteReport(MedicalRecord mr)
         {
-
             if(mr.Checkups.Count == 0 || mr.Operations.Count == 0)
             {
                 Console.WriteLine("\tPatient does not have any terms to write report for.");
@@ -118,6 +117,13 @@ namespace Doctors_UI_Console.Functionalities
             foreach (int termId in mr.Operations)
             {
                 Console.WriteLine("\tOperation with id: " + termId);
+            }
+
+            if(mr.Operations.Count == 0 || mr.Checkups.Count == 0)
+            {
+                Console.WriteLine("\t\tPatient has no terms to write report on!");
+                Thread.Sleep(2000);
+                return;
             }
 
             Report newReport = new Report();
@@ -218,6 +224,12 @@ namespace Doctors_UI_Console.Functionalities
             }
 
             List<Room> availableRooms = roomsController.GetAvailablePatientsRooms();
+            if(availableRooms.Count == 0)
+            {
+                Console.WriteLine("\t\tThere are no rooms available!");
+                Thread.Sleep(2000);
+                return;
+            }
             Console.WriteLine("\tSelect a room from the list of available rooms");
             while (true)
             {
