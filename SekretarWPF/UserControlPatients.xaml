@@ -46,6 +46,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
 
@@ -64,13 +65,14 @@
 
                         </StackPanel>
                         <TextBlock Grid.Column="1" Text="{Binding Jmbg}" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="2" Text="{Binding DateOfBirth, StringFormat=dd/mm/yyyy}" VerticalAlignment="Center"/>
-                        <StackPanel x:Name="Icons" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Hidden">
-                            <Button x:Name="bEdit" Background="Transparent" BorderBrush="Transparent" Click="bEdit_Click">
-                                <materialDesign:PackIcon Foreground="Gray" Kind="Edit" Margin="5"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Birthday, StringFormat=dd/mm/yyyy}" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" Text="Patient has account" VerticalAlignment="Center"/>
+                        <StackPanel x:Name="Icons" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Hidden">
+                            <Button x:Name="bEdit" Background="Transparent" Foreground="Black" BorderBrush="Transparent" Click="bEdit_Click">
+                                Delete user account
                             </Button>
-                            <Button x:Name="bDelete" Background="Transparent" BorderBrush="Transparent" Click="bDelete_Click">
-                                <materialDesign:PackIcon Foreground="Gray" Kind="Delete" Margin="5"/>
+                            <Button x:Name="bDelete" Background="Transparent" Foreground="Black" BorderBrush="Transparent" Click="bDelete_Click">
+                                Delete medical record
                             </Button>
 
                         </StackPanel>

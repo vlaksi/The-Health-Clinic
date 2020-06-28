@@ -1,5 +1,7 @@
 ﻿using Controller.MedicalRecordContr;
+using Controller.PatientContr;
 using Model.MedicalRecord;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,10 +26,11 @@ namespace SekretarWPF
     public partial class AddMedicalRecord : Window, INotifyPropertyChanged
     {
 
-        private MedicalRecord medicalRecord;
-        private MedicalRecordController medicalRecordController = new MedicalRecordController();
+        private PatientModel medicalRecord;
+        private PatientController controller = new PatientController();
+        private string mode;
 
-        public MedicalRecord MedicalRecord
+        public PatientModel MedicalRecord
         {
             get { return medicalRecord; }
             set
@@ -61,21 +64,26 @@ namespace SekretarWPF
         private void save_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Hidden;
-            MedicalRecord medicalRecord = this.MedicalRecord;
+            PatientModel medicalRecord = this.MedicalRecord;
             medicalRecord.Name = this.tbName.Text;
             medicalRecord.Surname = this.tbSurname.Text;
             medicalRecord.Gender = getGender();
-            medicalRecord.DateOfBirth = (DateTime)this.dpBirth.SelectedDate;
-            medicalRecord.Address = this.tbAddress.Text;
+            medicalRecord.Birthday = (DateTime)this.dpBirth.SelectedDate;
+            medicalRecord.Adress = this.tbAddress.Text;
             medicalRecord.Jmbg = this.tbJMBG.Text;
             medicalRecord.ParentsName = this.tbParentName.Text;
-            medicalRecord.HealthInsuranceNumber = this.tbHealthInsuranceNumber.Text;
-            medicalRecord.Phone = this.tbPhone.Text;
-            medicalRecord.HealthInsuranceCarrier = this.tbHealthInsuranceCarrier.Text;
+            medicalRecord.PhoneNumber = this.tbPhone.Text;
+            medicalRecord.Email = this.tbEmail.Text;
+            medicalRecord.Biography = this.tbBiography.Text;
 
-            medicalRecordController.CreateMedicalRecord(medicalRecord);
-            if (!UserControlPatients.data.Contains(medicalRecord))
+            if(mode.Equals("edit"))
+            {
+                controller.SavePatient(medicalRecord);
+            } else if(mode.Equals("new"))
+            {
+                controller.PatientRegister(medicalRecord);
                 UserControlPatients.data.Add(medicalRecord);
+            }
         }
 
         private void delete_Click(object sender, RoutedEventArgs e)
@@ -88,8 +96,9 @@ namespace SekretarWPF
             this.Visibility = Visibility.Hidden;
         }
 
-        internal void EditMedicalRecord(MedicalRecord medicalRecord)
+        internal void EditMedicalRecord(PatientModel medicalRecord)
         {
+            mode = "edit";
             this.nameFieldError.Visibility = Visibility.Hidden;
             this.surnameFieldError.Visibility = Visibility.Hidden;
             this.MedicalRecord = medicalRecord;
@@ -100,11 +109,12 @@ namespace SekretarWPF
 
         internal void AddNewMedicalRecord()
         {
+            mode = "new";
             this.nameFieldError.Visibility = Visibility.Visible;
             this.surnameFieldError.Visibility = Visibility.Visible;
             this.save.IsEnabled = false;
 
-            this.MedicalRecord = new MedicalRecord();
+            this.MedicalRecord = new PatientModel();
             this.Visibility = Visibility.Visible;
             this.delete.Visibility = Visibility.Collapsed;
         }

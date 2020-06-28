@@ -112,6 +112,19 @@ namespace Repository.EmployeeRepo
             return allEmployees;
         }
 
+        public IEnumerable<Doctor> FindAllDoctors()
+        {
+            //List<Employee> allEmployees = new List<Employee>();
+
+            string currentPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))));
+            currentPath += @"\HealthClinic\FileStorage\employees.json";
+
+            // read file into a string and deserialize JSON to a type
+            List<Doctor> allEmployees = JsonConvert.DeserializeObject<List<Doctor>>(File.ReadAllText(currentPath));
+
+            return allEmployees;
+        }
+
         public IEnumerable<Employee> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();

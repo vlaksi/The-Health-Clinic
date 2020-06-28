@@ -1,5 +1,7 @@
 ﻿using Controller.MedicalRecordContr;
+using Controller.PatientContr;
 using Model.MedicalRecord;
+using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,9 +26,9 @@ namespace SekretarWPF
     /// </summary>
     public partial class UserControlPatients : UserControl
     {
-        MedicalRecordController medicalRecordController = new MedicalRecordController();
+        PatientController controller = new PatientController();
 
-        public static ObservableCollection<MedicalRecord> data = new ObservableCollection<MedicalRecord>();
+        public static ObservableCollection<PatientModel> data = new ObservableCollection<PatientModel>();
 
         AddMedicalRecord addMedicalRecord;
         private CollectionView view;
@@ -38,9 +40,9 @@ namespace SekretarWPF
         {
             InitializeComponent();
             if(data.Count == 0)
-                foreach(MedicalRecord mr in medicalRecordController.GetAllMedicalRecords())
+                foreach(PatientModel pm in controller.GetAllPatients())
                 {
-                    data.Add(mr);
+                    data.Add(pm);
                 }
             this.lvMedicalRecords.ItemsSource = data;
             addMedicalRecord = new AddMedicalRecord();
@@ -66,7 +68,7 @@ namespace SekretarWPF
             else
             {
                 this.bRemoveSearch.Visibility = Visibility.Visible;
-                string fulname = (item as MedicalRecord).Name + (item as MedicalRecord).Surname;
+                string fulname = (item as PatientModel).Name + (item as PatientModel).Surname;
                 return (fulname.IndexOf(txtFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
@@ -79,19 +81,19 @@ namespace SekretarWPF
 
         private void lvMedicalRecords_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MedicalRecord medicalRecord = ((FrameworkElement)e.OriginalSource).DataContext as MedicalRecord;
-            addMedicalRecord.EditMedicalRecord(medicalRecord);
+            PatientModel patientModel = ((FrameworkElement)e.OriginalSource).DataContext as PatientModel;
+            addMedicalRecord.EditMedicalRecord(patientModel);
         }
 
         private ListViewItem _currentItem = null;
-        private MedicalRecord _currentMRecord = null;
+        private PatientModel _currentMRecord = null;
         private void ListViewItem_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             var item = sender as ListViewItem;
             if (!Equals(_currentItem, item))
             {                    
                 _currentItem = item;
-                _currentMRecord = item.DataContext as MedicalRecord;
+                _currentMRecord = item.DataContext as PatientModel;
                 getIconsReference(_currentItem).Visibility = Visibility.Visible;
             }
         }
@@ -135,7 +137,12 @@ namespace SekretarWPF
 
         private void bEdit_Click(object sender, RoutedEventArgs e)
         {
-            addMedicalRecord.EditMedicalRecord(_currentMRecord);
+            bool? Result = new MessageBoxCustom("Are you sure you want to delete " + _currentMRecord.Name + "'s user account?", MessageType.Confirmation, MessageButtons.YesNo).ShowDialog();
+
+            if (Result.Value)
+            {
+                controller.deletePatientUserAccount(_currentMRecord);
+            }
         }
 
         private void bDelete_Click(object sender, RoutedEventArgs e)
@@ -144,7 +151,7 @@ namespace SekretarWPF
 
             if (Result.Value)
             {
-                medicalRecordController.DeleteMedicalRecord(_currentMRecord);
+                controller.deletePatient(_currentMRecord);
                 data.Remove(_currentMRecord);
             }
 
@@ -175,14 +182,14 @@ namespace SekretarWPF
             view.SortDescriptions.Remove(nameSort);
         }
 
-        private List<MedicalRecord> selectedMedicalRecords = new List<MedicalRecord>();
+        private List<PatientModel> selectedMedicalRecords = new List<PatientModel>();
 
         private void lvMedicalRecords_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<MedicalRecord> currentSelection = new List<MedicalRecord>();
+            List<PatientModel> currentSelection = new List<PatientModel>();
             for (int i = 0; i < lvMedicalRecords.SelectedItems.Count; i++)
             {
-                MedicalRecord selectedMedicalRecord = (MedicalRecord)this.lvMedicalRecords.SelectedItems[i];
+                PatientModel selectedMedicalRecord = (PatientModel)this.lvMedicalRecords.SelectedItems[i];
                 currentSelection.Add(selectedMedicalRecord);
                 if (!selectedMedicalRecords.Contains(selectedMedicalRecord))
                 {
@@ -190,15 +197,15 @@ namespace SekretarWPF
                 }
             }
 
-            List<MedicalRecord> toRemove = new List<MedicalRecord>();
-            foreach(MedicalRecord medicalRecord in selectedMedicalRecords)
+            List<PatientModel> toRemove = new List<PatientModel>();
+            foreach(PatientModel medicalRecord in selectedMedicalRecords)
             {
                 if(!currentSelection.Contains(medicalRecord))
                 {
                     toRemove.Add(medicalRecord);
                 }
             }
-            foreach(MedicalRecord medicalRecord in toRemove)
+            foreach(PatientModel medicalRecord in toRemove)
             {
                 selectedMedicalRecords.Remove(medicalRecord);
             }
@@ -219,11 +226,11 @@ namespace SekretarWPF
 
             if (Result.Value)
             {
-                List<MedicalRecord> toDelete = new List<MedicalRecord>(selectedMedicalRecords);
+                List<PatientModel> toDelete = new List<PatientModel>(selectedMedicalRecords);
 
-                foreach (MedicalRecord medicalRecord in toDelete)
+                foreach (PatientModel medicalRecord in toDelete)
                 {
-                    medicalRecordController.DeleteMedicalRecord(medicalRecord);
+                    controller.deletePatient(medicalRecord);
                     data.Remove(medicalRecord);
                 }
             }

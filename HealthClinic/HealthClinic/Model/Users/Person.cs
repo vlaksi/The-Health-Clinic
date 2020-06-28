@@ -12,15 +12,57 @@ namespace Model.Users
     {
         #region Attributes
 
+        private int id;
         private string name;
         private string surname;
-        private int id;
+        private string gender;
         private DateTime _birthday;
-        private string _biography;
         private string _adress;
+        private string jmbg;
+        private string parentsName;
+        private string _biography;
         private string _phoneNumber;
-
+        private string _email;
         #endregion
+
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public string Jmbg
+        {
+            get { return jmbg; }
+            set
+            {
+                if (value != jmbg)
+                {
+                    jmbg = value;
+                    OnPropertyChanged("Jmbg");
+                }
+            }
+        }
+
+        public string ParentsName
+        {
+            get { return parentsName; }
+            set
+            {
+                if (value != parentsName)
+                {
+                    parentsName = value;
+                    OnPropertyChanged("ParentsName");
+                }
+            }
+        }
 
         public string PhoneNumber
         {
@@ -112,6 +154,12 @@ namespace Model.Users
                 this.id = value;
                 OnPropertyChanged("Id");
             }
+        }
+
+        public string Gender
+        {
+            get { return gender; }
+            set { gender = value; }
         }
 
         #endregion

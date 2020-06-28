@@ -84,12 +84,12 @@
                     x:Name="dpBirth"
                     Height="25"
                     Margin="5,0,5,15"
-                    SelectedDate="{Binding MedicalRecord.DateOfBirth, Mode=OneWay}"/>
+                    SelectedDate="{Binding MedicalRecord.Birthday, Mode=OneWay}"/>
                 </StackPanel>
 
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Foreground="Gray" VerticalAlignment="Center" >Address:</TextBlock>
-                    <TextBox x:Name="tbAddress" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Address, Mode=OneWay}"></TextBox>
+                    <TextBox x:Name="tbAddress" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Adress, Mode=OneWay}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -102,19 +102,19 @@
                     <TextBox x:Name="tbParentName" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.ParentsName, Mode=OneWay}"></TextBox>
                 </StackPanel>
 
-                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Health insurance number:</TextBlock>
-                    <TextBox x:Name="tbHealthInsuranceNumber" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.HealthInsuranceNumber, Mode=OneWay}"></TextBox>
-                </StackPanel>
-
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" >
                     <TextBlock Foreground="Gray" VerticalAlignment="Center" >Phone number:</TextBlock>
-                    <TextBox x:Name="tbPhone" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Phone, Mode=OneWay}"></TextBox>
+                    <TextBox x:Name="tbPhone" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.PhoneNumber, Mode=OneWay}"></TextBox>
                 </StackPanel>
 
                 <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Health insurance carrier:</TextBlock>
-                    <TextBox x:Name="tbHealthInsuranceCarrier" Width="380" Margin="5,0,5,0" Text="{Binding MedicalRecord.HealthInsuranceCarrier, Mode=OneWay}"></TextBox>
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Biography:</TextBlock>
+                    <TextBox x:Name="tbBiography" Width="380" Margin="5,0,5,15" Text="{Binding MedicalRecord.Biography, Mode=OneWay}"></TextBox>
+                </StackPanel>
+
+                <StackPanel Width="400" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" >Email:</TextBlock>
+                    <TextBox x:Name="tbEmail" Width="380" Margin="5,0,5,0" Text="{Binding MedicalRecord.Email, Mode=OneWay}"></TextBox>
                 </StackPanel>
 
                 <StackPanel

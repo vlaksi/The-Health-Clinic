@@ -13,7 +13,6 @@ namespace Model.Rooms
     public class Room : ObservableObject
     {
         #region Attributes
-
         private double size;
         private int _numberOfRoom;
         private string _department;
@@ -22,10 +21,37 @@ namespace Model.Rooms
         private bool full = false;
         private List<InventoryType> _roomInventory;
         private PhysicalWork _physicalWork;
-
+        private int capacity;
+        private RoomType roomType;
+        private int patientsAccommodated;
+        private int roomId;
         #endregion
 
+
+
         #region Properties
+        public int RoomId
+        {
+            get { return roomId; }
+            set { roomId = value; }
+        }
+        public int PatientsAccommodated
+        {
+            get { return patientsAccommodated; }
+            set { patientsAccommodated = value; }
+        }
+        public int Capacity
+        {
+            get { return capacity; }
+            set { capacity = value; }
+        }
+
+
+        public RoomType RoomType
+        {
+            get { return roomType; }
+            set { roomType = value; }
+        }
 
         public string Purpose
         {
@@ -79,7 +105,8 @@ namespace Model.Rooms
         {
             get
             {
-                return full;
+                if (capacity == patientsAccommodated) return true;
+                return false;
             }
             set
             {
@@ -161,5 +188,12 @@ namespace Model.Rooms
 
         #endregion
 
+    }
+
+    public enum RoomType
+    {
+        PatientRoom,
+        Ordination,
+        OperatingRoom,
     }
 }

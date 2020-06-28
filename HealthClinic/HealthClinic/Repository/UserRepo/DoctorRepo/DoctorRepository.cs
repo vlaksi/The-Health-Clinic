@@ -7,12 +7,13 @@ using Model.Users;
 using System;
 using System.Collections.Generic;
 using Model.BusinessHours;
+using Repository.GenericCRUD;
 
-namespace Repository.UserRepo
+namespace HealthClinic.Repository.UserRepo.DoctorRepo
 {
-   public interface DoctorRepository : IUserRepository
-   {
-      List<Specialist> GetAllSpecialistsBySpecialty(String specialty);
+   public interface DoctorRepository : GenericInterfaceCRUDDao<Doctor, int>
+    {
+      List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType);
       
       List<Doctor> FindMatchedDoctors(BusinessHoursModel bussinesHours);
       

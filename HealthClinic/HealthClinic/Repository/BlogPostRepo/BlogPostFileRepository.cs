@@ -4,19 +4,16 @@
 // Purpose: Definition of Class BlogPostFileRepository
 
 using Model.BlogPost;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Repository.BlogPostRepo
 {
     public class BlogPostFileRepository : BlogPostRepository
     {
-        private string filePath;
-
-        public List<Comment> GetComments(int blogPostId)
-        {
-            throw new NotImplementedException();
-        }
+        private string filePath = @"./../../../HealthClinic/FileStorage/blogs.json";
 
         public void OpenFile()
         {
@@ -30,52 +27,128 @@ namespace Repository.BlogPostRepo
 
         public int Count()
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)FindAll();
+            return allBlogs.Count;
         }
 
         public void Delete(BlogPostModel entity)
         {
-            throw new NotImplementedException();
+            DeleteById(entity.Id);
         }
 
         public void DeleteAll()
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> emptyList = new List<BlogPostModel>();
+            SaveAll(emptyList);
         }
 
         public void DeleteById(int identificator)
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)FindAll();
+            BlogPostModel toRemove = null;
+
+            foreach (BlogPostModel blog in allBlogs)
+                if (blog.Id == identificator)
+                    toRemove = blog;
+
+            if (toRemove != null)
+            {
+                allBlogs.Remove(toRemove);
+                SaveAll(allBlogs);
+            }
         }
 
         public bool ExistsById(int id)
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)FindAll();
+
+            foreach (BlogPostModel blog in allBlogs)
+                if (blog.Id == id)
+                    return true;
+
+            return false;
         }
 
         public IEnumerable<BlogPostModel> FindAll()
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> allBlogs = JsonConvert.DeserializeObject<List<BlogPostModel>>(File.ReadAllText(filePath));
+
+            if (allBlogs == null) allBlogs = new List<BlogPostModel>();
+
+            return allBlogs;
         }
 
         public BlogPostModel FindById(int id)
         {
-            throw new NotImplementedException();
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)FindAll();
+
+            foreach (BlogPostModel blog in allBlogs)
+                if (blog.Id == id)
+                    return blog;
+
+            return null;
         }
 
         public void Save(BlogPostModel entity)
         {
-            throw new NotImplementedException();
+            if (ExistsById(entity.Id))
+            {
+                Delete(entity);
+            }
+            else
+            {
+                entity.Id = GenerateId();
+            }
+
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)FindAll();
+            allBlogs.Add(entity);
+            SaveAll(allBlogs);
+        }
+
+        public int GenerateId()
+        {
+            int maxId = -1;
+            List<BlogPostModel> allBlogs = (List<BlogPostModel>)FindAll();
+            if (allBlogs.Count == 0) return 1;
+            foreach (BlogPostModel blog in allBlogs)
+            {
+                if (blog.Id > maxId) maxId = blog.Id;
+            }
+
+            return maxId + 1;
         }
 
         public void SaveAll(IEnumerable<BlogPostModel> entities)
         {
-            throw new NotImplementedException();
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, entities);
+            }
         }
 
         public IEnumerable<BlogPostModel> FindAllById(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
+        }
+
+        public void SaveComment(BlogPostModel blogPost, Comment comment)
+        {
+            blogPost.AddComment(comment);
+            Save(blogPost);
+        }
+
+        public void DeleteComment(BlogPostModel blogPost, Comment comment)
+        {
+            foreach (Comment coms in blogPost.Comment)
+            {
+                if (coms.Equals(comment))
+                {
+                    blogPost.Comment.Remove(comment);
+                    Save(blogPost);
+                }
+            }
+
         }
     }
 }
