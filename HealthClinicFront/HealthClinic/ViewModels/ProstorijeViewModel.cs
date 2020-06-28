@@ -547,61 +547,28 @@ namespace HealthClinic.ViewModels
 
         public void DodajOpremu(object obj)
         {
-            foreach (InventoryType oprema in SelektovanaProstorija.RoomInventory)
-            {
-                if (oprema.InventoryName == TrenutnaOprema.InventoryName)
-                {
-                    oprema.Quantity += TrenutnaOprema.Quantity;
-                    return;
-                }
-            }
 
-            // ako dodjem dovde znaci da moram celu tu trenutnu opremu dodati jer je nema u spisku opreme
-            InventoryType opremaZaDodavanje = new InventoryType()
-            {
-                InventoryName = TrenutnaOprema.InventoryName,
-                Quantity = TrenutnaOprema.Quantity
-            };
-            // i kolekciji i zapravo selektovanom dodam
+            RoomsController roomsController = new RoomsController();
 
-            //SpisakOpreme.Add(opremaZaDodavanje);
-            RoomsController roomsContr = new RoomsController();
-            SelektovanaProstorija.RoomInventory.Add(opremaZaDodavanje);
-            roomsContr.makeUpdateFor(SelektovanaProstorija);
+            povecajStanjeKolicineOpreme();
+            roomsController.changeRoomInventory(SelektovanaProstorija, TrenutnaOprema);
 
+            this.TrenutniProzor.Close();
+            ucitajSveProstorije();
+            
 
-            //dodajOpremuSelektovaneProstorijProstorijama(SelektovanaProstorija);
-
-            //sacuvajSveProstorije();
         }
+
 
         public void UkloniOpremu(object obj)
         {
-            foreach (InventoryType oprema in SelektovanaProstorija.RoomInventory)
-            {
-                if (oprema.InventoryName == TrenutnaOprema.InventoryName)
-                {
-                    oprema.Quantity -= TrenutnaOprema.Quantity;
-                    if (oprema.Quantity <= 0)
-                    {
-                        // uklonim iz prave opreme
-                        foreach (InventoryType opremaPrava in SelektovanaProstorija.RoomInventory)
-                        {
-                            if (opremaPrava.InventoryName == oprema.InventoryName)
-                            {
-                                SelektovanaProstorija.RoomInventory.Remove(opremaPrava);
-                                break;
-                            }
-                        }
-                        // ali i iz observable liste
-                        SelektovanaProstorija.RoomInventory.Remove(oprema);
-                    }
-                    sacuvajSveProstorije();
-                    return;
-                }
-            }
-            // ako sam dosao do ovoga onda znaci da te opreme zapravo i nema u listi
-            MessageBox.Show("Pokusao si ukloniti opremu koju klinika trenutno nema u posedovanju");
+            RoomsController roomsController = new RoomsController();
+
+            smanjiStanjeKolicineOpreme();
+            roomsController.changeRoomInventory(SelektovanaProstorija, TrenutnaOprema);
+
+            this.TrenutniProzor.Close();
+            ucitajSveProstorije();
         }
 
 
@@ -939,6 +906,20 @@ namespace HealthClinic.ViewModels
                     }
                 }
             }
+        }
+
+        #endregion
+
+        #region Promenja stanja kolicine opreme
+
+        private void povecajStanjeKolicineOpreme()
+        {
+            TrenutnaOprema.Quantity *= 1;
+        }
+
+        private void smanjiStanjeKolicineOpreme()
+        {
+            TrenutnaOprema.Quantity *= -1;
         }
 
         #endregion
