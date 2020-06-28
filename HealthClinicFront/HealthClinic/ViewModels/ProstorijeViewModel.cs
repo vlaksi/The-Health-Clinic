@@ -24,7 +24,7 @@ using Controller.RoomsContr;
 
 namespace HealthClinic.ViewModels
 {
-    public class ProstorijeViewModel:ObservableObject
+    public class ProstorijeViewModel : ObservableObject
     {
 
         public ProstorijeViewModel()
@@ -32,7 +32,7 @@ namespace HealthClinic.ViewModels
             PieChart();
             ucitavanjeTabeleProstorija();
 
-            
+
             DodajProstorijuCommand = new RelayCommand(DodajProstoriju);
             IzmeniProstorijuCommand = new RelayCommand(IzmeniProstoriju);
             IzbrisiProstorijuCommand = new RelayCommand(IzbrisiProstoriju);
@@ -70,7 +70,7 @@ namespace HealthClinic.ViewModels
             // uklanjanje opreme
             UkloniOpremuCommand = new RelayCommand(UkloniOpremu);
         }
-        
+
         #region Prostorija koja sluzi za dodavanje u listu prostorija
 
         private Room _prostorijaZaDodavanje;
@@ -92,8 +92,8 @@ namespace HealthClinic.ViewModels
         public bool Renoviranje
         {
             get { return _renoviranje; }
-            set 
-            { 
+            set
+            {
                 _renoviranje = value;
                 if (_renoviranje == true)
                 {
@@ -114,10 +114,10 @@ namespace HealthClinic.ViewModels
         public bool Spajanje
         {
             get { return _spajanje; }
-            set 
-            { 
+            set
+            {
                 _spajanje = value;
-                if(_spajanje == true)
+                if (_spajanje == true)
                 {
                     PrikazNoveProstorije = Visibility.Visible;
                     PrikazSobeSaKojomSpajamo = Visibility.Visible;
@@ -131,10 +131,10 @@ namespace HealthClinic.ViewModels
         public bool Deljenje
         {
             get { return _deljenje; }
-            set 
-            { 
+            set
+            {
                 _deljenje = value;
-                if(_deljenje == true)
+                if (_deljenje == true)
                 {
                     PrikazNoveProstorije = Visibility.Visible;
                     PrikazDrugeNoveProstorije = Visibility.Visible;
@@ -144,7 +144,7 @@ namespace HealthClinic.ViewModels
                 OnPropertyChanged("Deljenje");
             }
         }
-        
+
         #endregion
 
         #region Prikazi odredjenih fildova
@@ -196,8 +196,8 @@ namespace HealthClinic.ViewModels
         public Calendar KalendarObject
         {
             get { return _kalendarObject; }
-            set 
-            { 
+            set
+            {
                 _kalendarObject = value;
                 OnPropertyChanged("KalendarObject");
             }
@@ -205,7 +205,7 @@ namespace HealthClinic.ViewModels
 
         private void PodesavanjeZauzetihDatumaIzabraneProstorije()
         {
-            KalendarObject.BlackoutDates.Add(new CalendarDateRange(new DateTime(1990,1,1),DateTime.Now.Date));
+            KalendarObject.BlackoutDates.Add(new CalendarDateRange(new DateTime(1990, 1, 1), DateTime.Now.Date));
 
             // TODO: Napraviti da se stave pravi datumi kada je prostorija zauzeta
             KalendarObject.BlackoutDates.Add(new CalendarDateRange(new DateTime(2020, 6, 2), new DateTime(2020, 6, 15)));
@@ -226,8 +226,8 @@ namespace HealthClinic.ViewModels
         public Room SelektovanaProstorija
         {
             get { return _selektovanaProstorija; }
-            set 
-            { 
+            set
+            {
                 _selektovanaProstorija = value;
                 OnPropertyChanged("SelektovanaProstorija");
             }
@@ -302,7 +302,7 @@ namespace HealthClinic.ViewModels
 
             roomsController.removeRoom(SelektovanaProstorija);
             MessageBox.Show("Uspesno ste izbrisali sobu broj " + brojObrisaneSobe.ToString());
-            
+
 
             ucitajSveProstorije(); // jer su se izmenili pa treba dobiti najnovije sad
             this.TrenutniProzor.Close();
@@ -339,7 +339,7 @@ namespace HealthClinic.ViewModels
             ucitajSveProstorije();
             this.TrenutniProzor.Close();
         }
-        
+
         public void PotvrdiZauzetostAktivnost(object obj)
         {
             RoomsController roomsController = new RoomsController();
@@ -354,20 +354,20 @@ namespace HealthClinic.ViewModels
             }
             else if (Deljenje)
             {
-                MessageBox.Show("Deljenje" + BrojNoveSobe +" " + BrojDrugeNoveSobe);
+                MessageBox.Show("Deljenje" + BrojNoveSobe + " " + BrojDrugeNoveSobe);
 
                 // obrisem trenutno selektovanu prostoriju
                 podesiBrojOdredjenihProstorija(SelektovanaProstorija, -1);
                 roomsController.removeRoom(SelektovanaProstorija);
 
-                
+
 
                 // dodam ove dve nove
                 Room p1 = new Room()
                 {
                     NumberOfRoom = int.Parse(BrojNoveSobe),
-                    Purpose ="soba za pacijente"
-                    
+                    Purpose = "soba za pacijente"
+
                 };
 
                 Room p2 = new Room()
@@ -382,7 +382,7 @@ namespace HealthClinic.ViewModels
 
                 podesiBrojOdredjenihProstorija(p1, 1);
                 podesiBrojOdredjenihProstorija(p2, 1);
-                
+
 
             }
             else if (Spajanje)
@@ -417,7 +417,7 @@ namespace HealthClinic.ViewModels
         {
 
             instanciranjeFizickihRadova();
-      
+
             TrenutniProzor = new ZauzetostAktivnostDijalog();
             TrenutniProzor.DataContext = this;             // kako bi povezao i ViewModel Zaposlenih za ovaj dijalog
             TrenutniProzor.ShowDialog();
@@ -427,12 +427,12 @@ namespace HealthClinic.ViewModels
         {
             TrenutnaOprema = new InventoryType();
 
-            if(SelektovanaProstorija.RoomInventory is null)
+            if (SelektovanaProstorija.RoomInventory is null)
             {
                 SelektovanaProstorija.RoomInventory = new List<InventoryType>();
 
             }
-            
+
 
             TrenutniProzor = new SpisakOpremeDijalog();
             TrenutniProzor.DataContext = this;             // kako bi povezao i ViewModel Zaposlenih za ovaj dijalog
@@ -462,7 +462,7 @@ namespace HealthClinic.ViewModels
                 //Include rows to the DataTable.
                 foreach (Room prostorija in Prostorije)
                 {
-                    table.Rows.Add(new string[] { prostorija.Department, prostorija.NumberOfRoom.ToString(), prostorija.Purpose  });
+                    table.Rows.Add(new string[] { prostorija.Department, prostorija.NumberOfRoom.ToString(), prostorija.Purpose });
                 }
 
 
@@ -497,7 +497,13 @@ namespace HealthClinic.ViewModels
             // Prostorija za izmenu/stimanje preuzima podatke od selektovane prostorije
             if (!(SelektovanaProstorija is null))
             {
-                ProstorijaZaIzmenu = new Room() { Department = SelektovanaProstorija.Department, NumberOfRoom = SelektovanaProstorija.NumberOfRoom, Purpose = SelektovanaProstorija.Purpose };
+                ProstorijaZaIzmenu = new Room()
+                {
+                    RoomId = SelektovanaProstorija.RoomId,
+                    Department = SelektovanaProstorija.Department,
+                    NumberOfRoom = SelektovanaProstorija.NumberOfRoom,
+                    Purpose = SelektovanaProstorija.Purpose
+                };
             }
             else
             {
@@ -526,12 +532,13 @@ namespace HealthClinic.ViewModels
             {
                 MessageBox.Show("Izabrana prostorija u narednom periodu nema zakazanih fizickih radova");
                 return;
-            }else if(SelektovanaProstorija.PhysicalWork.NameOfWork is null)
+            }
+            else if (SelektovanaProstorija.PhysicalWork.NameOfWork is null)
             {
                 MessageBox.Show("Izabrana prostorija u narednom periodu nema zakazanih fizickih radova");
                 return;
             }
-                
+
 
             TrenutniProzor = new FizickiRadoviDijalog();
             TrenutniProzor.DataContext = this;
@@ -575,12 +582,12 @@ namespace HealthClinic.ViewModels
                 if (oprema.InventoryName == TrenutnaOprema.InventoryName)
                 {
                     oprema.Quantity -= TrenutnaOprema.Quantity;
-                    if(oprema.Quantity <= 0)
+                    if (oprema.Quantity <= 0)
                     {
                         // uklonim iz prave opreme
                         foreach (InventoryType opremaPrava in SelektovanaProstorija.RoomInventory)
                         {
-                            if(opremaPrava.InventoryName == oprema.InventoryName)
+                            if (opremaPrava.InventoryName == oprema.InventoryName)
                             {
                                 SelektovanaProstorija.RoomInventory.Remove(opremaPrava);
                                 break;
@@ -747,7 +754,7 @@ namespace HealthClinic.ViewModels
             MoguciTipoviProstorije.Add("soba za pacijente");
             MoguciTipoviProstorije.Add("soba za preglede");
             MoguciTipoviProstorije.Add("operaciona sala");
-            
+
         }
 
         #endregion
@@ -788,7 +795,7 @@ namespace HealthClinic.ViewModels
 
         private bool validnaProstorija(Room prostorija)
         {
-            if(prostorija.NumberOfRoom <= 0 )
+            if (prostorija.NumberOfRoom <= 0)
             {
                 MessageBox.Show("Niste popunili polje za broj sobe");
                 return false;
@@ -923,7 +930,7 @@ namespace HealthClinic.ViewModels
             foreach (Room room in Prostorije)
             {
                 // prostoriji iz liste prostorija dodajem opremu koja je dodata 
-                if(room.NumberOfRoom == selektovanaProstorija.NumberOfRoom)
+                if (room.NumberOfRoom == selektovanaProstorija.NumberOfRoom)
                 {
                     room.RoomInventory = new List<InventoryType>();
                     foreach (InventoryType inventory in selektovanaProstorija.RoomInventory)

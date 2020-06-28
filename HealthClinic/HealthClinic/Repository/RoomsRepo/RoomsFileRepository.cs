@@ -23,7 +23,6 @@ namespace Repository.RoomsRepo
 
             foreach (Room tempRoom in allRooms)
             {
-                // For now, room is uniq by number of room, but we need to change that !
                 if (tempRoom.RoomId.Equals(room.RoomId))
                 {
                     tempRoom.Department = room.Department;
