@@ -63,6 +63,60 @@ namespace Service.EmployeeServ
 
         }
 
+        
+
+        public void removeEmployee(Employee employee)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
+            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
+
+            if (employee.JobPosition == "Doctor")
+                repoForDoctors.DeleteById(getDoctorFromEmployee(employee).Id);
+
+
+            if (employee.JobPosition == "Secretary")
+                repoForSecretary.DeleteById(getSecretaryFromEmployee(employee).Id);
+        }
+
+        public List<Employee> readAllEmployees()
+        {
+            DoctorFileRepository doctorRepo = new DoctorFileRepository();
+            SecretaryFileRepository secretaryRepo = new SecretaryFileRepository();
+            List<Doctor> doctors = (List<Doctor>)doctorRepo.FindAll();
+            List<Secretary> secretary = (List<Secretary>)secretaryRepo.FindAll();
+
+            List<Employee> employees = new List<Employee>();
+            employees.AddRange(doctors.Cast<Employee>().ToList());
+            employees.AddRange(secretary.Cast<Employee>().ToList());
+
+            return employees;
+        }
+
+        public void saveAllEmployees(List<Employee> employeesForSave)
+        {
+
+            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
+            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
+
+            List<Doctor> doctorsForSave = new List<Doctor>();
+            List<Secretary> secretaryForSave = new List<Secretary>();
+
+            foreach (Employee employee in employeesForSave)
+            {
+                if (employee.EmployeeType == EmployeeType.Doctor)
+                    doctorsForSave.Add((Doctor)employee);
+                else if (employee.EmployeeType == EmployeeType.Secretary)
+                    secretaryForSave.Add((Secretary)employee);
+            }
+
+            repoForDoctors.SaveAll(doctorsForSave);
+            repoForSecretary.SaveAll(secretaryForSave);
+
+        }
+
+
+        #region Helper methods
         private Doctor getDoctorFromEmployee(Employee employee)
         {
             Doctor retDoc = new Doctor();
@@ -70,9 +124,9 @@ namespace Service.EmployeeServ
             retDoc.EmployeeType = EmployeeType.Doctor;
             retDoc.AbleToPrescribeTreatments = true;
             retDoc.AbleToValidateMedicines = false;
-            retDoc.Adress = ( employee.Adress is null ) ? "" : employee.Adress;
+            retDoc.Adress = (employee.Adress is null) ? "" : employee.Adress;
             retDoc.Biography = (employee.Biography is null) ? "" : employee.Biography;
-            retDoc.Birthday = (employee.Birthday == DateTime.MinValue) ? (new DateTime(2020,12,30)) : employee.Birthday;
+            retDoc.Birthday = (employee.Birthday == DateTime.MinValue) ? (new DateTime(2020, 12, 30)) : employee.Birthday;
             retDoc.BusinessHours = (employee.BusinessHours is null) ? (new BusinessHoursModel()) : employee.BusinessHours;
             retDoc.Email = (employee.Email is null) ? "" : employee.Email;
             retDoc.Gender = (employee.Gender is null) ? "" : employee.Gender;
@@ -113,48 +167,6 @@ namespace Service.EmployeeServ
             return retSecretary;
         }
 
-        public void removeEmployee(Employee employee)
-        {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            EmployeeFileRepository repoForEmployees = new EmployeeFileRepository();
-            repoForEmployees.Delete(employee);
-        }
-
-        public List<Employee> readAllEmployees()
-        {
-            DoctorFileRepository doctorRepo = new DoctorFileRepository();
-            SecretaryFileRepository secretaryRepo = new SecretaryFileRepository();
-            List<Doctor> doctors = (List<Doctor>)doctorRepo.FindAll();
-            List<Secretary> secretary = (List<Secretary>)secretaryRepo.FindAll();
-
-            List<Employee> employees = new List<Employee>();
-            employees.AddRange(doctors.Cast<Employee>().ToList());
-            employees.AddRange(secretary.Cast<Employee>().ToList());
-
-            return employees;
-        }
-
-        public void saveAllEmployees(List<Employee> employeesForSave)
-        {
-
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
-
-            List<Doctor> doctorsForSave = new List<Doctor>();
-            List<Secretary> secretaryForSave = new List<Secretary>();
-
-            foreach (Employee employee in employeesForSave)
-            {
-                if (employee.EmployeeType == EmployeeType.Doctor)
-                    doctorsForSave.Add((Doctor)employee);
-                else if (employee.EmployeeType == EmployeeType.Secretary)
-                    secretaryForSave.Add((Secretary)employee);
-            }
-
-            repoForDoctors.SaveAll(doctorsForSave);
-            repoForSecretary.SaveAll(secretaryForSave);
-
-        }
-
+        #endregion
     }
 }
