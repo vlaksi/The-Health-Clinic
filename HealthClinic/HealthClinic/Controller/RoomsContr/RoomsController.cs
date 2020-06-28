@@ -16,6 +16,11 @@ namespace Controller.RoomsContr
     {
         public RoomsService roomsService = new RoomsService();
 
+        public void changeRoomInventory(Room room, InventoryType inventory)
+        {
+            roomsService.changeRoomInventory(room, inventory);
+        }
+
         public void makeUpdateFor(Room room)
         {
             roomsService.makeUpdateFor(room);
