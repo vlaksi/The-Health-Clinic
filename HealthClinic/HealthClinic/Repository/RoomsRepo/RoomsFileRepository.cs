@@ -64,6 +64,7 @@ namespace Repository.RoomsRepo
 
             foreach (Room tempRoom in allRooms)
             {
+
                 if (tempRoom.RoomId.Equals(room.RoomId))
                 {
                     tempRoom.Department = room.Department;
@@ -231,7 +232,7 @@ namespace Repository.RoomsRepo
         public Room FindById(int id)
         {
             List<Room> allRooms = (List<Room>)FindAll();
-            Room retRoom = new Room();
+            Room retRoom = null;
 
             foreach (Room tempRoom in allRooms)
             {

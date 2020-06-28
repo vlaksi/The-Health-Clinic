@@ -106,6 +106,9 @@ namespace Service.MedicalRecordServ
             medicalRecordRepository.Delete(mr);
         }
 
-
+        public void DeleteMedicalRecord(int id)
+        {
+            medicalRecordRepository.DeleteById(id);
+        }
     }
 }
