@@ -3,10 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+<<<<<<< HEAD
 
 #.csproj da ne pravi problem
 *.csproj
 
+=======
+>>>>>>> igor-backend
 # User-specific files
 *.rsuser
 *.suo
