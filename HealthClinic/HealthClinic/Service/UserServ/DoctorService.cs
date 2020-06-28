@@ -25,12 +25,12 @@ namespace Service.UserServ
         {
             doctorRepositoryFactory = new DoctorFileRepositoryFactory();
             doctorRepository = doctorRepositoryFactory.CreateDoctorRepository();
+
         }
         public List<Doctor> GetAllDoctors()
         {
             return (List<Doctor>)doctorRepository.FindAll();
         }
-
         public bool isEmailTaken(string email)
         {
             List<Doctor> allDoctors = GetAllDoctors();
@@ -43,7 +43,6 @@ namespace Service.UserServ
             }
             return false;
         }
-
         public void AddDoctor(Doctor doctor)
         {
             doctorRepository.Save(doctor);
@@ -83,6 +82,7 @@ namespace Service.UserServ
         {
             checkupService = new CheckupService();
             operationService = new OperationService();
+
             Doctor doctor = doctorRepository.FindById(doctorId);
             //Da li se taj termin nalazi unutar radnog vremena
             if (dateStart.Date > doctor.BusinessHours.FromDate && dateEnd.Date < doctor.BusinessHours.ToDate
