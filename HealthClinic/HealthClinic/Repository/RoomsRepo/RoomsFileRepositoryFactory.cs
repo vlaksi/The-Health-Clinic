@@ -9,9 +9,16 @@ namespace Repository.RoomsRepo
 {
     public class RoomsFileRepositoryFactory : RoomsRepositoryFactory
     {
+        private RoomsFileRepository roomsFileRepository;
+
         public RoomsRepository CreateRoomsRepository()
         {
-            throw new NotImplementedException();
+            if (roomsFileRepository == null)
+                roomsFileRepository = new RoomsFileRepository();
+
+            return roomsFileRepository;
         }
+
+
     }
 }

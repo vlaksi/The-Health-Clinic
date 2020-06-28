@@ -60,6 +60,15 @@ namespace Controller.PatientContr
             patientService.EditPatient(patientForEdit);
         }
 
+        public void deletePatientUserAccount(PatientModel patient)
+        {
+            patientService.deletePatientUserAccount(patient);
+        }
+
+        public void deletePatient(PatientModel patient)
+        {
+            patientService.deletePatient(patient);
+        }
 
     }
 }

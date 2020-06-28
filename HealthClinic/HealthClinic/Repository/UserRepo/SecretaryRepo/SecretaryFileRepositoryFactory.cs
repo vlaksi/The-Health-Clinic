@@ -9,9 +9,14 @@ namespace HealthClinic.Repository.UserRepo.SecretaryRepo
 {
     public class SecretaryFileRepositoryFactory : SecretaryRepositoryFactory
     {
+        private SecretaryFileRepository secretaryFileRepository;
+
         public SecretaryRepository CreateSecretaryRepository()
         {
-            return new SecretaryFileRepository();
+            if (secretaryFileRepository == null)
+                secretaryFileRepository = new SecretaryFileRepository();
+
+            return secretaryFileRepository;
         }
     }
 }

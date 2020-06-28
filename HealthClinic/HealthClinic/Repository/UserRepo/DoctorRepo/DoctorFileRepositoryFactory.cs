@@ -9,9 +9,14 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 {
     public class DoctorFileRepositoryFactory : DoctorRepositoryFactory
     {
+        private DoctorFileRepository doctorFileRepository;
+
         public DoctorRepository CreateDoctorRepository()
         {
-            return new DoctorFileRepository();
+            if (doctorFileRepository == null)
+                doctorFileRepository = new DoctorFileRepository();
+
+            return doctorFileRepository;
         }
     }
 }
