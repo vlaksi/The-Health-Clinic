@@ -16,6 +16,8 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
     public class DoctorFileRepository : DoctorRepository
     {
         private string filePath = @"./../../../HealthClinic/FileStorage/doctors.json";
+        //private string filePath = @"./../../../../HealthClinic/FileStorage/doctors.json";
+
 
         public int Count()
         {
@@ -93,6 +95,18 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
             return null;
         }
 
+
+        public Doctor FindByUsername(String username)
+        {
+            List<Doctor> allDoctors = (List<Doctor>)FindAll();
+
+            foreach (Doctor doctor in allDoctors)
+                if (doctor.Username == username)
+                    return doctor;
+
+            return null;
+        }
+
         public List<Doctor> FindMatchedDoctors(BusinessHoursModel bussinesHours)
         {
             throw new NotImplementedException();
@@ -112,6 +126,11 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 
             return results;
         }
+        public void makeUpdateFor(Doctor doctor)
+        {
+            Save(FindByUsername(doctor.Username));
+        }
+
 
         public void Save(Doctor entity)
         {

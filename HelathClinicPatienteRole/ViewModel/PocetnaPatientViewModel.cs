@@ -95,8 +95,8 @@ namespace HelathClinicPatienteRole.ViewModel
         public void PosaljIAnketu(object obj)
         {
             //PatientModel patient = new PatientModel { Id = 1 , Name = "Marko", Surname = "Markovic", PhoneNumber= "0602545687" , Adress = "Narodnog Fronta, Novi Sad", Birthday= new DateTime(1980, 1, 1, 0, 0, 0), Biography="IT radnik vec 20 godina, veoma fizicki aktivan" };
-            Doctor doctor = doctorController.FindById(SelektovaniPregled.DoctorId);
-                SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, Doctor = doctor , PatientId = _prijavljeniKorisnik.Id};
+            
+                SurveyResponse anketa = new SurveyResponse { Comment = Comment, Mark = SelektovaniMark, DoctorId = SelektovaniPregled.DoctorId, PatientId = _prijavljeniKorisnik.Id };
             patientController.FillFeedbackForm(anketa);
             MessageBox.Show("Uspesno ste uradili anketu ! Vas Komentar je : " + Comment + " A ocena je : " + SelektovaniMark);
             return;
