@@ -255,16 +255,7 @@ namespace HealthClinic.ViewModels
             businessHours.ToHour = KrajnjiSat;
 
             // njima promenim businessHours
-
             employeeController.setBusinessHoursForEmployees(izabraniLekari, businessHours);
-            //foreach (Employee lekar in IzabraniLekari)
-            //{
-            //    lekar.BusinessHours.FromDate = PocetniDatum;
-            //    lekar.BusinessHours.ToDate = KrajnjiDatum;
-            //    lekar.BusinessHours.FromHour = PocetniSat;
-            //    lekar.BusinessHours.ToHour = KrajnjiSat;
-
-            //}
 
             ucitajSveZaposlene();
             this.TrenutniProzor.Close();

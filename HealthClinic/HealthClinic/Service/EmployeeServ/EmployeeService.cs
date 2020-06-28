@@ -22,15 +22,45 @@ namespace Service.EmployeeServ
 
         public void setBusinessHoursForEmployees(List<Employee> employees, BusinessHoursModel businessHours)
         {
-            // TODO: Proveriti za Factory kako ide
-            EmployeeFileRepository employeeFileRepository = new EmployeeFileRepository();
 
-            employeeFileRepository.setBusinessHoursForEmployees(employees, businessHours);
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
+            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
+
+            List<Secretary> secretaries = new List<Secretary>();
+            List<Doctor> doctors = new List<Doctor>();
+
+            foreach (Employee employee in employees)
+            {
+                if (employee.JobPosition == "Doctor")
+                    doctors.Add(getDoctorFromEmployee(employee));
+
+
+                if (employee.JobPosition == "Secretary")
+                    secretaries.Add(getSecretaryFromEmployee(employee));
+            }
+
+            repoForDoctors.SetDoctorsBusinessHours(doctors, businessHours);
+            repoForSecretary.SetSecretarysBusinessHours(secretaries, businessHours);
         }
         public List<Employee> getAllFreeEmployees(BusinessHoursModel businessHours)
         {
-            // Odraditi prebacivanje preko servisa lekara i servisa sekretara
-            return null;
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
+            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
+
+            List<Secretary> freeSecretaries = new List<Secretary>();
+            List<Doctor> freeDoctors = new List<Doctor>();
+            List<Employee> freeEmployees = new List<Employee>();
+
+            freeDoctors = repoForDoctors.getAllFreeDoctors(businessHours);
+            freeSecretaries = repoForSecretary.getAllFreeSecretaries(businessHours);
+
+            freeEmployees.AddRange(freeDoctors);
+            freeEmployees.AddRange(freeSecretaries);
+            
+
+            return freeEmployees;
         }
 
         public void makeUpdateFor(Employee employee)

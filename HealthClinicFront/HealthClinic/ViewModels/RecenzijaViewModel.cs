@@ -77,13 +77,10 @@ namespace HealthClinic.ViewModels
 
             foreach (SurveyResponse surveyResponse in RezultatiAnkete)
             {
-                if (surveyResponse.Doctors is null)
+                if (surveyResponse.DoctorId <= 0)
                     break;
 
-                foreach (int idOfDoctor in surveyResponse.Doctors)
-                {
-                    retVal += "Doktor sa id-em: " + idOfDoctor + " je dobio ocenu: " + surveyResponse.Mark + " sa komentarom: \n" + surveyResponse.Comment+"\n\n";
-                }
+                retVal += "Doktor sa id-em: " + surveyResponse.DoctorId + " je dobio ocenu: " + surveyResponse.Mark + " sa komentarom: \n" + surveyResponse.Comment+"\n\n";
 
                 retVal += "\n";
             }

@@ -88,13 +88,20 @@ namespace Controller.RoomsContr
 
         public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+
+            return roomsService.GetFreeOperationRooms(start, end);
+        }
+
+        public List<Room> GetFreeOrdinations(DateTime start, DateTime end)
+        {
+            return roomsService.GetFreeOrdinations(start, end);
         }
 
         public bool isRoomFree(int roomId, DateTime start, DateTime end)
         {
             return roomsService.IsRoomFree(roomId, start, end);
         }
+
 
 
     }
