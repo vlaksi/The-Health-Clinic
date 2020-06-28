@@ -11,40 +11,55 @@ using System.Collections.Generic;
 
 namespace Controller.PatientContr
 {
-   public class PatientController
-   {
-      public PatientService patientService = new PatientService();
+    public class PatientController
+    {
+        public PatientService patientService = new PatientService();
 
-      public int RateClinic()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public SurveyResponse FillFeedbackForm()
-      {
-         throw new NotImplementedException();
-      }
+        public int RateClinic()
+        {
+            throw new NotImplementedException();
+        }
 
-      public bool PatientLogin(string jmbg, string password)
-      {
-            List<PatientModel> allPatients = GetAllPatients();
+        public void FillFeedbackForm(SurveyResponse surveyResponse)
+        {
+            patientService.FillFeedbackForm(surveyResponse);
+        }
 
-            foreach(PatientModel patient in allPatients)
-            {
-                if(patient.Jmbg.Equals(jmbg) && patient.Password.Equals(password))
-                {
-                    return true;
-                }
-            }
-            return false;
-      }
+        public bool PatientLogin(string jmbg, string password)
+        {
+            return patientService.PatientLogin(jmbg, password);
+        }
 
-      public List<PatientModel> GetAllPatients()
-      {
-         return patientService.GetAllPatients();
-      }
+        public PatientModel FindById(int id)
+        {
+            return patientService.FindById(id);
+        }
+
+        public bool PatientRegister(PatientModel patientForRegistration)
+        {
+            return patientService.PatientRegister(patientForRegistration);
+        }
+
+        public PatientModel FindByJmbg(string jmbg)
+        {
+            return patientService.FindByJmbg(jmbg);
+        }
+
+        public List<PatientModel> GetAllPatients()
+        {
+            return patientService.FindAll();
+        }
+
+        public void SavePatient(PatientModel patient)
+        {
+            patientService.SavePatient(patient);
+        }
+
+        public void EditPatient(PatientModel patientForEdit)
+        {
+            patientService.EditPatient(patientForEdit);
+        }
 
 
-
-   }
+    }
 }

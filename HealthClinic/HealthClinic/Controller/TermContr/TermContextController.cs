@@ -46,9 +46,9 @@ namespace Controller.TermContr
             getControllerStrategy(Term).ScheduleTerm(Term);
         }
 
-        public void EditTerm(Term newTerm)
+        public void EditTerm(Term Term)
         {
-            throw new NotImplementedException();
+            getControllerStrategy(Term).EditTerm(Term);
         }
 
         public List<Checkup> getAllCheckups()
@@ -61,6 +61,33 @@ namespace Controller.TermContr
             return operationService.getAllOperations();
         }
 
-        
+        public Operation FindOperationById(int id)
+        {
+            return operationService.FindById(id);
+        }
+
+        public Checkup FindCheckupById(int id)
+        {
+            return checkupService.FindById(id);
+        }
+
+        public List<Checkup> getAllCheckupsForPatient(int medicalRecordId)
+        {
+            return checkupService.getAllCheckupsForPatient(medicalRecordId);
+        }
+
+        public List<Operation> getAllOperationsForPatient(int medicalRecordId)
+        {
+            return operationService.getAllOperationsForPatient(medicalRecordId);
+        }
+        public List<Checkup> getAllCheckupsForDoctor(int doctorId)
+        {
+            return checkupService.getAllCheckupsForDoctor(doctorId);
+        }
+
+        public List<Operation> getAllOperationsForDoctor(int doctorId)
+        {
+            return operationService.getAllOperationsForDoctor(doctorId);
+        }
     }
 }
