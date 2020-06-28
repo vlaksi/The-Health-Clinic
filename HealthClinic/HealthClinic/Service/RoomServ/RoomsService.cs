@@ -155,7 +155,6 @@ namespace Service.RoomServ
             return result;
         }
 
-
         public bool IsRoomFree(int roomId, DateTime dateStart, DateTime dateEnd)
         {
             RoomsFileRepository roomRepository = new RoomsFileRepository();

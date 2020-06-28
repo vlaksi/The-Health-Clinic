@@ -71,21 +71,6 @@ namespace Controller.RoomsContr
             return roomsService.GetAllOrdinations();
         }
 
-        public Room CreateRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room RenovateRoom(Room room, DateTime startDate, DateTime endDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
-        {
-            return null;
-        }
-
         public List<Room> GetAllRooms()
         {
             return roomsService.GetAllRooms();
