@@ -88,6 +88,7 @@ namespace Controller.RoomsContr
 
         public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
+
             return roomsService.GetFreeOperationRooms(start, end);
         }
 

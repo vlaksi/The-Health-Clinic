@@ -3,6 +3,8 @@
 // Created: Wednesday, May 20, 2020 12:34:11 PM
 // Purpose: Definition of Class CheckupStrategyControler
 
+using HealthClinic.Model.Calendar;
+using HealthClinic.Service.TermServ;
 using Model.Calendar;
 using Service.TermServ;
 using System;
@@ -12,7 +14,8 @@ namespace Controller.TermContr
 {
     public class CheckupStrategyControler : ITermStrategy
     {
-        public CheckupService checkupService = new CheckupService();
+        private CheckupService checkupService = new CheckupService();
+        private TermService termService = new TermService();
 
         public void CancelTerm(Term term)
         {
@@ -32,6 +35,11 @@ namespace Controller.TermContr
         public List<Checkup> GetAllCheckups(int medicineRecordId)
         {
            return checkupService.getAllCheckupsForPatient(medicineRecordId);
+        }
+
+        public DateTime SuggestCheckup(SuggestCheckupDTO suggestCheckupDTO)
+        {
+           return termService.SuggestCheckup(suggestCheckupDTO);
         }
     }
 }
