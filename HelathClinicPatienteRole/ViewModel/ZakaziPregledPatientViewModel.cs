@@ -82,7 +82,7 @@ namespace HelathClinicPatienteRole.ViewModel
         #region Preporuka termina 
 
         public RelayCommand PreporukaTerminaCommand { get; private set; }
-        int i = 1;
+
         public void PreporukaTermina(object obj)
         {
             if (SelektovaniDatumOd < DateTime.Now)
@@ -109,13 +109,37 @@ namespace HelathClinicPatienteRole.ViewModel
             }
             if(!PreporukaTerminaDialog.IzabranPrioritetDatum && !PreporukaTerminaDialog.IzabranPrioritetLekar)
             {
-                MessageBox.Show("Potrebno je izabrati prioritet, ako vam prioritet nije bitan izaberite i Lekara i Datum!");
+                MessageBox.Show("Potrebno je izabrati prioritet!");
+                return;
+            }
+            if (PreporukaTerminaDialog.IzabranPrioritetDatum && PreporukaTerminaDialog.IzabranPrioritetLekar)
+            {
+                MessageBox.Show("Dozvoljeno je izabrati samo jedan prioritet!");
                 return;
             }
 
-            SuggestCheckupDTO suggestCheckupDTO = new SuggestCheckupDTO() { DoctorID = SelektovaniLekar.Id , StartInterval = SelektovaniDatumOd , EndInterval = SelektovaniDatumDo , PriorityDate = PreporukaTerminaDialog.IzabranPrioritetDatum,PriorityDoctor = PreporukaTerminaDialog.IzabranPrioritetLekar };
-            PreporucenTermin = checkupStrategyControler.SuggestCheckup(suggestCheckupDTO);
-            MessageBox.Show("Izabran prioritet datum " + PreporukaTerminaDialog.IzabranPrioritetDatum + " Izabran prioritet lekar " + PreporukaTerminaDialog.IzabranPrioritetLekar );
+            //Podesavamo vremena za proveru da budu u okviru radnog vremena
+            TimeSpan tsOd = new TimeSpan(07, 0, 0);
+            TimeSpan tsDo = new TimeSpan(20, 0, 0);
+            SelektovaniDatumOd = SelektovaniDatumOd.Date + tsOd;
+            SelektovaniDatumDo = SelektovaniDatumDo.Date + tsDo;
+
+            SuggestCheckupDTO suggestCheckupDTO = new SuggestCheckupDTO() { DoctorID = SelektovaniLekar.Id, StartInterval = SelektovaniDatumOd, EndInterval = SelektovaniDatumDo, PriorityDate = PreporukaTerminaDialog.IzabranPrioritetDatum, PriorityDoctor = PreporukaTerminaDialog.IzabranPrioritetLekar };
+            suggestCheckupDTO = checkupStrategyControler.SuggestCheckup(suggestCheckupDTO);
+
+            if (suggestCheckupDTO.DoctorID == -1)
+            {
+                MessageBox.Show("Nemamo ni jednog slobodnog lekara u izabranom terminu");
+                return;
+            }
+   
+
+            
+            PreporucenTermin = "";
+            PreporucenTermin += suggestCheckupDTO.StartInterval + "\n";
+            PreporucenTermin += " Lekar " + doctorController.FindById(suggestCheckupDTO.DoctorID).Name;
+
+            
 
         }
 
@@ -196,7 +220,7 @@ namespace HelathClinicPatienteRole.ViewModel
                 return;
             }
 
-            if (PreporucenTermin.Date == DateTime.MinValue)
+            if (PreporucenTermin == "")
             {
                 MessageBox.Show("Morate prvo izgenerisati termin!");
                 return;
@@ -227,9 +251,9 @@ namespace HelathClinicPatienteRole.ViewModel
 
         #region Preporuceni Termin
 
-        private DateTime _preporuceniTermin ;
+        private String _preporuceniTermin ;
 
-        public DateTime PreporucenTermin
+        public String PreporucenTermin
         {
             get { return _preporuceniTermin; }
             set { _preporuceniTermin = value; OnPropertyChanged("PreporucenTermin"); }

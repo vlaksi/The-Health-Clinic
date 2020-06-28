@@ -88,8 +88,8 @@
                 </Button>
                 <DatePicker SelectedDate="{Binding Path=SelektovaniDatumDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="21" Background="WhiteSmoke" Foreground="#FF148DF0"  Grid.Row ="3" Grid.Column="22" Grid.ColumnSpan="11" Grid.RowSpan="2" materialDesign:HintAssist.Hint="Do datuma" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="1,0,0,3" RenderTransformOrigin="0.466,0.02"   />
 
-                <TextBlock Background="WhiteSmoke" FontWeight="Bold" HorizontalAlignment="Center"  Text="{Binding Path=PreporucenTermin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=dd/MM/yyyy    hh:mm}" Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="25" Grid.Row="22" Grid.Column="9" Grid.ColumnSpan="22" Grid.RowSpan="3" Margin="8,19,0,0" Height="42" Width="260" />
-                <Button Content="Zakaži pregled" Grid.Row="25" Grid.Column="13" Grid.ColumnSpan="14" Grid.RowSpan="2" RenderTransformOrigin="-0.436,-1.938" Margin="10,5,5,15" Command="{Binding ZakaziPregledPreporukaTerminaCommand}">
+                <TextBlock Background="WhiteSmoke" FontWeight="Bold" HorizontalAlignment="Center"  Text="{Binding Path=PreporucenTermin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=dd/MM/yyyy    hh:mm}" Foreground="#FF148DF0" VerticalAlignment="Top" FontSize="25" Grid.Row="22" Grid.Column="9" Grid.ColumnSpan="22" Grid.RowSpan="4" Margin="8,19,0,0" Height="73" Width="260" />
+                <Button Content="Zakaži pregled" Grid.Row="25" Grid.Column="13" Grid.ColumnSpan="14" Grid.RowSpan="2" RenderTransformOrigin="-0.436,-1.938" Margin="10,20,5,0" Command="{Binding ZakaziPregledPreporukaTerminaCommand}">
                     <Button.ToolTip>
                         <ToolTip>
                             <StackPanel>
