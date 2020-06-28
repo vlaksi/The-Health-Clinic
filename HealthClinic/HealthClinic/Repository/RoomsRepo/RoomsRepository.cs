@@ -18,8 +18,15 @@ namespace Repository.RoomsRepo
 
         List<Room> GetAllOperatingRooms();
 
+        List<Room> GetAllOrdinations();
+
+        List<Room> GetAvailablePatientsRooms();
+
         List<Room> GetAllRooms();
 
+        void changeRoomInventory(Room entity, InventoryType inventory);
 
+
+        Room findByNumberOfRoom(int numberOfRoom);
     }
 }

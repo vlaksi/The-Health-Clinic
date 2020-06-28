@@ -17,90 +17,65 @@ namespace Service.RoomServ
     public class RoomsService
     {
         public RoomsRepositoryFactory roomsRepositoryFactory;
+        private RoomsRepository roomsRepository;
+
         private CheckupService checkupService = new CheckupService();
         private OperationService operationService = new OperationService();
 
+        public RoomsService()
+        {
+            roomsRepositoryFactory = new RoomsFileRepositoryFactory();
+            roomsRepository = roomsRepositoryFactory.CreateRoomsRepository();
+        }
 
         public void changeRoomInventory(Room room, InventoryType inventory)
         {
-            RoomsFileRepository fileRepository = new RoomsFileRepository();
-            fileRepository.changeRoomInventory(room, inventory);
+            roomsRepository.changeRoomInventory(room, inventory);
         }
 
         public void makeUpdateFor(Room room)
         {
-            RoomsFileRepository fileRepository = new RoomsFileRepository();
-            fileRepository.makeUpdateFor(room);
+            roomsRepository.makeUpdateFor(room);
         }
 
         public void addRoom(Room room)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            roomsFileRepository.Save(room);
+            roomsRepository.Save(room);
         }
 
         public void removeRoom(Room room)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            roomsFileRepository.Delete(room);
+            roomsRepository.Delete(room);
         }
 
         public void removeRoomById(int id)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            roomsFileRepository.DeleteById(id);
+            roomsRepository.DeleteById(id);
         }
 
         public List<Room> GetAllOperatingRooms()
         {
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            return roomsFileRepository.GetAllOperatingRooms();
+            return roomsRepository.GetAllOperatingRooms();
         }
-
-
 
         public List<Room> GetAllOrdinations()
         {
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            return roomsFileRepository.GetAllOrdinations();
+            return roomsRepository.GetAllOrdinations();
         }
 
         public Room findById(int id)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            return roomsFileRepository.FindById(id);
+            return roomsRepository.FindById(id);
         }
 
         public Room findByNumberOfRoom(int numberOfRoom)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            return roomsFileRepository.findByNumberOfRoom(numberOfRoom);
+            return roomsRepository.findByNumberOfRoom(numberOfRoom);
         }
 
         public void saveAllRooms(List<Room> roomsForSave)
         {
-            RoomsFileRepository repoForRooms = new RoomsFileRepository();
-            repoForRooms.SaveAll(roomsForSave);
-        }
-
-        public bool AccommodatePatient(MedicalRecord medicalRecord, Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room CreateRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room RenovateRoom(Room room, DateTime startDate, DateTime endDate)
-        {
-            throw new NotImplementedException();
+            roomsRepository.SaveAll(roomsForSave);
         }
 
         public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
@@ -110,25 +85,20 @@ namespace Service.RoomServ
 
         public List<Room> GetAvailablePatientsRooms()
         {
-            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
-            return roomsFileRepository.GetAvailablePatientsRooms();
+            return roomsRepository.GetAvailablePatientsRooms();
         }
 
         public List<Room> GetAllRooms()
         {
-            // TODO: Proveriti kako ovo ide preko factorija
-            RoomsFileRepository repoForRooms = new RoomsFileRepository();
-
             List<Room> retRooms = new List<Room>();
-            retRooms = (List<Room>)repoForRooms.FindAll();
+            retRooms = (List<Room>)roomsRepository.FindAll();
 
             return retRooms;
         }
 
         public List<Room> GetFreeOperationRooms(DateTime start, DateTime end)
         {
-            RoomsFileRepository repoForRooms = new RoomsFileRepository();
-            List<Room> allRooms = (List<Room>)repoForRooms.FindAll();
+            List<Room> allRooms = (List<Room>)roomsRepository.FindAll();
             List<Room> result = new List<Room>();
             foreach (Room room in allRooms)
             {
@@ -142,8 +112,7 @@ namespace Service.RoomServ
 
         public List<Room> GetFreeOrdinations(DateTime start, DateTime end)
         {
-            RoomsFileRepository repoForRooms = new RoomsFileRepository();
-            List<Room> allRooms = (List<Room>)repoForRooms.FindAll();
+            List<Room> allRooms = (List<Room>)roomsRepository.FindAll();
             List<Room> result = new List<Room>();
             foreach (Room room in allRooms)
             {
@@ -157,8 +126,7 @@ namespace Service.RoomServ
 
         public bool IsRoomFree(int roomId, DateTime dateStart, DateTime dateEnd)
         {
-            RoomsFileRepository roomRepository = new RoomsFileRepository();
-            Room room = roomRepository.FindById(roomId);
+            Room room = roomsRepository.FindById(roomId);
 
             //Da li u sobi ima termina u tom periodu
             //trebalo bi napraviti metodu da vraca bas za sobu ali me mrzilo

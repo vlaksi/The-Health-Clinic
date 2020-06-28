@@ -57,7 +57,17 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
             throw new NotImplementedException();
         }
 
+        public List<Doctor> getAllFreeDoctors(BusinessHoursModel businessHours)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Doctor> GetAllSpecialistsBySpecialty(SpecialtyType specialtyType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void makeUpdateFor(Doctor entity)
         {
             throw new NotImplementedException();
         }

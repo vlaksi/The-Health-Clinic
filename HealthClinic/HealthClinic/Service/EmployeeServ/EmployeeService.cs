@@ -14,107 +14,87 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Service.EmployeeServ
 {
     public class EmployeeService
     {
         public EmployeeRepositoryFactory employeeRepositoryFactory;
+        private DoctorRepositoryFactory doctorRepositoryFactory;
+        private SecretaryRepositoryFactory secretaryRepositoryFactory;
+
+        private DoctorRepository doctorRepository;
+        private SecretaryRepository secretaryRepository;
+
+        public EmployeeService()
+        {
+            doctorRepositoryFactory = new DoctorFileRepositoryFactory();
+            doctorRepository = doctorRepositoryFactory.CreateDoctorRepository();
+
+            secretaryRepositoryFactory = new SecretaryFileRepositoryFactory();
+            secretaryRepository = secretaryRepositoryFactory.CreateSecretaryRepository();
+        }
 
         public void setBusinessHoursForEmployees(List<Employee> employees, BusinessHoursModel businessHours)
         {
+            List<Secretary> secretaries;
+            List<Doctor> doctors;
+            parseEmployeesToDctorsAndSecretaries(employees, out secretaries, out doctors);
 
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
-
-            List<Secretary> secretaries = new List<Secretary>();
-            List<Doctor> doctors = new List<Doctor>();
-
-            foreach (Employee employee in employees)
-            {
-                if (employee.JobPosition == "Doctor")
-                    doctors.Add(getDoctorFromEmployee(employee));
-
-
-                if (employee.JobPosition == "Secretary")
-                    secretaries.Add(getSecretaryFromEmployee(employee));
-            }
-
-            repoForDoctors.SetDoctorsBusinessHours(doctors, businessHours);
-            repoForSecretary.SetSecretarysBusinessHours(secretaries, businessHours);
+            doctorRepository.SetDoctorsBusinessHours(doctors, businessHours);
+            secretaryRepository.SetSecretarysBusinessHours(secretaries, businessHours);
         }
+
+
         public List<Employee> getAllFreeEmployees(BusinessHoursModel businessHours)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
-
-            List<Secretary> freeSecretaries = new List<Secretary>();
-            List<Doctor> freeDoctors = new List<Doctor>();
             List<Employee> freeEmployees = new List<Employee>();
 
-            freeDoctors = repoForDoctors.getAllFreeDoctors(businessHours);
-            freeSecretaries = repoForSecretary.getAllFreeSecretaries(businessHours);
-
-            freeEmployees.AddRange(freeDoctors);
-            freeEmployees.AddRange(freeSecretaries);
-            
+            freeEmployees.AddRange(doctorRepository.getAllFreeDoctors(businessHours));
+            freeEmployees.AddRange(secretaryRepository.getAllFreeSecretaries(businessHours));
 
             return freeEmployees;
         }
 
         public void makeUpdateFor(Employee employee)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
 
             if (employee.JobPosition == "Doctor")
-                repoForDoctors.makeUpdateFor(getDoctorFromEmployee(employee));
+                doctorRepository.makeUpdateFor(getDoctorFromEmployee(employee));
 
 
             if (employee.JobPosition == "Secretary")
-                repoForSecretary.makeUpdateFor(getSecretaryFromEmployee(employee));
+                secretaryRepository.makeUpdateFor(getSecretaryFromEmployee(employee));
         }
 
         public void addEmployee(Employee employee)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
-
             if (employee.JobPosition == "Doctor")
-                repoForDoctors.Save(getDoctorFromEmployee(employee));
+                doctorRepository.Save(getDoctorFromEmployee(employee));
 
 
             if (employee.JobPosition == "Secretary")
-                repoForSecretary.Save(getSecretaryFromEmployee(employee));
-
+                secretaryRepository.Save(getSecretaryFromEmployee(employee));
 
         }
 
-        
+
 
         public void removeEmployee(Employee employee)
         {
-            // TODO: Proveriti kako ovo ide preko ovog Factorija
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
 
             if (employee.JobPosition == "Doctor")
-                repoForDoctors.DeleteById(getDoctorFromEmployee(employee).Id);
+                doctorRepository.DeleteById(getDoctorFromEmployee(employee).Id);
 
 
             if (employee.JobPosition == "Secretary")
-                repoForSecretary.DeleteById(getSecretaryFromEmployee(employee).Id);
+                secretaryRepository.DeleteById(getSecretaryFromEmployee(employee).Id);
         }
 
         public List<Employee> readAllEmployees()
         {
-            DoctorFileRepository doctorRepo = new DoctorFileRepository();
-            SecretaryFileRepository secretaryRepo = new SecretaryFileRepository();
-            List<Doctor> doctors = (List<Doctor>)doctorRepo.FindAll();
-            List<Secretary> secretary = (List<Secretary>)secretaryRepo.FindAll();
+            List<Doctor> doctors = (List<Doctor>)doctorRepository.FindAll();
+            List<Secretary> secretary = (List<Secretary>)secretaryRepository.FindAll();
 
             List<Employee> employees = new List<Employee>();
             employees.AddRange(doctors.Cast<Employee>().ToList());
@@ -125,9 +105,6 @@ namespace Service.EmployeeServ
 
         public void saveAllEmployees(List<Employee> employeesForSave)
         {
-
-            DoctorFileRepository repoForDoctors = new DoctorFileRepository();
-            SecretaryFileRepository repoForSecretary = new SecretaryFileRepository();
 
             List<Doctor> doctorsForSave = new List<Doctor>();
             List<Secretary> secretaryForSave = new List<Secretary>();
@@ -140,13 +117,29 @@ namespace Service.EmployeeServ
                     secretaryForSave.Add((Secretary)employee);
             }
 
-            repoForDoctors.SaveAll(doctorsForSave);
-            repoForSecretary.SaveAll(secretaryForSave);
+            doctorRepository.SaveAll(doctorsForSave);
+            secretaryRepository.SaveAll(secretaryForSave);
 
         }
 
 
         #region Helper methods
+
+        private void parseEmployeesToDctorsAndSecretaries(List<Employee> employees, out List<Secretary> secretaries, out List<Doctor> doctors)
+        {
+            secretaries = new List<Secretary>();
+            doctors = new List<Doctor>();
+            foreach (Employee employee in employees)
+            {
+                if (employee.JobPosition == "Doctor")
+                    doctors.Add(getDoctorFromEmployee(employee));
+
+
+                if (employee.JobPosition == "Secretary")
+                    secretaries.Add(getSecretaryFromEmployee(employee));
+            }
+        }
+
         private Doctor getDoctorFromEmployee(Employee employee)
         {
             Doctor retDoc = new Doctor();
