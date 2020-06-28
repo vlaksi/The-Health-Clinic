@@ -20,6 +20,13 @@ namespace Service.RoomServ
         private CheckupService checkupService = new CheckupService();
         private OperationService operationService = new OperationService();
 
+
+        public void changeRoomInventory(Room room, InventoryType inventory)
+        {
+            RoomsFileRepository fileRepository = new RoomsFileRepository();
+            fileRepository.changeRoomInventory(room, inventory);
+        }
+
         public void makeUpdateFor(Room room)
         {
             RoomsFileRepository fileRepository = new RoomsFileRepository();

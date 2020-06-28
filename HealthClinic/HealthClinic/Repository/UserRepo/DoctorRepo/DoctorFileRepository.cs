@@ -126,6 +126,7 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 
             return results;
         }
+
         public void makeUpdateFor(Doctor entity)
         {
             Doctor entityForUpdate = FindByUsername(entity.Username);
