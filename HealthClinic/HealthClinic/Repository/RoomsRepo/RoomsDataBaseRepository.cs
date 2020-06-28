@@ -91,5 +91,25 @@ namespace Repository.RoomsRepo
         {
             throw new NotImplementedException();
         }
+
+        public List<Room> GetAllOrdinations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Room> GetAvailablePatientsRooms()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void changeRoomInventory(Room entity, InventoryType inventory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room findByNumberOfRoom(int numberOfRoom)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

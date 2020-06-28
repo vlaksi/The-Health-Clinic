@@ -125,5 +125,18 @@ namespace Service.UserServ
             return patientFileRepository.GenerateId();
         }
 
+        public void deletePatientUserAccount(PatientModel patient)
+        {
+            patient.Password = null;
+            patient.Username = null;
+            SavePatient(patient);
+        }
+
+        public void deletePatient(PatientModel patient)
+        {
+            medicalRecordService.DeleteMedicalRecord(patient.MedicalRecordId);
+            patientRepository.Delete(patient);
+        }
+
     }
 }
