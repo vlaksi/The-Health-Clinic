@@ -3,8 +3,10 @@
 // Created: Sunday, May 3, 2020 11:34:56 AM
 // Purpose: Definition of Class MedicalRecordService
 
+using HealthClinic.Repository.UserRepo.PatientRepo;
 using Model.Calendar;
 using Model.MedicalRecord;
+using Model.Users;
 using Repository.MedicalRecordRepo;
 using System;
 using System.Collections.Generic;
@@ -30,11 +32,19 @@ namespace Service.MedicalRecordServ
         {
             List<MedicalRecord> allRecords = GetAllMedicalRecords();
             List<MedicalRecord> result = new List<MedicalRecord>();
+
+            PatientFileRepository patientFileRepository = new PatientFileRepository();
+            PatientModel patient;
+
             foreach (MedicalRecord mr in allRecords)
             {
-                if (mr.Name.ToLower().Contains(Name.ToLower()) || mr.Surname.ToLower().Contains(Name.ToLower()))
+                if (mr.PatientId != 0)
                 {
-                    result.Add(mr);
+                    patient = patientFileRepository.FindById(mr.PatientId);
+                    if (patient.Name.ToLower().Contains(Name.ToLower()) || patient.Surname.ToLower().Contains(Name.ToLower()))
+                    {
+                        result.Add(mr);
+                    }
                 }
             }
             return result;
@@ -43,9 +53,24 @@ namespace Service.MedicalRecordServ
         public MedicalRecord GetMedicalRecordByPatientId(int Id)
         {
             MedicalRecord result = null;
-            foreach(MedicalRecord mr in medicalRecordRepository.FindAll())
+            foreach (MedicalRecord mr in medicalRecordRepository.FindAll())
             {
-                if(mr.Id == Id)
+                if (mr.PatientId == Id)
+                {
+                    result = mr;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        public MedicalRecord GetMedicalRecordById(int Id)
+        {
+            MedicalRecord result = null;
+            foreach (MedicalRecord mr in medicalRecordRepository.FindAll())
+            {
+                if (mr.MedicalRecordId == Id)
                 {
                     result = mr;
                     break;

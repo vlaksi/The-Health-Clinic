@@ -117,16 +117,16 @@ namespace HealthClinic.ViewModels
         private ChartValues<int> _ukupnoOstalihZaposlenih;
 
 
-        public ChartValues<int> UkupnoLekaraOpstePrakse
+        public ChartValues<int> UkupnoLekara
         {
             get { return _ukupnoLekaraOpstePrakse; }
-            set { _ukupnoLekaraOpstePrakse = value; OnPropertyChanged("UkupnoLekaraOpstePrakse"); }
+            set { _ukupnoLekaraOpstePrakse = value; OnPropertyChanged("UkupnoLekara"); }
         }
 
-        public ChartValues<int> UkupnoLekaraSpecijalista
+        public ChartValues<int> UkupnoSekretara
         {
             get { return _ukupnoLekaraSpecijalista; }
-            set { _ukupnoLekaraSpecijalista = value; OnPropertyChanged("UkupnoLekaraSpecijalista"); }
+            set { _ukupnoLekaraSpecijalista = value; OnPropertyChanged("UkupnoSekretara"); }
         }
 
         public ChartValues<int> UkupnoOstalihZaposlenih
@@ -141,8 +141,8 @@ namespace HealthClinic.ViewModels
         private void ucitavanjeStanjaZaposlenih()
         {
 
-            UkupnoLekaraOpstePrakse = new ChartValues<int> { ZaposleniViewModel.Instance.BrojacLekaraOpstePrakse };
-            UkupnoLekaraSpecijalista = new ChartValues<int> { ZaposleniViewModel.Instance.BrojacLekaraSpecijalista };
+            UkupnoLekara = new ChartValues<int> { ZaposleniViewModel.Instance.BrojacLekara };
+            UkupnoSekretara = new ChartValues<int> { ZaposleniViewModel.Instance.BrojacSekretara };
             UkupnoOstalihZaposlenih = new ChartValues<int> { ZaposleniViewModel.Instance.BrojacOstalihZaposlenih };
         }
         #endregion

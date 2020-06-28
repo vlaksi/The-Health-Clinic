@@ -157,8 +157,8 @@
 
                             <!-- Parcad u grafikonu.-->
                             <Wpf:PieChart.Series>
-                                <Wpf:PieSeries DataLabels="True" Title="Lekari opste prakse" Values="{Binding UkupnoLekaraOpstePrakse}"  LabelPoint="{Binding PointLabel}"/>
-                                <Wpf:PieSeries DataLabels="True" Title="Lekari specijalisti" Values="{Binding UkupnoLekaraSpecijalista}" LabelPoint="{Binding PointLabel}"/>
+                                <Wpf:PieSeries DataLabels="True" Title="Lekari" Values="{Binding UkupnoLekara}"  LabelPoint="{Binding PointLabel}"/>
+                                <Wpf:PieSeries DataLabels="True" Title="Sekretari" Values="{Binding UkupnoSekretara}" LabelPoint="{Binding PointLabel}"/>
                                 <Wpf:PieSeries DataLabels="True" Title="Ostali zaposleni" Values="{Binding UkupnoOstalihZaposlenih}"  LabelPoint="{Binding PointLabel}"/>
                             </Wpf:PieChart.Series>
                             <!-- Kraj parcadi u grafikonu -->

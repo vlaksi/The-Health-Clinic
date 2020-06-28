@@ -481,13 +481,26 @@ namespace HealthClinic.ViewModels
         {
 
             ucitajSveZaposlene();
-            sacuvajSveZaposlene();
 
-            
+
             foreach (Employee zaposlen in Zaposleni)
             {
                 podesiBrojOdredjenihZaposlenih(zaposlen, 1);
             }
+
+            proveraPraznihLabelaZaChart();
+        }
+
+        private void proveraPraznihLabelaZaChart()
+        {
+            if (this.UkupnoLekara is null)
+                this.UkupnoLekara = new ChartValues<int> { 0 };
+
+            if (this.UkupnoSekretara is null)
+                this.UkupnoSekretara = new ChartValues<int> { 0 };
+
+            if (this.UkupnoOstalihZaposlenih is null)
+                this.UkupnoOstalihZaposlenih = new ChartValues<int> { 0 };
         }
 
 
@@ -538,24 +551,25 @@ namespace HealthClinic.ViewModels
         /// <param name="koeficijentPravca"> Prosledjuje se broj koji govori koliko povecavam/smanjujem broj odredjenih zaposlenih </param>
         private void podesiBrojOdredjenihZaposlenih(Employee zaposlen, int koeficijentPravca)
         {
-            if (zaposlen.JobPosition == "Lekar opste prakse")
+            if (zaposlen.EmployeeType == EmployeeType.Doctor)
             {
-                if (this.UkupnoLekaraOpstePrakse is null)
-                    BrojacLekaraOpstePrakse = 1;
+
+                if (this.UkupnoLekara is null)
+                    BrojacLekara = 1;
                 else
-                    BrojacLekaraOpstePrakse += koeficijentPravca;
-                this.UkupnoLekaraOpstePrakse = new ChartValues<int>() { BrojacLekaraOpstePrakse };
+                    BrojacLekara += koeficijentPravca;
+                this.UkupnoLekara = new ChartValues<int>() { BrojacLekara };
 
             }
-            else if (zaposlen.JobPosition == "Stomatolog" || zaposlen.JobPosition == "Kardio hirurg" || zaposlen.JobPosition == "Pedijatar" || zaposlen.JobPosition == "Otorinolaringolog" || zaposlen.JobPosition == "Oftamolog")
+            else if (zaposlen.EmployeeType == EmployeeType.Secretary)
             {
-                if (this.UkupnoLekaraSpecijalista is null)
-                    BrojacLekaraSpecijalista = 1;
+                if (this.UkupnoSekretara is null)
+                    BrojacSekretara = 1;
                 else
-                    BrojacLekaraSpecijalista += koeficijentPravca;
-                this.UkupnoLekaraSpecijalista = new ChartValues<int>() { BrojacLekaraSpecijalista };
+                    BrojacSekretara += koeficijentPravca;
+                this.UkupnoSekretara = new ChartValues<int>() { BrojacSekretara };
             }
-            else if (zaposlen.JobPosition == "Sekretar")
+            else
             {
                 if (this.UkupnoOstalihZaposlenih is null)
                     BrojacOstalihZaposlenih = 1;
@@ -575,16 +589,16 @@ namespace HealthClinic.ViewModels
         private ChartValues<int> _ukupnoOstalihZaposlenih;
 
 
-        public ChartValues<int> UkupnoLekaraOpstePrakse
+        public ChartValues<int> UkupnoLekara
         {
             get { return _ukupnoLekaraOpstePrakse; }
-            set { _ukupnoLekaraOpstePrakse = value; OnPropertyChanged("UkupnoLekaraOpstePrakse"); }
+            set { _ukupnoLekaraOpstePrakse = value; OnPropertyChanged("UkupnoLekara"); }
         }
 
-        public ChartValues<int> UkupnoLekaraSpecijalista
+        public ChartValues<int> UkupnoSekretara
         {
             get { return _ukupnoLekaraSpecijalista; }
-            set { _ukupnoLekaraSpecijalista = value; OnPropertyChanged("UkupnoLekaraSpecijalista"); }
+            set { _ukupnoLekaraSpecijalista = value; OnPropertyChanged("UkupnoSekretara"); }
         }
 
         public ChartValues<int> UkupnoOstalihZaposlenih
@@ -616,13 +630,9 @@ namespace HealthClinic.ViewModels
         private void odredjivanjeMogucihTipovaZaposlenih()
         {
             MoguciTipoviZaposlenih = new ObservableCollection<string>();
-            MoguciTipoviZaposlenih.Add("Sekretar");
-            MoguciTipoviZaposlenih.Add("Lekar opste prakse");
-            MoguciTipoviZaposlenih.Add("Stomatolog");
-            MoguciTipoviZaposlenih.Add("Kardio hirurg");
-            MoguciTipoviZaposlenih.Add("Otorinolaringolog");
-            MoguciTipoviZaposlenih.Add("Oftamolog");
-            MoguciTipoviZaposlenih.Add("Pedijatar");
+            MoguciTipoviZaposlenih.Add("Secretary");
+            MoguciTipoviZaposlenih.Add("Doctor");
+            MoguciTipoviZaposlenih.Add("Other");
         }
 
         #endregion
@@ -639,13 +649,13 @@ namespace HealthClinic.ViewModels
         private int _brojacOstalihZaposlenih;
 
 
-        public int BrojacLekaraOpstePrakse
+        public int BrojacLekara
         {
             get { return _brojacLekaraOpstePrakse; }
             set { _brojacLekaraOpstePrakse = value; OnPropertyChanged("BrojacLekaraOpstePrakse"); }
         }
 
-        public int BrojacLekaraSpecijalista
+        public int BrojacSekretara
         {
             get { return _brojacLekaraSpecijalista; }
             set { _brojacLekaraSpecijalista = value; OnPropertyChanged("BrojacLekaraSpecijalista"); }
