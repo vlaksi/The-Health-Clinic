@@ -156,8 +156,21 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
             return false;
         }
 
+        public PatientModel FindByJmbg(string jmbg)
+        {
+            List<PatientModel> allPatientModels = (List<PatientModel>)FindAll();
+
+            foreach (PatientModel patient in allPatientModels)
+            {
+                if (patient.Jmbg.Equals(jmbg))
+                {
+                    return patient;
+                }
+            }
+
+            return null;
+        }
 
 
-       
     }
 }

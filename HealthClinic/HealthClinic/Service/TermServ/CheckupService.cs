@@ -48,7 +48,7 @@ namespace Service.TermServ
             }
 
             CancelCheckup(checkupForEdit);
-            ScheduleCheckup(checkup);
+            checkupRepository.Save(checkup);
 
 
         }
@@ -61,7 +61,7 @@ namespace Service.TermServ
         
                 medicalRecord.Checkups.Add(checkup.Id);
                 medicalRecordService.UpdateMedicalRecord(medicalRecord);
-
+                Console.WriteLine("Pozivam u Servisu");
                 checkupRepository.Save(checkup);
            }
         }

@@ -124,7 +124,7 @@ namespace HelathClinicPatienteRole.ViewModel
             SelektovaniDatumOd = SelektovaniDatumOd.Date + tsOd;
             SelektovaniDatumDo = SelektovaniDatumDo.Date + tsDo;
 
-            SuggestCheckupDTO suggestCheckupDTO = new SuggestCheckupDTO() { DoctorID = SelektovaniLekar.Id, StartInterval = SelektovaniDatumOd, EndInterval = SelektovaniDatumDo, PriorityDate = PreporukaTerminaDialog.IzabranPrioritetDatum, PriorityDoctor = PreporukaTerminaDialog.IzabranPrioritetLekar };
+            SuggestCheckupDTO suggestCheckupDTO = new SuggestCheckupDTO() { DoctorID = SelektovaniLekar.Id, StartInterval = SelektovaniDatumOd, EndInterval = SelektovaniDatumDo, PriorityDate = PreporukaTerminaDialog.IzabranPrioritetDatum, PriorityDoctor = PreporukaTerminaDialog.IzabranPrioritetLekar , };
             suggestCheckupDTO = checkupStrategyControler.SuggestCheckup(suggestCheckupDTO);
 
             if (suggestCheckupDTO.DoctorID == -1)
@@ -183,7 +183,7 @@ namespace HelathClinicPatienteRole.ViewModel
   
             DateTime termin = new DateTime(2020, SelektovaniDatum.Month, SelektovaniDatum.Day, SelektovanoVreme.Hour, 0, 0);
         
-            if(doctorController.IsDoctorFree(SelektovaniLekar, termin, termin))
+            if(doctorController.IsDoctorFree(SelektovaniLekar.Id, termin, termin))
             {
                 Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = termin, CheckupStatus = "Zakazan", DoctorId = SelektovaniLekar.Id, MedicalRecordId = _prijavljeniKorisnik.MedicalRecordId };
                 vremePrethodnoZakazanogPregleda = DateTime.Now;
@@ -228,7 +228,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
            
             MessageBox.Show("Usepsno ste zakazali pregled kod " + SelektovaniLekar.Name + " " + SelektovaniLekar.Surname + ".");
-            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", DoctorId = SelektovaniLekar.Id };
+            Checkup pregled = new Checkup { Id = 9, CheckupName = "Pregled kod lekara opšte prakse", StartTime = SelektovaniDatum, CheckupStatus = "Zakazan", DoctorId = SelektovaniLekar.Id , MedicalRecordId = _prijavljeniKorisnik .MedicalRecordId};
             vremePrethodnoZakazanogPregleda = DateTime.Now;
             PocetnaPatientViewModel.Instance.Pregledi.Add(pregled);
             checkupStrategyControler.ScheduleTerm(pregled);

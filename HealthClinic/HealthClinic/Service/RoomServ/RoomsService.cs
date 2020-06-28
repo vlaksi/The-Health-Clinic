@@ -20,6 +20,13 @@ namespace Service.RoomServ
         private CheckupService checkupService = new CheckupService();
         private OperationService operationService = new OperationService();
 
+
+        public void changeRoomInventory(Room room, InventoryType inventory)
+        {
+            RoomsFileRepository fileRepository = new RoomsFileRepository();
+            fileRepository.changeRoomInventory(room, inventory);
+        }
+
         public void makeUpdateFor(Room room)
         {
             RoomsFileRepository fileRepository = new RoomsFileRepository();
@@ -66,6 +73,13 @@ namespace Service.RoomServ
             // TODO: Proveriti kako ovo ide preko ovog Factorija
             RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
             return roomsFileRepository.FindById(id);
+        }
+
+        public Room findByNumberOfRoom(int numberOfRoom)
+        {
+            // TODO: Proveriti kako ovo ide preko ovog Factorija
+            RoomsFileRepository roomsFileRepository = new RoomsFileRepository();
+            return roomsFileRepository.findByNumberOfRoom(numberOfRoom);
         }
 
         public void saveAllRooms(List<Room> roomsForSave)
@@ -141,7 +155,6 @@ namespace Service.RoomServ
             return result;
         }
 
-
         public bool IsRoomFree(int roomId, DateTime dateStart, DateTime dateEnd)
         {
             RoomsFileRepository roomRepository = new RoomsFileRepository();
@@ -216,10 +229,8 @@ namespace Service.RoomServ
                 }
 
                 // Ako je sve ovo zadovoljeno, slobodna je
-                return true;
             }
-
-            return false;
+            return true;
         }
 
     }

@@ -14,7 +14,8 @@ namespace HelathClinicPatienteRole.ViewModel
 {
     class LoginViewModel : ObservableObject
     {
-        private string _username; // PAZI username je ustvari JMBG !!!
+        private string jmbg;
+        private string _username;
         private string _password;
         private string _name;
         private string _surname;
@@ -36,7 +37,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
         public void Register(object obj)
         {
-           if( patientController.PatientRegister(new PatientModel {Name = Name, Jmbg = Username, Password = Password, Surname = Surname, PhoneNumber = PhoneNumber,  Email = Mail })){
+           if( patientController.PatientRegister(new PatientModel {Name = Name, Jmbg = Jmbg, Password = Password, Surname = Surname, PhoneNumber = PhoneNumber,  Email = Mail, Username = Username })){
                 MessageBox.Show("Uspešno ste se registrovali!");
             }
             else
@@ -122,7 +123,14 @@ namespace HelathClinicPatienteRole.ViewModel
                 OnPropertyChanged(ref _username, value);
             }
         }
-
+        public string Jmbg
+        {
+            get { return jmbg; }
+            set
+            {
+                OnPropertyChanged(ref jmbg, value);
+            }
+        }
         public string Password
         {
             get { return _password; }

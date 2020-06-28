@@ -59,18 +59,23 @@ namespace Service.UserServ
         }
         public bool PatientRegister(PatientModel patientForRegistration)
         {
-            MedicalRecord medicalRecord = new MedicalRecord();        
-            
-            medicalRecord.PatientId = GenerateId();
-            medicalRecordService.CreateMedicalRecord(medicalRecord);
-            patientForRegistration.MedicalRecordId = medicalRecord.MedicalRecordId;
-
-            if (!patientRepository.ExistsByJmbg(patientForRegistration.Jmbg))
+            if (patientRepository.ExistsByJmbg(patientForRegistration.Jmbg))
             {
-                SavePatient(patientForRegistration);
-                return true;
+                PatientFileRepository patientFileRepository = new PatientFileRepository();
+                PatientModel p = patientFileRepository.FindByJmbg(patientForRegistration.Jmbg);
+                p.Password = patientForRegistration.Password;
+                p.Username = patientForRegistration.Username;
+                EditPatient(p);    
             }
-            return false;
+            else
+            {
+                MedicalRecord medicalRecord = new MedicalRecord();   
+                medicalRecord.PatientId = GenerateId();
+                medicalRecordService.CreateMedicalRecord(medicalRecord);
+                patientForRegistration.MedicalRecordId = medicalRecord.MedicalRecordId;
+                SavePatient(patientForRegistration);
+            }
+            return true;
         }
 
         
@@ -123,6 +128,19 @@ namespace Service.UserServ
         {
             PatientFileRepository patientFileRepository = new PatientFileRepository();
             return patientFileRepository.GenerateId();
+        }
+
+        public void deletePatientUserAccount(PatientModel patient)
+        {
+            patient.Password = null;
+            patient.Username = null;
+            SavePatient(patient);
+        }
+
+        public void deletePatient(PatientModel patient)
+        {
+            medicalRecordService.DeleteMedicalRecord(patient.MedicalRecordId);
+            patientRepository.Delete(patient);
         }
 
     }

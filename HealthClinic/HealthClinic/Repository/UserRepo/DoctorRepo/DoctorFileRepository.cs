@@ -15,8 +15,8 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 {
     public class DoctorFileRepository : DoctorRepository
     {
-        private string filePath = @"./../../../HealthClinic/FileStorage/doctors.json";
-        //private string filePath = @"./../../../../HealthClinic/FileStorage/doctors.json";
+        //private string filePath = @"./../../../HealthClinic/FileStorage/doctors.json";
+        private string filePath = @"./../../../../HealthClinic/FileStorage/doctors.json";
 
 
         public int Count()
@@ -126,9 +126,17 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 
             return results;
         }
-        public void makeUpdateFor(Doctor doctor)
+
+        public void makeUpdateFor(Doctor entity)
         {
-            Save(FindByUsername(doctor.Username));
+            Doctor entityForUpdate = FindByUsername(entity.Username);
+
+            entityForUpdate.Name = (entity.Name is null) ? "" : entity.Name;
+            entityForUpdate.JobPosition = (entity.JobPosition == "Doctor") ? "Doctor" : "Secretary";
+            entityForUpdate.Surname = (entity.Surname is null) ? "" : entity.Surname;
+            entityForUpdate.Password = (entity.Password is null) ? "" : entity.Password;
+
+            Save(entityForUpdate);
         }
 
 
@@ -156,7 +164,57 @@ namespace HealthClinic.Repository.UserRepo.DoctorRepo
 
         public void SetDoctorsBusinessHours(List<Doctor> doctors, BusinessHoursModel businessHours)
         {
-            throw new NotImplementedException();
+            List<Doctor> allDoctors = (List<Doctor>)FindAll();
+
+            foreach (Doctor tempEntityForChange in doctors)
+            {
+                foreach (Employee employee in allDoctors)
+                {
+                    if (tempEntityForChange.Id.Equals(employee.Id))
+                    {
+                        employee.BusinessHours = new BusinessHoursModel();
+                        employee.BusinessHours.FromDate = businessHours.FromDate;
+                        employee.BusinessHours.ToDate = businessHours.ToDate;
+                        employee.BusinessHours.FromHour = businessHours.FromHour;
+                        employee.BusinessHours.ToHour = businessHours.ToHour;
+                        break;
+                    }
+                }
+            }
+
+            // I want immediately to save changes
+            SaveAll(allDoctors);
+        }
+
+        public List<Doctor> getAllFreeDoctors(BusinessHoursModel businessHours)
+        {
+
+            List<Doctor> freeDoctors = new List<Doctor>();
+
+            foreach (Doctor doctor in FindAll())
+            {
+                if (doctor.BusinessHours is null)
+                {
+                    doctor.BusinessHours = new BusinessHoursModel();
+                    doctor.BusinessHours.FromDate = DateTime.Today;
+                    doctor.BusinessHours.ToDate = DateTime.Today;
+                    doctor.BusinessHours.FromHour = DateTime.Today;
+                    doctor.BusinessHours.ToHour = DateTime.Today;
+                }
+
+                // Check for range of doctor business hours
+                if ( businessHours.FromDate > doctor.BusinessHours.FromDate && businessHours.FromDate < doctor.BusinessHours.ToDate)
+                    continue;
+
+                if (businessHours.ToDate > doctor.BusinessHours.FromDate && businessHours.ToDate < doctor.BusinessHours.ToDate)
+                    continue;
+
+                // doctor.BusinessHours.FromDate - doctor.BusinessHours.ToDate
+                // businessHours.FromDate - businessHours.ToDate
+                freeDoctors.Add(doctor);
+            }
+
+            return freeDoctors;
         }
 
         public int GenerateId()

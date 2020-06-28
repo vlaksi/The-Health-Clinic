@@ -51,9 +51,9 @@ namespace Controller.DoctorContr
         {
             return doctorService.GetAllSpecialistsBySpecialty(specialtyType);
         }
-        public bool IsDoctorFree(Doctor doctor, DateTime dateStart, DateTime dateEnd)
+        public bool IsDoctorFree(int doctorId, DateTime dateStart, DateTime dateEnd)
         {
-            return doctorService.IsDoctorFree(doctor.Id, dateStart, dateEnd);
+            return doctorService.IsDoctorFree(doctorId, dateStart, dateEnd);
         }
 
 

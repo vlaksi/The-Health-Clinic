@@ -16,6 +16,11 @@ namespace Controller.RoomsContr
     {
         public RoomsService roomsService = new RoomsService();
 
+        public void changeRoomInventory(Room room, InventoryType inventory)
+        {
+            roomsService.changeRoomInventory(room, inventory);
+        }
+
         public void makeUpdateFor(Room room)
         {
             roomsService.makeUpdateFor(room);
@@ -34,6 +39,11 @@ namespace Controller.RoomsContr
         public void removeRoomById(int id)
         {
             roomsService.removeRoomById(id);
+        }
+
+        public Room findByNumberOfRoom(int id)
+        {
+            return roomsService.findByNumberOfRoom(id);
         }
 
         public Room findById(int id)
@@ -59,21 +69,6 @@ namespace Controller.RoomsContr
         public List<Room> GetAllOrdinations()
         {
             return roomsService.GetAllOrdinations();
-        }
-
-        public Room CreateRoom(Room room)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room RenovateRoom(Room room, DateTime startDate, DateTime endDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate)
-        {
-            return null;
         }
 
         public List<Room> GetAllRooms()

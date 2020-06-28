@@ -120,7 +120,7 @@ namespace HelathClinicPatienteRole.ViewModel
 
             DateTime termin = new DateTime(2020, SelektovaniDatum.Month, SelektovaniDatum.Day, SelektovanoVreme.Hour, 0, 0);
 
-            if (doctorController.IsDoctorFree(SelektovaniLekar, termin, termin))
+            if (doctorController.IsDoctorFree(SelektovaniLekar.Id, termin, termin))
             {
                 Checkup pregled = new Checkup { Id = SelektovaniPregled.Id, CheckupName = SelektovaniPregled.CheckupName, StartTime = termin, CheckupStatus = SelektovaniPregled.CheckupStatus, DoctorId = SelektovaniLekar.Id,MedicalRecordId= _prijavljeniKorisnik.MedicalRecordId };
                 checkupStrategyControler.EditTerm(pregled);

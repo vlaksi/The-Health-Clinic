@@ -150,9 +150,60 @@ namespace HealthClinic.Repository.UserRepo.SecretaryRepo
             }
         }
 
-        public void SetSecretarysBusinessHours(List<Secretary> secretarys, BusinessHoursModel businessHours)
+        public void SetSecretarysBusinessHours(List<Secretary> secretaries, BusinessHoursModel businessHours)
         {
-            throw new NotImplementedException();
+            List<Secretary> allSecretaries = (List<Secretary>)FindAll();
+
+            foreach (Secretary tempEntityForChange in secretaries)
+            {
+                foreach (Employee employee in allSecretaries)
+                {
+                    if (tempEntityForChange.Username.Equals(employee.Username))
+                    {
+                        employee.BusinessHours = new BusinessHoursModel();
+                        employee.BusinessHours.FromDate = businessHours.FromDate;
+                        employee.BusinessHours.ToDate = businessHours.ToDate;
+                        employee.BusinessHours.FromHour = businessHours.FromHour;
+                        employee.BusinessHours.ToHour = businessHours.ToHour;
+                        break;
+                    }
+                }
+            }
+
+            // I want immediately to save changes
+            SaveAll(allSecretaries);
+        }
+
+        public List<Secretary> getAllFreeSecretaries(BusinessHoursModel businessHours)
+        {
+
+            List<Secretary> freeSecretaries = new List<Secretary>();
+
+            foreach (Secretary secretary in FindAll())
+            {
+                if(secretary.BusinessHours is null)
+                {
+                    secretary.BusinessHours = new BusinessHoursModel();
+                    secretary.BusinessHours.FromDate = DateTime.Today;
+                    secretary.BusinessHours.ToDate = DateTime.Today;
+                    secretary.BusinessHours.FromHour = DateTime.Today;
+                    secretary.BusinessHours.ToHour = DateTime.Today;
+                }
+
+                // Check for range of doctor business hours
+                if (businessHours.FromDate > secretary.BusinessHours.FromDate && businessHours.FromDate < secretary.BusinessHours.ToDate)
+                    continue;
+
+                if (businessHours.ToDate > secretary.BusinessHours.FromDate && businessHours.ToDate < secretary.BusinessHours.ToDate)
+                    continue;
+
+                // doctor.BusinessHours.FromDate - doctor.BusinessHours.ToDate
+                // businessHours.FromDate - businessHours.ToDate
+
+                freeSecretaries.Add(secretary);
+            }
+
+            return freeSecretaries;
         }
 
         public int GenerateId()

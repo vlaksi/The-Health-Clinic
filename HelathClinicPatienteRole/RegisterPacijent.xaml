@@ -17,13 +17,13 @@
             <ColumnDefinition Width="49*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Height="41" HorizontalAlignment="Left" Margin="155,26,0,0" x:Name="LoginHeading" VerticalAlignment="Top" FontSize="25" FontStretch="ExtraCondensed" Text="Kreiraj nalog:" Width="172" Grid.ColumnSpan="2"/>
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,294,0,0" Name="textBlock1" Text="JMBG" VerticalAlignment="Top" Width="66" FontSize="15" />
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,362,0,0" Name="textBlock2" Text="Šifra:" VerticalAlignment="Top" Width="76"  FontSize="15"/>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,352,0,0" Name="textBlock1" Text="JMBG" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,420,0,0" Name="textBlock2" Text="Šifra:" VerticalAlignment="Top" Width="76"  FontSize="15"/>
 
 
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,318,49,332">
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,376,49,274">
             <TextBox.Text>
-                <Binding Path="Username" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Jmbg" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <local:MinimumCharacterRule MinimumCharacters="13"/>
                     </Binding.ValidationRules>
@@ -39,7 +39,7 @@
             </TextBox.ToolTip>
         </TextBox>
 
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,384,49,262">
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,442,49,204">
             <TextBox.Text>
                 <Binding Path="Password" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -61,7 +61,7 @@
 
 
 
-        <Button Content="Kreiraj nalog" Height="37" HorizontalAlignment="Left" Margin="178,532,0,0" Name="button1" VerticalAlignment="Top" Width="113" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding RegisterCommand}">
+        <Button Content="Kreiraj nalog" Height="38" HorizontalAlignment="Left" Margin="178,590,0,0" Name="button1" VerticalAlignment="Top" Width="113" Grid.ColumnSpan="2" Click="button1_Click" Command="{Binding RegisterCommand}">
             <Button.ToolTip>
                 <ToolTip>
                     <StackPanel>
@@ -71,9 +71,9 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <TextBlock Height="23" HorizontalAlignment="Left" x:Name ="errormessage" VerticalAlignment="Top" Width="247" Margin="118,253,0,0"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2"  />
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,86,0,0" x:Name="textBlock1_Copy" Text="Ime" VerticalAlignment="Top" Width="66" FontSize="15" />
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,110,49,540">
+        <TextBlock Height="22" HorizontalAlignment="Left" x:Name ="errormessage" VerticalAlignment="Top" Width="247" Margin="118,312,0,0"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2"  />
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,144,0,0" x:Name="textBlock1_Copy" Text="Ime" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,168,49,482">
             <TextBox.ToolTip>
                 <ToolTip>
                     <StackPanel>
@@ -88,8 +88,8 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,155,0,0" x:Name="textBlock1_Copy1" Text="Prezime" VerticalAlignment="Top" Width="66" FontSize="15" />
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,179,49,471">
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,214,0,0" x:Name="textBlock1_Copy1" Text="Prezime" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,238,49,412">
             <TextBox.ToolTip>
                 <ToolTip>
                     <StackPanel>
@@ -104,8 +104,8 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,225,0,0" x:Name="textBlock1_Copy2" Text="Broj telefona" VerticalAlignment="Top" Width="94" FontSize="15" />
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,249,49,401">
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,284,0,0" x:Name="textBlock1_Copy2" Text="Broj telefona" VerticalAlignment="Top" Width="94" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,308,49,342">
             <TextBox.ToolTip>
                 <ToolTip>
                     <StackPanel>
@@ -120,10 +120,26 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,443,0,0" x:Name="textBlock2_Copy" Text="Email:" VerticalAlignment="Top" Width="76"  FontSize="15"/>
-        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke"  Grid.ColumnSpan="2" Margin="80,465,49,181">
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,502,0,0" x:Name="textBlock2_Copy" Text="Email:" VerticalAlignment="Top" Width="76"  FontSize="15"/>
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke"  Grid.ColumnSpan="2" Margin="80,524,49,122">
             <Binding Path="Mail" UpdateSourceTrigger="PropertyChanged">
-               
+
+            </Binding>
+        </TextBox>
+        <TextBlock Height="24" HorizontalAlignment="Left" Margin="80,75,0,0" x:Name="textBlock1_Copy3" Text="Username" VerticalAlignment="Top" Width="66" FontSize="15" />
+        <TextBox BorderBrush="#FF148DF0" BorderThickness="1" Background="WhiteSmoke" Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.ColumnSpan="2" Margin="80,99,49,551">
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold"><Run Text="Username"/></TextBlock>
+                        <TextBlock><Run Text="Username sadrzi samo slova"/></TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </TextBox.ToolTip>
+            <Binding Path="Username" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <local:OnlyLettersRule MinimumCharacters="13"/>
+                </Binding.ValidationRules>
             </Binding>
         </TextBox>
     </Grid>
