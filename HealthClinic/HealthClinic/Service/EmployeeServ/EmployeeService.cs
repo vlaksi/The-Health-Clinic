@@ -39,7 +39,7 @@ namespace Service.EmployeeServ
         {
             List<Secretary> secretaries;
             List<Doctor> doctors;
-            parseEmployeesToDctorsAndSecretaries(employees, out secretaries, out doctors);
+            parseEmployeesToDoctorsAndSecretaries(employees, out secretaries, out doctors);
 
             doctorRepository.SetDoctorsBusinessHours(doctors, businessHours);
             secretaryRepository.SetSecretarysBusinessHours(secretaries, businessHours);
@@ -125,7 +125,7 @@ namespace Service.EmployeeServ
 
         #region Helper methods
 
-        private void parseEmployeesToDctorsAndSecretaries(List<Employee> employees, out List<Secretary> secretaries, out List<Doctor> doctors)
+        private void parseEmployeesToDoctorsAndSecretaries(List<Employee> employees, out List<Secretary> secretaries, out List<Doctor> doctors)
         {
             secretaries = new List<Secretary>();
             doctors = new List<Doctor>();

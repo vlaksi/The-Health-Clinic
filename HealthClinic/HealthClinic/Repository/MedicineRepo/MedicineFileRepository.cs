@@ -146,9 +146,9 @@ namespace Repository.MedicineRepo
 
             foreach (Medicine tempMed in allMedicines)
             {
-                // For now medicine is uniq by name, but need to change it
-                if (tempMed.Name.Equals(medicine.Name))
+                if (tempMed.Id.Equals(medicine.Id))
                 {
+                    tempMed.Name = medicine.Name;
 
                     tempMed.MedicineType = medicine.MedicineType;
                     tempMed.Quantity = medicine.Quantity;
