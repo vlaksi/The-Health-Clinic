@@ -1,2 +1,3 @@
 # The-Health-Clinic
-Projekat 'The Health Clinic' predstavlja sistem za podrsku savremenoj klinici u obavljanju svakodnevnih delatnosti u oblasti zdravstva.
+
+The 'The Health Clinic' project is a system for supporting a modern clinic in performing daily activities in the field of health.
